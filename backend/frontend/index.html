@@ -10544,6 +10544,49 @@ body.v16-active .fixed.bottom-8 {
         }, 300);
     }
 
+
+// v18.8: Modal helpers - close and create project
+function v16CloseModal() {
+    var modal = document.getElementById('v16NewProjectModal');
+    if (modal) modal.style.display = 'none';
+}
+
+async function v16CreateProject() {
+    var name = document.getElementById('v16ModalName')?.value?.trim();
+    if (!name) { alert('Please enter a project name'); return; }
+    var category = document.getElementById('v16ModalType')?.value || 'Extension';
+    var owner = document.getElementById('v16ModalOwner')?.value || '';
+    var start = document.getElementById('v16ModalStart')?.value || '';
+    var target = document.getElementById('v16ModalTarget')?.value || '';
+    try {
+        var headers = await v16GetAuthHeaders();
+        var resp = await fetch('/api/projects', {
+            method: 'POST', headers: headers,
+            body: JSON.stringify({name: name, category: category, owner: owner, start_date: start, end_date: target})
+        });
+        if (resp.ok) {
+            v16CloseModal();
+            if (typeof v16RenderL3MyWork === 'function') v16RenderL3MyWork(document.getElementById('v16ContentArea'));
+        } else {
+            var msg = await resp.text();
+            alert('Create failed: ' + msg);
+        }
+    } catch(e) {
+        alert('Error: ' + e.message);
+    }
+}
+
+// v18.8: Owner dropdown for task assignment (SL500 fallback) - no-op to prevent JS errors
+function showOwnerDropdown(event, taskId) {
+    event?.stopPropagation();
+    // Placeholder - owner editing via inline prompt
+    var owner = prompt('Assign owner to task #' + taskId + ':');
+    if (owner && owner.trim()) {
+        var area = document.getElementById('v16ContentArea');
+        v16UpdateMilestoneField(taskId, 'owner', owner.trim(), area);
+    }
+}
+
 function init() {
             initEventListeners();
             initWorkstations();
