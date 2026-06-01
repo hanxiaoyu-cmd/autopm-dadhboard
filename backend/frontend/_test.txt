@@ -1,0 +1,16 @@
+﻿function v16RenderRealProjectTasks(area, project) {
+  project = project || await v16EnsureProject();
+  if (!project || !project.id) {
+    area.innerHTML = '<div style=\"padding:20px;color:#94a3b8\">No project selected</div>';
+    return;
+  }
+  window._v17L4Project = project;
+  area.innerHTML = '<div style=\"padding:24px;color:#94a3b8\">Loading project tasks...</div>';
+  var headers = await v16GetAuthHeaders();
+  var resp = await fetch('/api/milestones?project_id=' + project.id, {headers: headers});
+  if (!resp.ok) {
+    area.innerHTML = '<div style=\"padding:20px;color:#ef4444\">Failed to load project tasks</div>';
+    return;
+  }
+  var tasks = await resp.json();
+  var stats = v16TaskStats(tasks);

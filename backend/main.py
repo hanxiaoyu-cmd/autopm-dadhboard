@@ -62,6 +62,13 @@ def trigger_refresh(db: Session):
     refresh_alerts(db)
 
 
+def touch_project(db: Session, project_id: int):
+    """Lightweight project timestamp update for frequent task edits."""
+    project = db.query(Project).filter(Project.id == project_id).first()
+    if project:
+        project.updated_at = now_str()
+
+
 # ═══════════════════════════════════════════════════════
 # Health Check
 # ═══════════════════════════════════════════════════════
@@ -325,13 +332,9 @@ def update_milestone(
     for k, v in update_data.items():
         setattr(milestone, k, v)
     milestone.updated_at = now_str()
-    # Also update project's updated_at
-    project = db.query(Project).filter(Project.id == milestone.project_id).first()
-    if project:
-        project.updated_at = now_str()
+    touch_project(db, milestone.project_id)
     db.commit()
     db.refresh(milestone)
-    trigger_refresh(db)
     return milestone
 
 
@@ -1596,9 +1599,6 @@ def update_project_field(project_id: int, data: dict, db: Session = Depends(get_
     return proj
 
 
-@app.patch("/api/milestones/{milestone_id}/field")
-
-
 @app.post("/api/admin/batch-milestones")
 def batch_create_milestones(data: dict, db: Session = Depends(get_db), current_user: User = Depends(require_admin)):
     """Batch create milestones. Body: {"milestones": [{project_id, name, phase, due_date, status, owner}, ...]}"""
@@ -1621,7 +1621,15 @@ def batch_create_milestones(data: dict, db: Session = Depends(get_db), current_u
         created += 1
     db.commit()
     return {"created": created}
-def update_milestone_field(milestone_id: int, data: dict, db: Session = Depends(get_db)):
+
+
+@app.patch("/api/milestones/{milestone_id}/field", response_model=MilestoneOut)
+def update_milestone_field(
+    milestone_id: int,
+    data: dict,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """Update a single field on a milestone — for inline editing."""
     ms = db.query(Milestone).filter(Milestone.id == milestone_id).first()
     if not ms:
@@ -1630,12 +1638,13 @@ def update_milestone_field(milestone_id: int, data: dict, db: Session = Depends(
     field = data.get("field")
     value = data.get("value")
     
-    EDITABLE_FIELDS = {"name", "phase", "due_date", "actual_date", "status", "owner"}
+    EDITABLE_FIELDS = {"name", "phase", "due_date", "actual_date", "status", "owner", "manual_notes"}
     if field not in EDITABLE_FIELDS:
         raise HTTPException(status_code=400, detail=f"Field '{field}' is not editable")
     
     setattr(ms, field, value)
     ms.updated_at = now_str()
+    touch_project(db, ms.project_id)
     db.commit()
     db.refresh(ms)
     return ms

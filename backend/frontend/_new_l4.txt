@@ -1,0 +1,139 @@
+﻿function v16RenderRealProjectTasks(area, project) {
+  project = project || await v16EnsureProject();
+  if (!project || !project.id) {
+    area.innerHTML = '<div style="padding:20px;color:#94a3b8">No project selected</div>';
+    return;
+  }
+  window._v17L4Project = project;
+  area.innerHTML = '<div style="padding:24px;color:#94a3b8">Loading project tasks...</div>';
+  var headers = await v16GetAuthHeaders();
+  var resp = await fetch('/api/milestones?project_id=' + project.id, {headers: headers});
+  if (!resp.ok) {
+    area.innerHTML = '<div style="padding:20px;color:#ef4444">Failed to load project tasks</div>';
+    return;
+  }
+  var tasks = await resp.json();
+  var stats = v16TaskStats(tasks);
+  var progress = stats.total ? Math.round(stats.done / stats.total * 100) : 0;
+  var phases = {};
+  var phaseOrder = [];
+  tasks.forEach(function(t){
+    var phase = t.phase || 'Other';
+    if (!phases[phase]) { phases[phase] = []; phaseOrder.push(phase); }
+    phases[phase].push(t);
+  });
+  var filters = [
+    {label:'All (' + stats.total + ')', value:'all'},
+    {label:'Done (' + stats.done + ')', value:'done'},
+    {label:'In Progress (' + stats.in_progress + ')', value:'in_progress'},
+    {label:'Overdue (' + stats.overdue + ')', value:'overdue'},
+    {label:'Not Started (' + stats.not_started + ')', value:'not_started'}
+  ];
+  var depts = [];
+  var seen = {};
+  tasks.forEach(function(t){
+    (t.owner || '').split(',').forEach(function(owner){
+      owner = owner.trim();
+      if (owner && !seen[owner]) { seen[owner] = true; depts.push(owner); }
+    });
+  });
+  depts.sort();
+  var deptOptions = '<option value="">All Owners</option>' + depts.map(function(d){ return '<option value="' + v16EscapeHtml(d) + '">' + v16EscapeHtml(d) + '</option>'; }).join('');
+  var rows = '';
+  phaseOrder.forEach(function(phase){
+    var pts = phases[phase];
+    rows += '<tr data-v16-phase-row="' + v16EscapeHtml(phase) + '"><td colspan="6" style="padding:8px 12px;font-size:12px;font-weight:700;color:#60a5fa;background:rgba(96,165,250,0.08);border-bottom:1px solid rgba(96,165,250,0.15)">' + v16EscapeHtml(phase) + ' (' + pts.length + ')</td></tr>';
+    pts.forEach(function(t){
+      var live = v16TaskLiveStatus(t);
+      var icon = live === 'done' ? '✅' : live === 'in_progress' ? '🔵' : live === 'overdue' ? '🔴' : '⬜';
+      var bg = live === 'overdue' ? 'rgba(239,68,68,0.06)' : live === 'in_progress' ? 'rgba(234,179,8,0.04)' : live === 'done' ? 'rgba(34,197,94,0.04)' : '';
+      var dueColor = live === 'overdue' ? '#ef4444' : live === 'done' ? '#22c55e' : '#94a3b8';
+      var note = t.manual_notes || '';
+      rows += '<tr data-v16-status="' + live + '" data-v16-dept="' + v16EscapeHtml(t.owner || '') + '" data-v16-phase="' + v16EscapeHtml(phase) + '" style="border-bottom:1px solid rgba(255,255,255,0.04);background:' + bg + '">';
+      rows += '<td style="width:44px;padding:10px 4px;font-size:14px;text-align:center;cursor:pointer" onclick="v16EditMilestoneStatus(' + t.id + ',&quot;' + v16EscapeHtml(t.status || '') + '&quot;,this,this.closest(&quot;#v16ContentArea,#v16L3TaskPanel&quot;))" title="Click to change status">' + icon + '</td>';
+      rows += '<td style="width:90px;padding:10px 4px;font-size:12px;color:#64748b">' + v16EscapeHtml(t.phase || '-') + '</td>';
+      rows += '<td style="padding:10px 8px;font-size:13px;font-weight:500;color:#e2e8f0;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" onclick="v16PromptEditMilestone(' + t.id + ',&quot;name&quot;,decodeURIComponent(&quot;' + encodeURIComponent(t.name || '') + '&quot;),&quot;Edit task name&quot;,this.closest(&quot;#v16ContentArea,#v16L3TaskPanel&quot;))" title="Click to edit task name">' + v16EscapeHtml(t.name || '-') + '</td>';
+      rows += '<td style="width:100px;padding:10px 4px;font-size:12px;color:#94a3b8;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" onclick="v16PromptEditMilestone(' + t.id + ',&quot;owner&quot;,decodeURIComponent(&quot;' + encodeURIComponent(t.owner || '') + '&quot;),&quot;Edit owner&quot;,this.closest(&quot;#v16ContentArea,#v16L3TaskPanel&quot;))" title="Click to edit owner">' + v16EscapeHtml(t.owner || '-') + '</td>';
+      rows += '<td style="width:110px;padding:10px 4px;font-size:12px;color:' + dueColor + ';font-weight:' + (live === 'overdue' ? '600' : '400') + ';cursor:pointer;white-space:nowrap" onclick="v16EditMilestoneDate(' + t.id + ',decodeURIComponent(&quot;' + encodeURIComponent(t.due_date || '') + '&quot;),this,this.closest(&quot;#v16ContentArea,#v16L3TaskPanel&quot;))" title="Click to edit due date">' + v16EscapeHtml(t.due_date || '-') + (live === 'overdue' ? ' 🔥' : '') + '</td>';
+      rows += '<td style="width:44px;padding:10px 4px;font-size:14px;cursor:pointer;text-align:center" onclick="v16EditMilestoneNote(' + t.id + ',decodeURIComponent(&quot;' + encodeURIComponent(note) + '&quot;),this,this.closest(&quot;#v16ContentArea,#v16L3TaskPanel&quot;))" title="' + v16EscapeHtml(note || 'Add note') + '">' + (note ? '📝' : '➕') + '</td>';
+      rows += '</tr>';
+    });
+  });
+  var statItems = [
+    {label:'All', count:stats.total, color:'#3b82f6', bg:'rgba(59,130,246,0.1)'},
+    {label:'Done', count:stats.done, color:'#22c55e', bg:'rgba(34,197,94,0.1)'},
+    {label:'In Progress', count:stats.in_progress, color:'#eab308', bg:'rgba(234,179,8,0.1)'},
+    {label:'Overdue', count:stats.overdue, color:'#ef4444', bg:'rgba(239,68,68,0.1)'},
+    {label:'Not Started', count:stats.not_started, color:'#64748b', bg:'rgba(100,116,139,0.1)'}
+  ];
+  area.innerHTML =
+    '<div style="margin-bottom:16px">' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">' +
+        '<div>' +
+          '<h3 style="font-size:22px;font-weight:700;color:#fff;margin:0">' + v16EscapeHtml(project.name || 'Project') + '</h3>' +
+          '<p style="font-size:13px;color:#7a8fa3;margin:4px 0 0">' + stats.total + ' tasks  · click any field to edit</p>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:12px">' +
+          '<div style="text-align:right"><div style="font-size:11px;color:#64748b;margin-bottom:2px">Progress</div><div style="font-size:26px;font-weight:800;color:#22c55e">' + progress + '%</div></div>' +
+          '<button onclick="v16ShowAddTaskDialog(' + project.id + ')" style="height:36px;padding:0 16px;border-radius:8px;border:1px solid #22c55e;background:rgba(34,197,94,0.12);color:#86efac;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px"><span style="font-size:16px;font-weight:700">+</span> Add Task</button>' +
+        '</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:10px;margin-bottom:14px">' +
+        statItems.map(function(s){
+          return '<div style="flex:1;padding:10px 8px;border-radius:10px;background:' + s.bg + ';border:1px solid ' + s.color + '25;text-align:center">' +
+            '<div style="font-size:22px;font-weight:800;color:' + s.color + '">' + s.count + '</div>' +
+            '<div style="font-size:11px;color:#64748b;margin-top:2px">' + s.label + '</div>' +
+          '</div>';
+        }).join('') +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">' +
+        '<div class="v16-task-filters" style="display:flex;gap:4px">' +
+          filters.map(function(f,i){ return '<button class="v16-task-filter-btn' + (i===0?' active':'') + '" data-v16-filter="' + f.value + '" onclick="v16FilterL4Tasks(&quot;' + f.value + '&quot;,this)">' + f.label + '</button>'; }).join('') +
+        '</div>' +
+        '<select id="v16L4DeptFilter" onchange="v16FilterL4Dept()" style="background:rgba(255,255,255,0.04);border:1px solid var(--v16-border);color:var(--v16-text);padding:6px 10px;border-radius:8px;font-size:12px;cursor:pointer">' + deptOptions + '</select>' +
+      '</div>' +
+    '</div>' +
+    '<div class="v16-card" style="padding:0;overflow:auto;border-radius:10px">' +
+      '<table style="width:100%;border-collapse:collapse">' +
+        '<thead>' +
+          '<tr style="background:rgba(255,255,255,0.03)">' +
+            '<th style="width:44px;padding:10px 4px;font-size:10px;color:#64748b;text-align:center">#</th>' +
+            '<th style="width:90px;padding:10px 4px;font-size:10px;color:#64748b;text-align:left">Phase</th>' +
+            '<th style="padding:10px 8px;font-size:10px;color:#64748b;text-align:left">Task Name</th>' +
+            '<th style="width:100px;padding:10px 4px;font-size:10px;color:#64748b;text-align:left">Owner</th>' +
+            '<th style="width:110px;padding:10px 4px;font-size:10px;color:#64748b;text-align:left">Due Date</th>' +
+            '<th style="width:44px;padding:10px 4px;font-size:10px;color:#64748b;text-align:center">📎</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody id="v16L4TaskRows">' + rows + '</tbody>' +
+      '</table>' +
+    '</div>';
+}
+function v16FilterL4Tasks(status, btn) {
+  var scope = btn ? btn.closest('#v16ContentArea,#v16L3TaskPanel') : document;
+  if (!scope) scope = document;
+  scope.querySelectorAll('.v16-task-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  var visiblePhases = {};
+  scope.querySelectorAll('tr[data-v16-status]').forEach(function(row){
+    var ms = status === 'all' || row.dataset.v16Status === status;
+    var sel = scope.querySelector('#v16L4DeptFilter');
+    var owner = sel ? sel.value : '';
+    var mo = !owner || (row.dataset.v16Dept || '').indexOf(owner) >= 0;
+    var show = ms && mo;
+    row.style.display = show ? '' : 'none';
+    if (show && row.dataset.v16Phase) visiblePhases[row.dataset.v16Phase] = true;
+  });
+  scope.querySelectorAll('tr[data-v16-phase-row]').forEach(function(row){
+    row.style.display = status === 'all' || visiblePhases[row.dataset.v16PhaseRow] ? '' : 'none';
+  });
+}
+
+function v16FilterL4Dept() {
+  var select = document.getElementById('v16L4DeptFilter');
+  if (!select) return;
+  var scope = select.closest('#v16ContentArea,#v16L3TaskPanel') || document;
+  var active = scope.querySelector('.v16-task-filter-btn.active');
+  var status = active ? (active.dataset.v16Filter || 'all') : 'all';
+  v16FilterL4Tasks(status, active);
+}

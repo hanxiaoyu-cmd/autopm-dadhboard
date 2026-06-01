@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S Company AutoPM v18.2</title>
+    <title>S Company AutoPM v18.7</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1749,7 +1749,7 @@ body.v16-active .fixed.bottom-8 {
     📥<span class="v16-tooltip">Import</span>
   </div>
   <div style="height:12px;"></div>
-  <div style="font-size:9px;color:#475569;text-align:center;padding:4px 0;">v17.5.6</div>
+  <div style="font-size:9px;color:#475569;text-align:center;padding:4px 0;">v18.7</div>
 </div>
 
 <!-- ========== v16 Main Area ========== -->
@@ -2744,7 +2744,7 @@ body.v16-active .fixed.bottom-8 {
 
     <script>
     // ===== Version Management =====
-    const APP_VERSION = '18.2';
+    const APP_VERSION = '18.3';
     (function setVersion(){
       document.getElementById('sidebarVersion')&&(document.getElementById('sidebarVersion').textContent='v'+APP_VERSION);
       document.getElementById('topNavVersion')&&(document.getElementById('topNavVersion').textContent='v'+APP_VERSION);
@@ -12857,7 +12857,7 @@ function v16RenderContent() {
     'L2-AI Suggestions': v16RenderL2AISuggestions,
     'L3-My Work': v16RenderL3MyWork,
     'L4-Overview': v16RenderL4Overview,
-    'L4-Tasks': v16RenderL4Tasks,
+    'L4-Tasks': v16RenderRealProjectTasks,
     'L4-Document': v16RenderL4Document,
     'LD-Folders': v16RenderL4Document
   };
@@ -13202,11 +13202,79 @@ function v16CycleSL500Task(i,tr){var tasks=sl500LoadTasks();var task=tasks[i];if
 // L4-Overview (SL500 Project Dashboard)
 // ============================================================
 function v16RenderL4Overview(area) {
-  var tasks=sl500LoadTasks();var stats=sl500GetStats(tasks);var progress=stats.total>0?Math.round(stats.completed/stats.total*100):0;
-  var msData=[{name:'Award',date:'Mar 3',done:true},{name:'EB',date:'Apr 22',done:true},{name:'DQTP',date:'May 29',done:false,current:true},{name:'Compliance',date:'Jun 5',done:false},{name:'ECN',date:'Jun 16',done:false},{name:'MP',date:'Jun 26',done:false}];
-  area.innerHTML='<div style="margin-bottom:20px"><h3 style="font-size:20px;font-weight:700;color:#fff;margin:0 0 4px">Project-09 Extension (SL500)</h3><p style="font-size:13px;color:#7a8fa3;margin:0">Extension project for SL500 product line</p></div><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px"><div class="v16-info-card"><div class="v16-info-card-label">Owner</div><div class="v16-info-card-value" style="color:#60a5fa">CN NPI / US PMO</div></div><div class="v16-info-card"><div class="v16-info-card-label">Type</div><div class="v16-info-card-value" style="color:#22c55e">Extension</div></div><div class="v16-info-card"><div class="v16-info-card-label">Start Date</div><div class="v16-info-card-value">Mar 3, 2026</div></div><div class="v16-info-card"><div class="v16-info-card-label">Cycle</div><div class="v16-info-card-value" style="color:#fbbf24">115 days</div></div><div class="v16-info-card"><div class="v16-info-card-label">Progress</div><div class="v16-info-card-value" style="color:#818cf8" data-v16-count="'+progress+'" data-v16-suffix="%">0%</div></div></div><div class="v16-card" style="margin-bottom:24px"><div class="v16-card-title">Workflow Progress</div><div style="display:flex;align-items:center;gap:0;padding:8px 0;flex-wrap:nowrap;overflow-x:auto"><div class="v16-phase-step done">✅ KO</div><div class="v16-phase-arrow">→</div><div class="v16-phase-step done">✅ EB0</div><div class="v16-phase-arrow">→</div><div class="v16-phase-step blocked">🔴 DQTP</div><div class="v16-phase-arrow">→</div><div class="v16-phase-step">○ Compliance</div><div class="v16-phase-arrow">→</div><div class="v16-phase-step">○ MP</div></div></div><div class="v16-grid-2" style="margin-bottom:24px"><div class="v16-card"><div class="v16-card-title">Project Status</div><div style="display:flex;align-items:center;justify-content:center;padding:20px">'+v16CreateProgressRing(140,progress,'#818cf8')+'</div><div style="display:flex;justify-content:center;gap:20px;margin-top:12px"><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#22c55e">'+stats.completed+'</div><div style="font-size:10px;color:#64748b">Completed</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#60a5fa">'+stats.in_progress+'</div><div style="font-size:10px;color:#64748b">In Progress</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#ef4444">'+stats.overdue+'</div><div style="font-size:10px;color:#64748b">Overdue</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#64748b">'+stats.not_started+'</div><div style="font-size:10px;color:#64748b">Pending</div></div></div></div><div style="display:flex;flex-direction:column;gap:12px"><div class="v16-info-card"><div class="v16-info-card-label">Overdue Tasks</div><div class="v16-info-card-value" style="color:#ef4444;font-size:36px">'+stats.overdue+'</div></div><div class="v16-info-card"><div class="v16-info-card-label">Next Milestone</div><div class="v16-info-card-value" style="color:#60a5fa;font-size:22px">May 29</div><div style="font-size:12px;color:#64748b;margin-top:2px">DQTP Report Release</div></div></div></div><div class="v16-card"><div class="v16-card-title">Milestone Timeline</div><div style="display:flex;align-items:flex-start;gap:0;padding:16px 0;overflow-x:auto">'+msData.map(function(ms,i){var dotColor=ms.done?'#22c55e':ms.current?'#ef4444':'#475569';var lineColor=ms.done?'#22c55e':'#475569';var html='<div style="display:flex;flex-direction:column;align-items:center;min-width:100px"><div style="width:12px;height:12px;border-radius:50%;background:'+dotColor+';border:2px solid '+dotColor+';margin-bottom:8px;box-shadow:0 0 8px '+dotColor+'44"></div><div style="font-size:12px;font-weight:600;color:'+(ms.done?'#22c55e':ms.current?'#ef4444':'#94a3b8')+'">'+ms.name+'</div><div style="font-size:10px;color:#64748b;margin-top:2px">'+ms.date+'</div><div style="font-size:10px;color:'+(ms.done?'#22c55e':'#64748b')+';margin-top:2px">'+(ms.done?'✓ Done':ms.current?'🔴 Active':'○ Pending')+'</div></div>';if(i<msData.length-1){html+='<div style="flex:1;height:2px;background:'+lineColor+';min-width:40px;margin-top:6px;align-self:flex-start"></div>';}return html;}).join('')+'</div></div>';
-  v16AnimateCountUps();
+  var project = window._v17L4Project || window._v16SelectedProject;
+  if (!project) {
+    area.innerHTML = '<div style="padding:24px;color:#94a3b8">Select a project to view overview</div>';
+    return;
+  }
+  area.innerHTML = '<div id="v16L4OverviewInner"><div style="padding:24px;color:#94a3b8">Loading project overview...</div></div>';
+  (async function(){
+    var headers = await v16GetAuthHeaders();
+    var resp = await fetch('/api/milestones?project_id=' + project.id, {headers: headers});
+    var tasks = resp.ok ? await resp.json() : [];
+    var stats = v16TaskStats(tasks);
+    var pct = stats.total > 0 ? Math.round(stats.done / stats.total * 100) : 0;
+    var name = project.name || 'Project #' + project.id;
+    var category = project.category || '-';
+    var owner = project.owner || '-';
+    var startDate = project.start_date || '-';
+    var endDate = project.end_date || '-';
+    var status = project.status || 'In Progress';
+    var riskFlag = project.risk_flag || 'None';
+    var cycle = '-';
+    if (startDate && endDate && startDate !== '-' && endDate !== '-') {
+      var s = new Date(startDate + 'T00:00:00');
+      var e = new Date(endDate + 'T00:00:00');
+      var days = Math.round((e - s) / 86400000);
+      if (days > 0) cycle = days + ' days';
+    }
+    var riskColor = riskFlag === 'Critical' ? '#ef4444' : riskFlag === 'High' ? '#f97316' : riskFlag === 'Medium' ? '#fbbf24' : '#22c55e';
+    // Phase steps derived from tasks
+    var phaseMap = {}; var phaseOrder = [];
+    tasks.forEach(function(t){
+      var ph = t.phase || 'Other';
+      if (!phaseMap[ph]) { phaseMap[ph] = true; phaseOrder.push(ph); }
+    });
+    var msHtml = phaseOrder.map(function(ph, i){
+      var phaseTasks = tasks.filter(function(t){ return (t.phase || 'Other') === ph; });
+      var done = phaseTasks.every(function(t){ return t.status === 'Completed' || t.status === 'Done'; });
+      var active = !done && phaseTasks.some(function(t){ return t.status === 'In Progress' || t.status === 'Blocked'; });
+      var icon = done ? '✅' : active ? '🔴' : '○';
+      var color = done ? '#22c55e' : active ? '#ef4444' : '#475569';
+      return '<div class="v16-phase-step" style="color:' + color + ';border-color:' + color + '44">' + icon + ' ' + v16EscapeHtml(ph) + '</div>' + (i < phaseOrder.length - 1 ? '<div class="v16-phase-arrow" style="color:' + color + '">→</div>' : '');
+    }).join('');
+    var nextMs = '-'; var delayDays = 0;
+    tasks.forEach(function(t){
+      if (t.due_date && v16TaskLiveStatus(t) === 'overdue') { var d = v16DaysLate(t); if (d > delayDays) delayDays = d; }
+      if (t.status !== 'Completed' && t.status !== 'Done' && t.due_date && (nextMs === '-' || t.due_date < nextMs)) nextMs = t.due_date;
+    });
+    var overviewHtml = document.getElementById('v16L4OverviewInner');
+    if (!overviewHtml) return;
+    overviewHtml.innerHTML =
+      '<div style="margin-bottom:20px"><h3 style="font-size:20px;font-weight:700;color:#fff;margin:0 0 4px">' + v16EscapeHtml(name) + '</h3><p style="font-size:13px;color:#7a8fa3;margin:0">' + v16EscapeHtml(category) + ' - ' + v16EscapeHtml(status) + '</p></div>' +
+      '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px">' +
+        '<div class="v16-info-card"><div class="v16-info-card-label">Owner</div><div class="v16-info-card-value" style="color:#60a5fa">' + v16EscapeHtml(owner) + '</div></div>' +
+        '<div class="v16-info-card"><div class="v16-info-card-label">Type</div><div class="v16-info-card-value" style="color:#22c55e">' + v16EscapeHtml(category) + '</div></div>' +
+        '<div class="v16-info-card"><div class="v16-info-card-label">Start Date</div><div class="v16-info-card-value">' + v16EscapeHtml(startDate) + '</div></div>' +
+        '<div class="v16-info-card"><div class="v16-info-card-label">Cycle</div><div class="v16-info-card-value" style="color:#fbbf24">' + cycle + '</div></div>' +
+        '<div class="v16-info-card"><div class="v16-info-card-label">Progress</div><div class="v16-info-card-value" style="color:#818cf8">' + pct + '%</div></div>' +
+      '</div>' +
+      '<div class="v16-card" style="margin-bottom:24px"><div class="v16-card-title">Workflow Progress</div><div style="display:flex;align-items:center;gap:0;padding:8px 0;flex-wrap:nowrap;overflow-x:auto">' + msHtml + '</div></div>' +
+      '<div class="v16-grid-2" style="margin-bottom:24px"><div class="v16-card"><div class="v16-card-title">Project Status</div><div style="display:flex;align-items:center;justify-content:center;padding:20px">' +
+        v16CreateProgressRing(140, pct, '#818cf8') +
+      '</div><div style="display:flex;justify-content:center;gap:20px;margin-top:12px">' +
+        '<div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#22c55e">' + stats.done + '</div><div style="font-size:10px;color:#64748b">Completed</div></div>' +
+        '<div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#60a5fa">' + stats.in_progress + '</div><div style="font-size:10px;color:#64748b">In Progress</div></div>' +
+        '<div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#ef4444">' + stats.overdue + '</div><div style="font-size:10px;color:#64748b">Overdue</div></div>' +
+        '<div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#64748b">' + stats.not_started + '</div><div style="font-size:10px;color:#64748b">Pending</div></div>' +
+      '</div></div>' +
+      '<div style="display:flex;flex-direction:column;gap:12px"><div class="v16-info-card"><div class="v16-info-card-label">Overdue Tasks</div><div class="v16-info-card-value" style="color:#ef4444;font-size:36px">' + stats.overdue + '</div></div>' +
+      '<div class="v16-info-card"><div class="v16-info-card-label">Next Milestone</div><div class="v16-info-card-value" style="color:#60a5fa;font-size:22px">' + v16EscapeHtml(nextMs) + '</div><div style="font-size:12px;color:#64748b;margin-top:2px">Next due date</div></div></div></div>' +
+      '<div class="v16-card"><div class="v16-card-title">Risk Assessment</div><div style="padding:16px;text-align:center"><span style="font-size:28px;font-weight:800;color:' + riskColor + '">' + v16EscapeHtml(riskFlag) + '</span></div></div>';
+    v16AnimateCountUps();
+  })();
 }
+
 
 // ============================================================
 // L4-Tasks (SL500 real tasks)
@@ -13273,6 +13341,545 @@ function v16EditMsDate(id,td){
     fetch('/api/milestones/'+id+'/field',{method:'PATCH',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({field:'due_date',value:nv})}).then(function(r){if(r.ok){var a=document.getElementById('v16ContentArea');if(a)v16RenderL4Tasks(a);}else{td.textContent=cv;}});
   }
   inp.addEventListener('change',save);inp.addEventListener('blur',save);inp.addEventListener('keydown',function(e){if(e.key==='Escape')td.textContent=cv;});
+}
+
+// Real project task workbench overrides. These keep the demo focused on live
+// backend milestones instead of the old SL500 localStorage task list.
+function v16EscapeHtml(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+async function v16GetAuthHeaders() {
+  if (!localStorage.getItem('autopm_token') && typeof ensureAuthToken === 'function') {
+    await ensureAuthToken();
+  }
+  var token = localStorage.getItem('autopm_token') || '';
+  return token ? {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'} : {'Content-Type': 'application/json'};
+}
+
+async function v16EnsureProject(projectId) {
+  var projects = window._v16L3Projects || _overviewProjects || [];
+  var id = projectId || window._v16SelectedProjectId || (window._v17L4Project && window._v17L4Project.id);
+  var project = projects.find(function(p){ return String(p.id) === String(id); });
+  if (!project && id) {
+    var headers = await v16GetAuthHeaders();
+    var resp = await fetch('/api/projects/' + id, {headers: headers});
+    if (resp.ok) project = await resp.json();
+  }
+  if (!project) {
+    var headers2 = await v16GetAuthHeaders();
+    var resp2 = await fetch('/api/projects?limit=50', {headers: headers2});
+    var list = resp2.ok ? await resp2.json() : [];
+    window._v16L3Projects = list;
+    project = list[0] || null;
+  }
+  if (project) {
+    window._v16SelectedProjectId = project.id;
+    window._v17L4Project = project;
+  }
+  return project;
+}
+
+function v16TaskLiveStatus(task) {
+  var status = task.status || 'Not Started';
+  var today = new Date().toISOString().split('T')[0];
+  if (status === 'Done' || status === 'Completed') return 'done';
+  if (status === 'In Progress') return 'in_progress';
+  if (status === 'Blocked') return 'overdue';
+  if (task.due_date && task.due_date < today) return 'overdue';
+  return 'not_started';
+}
+
+function v16TaskStats(tasks) {
+  var stats = {total: tasks.length, done: 0, in_progress: 0, overdue: 0, not_started: 0};
+  tasks.forEach(function(t){ stats[v16TaskLiveStatus(t)]++; });
+  return stats;
+}
+
+function v16DaysLate(task) {
+  if (!task || !task.due_date || v16TaskLiveStatus(task) !== 'overdue') return 0;
+  var due = new Date(task.due_date + 'T00:00:00');
+  var today = new Date(new Date().toISOString().split('T')[0] + 'T00:00:00');
+  return Math.max(0, Math.round((today - due) / 86400000));
+}
+
+function v16DelayStats(tasks) {
+  var delayed = tasks.filter(function(t){ return v16TaskLiveStatus(t) === 'overdue'; })
+    .sort(function(a,b){ return v16DaysLate(b) - v16DaysLate(a); });
+  var maxDays = delayed.reduce(function(max, t){ return Math.max(max, v16DaysLate(t)); }, 0);
+  var ownerMap = {};
+  delayed.forEach(function(t){
+    var owner = (t.owner || 'Unassigned').trim() || 'Unassigned';
+    ownerMap[owner] = (ownerMap[owner] || 0) + 1;
+  });
+  var topOwners = Object.keys(ownerMap).sort(function(a,b){ return ownerMap[b] - ownerMap[a]; });
+  return {tasks: delayed, max_days: maxDays, top_owners: topOwners, owner_map: ownerMap};
+}
+
+async function v16UpdateMilestoneField(id, field, value, area) {
+  area = area || document.getElementById('v16ContentArea') || document.getElementById('v16L3TaskPanel');
+  var headers = await v16GetAuthHeaders();
+  var resp = await fetch('/api/milestones/' + id + '/field', {
+    method: 'PATCH',
+    headers: headers,
+    body: JSON.stringify({field: field, value: value})
+  });
+  if (!resp.ok) {
+    var msg = 'Update failed';
+    try { msg = (await resp.json()).detail || msg; } catch(e) {}
+    alert(msg);
+    return false;
+  }
+  if (area) v16RenderRealProjectTasks(area, window._v17L4Project);
+  return true;
+}
+
+async function v16PromptEditMilestone(id, field, currentValue, label, area) {
+  var next = prompt(label, currentValue || '');
+  if (next === null) return;
+  next = next.trim();
+  await v16UpdateMilestoneField(id, field, next, area);
+}
+
+function v16EditMilestoneDate(id, currentValue, cell, area) {
+  if (!cell || cell.querySelector('input')) return;
+  var oldHtml = cell.innerHTML;
+  var input = document.createElement('input');
+  input.type = 'date';
+  input.value = currentValue || '';
+  input.style.cssText = 'background:rgba(15,23,42,0.96);border:1px solid #60a5fa;color:#fff;padding:4px 6px;font-size:12px;border-radius:6px;color-scheme:dark;width:128px';
+  cell.innerHTML = '';
+  cell.appendChild(input);
+  input.focus();
+  var saved = false;
+  async function save() {
+    if (saved) return;
+    saved = true;
+    var ok = await v16UpdateMilestoneField(id, 'due_date', input.value || '', area);
+    if (!ok) cell.innerHTML = oldHtml;
+  }
+  input.addEventListener('change', save);
+  input.addEventListener('blur', save);
+  input.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') { saved = true; cell.innerHTML = oldHtml; }
+    if (e.key === 'Enter') save();
+  });
+}
+
+function v16EditMilestoneStatus(id, currentStatus, cell, area) {
+  if (!cell || cell.querySelector('select')) return;
+  var oldHtml = cell.innerHTML;
+  var select = document.createElement('select');
+  var statuses = [
+    {value:'Not Started', label:'Not Started', color:'#94a3b8'},
+    {value:'In Progress', label:'In Progress', color:'#60a5fa'},
+    {value:'Completed', label:'Completed', color:'#22c55e'},
+    {value:'Blocked', label:'Blocked', color:'#ef4444'}
+  ];
+  var normalized = currentStatus === 'Done' ? 'Completed' : (currentStatus || 'Not Started');
+  select.innerHTML = statuses.map(function(s){
+    return '<option value="' + s.value + '"' + (s.value === normalized ? ' selected' : '') + '>' + s.label + '</option>';
+  }).join('');
+  select.style.cssText = 'background:#0f172a;border:1px solid #60a5fa;color:#fff;padding:4px 6px;font-size:12px;border-radius:6px;outline:none';
+  cell.innerHTML = '';
+  cell.appendChild(select);
+  select.focus();
+  function paint() {
+    var match = statuses.find(function(s){ return s.value === select.value; });
+    select.style.borderColor = match ? match.color : '#60a5fa';
+    select.style.color = match ? match.color : '#fff';
+  }
+  paint();
+  select.addEventListener('change', async function(){
+    paint();
+    await v16UpdateMilestoneField(id, 'status', select.value, area);
+  });
+  select.addEventListener('blur', function(){ setTimeout(function(){ if (cell.querySelector('select')) cell.innerHTML = oldHtml; }, 150); });
+  select.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') cell.innerHTML = oldHtml;
+    if (e.key === 'Enter') select.dispatchEvent(new Event('change'));
+  });
+}
+
+function v16EditMilestoneNote(id, currentValue, cell, area) {
+  if (!cell || cell.querySelector('textarea')) return;
+  var oldHtml = cell.innerHTML;
+  cell.innerHTML = '<div style="min-width:220px;display:flex;flex-direction:column;gap:6px">' +
+    '<textarea rows="3" style="width:220px;background:#0f172a;border:1px solid #60a5fa;color:#fff;padding:7px;border-radius:6px;font-size:12px;resize:vertical;outline:none" placeholder="Write PM note or next action...">' + v16EscapeHtml(currentValue || '') + '</textarea>' +
+    '<div style="display:flex;gap:6px;justify-content:flex-end"><button type="button" data-cancel style="border:1px solid rgba(148,163,184,0.35);background:transparent;color:#94a3b8;border-radius:5px;padding:3px 8px;font-size:11px;cursor:pointer">Cancel</button><button type="button" data-save style="border:1px solid #22c55e;background:rgba(34,197,94,0.14);color:#86efac;border-radius:5px;padding:3px 8px;font-size:11px;cursor:pointer">Save</button></div>' +
+    '</div>';
+  var textarea = cell.querySelector('textarea');
+  textarea.focus();
+  textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+  cell.querySelector('[data-cancel]').onclick = function(){ cell.innerHTML = oldHtml; };
+  cell.querySelector('[data-save]').onclick = async function(){
+    await v16UpdateMilestoneField(id, 'manual_notes', textarea.value.trim(), area);
+  };
+  textarea.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') cell.innerHTML = oldHtml;
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) cell.querySelector('[data-save]').click();
+  });
+}
+
+
+var _v16AddTaskModal = null;
+function v16ShowAddTaskDialog(projectId) {
+  if (_v16AddTaskModal) { _v16AddTaskModal.remove(); _v16AddTaskModal = null; return; }
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center';
+  overlay.innerHTML = '<div style="background:#1e293b;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px;width:440px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,0.5)">' +
+    '<div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:20px">Add Manual Task</div>' +
+    '<div style="display:flex;flex-direction:column;gap:14px">' +
+      '<div><label style="font-size:12px;color:#94a3b8;display:block;margin-bottom:5px">Task Name *</label><input id="v16AddTaskName" type="text" placeholder="e.g. Review supplier quote" style="width:100%;padding:10px 12px;background:#0f172a;border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box"></div>' +
+      '<div><label style="font-size:12px;color:#94a3b8;display:block;margin-bottom:5px">Owner</label><input id="v16AddTaskOwner" type="text" placeholder="e.g. John Chen" style="width:100%;padding:10px 12px;background:#0f172a;border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box"></div>' +
+      '<div style="display:flex;gap:12px"><div style="flex:1"><label style="font-size:12px;color:#94a3b8;display:block;margin-bottom:5px">Due Date</label><input id="v16AddTaskDate" type="date" style="width:100%;padding:10px 12px;background:#0f172a;border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box"></div><div style="flex:1"><label style="font-size:12px;color:#94a3b8;display:block;margin-bottom:5px">Priority</label><select id="v16AddTaskPriority" style="width:100%;padding:10px 12px;background:#0f172a;border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box"><option value="P1">P1 - Critical</option><option value="P2" selected>P2 - High</option><option value="P3">P3 - Normal</option><option value="P4">P4 - Low</option></select></div></div>' +
+      '<div><label style="font-size:12px;color:#94a3b8;display:block;margin-bottom:5px">Phase</label><input id="v16AddTaskPhase" type="text" placeholder="e.g. Compliance, Testing..." style="width:100%;padding:10px 12px;background:#0f172a;border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box"></div>' +
+      '<div><label style="font-size:12px;color:#94a3b8;display:block;margin-bottom:5px">Notes</label><textarea id="v16AddTaskNotes" rows="2" placeholder="Any notes or context..." style="width:100%;padding:10px 12px;background:#0f172a;border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;font-size:13px;outline:none;resize:vertical;box-sizing:border-box"></textarea></div>' +
+    '</div>' +
+    '<div style="display:flex;gap:10px;justify-content:flex-end;margin-top:22px">' +
+      '<button onclick="v16CloseAddTaskDialog()" style="padding:9px 18px;border-radius:8px;border:1px solid rgba(148,163,184,0.35);background:transparent;color:#94a3b8;font-size:13px;font-weight:600;cursor:pointer">Cancel</button>' +
+      '<button onclick="v16SubmitAddTask(' + projectId + ')" style="padding:9px 18px;border-radius:8px;border:1px solid #22c55e;background:rgba(34,197,94,0.14);color:#86efac;font-size:13px;font-weight:600;cursor:pointer">Create Task</button>' +
+    '</div></div>';
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) v16CloseAddTaskDialog(); });
+  document.body.appendChild(overlay);
+  _v16AddTaskModal = overlay;
+  setTimeout(function(){ var inp = document.getElementById('v16AddTaskName'); if (inp) inp.focus(); }, 100);
+}
+function v16CloseAddTaskDialog() {
+  if (_v16AddTaskModal) { _v16AddTaskModal.remove(); _v16AddTaskModal = null; }
+}
+async function v16SubmitAddTask(projectId) {
+  var name = document.getElementById('v16AddTaskName').value.trim();
+  if (!name) { alert('Please enter a task name.'); return; }
+  var owner = document.getElementById('v16AddTaskOwner').value.trim();
+  var due_date = document.getElementById('v16AddTaskDate').value;
+  var priority = document.getElementById('v16AddTaskPriority').value;
+  var phase = document.getElementById('v16AddTaskPhase').value.trim();
+  var notes = document.getElementById('v16AddTaskNotes').value.trim();
+  var headers = await v16GetAuthHeaders();
+  headers['Content-Type'] = 'application/json';
+  var body = JSON.stringify({
+    name: name,
+    owner: owner || '',
+    due_date: due_date || '',
+    manual_priority: priority,
+    phase: phase || 'Manual Task',
+    manual_notes: notes || ''
+  });
+  var resp = await fetch('/api/projects/' + projectId + '/tasks', {
+    method: 'POST', headers: headers, body: body
+  });
+  if (!resp.ok) {
+    var msg = 'Failed to create task';
+    try { msg = (await resp.json()).detail || msg; } catch(e) {}
+    alert(msg); return;
+  }
+  v16CloseAddTaskDialog();
+  var area = document.getElementById('v16ContentArea');
+  if (area) v16RenderRealProjectTasks(area, window._v17L4Project);
+}
+async function v16CycleMilestoneStatus(id, currentStatus, area) {
+  var cycle = ['Not Started', 'In Progress', 'Completed'];
+  var normalized = currentStatus === 'Done' ? 'Completed' : (currentStatus || 'Not Started');
+  var idx = cycle.indexOf(normalized);
+  var next = cycle[(idx + 1) % cycle.length];
+  await v16UpdateMilestoneField(id, 'status', next, area);
+}
+
+async function v16RenderRealProjectTasks(area, project) {
+  project = project || await v16EnsureProject();
+  if (!project || !project.id) {
+    area.innerHTML = '<div style="padding:20px;color:#94a3b8">No project selected</div>';
+    return;
+  }
+  window._v17L4Project = project;
+  area.innerHTML = '<div style="padding:24px;color:#94a3b8">Loading project tasks...</div>';
+  var headers = await v16GetAuthHeaders();
+  var resp = await fetch('/api/milestones?project_id=' + project.id, {headers: headers});
+  if (!resp.ok) {
+    area.innerHTML = '<div style="padding:20px;color:#ef4444">Failed to load project tasks</div>';
+    return;
+  }
+  var tasks = await resp.json();
+  var stats = v16TaskStats(tasks);
+  var progress = stats.total ? Math.round(stats.done / stats.total * 100) : 0;
+  var phases = {};
+  var phaseOrder = [];
+  tasks.forEach(function(t){
+    var phase = t.phase || 'Other';
+    if (!phases[phase]) { phases[phase] = []; phaseOrder.push(phase); }
+    phases[phase].push(t);
+  });
+  var filters = [
+    {label:'All (' + stats.total + ')', value:'all'},
+    {label:'Done (' + stats.done + ')', value:'done'},
+    {label:'In Progress (' + stats.in_progress + ')', value:'in_progress'},
+    {label:'Overdue (' + stats.overdue + ')', value:'overdue'},
+    {label:'Not Started (' + stats.not_started + ')', value:'not_started'}
+  ];
+  var depts = [];
+  var seen = {};
+  tasks.forEach(function(t){
+    (t.owner || '').split(',').forEach(function(owner){
+      owner = owner.trim();
+      if (owner && !seen[owner]) { seen[owner] = true; depts.push(owner); }
+    });
+  });
+  depts.sort();
+  var deptOptions = '<option value="">All Owners</option>' + depts.map(function(d){ return '<option value="' + v16EscapeHtml(d) + '">' + v16EscapeHtml(d) + '</option>'; }).join('');
+  var rows = '';
+  phaseOrder.forEach(function(phase){
+    var pts = phases[phase];
+    rows += '<tr data-v16-phase-row="' + v16EscapeHtml(phase) + '"><td colspan="6" style="padding:8px 12px;font-size:12px;font-weight:700;color:#60a5fa;background:rgba(96,165,250,0.08);border-bottom:1px solid rgba(96,165,250,0.15)">' + v16EscapeHtml(phase) + ' (' + pts.length + ')</td></tr>';
+    pts.forEach(function(t){
+      var live = v16TaskLiveStatus(t);
+      var icon = live === 'done' ? '✅' : live === 'in_progress' ? '🔵' : live === 'overdue' ? '🔴' : '⬜';
+      var bg = live === 'overdue' ? 'rgba(239,68,68,0.06)' : live === 'in_progress' ? 'rgba(234,179,8,0.04)' : live === 'done' ? 'rgba(34,197,94,0.04)' : '';
+      var dueColor = live === 'overdue' ? '#ef4444' : live === 'done' ? '#22c55e' : '#94a3b8';
+      var note = t.manual_notes || '';
+      rows += '<tr data-v16-status="' + live + '" data-v16-dept="' + v16EscapeHtml(t.owner || '') + '" data-v16-phase="' + v16EscapeHtml(phase) + '" style="border-bottom:1px solid rgba(255,255,255,0.04);background:' + bg + '">';
+      rows += '<td style="width:44px;padding:10px 4px;font-size:14px;text-align:center;cursor:pointer" onclick="v16EditMilestoneStatus(' + t.id + ',&quot;' + v16EscapeHtml(t.status || '') + '&quot;,this,this.closest(&quot;#v16ContentArea,#v16L3TaskPanel&quot;))" title="Click to change status">' + icon + '</td>';
+      rows += '<td style="width:90px;padding:10px 4px;font-size:12px;color:#64748b">' + v16EscapeHtml(t.phase || '-') + '</td>';
+      rows += '<td style="padding:10px 8px;font-size:13px;font-weight:500;color:#e2e8f0;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" onclick="v16PromptEditMilestone(' + t.id + ',&quot;name&quot;,decodeURIComponent(&quot;' + encodeURIComponent(t.name || '') + '&quot;),&quot;Edit task name&quot;,this.closest(&quot;#v16ContentArea,#v16L3TaskPanel&quot;))" title="Click to edit task name">' + v16EscapeHtml(t.name || '-') + '</td>';
+      rows += '<td style="width:100px;padding:10px 4px;font-size:12px;color:#94a3b8;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" onclick="v16PromptEditMilestone(' + t.id + ',&quot;owner&quot;,decodeURIComponent(&quot;' + encodeURIComponent(t.owner || '') + '&quot;),&quot;Edit owner&quot;,this.closest(&quot;#v16ContentArea,#v16L3TaskPanel&quot;))" title="Click to edit owner">' + v16EscapeHtml(t.owner || '-') + '</td>';
+      rows += '<td style="width:110px;padding:10px 4px;font-size:12px;color:' + dueColor + ';font-weight:' + (live === 'overdue' ? '600' : '400') + ';cursor:pointer;white-space:nowrap" onclick="v16EditMilestoneDate(' + t.id + ',decodeURIComponent(&quot;' + encodeURIComponent(t.due_date || '') + '&quot;),this,this.closest(&quot;#v16ContentArea,#v16L3TaskPanel&quot;))" title="Click to edit due date">' + v16EscapeHtml(t.due_date || '-') + (live === 'overdue' ? ' 🔥' : '') + '</td>';
+      rows += '<td style="width:44px;padding:10px 4px;font-size:14px;cursor:pointer;text-align:center" onclick="v16EditMilestoneNote(' + t.id + ',decodeURIComponent(&quot;' + encodeURIComponent(note) + '&quot;),this,this.closest(&quot;#v16ContentArea,#v16L3TaskPanel&quot;))" title="' + v16EscapeHtml(note || 'Add note') + '">' + (note ? '📝' : '➕') + '</td>';
+      rows += '</tr>';
+    });
+  });
+  var statItems = [
+    {label:'All', count:stats.total, color:'#3b82f6', bg:'rgba(59,130,246,0.1)'},
+    {label:'Done', count:stats.done, color:'#22c55e', bg:'rgba(34,197,94,0.1)'},
+    {label:'In Progress', count:stats.in_progress, color:'#eab308', bg:'rgba(234,179,8,0.1)'},
+    {label:'Overdue', count:stats.overdue, color:'#ef4444', bg:'rgba(239,68,68,0.1)'},
+    {label:'Not Started', count:stats.not_started, color:'#64748b', bg:'rgba(100,116,139,0.1)'}
+  ];
+  area.innerHTML =
+    '<div style="margin-bottom:16px">' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">' +
+        '<div>' +
+          '<h3 style="font-size:22px;font-weight:700;color:#fff;margin:0">' + v16EscapeHtml(project.name || 'Project') + '</h3>' +
+          '<p style="font-size:13px;color:#7a8fa3;margin:4px 0 0">' + stats.total + ' tasks  · click any field to edit</p>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:12px">' +
+          '<div style="text-align:right"><div style="font-size:11px;color:#64748b;margin-bottom:2px">Progress</div><div style="font-size:26px;font-weight:800;color:#22c55e">' + progress + '%</div></div>' +
+          '<button onclick="v16ShowAddTaskDialog(' + project.id + ')" style="height:36px;padding:0 16px;border-radius:8px;border:1px solid #22c55e;background:rgba(34,197,94,0.12);color:#86efac;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px"><span style="font-size:16px;font-weight:700">+</span> Add Task</button>' +
+        '</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:10px;margin-bottom:14px">' +
+        statItems.map(function(s){
+          return '<div style="flex:1;padding:10px 8px;border-radius:10px;background:' + s.bg + ';border:1px solid ' + s.color + '25;text-align:center">' +
+            '<div style="font-size:22px;font-weight:800;color:' + s.color + '">' + s.count + '</div>' +
+            '<div style="font-size:11px;color:#64748b;margin-top:2px">' + s.label + '</div>' +
+          '</div>';
+        }).join('') +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">' +
+        '<div class="v16-task-filters" style="display:flex;gap:4px">' +
+          filters.map(function(f,i){ return '<button class="v16-task-filter-btn' + (i===0?' active':'') + '" data-v16-filter="' + f.value + '" onclick="v16FilterL4Tasks(&quot;' + f.value + '&quot;,this)">' + f.label + '</button>'; }).join('') +
+        '</div>' +
+        '<select id="v16L4DeptFilter" onchange="v16FilterL4Dept()" style="background:rgba(255,255,255,0.04);border:1px solid var(--v16-border);color:var(--v16-text);padding:6px 10px;border-radius:8px;font-size:12px;cursor:pointer">' + deptOptions + '</select>' +
+      '</div>' +
+    '</div>' +
+    '<div class="v16-card" style="padding:0;overflow:auto;border-radius:10px">' +
+      '<table style="width:100%;border-collapse:collapse">' +
+        '<thead>' +
+          '<tr style="background:rgba(255,255,255,0.03)">' +
+            '<th style="width:44px;padding:10px 4px;font-size:10px;color:#64748b;text-align:center">#</th>' +
+            '<th style="width:90px;padding:10px 4px;font-size:10px;color:#64748b;text-align:left">Phase</th>' +
+            '<th style="padding:10px 8px;font-size:10px;color:#64748b;text-align:left">Task Name</th>' +
+            '<th style="width:100px;padding:10px 4px;font-size:10px;color:#64748b;text-align:left">Owner</th>' +
+            '<th style="width:110px;padding:10px 4px;font-size:10px;color:#64748b;text-align:left">Due Date</th>' +
+            '<th style="width:44px;padding:10px 4px;font-size:10px;color:#64748b;text-align:center">📎</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody id="v16L4TaskRows">' + rows + '</tbody>' +
+      '</table>' +
+    '</div>';
+}
+function v16FilterL4Tasks(status, btn) {
+  var scope = btn ? btn.closest('#v16ContentArea,#v16L3TaskPanel') : document;
+  if (!scope) scope = document;
+  scope.querySelectorAll('.v16-task-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  var visiblePhases = {};
+  scope.querySelectorAll('tr[data-v16-status]').forEach(function(row){
+    var ms = status === 'all' || row.dataset.v16Status === status;
+    var sel = scope.querySelector('#v16L4DeptFilter');
+    var owner = sel ? sel.value : '';
+    var mo = !owner || (row.dataset.v16Dept || '').indexOf(owner) >= 0;
+    var show = ms && mo;
+    row.style.display = show ? '' : 'none';
+    if (show && row.dataset.v16Phase) visiblePhases[row.dataset.v16Phase] = true;
+  });
+  scope.querySelectorAll('tr[data-v16-phase-row]').forEach(function(row){
+    row.style.display = status === 'all' || visiblePhases[row.dataset.v16PhaseRow] ? '' : 'none';
+  });
+}
+
+function v16FilterL4Dept() {
+  var select = document.getElementById('v16L4DeptFilter');
+  if (!select) return;
+  var scope = select.closest('#v16ContentArea,#v16L3TaskPanel') || document;
+  var active = scope.querySelector('.v16-task-filter-btn.active');
+  var status = active ? (active.dataset.v16Filter || 'all') : 'all';
+  v16FilterL4Tasks(status, active);
+}
+function v16RenderL4Overview(area) {
+  var project = await v16EnsureProject();
+  if (!project || !project.id) {
+    area.innerHTML = '<div style="padding:20px;color:#94a3b8">No project selected</div>';
+    return;
+  }
+  area.innerHTML = '<div style="padding:24px;color:#94a3b8">Loading project overview...</div>';
+  var headers = await v16GetAuthHeaders();
+  var resp = await fetch('/api/milestones?project_id=' + project.id, {headers: headers});
+  var tasks = resp.ok ? await resp.json() : [];
+  var stats = v16TaskStats(tasks);
+  var delay = v16DelayStats(tasks);
+  var progress = project.progress != null ? Math.round(project.progress) : (stats.total ? Math.round(stats.done / stats.total * 100) : 0);
+  var openTasks = tasks.filter(function(t){ return v16TaskLiveStatus(t) !== 'done'; }).sort(function(a,b){ return String(a.due_date || '9999-12-31').localeCompare(String(b.due_date || '9999-12-31')); });
+  var nextTask = openTasks[0];
+  var delayRows = delay.tasks.slice(0,8).map(function(t){
+    var days = v16DaysLate(t);
+    return '<tr style="border-bottom:1px solid rgba(255,255,255,0.04)"><td style="padding:8px;color:#fff;font-size:12px">' + v16EscapeHtml(t.name || '-') + '</td><td style="padding:8px;color:#94a3b8;font-size:12px">' + v16EscapeHtml(t.phase || '-') + '</td><td style="padding:8px;color:#94a3b8;font-size:12px">' + v16EscapeHtml(t.owner || '-') + '</td><td style="padding:8px;color:#ef4444;font-size:12px;font-weight:700">' + days + 'd</td><td style="padding:8px;color:#60a5fa;font-size:12px;cursor:pointer" onclick="v16CurrentTab=&quot;Tasks&quot;;v16RenderTabBar();v16RenderContent()">open</td></tr>';
+  }).join('');
+  var ownerSummary = delay.top_owners.slice(0,3).map(function(o){ return v16EscapeHtml(o) + ' (' + delay.owner_map[o] + ')'; }).join(', ');
+  var warningHtml = delay.tasks.length
+    ? '<div class="v16-card" style="margin-bottom:24px;border-left:3px solid #ef4444"><div style="display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:12px"><div><div class="v16-card-title" style="margin-bottom:4px">Delay & Warning Board</div><div style="font-size:12px;color:#94a3b8">Main blockers: ' + (ownerSummary || 'Unassigned') + '</div></div><div style="display:flex;gap:10px;text-align:center"><div><div style="font-size:24px;font-weight:800;color:#ef4444">' + delay.max_days + '</div><div style="font-size:10px;color:#64748b">Max Days Late</div></div><div><div style="font-size:24px;font-weight:800;color:#f97316">' + delay.tasks.length + '</div><div style="font-size:10px;color:#64748b">Delayed Tasks</div></div></div></div><div style="overflow:auto"><table style="width:100%;border-collapse:collapse"><thead><tr style="background:rgba(255,255,255,0.03)"><th style="padding:8px;text-align:left;font-size:10px;color:#64748b">Task</th><th style="padding:8px;text-align:left;font-size:10px;color:#64748b">Phase</th><th style="padding:8px;text-align:left;font-size:10px;color:#64748b">Owner</th><th style="padding:8px;text-align:left;font-size:10px;color:#64748b">Delay</th><th style="padding:8px;text-align:left;font-size:10px;color:#64748b">Action</th></tr></thead><tbody>' + delayRows + '</tbody></table></div></div>'
+    : '<div class="v16-card" style="margin-bottom:24px;border-left:3px solid #22c55e"><div class="v16-card-title" style="margin-bottom:4px">Delay & Warning Board</div><div style="font-size:13px;color:#22c55e">No delayed tasks right now. Project schedule looks healthy.</div></div>';
+  var phases = [];
+  var phaseSeen = {};
+  tasks.forEach(function(t){ var p = t.phase || 'Other'; if (!phaseSeen[p]) { phaseSeen[p] = true; phases.push(p); } });
+  var phaseHtml = phases.slice(0,8).map(function(p){
+    var phaseTasks = tasks.filter(function(t){ return (t.phase || 'Other') === p; });
+    var s = v16TaskStats(phaseTasks);
+    var cls = s.overdue > 0 ? 'blocked' : (s.done === s.total ? 'done' : '');
+    var icon = s.overdue > 0 ? '🔴' : (s.done === s.total ? '✅' : '○');
+    return '<div class="v16-phase-step ' + cls + '">' + icon + ' ' + v16EscapeHtml(p) + '</div>';
+  }).join('<div class="v16-phase-arrow">→</div>');
+  area.innerHTML = '<div style="margin-bottom:20px;display:flex;justify-content:space-between;gap:16px"><div><h3 style="font-size:20px;font-weight:700;color:#fff;margin:0 0 4px">' + v16EscapeHtml(project.name || 'Project') + '</h3><p style="font-size:13px;color:#7a8fa3;margin:0">' + v16EscapeHtml(project.category || '-') + ' · ' + v16EscapeHtml(project.owner || '-') + '</p></div><button onclick="v16CurrentTab=&quot;Tasks&quot;;v16RenderTabBar();v16RenderContent();" style="height:36px;padding:0 14px;border-radius:8px;border:1px solid rgba(96,165,250,0.35);background:rgba(96,165,250,0.12);color:#bfdbfe;cursor:pointer">Open Tasks</button></div>' +
+    '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px"><div class="v16-info-card"><div class="v16-info-card-label">Owner</div><div class="v16-info-card-value" style="color:#60a5fa">' + v16EscapeHtml(project.owner || '-') + '</div></div><div class="v16-info-card"><div class="v16-info-card-label">Type</div><div class="v16-info-card-value" style="color:#22c55e">' + v16EscapeHtml(project.category || '-') + '</div></div><div class="v16-info-card"><div class="v16-info-card-label">Start Date</div><div class="v16-info-card-value">' + v16EscapeHtml(project.start_date || '-') + '</div></div><div class="v16-info-card"><div class="v16-info-card-label">Target Date</div><div class="v16-info-card-value" style="color:#fbbf24">' + v16EscapeHtml(project.end_date || '-') + '</div></div><div class="v16-info-card"><div class="v16-info-card-label">Progress</div><div class="v16-info-card-value" style="color:#818cf8" data-v16-count="' + progress + '" data-v16-suffix="%">0%</div></div></div>' +
+    '<div class="v16-card" style="margin-bottom:24px"><div class="v16-card-title">Workflow Progress</div><div style="display:flex;align-items:center;gap:0;padding:8px 0;flex-wrap:nowrap;overflow-x:auto">' + (phaseHtml || '<span style="color:#94a3b8">No phases yet</span>') + '</div></div>' +
+    warningHtml +
+    '<div class="v16-grid-2" style="margin-bottom:24px"><div class="v16-card"><div class="v16-card-title">Project Status</div><div style="display:flex;align-items:center;justify-content:center;padding:20px">' + v16CreateProgressRing(140,progress,'#818cf8') + '</div><div style="display:flex;justify-content:center;gap:20px;margin-top:12px"><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#22c55e">' + stats.done + '</div><div style="font-size:10px;color:#64748b">Done</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#60a5fa">' + stats.in_progress + '</div><div style="font-size:10px;color:#64748b">In Progress</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#ef4444">' + stats.overdue + '</div><div style="font-size:10px;color:#64748b">Overdue</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#64748b">' + stats.not_started + '</div><div style="font-size:10px;color:#64748b">Pending</div></div></div></div><div style="display:flex;flex-direction:column;gap:12px"><div class="v16-info-card"><div class="v16-info-card-label">Overdue Tasks</div><div class="v16-info-card-value" style="color:#ef4444;font-size:36px">' + stats.overdue + '</div></div><div class="v16-info-card"><div class="v16-info-card-label">Next Milestone</div><div class="v16-info-card-value" style="color:#60a5fa;font-size:22px">' + v16EscapeHtml(nextTask ? (nextTask.due_date || '-') : '-') + '</div><div style="font-size:12px;color:#64748b;margin-top:2px">' + v16EscapeHtml(nextTask ? nextTask.name : 'No open tasks') + '</div></div></div></div>';
+  v16AnimateCountUps();
+}
+
+async function v16RenderL4Tasks(area) {
+  var project = await v16EnsureProject();
+  await v16RenderRealProjectTasks(area, project);
+}
+
+async function v16OpenProject(projectId) {
+  window._v16SelectedProjectId = projectId;
+  var project = await v16EnsureProject(projectId);
+  window._v17L4Project = project;
+  v16CurrentLevel = 'L4';
+  v16CurrentTab = 'Overview';
+  document.querySelectorAll('.v16-sidebar-item[data-level]').forEach(function(el){el.classList.toggle('active',el.dataset.level==='L4');});
+  v16RenderTabBar();
+  v16RenderContent();
+}
+
+async function v16SelectL3Project(projectId) {
+  var project = await v16EnsureProject(projectId);
+  document.querySelectorAll('#v16L3ProjectList > div').forEach(function(el){el.style.background = el.id === 'v16l3item' + projectId ? 'rgba(59,130,246,0.1)' : '';});
+  var panel = document.getElementById('v16L3TaskPanel');
+  if (panel) await v16RenderRealProjectTasks(panel, project);
+}
+
+// v18.7 platform cockpit overrides. Company/department use demo portfolio
+// signals; personal/project stay connected to the real project APIs.
+var v183Departments = [
+  {name:'PMO', headcount:18, capacity:92, projects:126, delayed:14, risk:22, bottleneck:'Approval queue', ai:'Move low-risk approvals to auto-review and protect senior PM time for red projects.'},
+  {name:'NPI', headcount:24, capacity:86, projects:118, delayed:9, risk:16, bottleneck:'Cross-functional handoff', ai:'Create daily blocker lane for EE/SC/Compliance dependencies.'},
+  {name:'Supply Chain', headcount:16, capacity:108, projects:97, delayed:21, risk:31, bottleneck:'Long lead parts', ai:'Escalate top 12 long-lead components and pre-book alternate vendors.'},
+  {name:'Compliance', headcount:11, capacity:104, projects:74, delayed:17, risk:26, bottleneck:'Certification backlog', ai:'Batch submissions by product family and pre-check documents two weeks earlier.'},
+  {name:'DQTP', headcount:13, capacity:99, projects:82, delayed:13, risk:19, bottleneck:'Lab slot conflict', ai:'Reserve third-party lab capacity for P1 projects this month.'},
+  {name:'Design/CMF', headcount:15, capacity:78, projects:66, delayed:6, risk:10, bottleneck:'Color approval', ai:'Run one weekly design decision board with pre-read evidence.'}
+];
+
+function v183HealthColor(value) {
+  return value >= 100 ? '#ef4444' : value >= 90 ? '#f59e0b' : '#22c55e';
+}
+
+function v183RenderMetric(label, value, color, sub) {
+  return '<div class="v16-info-card"><div class="v16-info-card-label">' + label + '</div><div class="v16-info-card-value" style="color:' + color + '">' + value + '</div><div style="font-size:11px;color:#64748b;margin-top:2px">' + (sub || '') + '</div></div>';
+}
+
+function v16RenderL1Dashboard(area) {
+  var total = 2230, onTrack = 1500, delayed = 160, atRisk = 220, blocked = 350;
+  var health = Math.round(onTrack / total * 100);
+  var riskForecast = [
+    {name:'Supply Chain lead time', impact:'High', week:'+3.4 weeks', color:'#ef4444'},
+    {name:'Compliance backlog', impact:'High', week:'+2.1 weeks', color:'#f97316'},
+    {name:'DQTP lab capacity', impact:'Medium', week:'+1.6 weeks', color:'#f59e0b'}
+  ];
+  var deptRows = v183Departments.map(function(d){
+    var color = v183HealthColor(d.capacity);
+    return '<tr style="border-bottom:1px solid rgba(255,255,255,0.04)"><td style="padding:9px;color:#fff;font-size:12px">' + d.name + '</td><td style="padding:9px;color:#94a3b8;font-size:12px">' + d.projects + '</td><td style="padding:9px;color:#ef4444;font-size:12px">' + d.delayed + '</td><td style="padding:9px;color:' + color + ';font-size:12px;font-weight:700">' + d.capacity + '%</td><td style="padding:9px;color:#60a5fa;font-size:12px">' + d.bottleneck + '</td></tr>';
+  }).join('');
+  area.innerHTML = '<div style="margin-bottom:20px"><h3 style="font-size:20px;font-weight:700;color:#fff;margin:0 0 4px">Company Command Center</h3><p style="font-size:13px;color:#7a8fa3;margin:0">Executive view with demo portfolio data for management presentation</p></div>' +
+    '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px">' +
+    v183RenderMetric('Total Projects', total, '#60a5fa', 'active portfolio') +
+    v183RenderMetric('On Track', onTrack, '#22c55e', health + '% healthy') +
+    v183RenderMetric('Delayed', delayed, '#ef4444', 'needs recovery') +
+    v183RenderMetric('At Risk', atRisk, '#f97316', 'next 30 days') +
+    v183RenderMetric('Blocked', blocked, '#8b5cf6', 'cross-team help') + '</div>' +
+    '<div class="v16-grid-2" style="margin-bottom:20px"><div class="v16-card"><div class="v16-card-title">AI Portfolio Diagnosis</div><div style="font-size:34px;font-weight:800;color:#60a5fa;margin-bottom:4px">' + health + '%</div><div style="font-size:13px;color:#94a3b8;margin-bottom:14px">Portfolio health is stable, but SC and Compliance can create Q3 launch pressure.</div>' + riskForecast.map(function(r){return '<div style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid rgba(255,255,255,0.05)"><span style="font-size:12px;color:#cbd5e1">' + r.name + '</span><span style="font-size:12px;color:' + r.color + ';font-weight:700">' + r.impact + ' · ' + r.week + '</span></div>';}).join('') + '</div>' +
+    '<div class="v16-card"><div class="v16-card-title">Recommended Executive Actions</div><div style="display:flex;flex-direction:column;gap:10px"><div style="padding:10px;border-radius:8px;background:rgba(239,68,68,0.08);color:#fecaca;font-size:12px">1. Open SC war-room for top long-lead components.</div><div style="padding:10px;border-radius:8px;background:rgba(249,115,22,0.08);color:#fed7aa;font-size:12px">2. Batch Compliance submissions by product family.</div><div style="padding:10px;border-radius:8px;background:rgba(96,165,250,0.08);color:#bfdbfe;font-size:12px">3. Auto-route low-risk approvals to reduce PM workload.</div></div></div></div>' +
+    '<div class="v16-card" style="padding:0;overflow:auto"><table style="width:100%;border-collapse:collapse"><thead><tr style="background:rgba(255,255,255,0.03)"><th style="padding:9px;text-align:left;font-size:10px;color:#64748b">Department</th><th style="padding:9px;text-align:left;font-size:10px;color:#64748b">Projects</th><th style="padding:9px;text-align:left;font-size:10px;color:#64748b">Delayed</th><th style="padding:9px;text-align:left;font-size:10px;color:#64748b">Capacity</th><th style="padding:9px;text-align:left;font-size:10px;color:#64748b">Main Bottleneck</th></tr></thead><tbody>' + deptRows + '</tbody></table></div>';
+}
+
+function v16RenderL2Overview(area) {
+  var options = '<option value="">All Departments</option>' + v183Departments.map(function(d){return '<option value="' + d.name + '">' + d.name + '</option>';}).join('');
+  var cards = v183Departments.map(function(d){
+    var color = v183HealthColor(d.capacity);
+    return '<div data-v183-dept="' + d.name + '" class="v16-card" style="border-left:3px solid ' + color + ';margin-bottom:10px"><div style="display:flex;justify-content:space-between;gap:14px"><div><div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:4px">' + d.name + '</div><div style="font-size:12px;color:#94a3b8">' + d.bottleneck + '</div></div><div style="text-align:right"><div style="font-size:22px;font-weight:800;color:' + color + '">' + d.capacity + '%</div><div style="font-size:10px;color:#64748b">Capacity</div></div></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0"><div><div style="color:#60a5fa;font-weight:700">' + d.projects + '</div><div style="font-size:10px;color:#64748b">Projects</div></div><div><div style="color:#ef4444;font-weight:700">' + d.delayed + '</div><div style="font-size:10px;color:#64748b">Delayed</div></div><div><div style="color:#f97316;font-weight:700">' + d.risk + '</div><div style="font-size:10px;color:#64748b">At Risk</div></div><div><div style="color:#22c55e;font-weight:700">' + d.headcount + '</div><div style="font-size:10px;color:#64748b">People</div></div></div><div style="font-size:12px;color:#bfdbfe;background:rgba(96,165,250,0.08);padding:9px;border-radius:7px">AI: ' + d.ai + '</div></div>';
+  }).join('');
+  area.innerHTML = '<div style="margin-bottom:18px;display:flex;justify-content:space-between;gap:12px;align-items:flex-end"><div><h3 style="font-size:20px;font-weight:700;color:#fff;margin:0 0 4px">Department Command Center</h3><p style="font-size:13px;color:#7a8fa3;margin:0">Demo view for department resources, projects, risks, and AI actions</p></div><select onchange="v183FilterDepartment(this.value)" style="background:rgba(255,255,255,0.04);border:1px solid var(--v16-border);color:var(--v16-text);padding:8px 12px;border-radius:8px;font-size:13px">' + options + '</select></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px">' + v183RenderMetric('Departments', v183Departments.length, '#60a5fa', 'active functions') + v183RenderMetric('Avg Capacity', '95%', '#f59e0b', 'near limit') + v183RenderMetric('Delayed Work', '80', '#ef4444', 'demo total') + v183RenderMetric('AI Actions', '18', '#22c55e', 'recommended') + '</div><div id="v183DeptCards">' + cards + '</div>';
+}
+
+function v183FilterDepartment(value) {
+  document.querySelectorAll('[data-v183-dept]').forEach(function(card){
+    card.style.display = !value || card.dataset.v183Dept === value ? '' : 'none';
+  });
+}
+
+async function v16RenderL3MyWork(area) {
+  area.innerHTML = '<div style="padding:24px;color:#94a3b8">Loading your workbench...</div>';
+  var headers = await v16GetAuthHeaders();
+  var resp = await fetch('/api/projects?limit=20', {headers: headers});
+  var projects = resp.ok ? await resp.json() : [];
+  window._v16L3Projects = projects;
+  var myProjects = projects.slice(0,4);
+  var allTasks = [];
+  for (var i = 0; i < myProjects.length; i++) {
+    var r = await fetch('/api/milestones?project_id=' + myProjects[i].id, {headers: headers});
+    var tasks = r.ok ? await r.json() : [];
+    tasks.forEach(function(t){ t._project = myProjects[i]; });
+    allTasks = allTasks.concat(tasks);
+  }
+  var stats = v16TaskStats(allTasks);
+  var delay = v16DelayStats(allTasks);
+  var selected = window._v16SelectedProjectId || (myProjects[0] && myProjects[0].id);
+  var projectItems = myProjects.map(function(p){
+    var pts = allTasks.filter(function(t){ return t.project_id === p.id; });
+    var ps = v16TaskStats(pts);
+    var active = String(p.id) === String(selected);
+    return '<div onclick="v16SelectL3Project(' + p.id + ')" id="v16l3item' + p.id + '" style="padding:12px;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;background:' + (active ? 'rgba(59,130,246,0.12)' : 'transparent') + '"><div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:5px">' + v16EscapeHtml(p.name || 'Project #' + p.id) + '</div><div style="display:flex;gap:8px;font-size:11px;color:#94a3b8"><span>' + ps.total + ' tasks</span><span style="color:#ef4444">' + ps.overdue + ' overdue</span><span style="color:#22c55e">' + ps.done + ' done</span></div></div>';
+  }).join('');
+  var priorityRows = delay.tasks.slice(0,5).map(function(t){
+    return '<div style="padding:9px 0;border-top:1px solid rgba(255,255,255,0.05);cursor:pointer" onclick="v16SelectL3Project(' + t.project_id + ')"><div style="font-size:12px;color:#fff">' + v16EscapeHtml(t.name || '-') + '</div><div style="font-size:11px;color:#94a3b8">' + v16EscapeHtml(t._project ? t._project.name : 'Project') + ' · ' + v16EscapeHtml(t.owner || '-') + ' · <span style="color:#ef4444">' + v16DaysLate(t) + 'd late</span></div></div>';
+  }).join('') || '<div style="font-size:12px;color:#22c55e;padding:10px 0">No delayed task in your four active projects.</div>';
+  area.innerHTML = '<div style="display:grid;grid-template-columns:360px 1fr;gap:18px;height:calc(100vh - 185px)"><div style="overflow:auto"><div class="v16-card" style="margin-bottom:12px"><div class="v16-card-title">My Workbench</div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">' + v183RenderMetric('Tasks', stats.total, '#60a5fa', 'four projects') + v183RenderMetric('Overdue', stats.overdue, '#ef4444', 'needs action') + v183RenderMetric('In Progress', stats.in_progress, '#60a5fa', 'active') + v183RenderMetric('Done', stats.done, '#22c55e', 'completed') + '</div></div><div class="v16-card" style="margin-bottom:12px"><div class="v16-card-title">AI Priority Queue</div>' + priorityRows + '</div><div class="v16-card" style="padding:0;overflow:hidden"><div style="padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px;font-weight:700;color:#fff">My Projects</div>' + projectItems + '</div></div><div id="v16L3TaskPanel" style="overflow:auto"></div></div>';
+  if (selected) await v16SelectL3Project(selected);
 }
 // ============================================================
 // L4-Workflow (Big Circle - Department Workstations)
