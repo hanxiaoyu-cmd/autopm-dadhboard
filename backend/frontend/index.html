@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S Company AutoPM v18.7</title>
+    <title>S Company AutoPM v18.8</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1749,7 +1749,7 @@ body.v16-active .fixed.bottom-8 {
     📥<span class="v16-tooltip">Import</span>
   </div>
   <div style="height:12px;"></div>
-  <div style="font-size:9px;color:#475569;text-align:center;padding:4px 0;">v18.7</div>
+  <div style="font-size:9px;color:#475569;text-align:center;padding:4px 0;">v18.8</div>
 </div>
 
 <!-- ========== v16 Main Area ========== -->
@@ -13192,11 +13192,9 @@ function v16FilterAddProject(query){var q=query.toLowerCase();document.querySele
 
 function v16SearchL3(query){var q=query.toLowerCase();document.querySelectorAll('#v16L3ProjectList > div').forEach(function(item){item.style.display=item.textContent.toLowerCase().indexOf(q)>=0?'':'none';});}
 
-function v16SelectL3Project(projectId){var projects=window._v16L3Projects;if(!projects)return;var p=projects.find(function(proj){return proj.id===projectId;});if(!p)return;document.querySelectorAll('#v16L3ProjectList > div').forEach(function(el){el.style.background=el.id==='v16l3item'+projectId?'rgba(59,130,246,0.1)':'';});var tasks=sl500LoadTasks();var stats=sl500GetStats(tasks);var progress=stats.total>0?Math.round(stats.completed/stats.total*100):0;var riskColor=p.risk_flag==='Critical'?'#ef4444':p.risk_flag==='High'?'#f97316':p.risk_flag==='Medium'?'#fbbf24':'#22c55e';var taskFilters=[{label:'All ('+stats.total+')',filter:'all'},{label:'Done ('+stats.completed+')',filter:'completed'},{label:'In Progress ('+stats.in_progress+')',filter:'in_progress'},{label:'Overdue ('+stats.overdue+')',filter:'overdue'},{label:'Not Started ('+stats.not_started+')',filter:'not_started'}];var taskRows=tasks.map(function(t,i){var ls=sl500ComputeLiveStatus(t);var statusIcon=ls==='completed'?'✅':ls==='in_progress'?'🔵':ls==='overdue'?'🔴':'⬜';var rowBg=ls==='overdue'?'rgba(239,68,68,0.06)':'';return '<tr data-v16-status="'+ls+'" style="border-bottom:1px solid rgba(255,255,255,0.03);cursor:pointer;background:'+rowBg+'" onclick="v16CycleSL500Task('+i+',this)"><td style="padding:6px;font-size:12px">'+statusIcon+'</td><td style="padding:6px;font-size:11px;color:#94a3b8">'+(t.phase||'-')+'</td><td style="padding:6px;font-size:12px;font-weight:500;color:#fff">'+(t.name||'-')+'</td><td style="padding:6px;font-size:11px;color:#94a3b8">'+(t.owner||'-')+'</td><td style="padding:6px;font-size:11px;color:'+(ls==='overdue'?'#ef4444':'#94a3b8')+'">'+(t.due||'-')+(ls==='overdue'?' ⚠️':'')+'</td></tr>';}).join('');var html='<div style="margin-bottom:16px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 8px">'+(p.name||'Project #'+p.id)+'</h3><div style="display:flex;gap:8px;flex-wrap:wrap"><span style="font-size:11px;padding:3px 10px;border-radius:4px;background:rgba(96,165,250,0.1);color:#60a5fa">'+(p.category||'-')+'</span><span style="font-size:11px;padding:3px 10px;border-radius:4px;background:'+riskColor+'18;color:'+riskColor+'">'+(p.risk_flag||'None')+'</span></div></div><div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:#94a3b8">Progress</span><span style="font-size:12px;font-weight:600;color:#fff">'+progress+'%</span></div><div style="height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden"><div style="height:100%;width:'+progress+'%;background:linear-gradient(90deg,#3b82f6,#22c55e);border-radius:4px;transition:width 0.5s"></div></div></div><div class="v16-task-filters">'+taskFilters.map(function(f,i){return '<button class="v16-task-filter-btn'+(i===0?' active':'')+'" onclick="v16FilterL3Tasks(\''+f.filter+'\',this)">'+f.label+'</button>';}).join('')+'</div><div class="v16-card" style="padding:0;overflow:auto;margin-top:12px"><table style="width:100%;border-collapse:collapse"><thead><tr style="background:rgba(255,255,255,0.03)"><th style="padding:6px;font-size:10px;color:#64748b;text-align:left">Status</th><th style="padding:6px;font-size:10px;color:#64748b;text-align:left">Phase</th><th style="padding:6px;font-size:10px;color:#64748b;text-align:left">Task</th><th style="padding:6px;font-size:10px;color:#64748b;text-align:left">Owner</th><th style="padding:6px;font-size:10px;color:#64748b;text-align:left">Due</th></tr></thead><tbody id="v16L3TaskRows">'+taskRows+'</tbody></table></div>';document.getElementById('v16L3TaskPanel').innerHTML=html;}
 
 function v16FilterL3Tasks(status,btn){document.querySelectorAll('.v16-task-filter-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');document.querySelectorAll('#v16L3TaskRows tr').forEach(function(tr){tr.style.display=(status==='all'||tr.dataset.v16Status===status)?'':'none';});}
 
-function v16CycleSL500Task(i,tr){var tasks=sl500LoadTasks();var task=tasks[i];if(!task)return;var cycle=['not_started','in_progress','completed'];var idx=cycle.indexOf(task.status);task.status=cycle[(idx+1)%cycle.length];sl500SaveTasks(tasks);var selectedId=null;document.querySelectorAll('#v16L3ProjectList > div').forEach(function(el){if(el.style.background&&el.style.background.indexOf('59,130,246')>=0){selectedId=parseInt(el.id.replace('v16l3item',''));}});if(selectedId)v16SelectL3Project(selectedId);}
 
 // ============================================================
 // L4-Overview (SL500 Project Dashboard)
