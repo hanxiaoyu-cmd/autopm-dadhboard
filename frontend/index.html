@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S Company AutoPM v18.7</title>
+    <title>S Company AutoPM v18.8</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1749,7 +1749,7 @@ body.v16-active .fixed.bottom-8 {
     📥<span class="v16-tooltip">Import</span>
   </div>
   <div style="height:12px;"></div>
-  <div style="font-size:9px;color:#475569;text-align:center;padding:4px 0;">v18.7</div>
+  <div style="font-size:9px;color:#475569;text-align:center;padding:4px 0;">v18.8</div>
 </div>
 
 <!-- ========== v16 Main Area ========== -->
@@ -13192,21 +13192,87 @@ function v16FilterAddProject(query){var q=query.toLowerCase();document.querySele
 
 function v16SearchL3(query){var q=query.toLowerCase();document.querySelectorAll('#v16L3ProjectList > div').forEach(function(item){item.style.display=item.textContent.toLowerCase().indexOf(q)>=0?'':'none';});}
 
-function v16SelectL3Project(projectId){var projects=window._v16L3Projects;if(!projects)return;var p=projects.find(function(proj){return proj.id===projectId;});if(!p)return;document.querySelectorAll('#v16L3ProjectList > div').forEach(function(el){el.style.background=el.id==='v16l3item'+projectId?'rgba(59,130,246,0.1)':'';});var tasks=sl500LoadTasks();var stats=sl500GetStats(tasks);var progress=stats.total>0?Math.round(stats.completed/stats.total*100):0;var riskColor=p.risk_flag==='Critical'?'#ef4444':p.risk_flag==='High'?'#f97316':p.risk_flag==='Medium'?'#fbbf24':'#22c55e';var taskFilters=[{label:'All ('+stats.total+')',filter:'all'},{label:'Done ('+stats.completed+')',filter:'completed'},{label:'In Progress ('+stats.in_progress+')',filter:'in_progress'},{label:'Overdue ('+stats.overdue+')',filter:'overdue'},{label:'Not Started ('+stats.not_started+')',filter:'not_started'}];var taskRows=tasks.map(function(t,i){var ls=sl500ComputeLiveStatus(t);var statusIcon=ls==='completed'?'✅':ls==='in_progress'?'🔵':ls==='overdue'?'🔴':'⬜';var rowBg=ls==='overdue'?'rgba(239,68,68,0.06)':'';return '<tr data-v16-status="'+ls+'" style="border-bottom:1px solid rgba(255,255,255,0.03);cursor:pointer;background:'+rowBg+'" onclick="v16CycleSL500Task('+i+',this)"><td style="padding:6px;font-size:12px">'+statusIcon+'</td><td style="padding:6px;font-size:11px;color:#94a3b8">'+(t.phase||'-')+'</td><td style="padding:6px;font-size:12px;font-weight:500;color:#fff">'+(t.name||'-')+'</td><td style="padding:6px;font-size:11px;color:#94a3b8">'+(t.owner||'-')+'</td><td style="padding:6px;font-size:11px;color:'+(ls==='overdue'?'#ef4444':'#94a3b8')+'">'+(t.due||'-')+(ls==='overdue'?' ⚠️':'')+'</td></tr>';}).join('');var html='<div style="margin-bottom:16px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 8px">'+(p.name||'Project #'+p.id)+'</h3><div style="display:flex;gap:8px;flex-wrap:wrap"><span style="font-size:11px;padding:3px 10px;border-radius:4px;background:rgba(96,165,250,0.1);color:#60a5fa">'+(p.category||'-')+'</span><span style="font-size:11px;padding:3px 10px;border-radius:4px;background:'+riskColor+'18;color:'+riskColor+'">'+(p.risk_flag||'None')+'</span></div></div><div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:#94a3b8">Progress</span><span style="font-size:12px;font-weight:600;color:#fff">'+progress+'%</span></div><div style="height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden"><div style="height:100%;width:'+progress+'%;background:linear-gradient(90deg,#3b82f6,#22c55e);border-radius:4px;transition:width 0.5s"></div></div></div><div class="v16-task-filters">'+taskFilters.map(function(f,i){return '<button class="v16-task-filter-btn'+(i===0?' active':'')+'" onclick="v16FilterL3Tasks(\''+f.filter+'\',this)">'+f.label+'</button>';}).join('')+'</div><div class="v16-card" style="padding:0;overflow:auto;margin-top:12px"><table style="width:100%;border-collapse:collapse"><thead><tr style="background:rgba(255,255,255,0.03)"><th style="padding:6px;font-size:10px;color:#64748b;text-align:left">Status</th><th style="padding:6px;font-size:10px;color:#64748b;text-align:left">Phase</th><th style="padding:6px;font-size:10px;color:#64748b;text-align:left">Task</th><th style="padding:6px;font-size:10px;color:#64748b;text-align:left">Owner</th><th style="padding:6px;font-size:10px;color:#64748b;text-align:left">Due</th></tr></thead><tbody id="v16L3TaskRows">'+taskRows+'</tbody></table></div>';document.getElementById('v16L3TaskPanel').innerHTML=html;}
 
 function v16FilterL3Tasks(status,btn){document.querySelectorAll('.v16-task-filter-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');document.querySelectorAll('#v16L3TaskRows tr').forEach(function(tr){tr.style.display=(status==='all'||tr.dataset.v16Status===status)?'':'none';});}
 
-function v16CycleSL500Task(i,tr){var tasks=sl500LoadTasks();var task=tasks[i];if(!task)return;var cycle=['not_started','in_progress','completed'];var idx=cycle.indexOf(task.status);task.status=cycle[(idx+1)%cycle.length];sl500SaveTasks(tasks);var selectedId=null;document.querySelectorAll('#v16L3ProjectList > div').forEach(function(el){if(el.style.background&&el.style.background.indexOf('59,130,246')>=0){selectedId=parseInt(el.id.replace('v16l3item',''));}});if(selectedId)v16SelectL3Project(selectedId);}
 
 // ============================================================
 // L4-Overview (SL500 Project Dashboard)
 // ============================================================
 function v16RenderL4Overview(area) {
-  var tasks=sl500LoadTasks();var stats=sl500GetStats(tasks);var progress=stats.total>0?Math.round(stats.completed/stats.total*100):0;
-  var msData=[{name:'Award',date:'Mar 3',done:true},{name:'EB',date:'Apr 22',done:true},{name:'DQTP',date:'May 29',done:false,current:true},{name:'Compliance',date:'Jun 5',done:false},{name:'ECN',date:'Jun 16',done:false},{name:'MP',date:'Jun 26',done:false}];
-  area.innerHTML='<div style="margin-bottom:20px"><h3 style="font-size:20px;font-weight:700;color:#fff;margin:0 0 4px">Project-09 Extension (SL500)</h3><p style="font-size:13px;color:#7a8fa3;margin:0">Extension project for SL500 product line</p></div><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px"><div class="v16-info-card"><div class="v16-info-card-label">Owner</div><div class="v16-info-card-value" style="color:#60a5fa">CN NPI / US PMO</div></div><div class="v16-info-card"><div class="v16-info-card-label">Type</div><div class="v16-info-card-value" style="color:#22c55e">Extension</div></div><div class="v16-info-card"><div class="v16-info-card-label">Start Date</div><div class="v16-info-card-value">Mar 3, 2026</div></div><div class="v16-info-card"><div class="v16-info-card-label">Cycle</div><div class="v16-info-card-value" style="color:#fbbf24">115 days</div></div><div class="v16-info-card"><div class="v16-info-card-label">Progress</div><div class="v16-info-card-value" style="color:#818cf8" data-v16-count="'+progress+'" data-v16-suffix="%">0%</div></div></div><div class="v16-card" style="margin-bottom:24px"><div class="v16-card-title">Workflow Progress</div><div style="display:flex;align-items:center;gap:0;padding:8px 0;flex-wrap:nowrap;overflow-x:auto"><div class="v16-phase-step done">✅ KO</div><div class="v16-phase-arrow">→</div><div class="v16-phase-step done">✅ EB0</div><div class="v16-phase-arrow">→</div><div class="v16-phase-step blocked">🔴 DQTP</div><div class="v16-phase-arrow">→</div><div class="v16-phase-step">○ Compliance</div><div class="v16-phase-arrow">→</div><div class="v16-phase-step">○ MP</div></div></div><div class="v16-grid-2" style="margin-bottom:24px"><div class="v16-card"><div class="v16-card-title">Project Status</div><div style="display:flex;align-items:center;justify-content:center;padding:20px">'+v16CreateProgressRing(140,progress,'#818cf8')+'</div><div style="display:flex;justify-content:center;gap:20px;margin-top:12px"><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#22c55e">'+stats.completed+'</div><div style="font-size:10px;color:#64748b">Completed</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#60a5fa">'+stats.in_progress+'</div><div style="font-size:10px;color:#64748b">In Progress</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#ef4444">'+stats.overdue+'</div><div style="font-size:10px;color:#64748b">Overdue</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#64748b">'+stats.not_started+'</div><div style="font-size:10px;color:#64748b">Pending</div></div></div></div><div style="display:flex;flex-direction:column;gap:12px"><div class="v16-info-card"><div class="v16-info-card-label">Overdue Tasks</div><div class="v16-info-card-value" style="color:#ef4444;font-size:36px">'+stats.overdue+'</div></div><div class="v16-info-card"><div class="v16-info-card-label">Next Milestone</div><div class="v16-info-card-value" style="color:#60a5fa;font-size:22px">May 29</div><div style="font-size:12px;color:#64748b;margin-top:2px">DQTP Report Release</div></div></div></div><div class="v16-card"><div class="v16-card-title">Milestone Timeline</div><div style="display:flex;align-items:flex-start;gap:0;padding:16px 0;overflow-x:auto">'+msData.map(function(ms,i){var dotColor=ms.done?'#22c55e':ms.current?'#ef4444':'#475569';var lineColor=ms.done?'#22c55e':'#475569';var html='<div style="display:flex;flex-direction:column;align-items:center;min-width:100px"><div style="width:12px;height:12px;border-radius:50%;background:'+dotColor+';border:2px solid '+dotColor+';margin-bottom:8px;box-shadow:0 0 8px '+dotColor+'44"></div><div style="font-size:12px;font-weight:600;color:'+(ms.done?'#22c55e':ms.current?'#ef4444':'#94a3b8')+'">'+ms.name+'</div><div style="font-size:10px;color:#64748b;margin-top:2px">'+ms.date+'</div><div style="font-size:10px;color:'+(ms.done?'#22c55e':'#64748b')+';margin-top:2px">'+(ms.done?'✓ Done':ms.current?'🔴 Active':'○ Pending')+'</div></div>';if(i<msData.length-1){html+='<div style="flex:1;height:2px;background:'+lineColor+';min-width:40px;margin-top:6px;align-self:flex-start"></div>';}return html;}).join('')+'</div></div>';
-  v16AnimateCountUps();
+  var project = window._v17L4Project || window._v16SelectedProject;
+  if (!project) {
+    area.innerHTML = '<div style="padding:24px;color:#94a3b8">Select a project to view overview</div>';
+    return;
+  }
+  area.innerHTML = '<div id="v16L4OverviewInner"><div style="padding:24px;color:#94a3b8">Loading project overview...</div></div>';
+  (async function(){
+    var headers = await v16GetAuthHeaders();
+    var resp = await fetch('/api/milestones?project_id=' + project.id, {headers: headers});
+    var tasks = resp.ok ? await resp.json() : [];
+    var stats = v16TaskStats(tasks);
+    var pct = stats.total > 0 ? Math.round(stats.done / stats.total * 100) : 0;
+    var name = project.name || 'Project #' + project.id;
+    var category = project.category || '-';
+    var owner = project.owner || '-';
+    var startDate = project.start_date || '-';
+    var endDate = project.end_date || '-';
+    var status = project.status || 'In Progress';
+    var riskFlag = project.risk_flag || 'None';
+    var cycle = '-';
+    if (startDate && endDate && startDate !== '-' && endDate !== '-') {
+      var s = new Date(startDate + 'T00:00:00');
+      var e = new Date(endDate + 'T00:00:00');
+      var days = Math.round((e - s) / 86400000);
+      if (days > 0) cycle = days + ' days';
+    }
+    var riskColor = riskFlag === 'Critical' ? '#ef4444' : riskFlag === 'High' ? '#f97316' : riskFlag === 'Medium' ? '#fbbf24' : '#22c55e';
+    // Phase steps derived from tasks
+    var phaseMap = {}; var phaseOrder = [];
+    tasks.forEach(function(t){
+      var ph = t.phase || 'Other';
+      if (!phaseMap[ph]) { phaseMap[ph] = true; phaseOrder.push(ph); }
+    });
+    var msHtml = phaseOrder.map(function(ph, i){
+      var phaseTasks = tasks.filter(function(t){ return (t.phase || 'Other') === ph; });
+      var done = phaseTasks.every(function(t){ return t.status === 'Completed' || t.status === 'Done'; });
+      var active = !done && phaseTasks.some(function(t){ return t.status === 'In Progress' || t.status === 'Blocked'; });
+      var icon = done ? '✅' : active ? '🔴' : '○';
+      var color = done ? '#22c55e' : active ? '#ef4444' : '#475569';
+      return '<div class="v16-phase-step" style="color:' + color + ';border-color:' + color + '44">' + icon + ' ' + v16EscapeHtml(ph) + '</div>' + (i < phaseOrder.length - 1 ? '<div class="v16-phase-arrow" style="color:' + color + '">→</div>' : '');
+    }).join('');
+    var nextMs = '-'; var delayDays = 0;
+    tasks.forEach(function(t){
+      if (t.due_date && v16TaskLiveStatus(t) === 'overdue') { var d = v16DaysLate(t); if (d > delayDays) delayDays = d; }
+      if (t.status !== 'Completed' && t.status !== 'Done' && t.due_date && (nextMs === '-' || t.due_date < nextMs)) nextMs = t.due_date;
+    });
+    var overviewHtml = document.getElementById('v16L4OverviewInner');
+    if (!overviewHtml) return;
+    overviewHtml.innerHTML =
+      '<div style="margin-bottom:20px"><h3 style="font-size:20px;font-weight:700;color:#fff;margin:0 0 4px">' + v16EscapeHtml(name) + '</h3><p style="font-size:13px;color:#7a8fa3;margin:0">' + v16EscapeHtml(category) + ' - ' + v16EscapeHtml(status) + '</p></div>' +
+      '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px">' +
+        '<div class="v16-info-card"><div class="v16-info-card-label">Owner</div><div class="v16-info-card-value" style="color:#60a5fa">' + v16EscapeHtml(owner) + '</div></div>' +
+        '<div class="v16-info-card"><div class="v16-info-card-label">Type</div><div class="v16-info-card-value" style="color:#22c55e">' + v16EscapeHtml(category) + '</div></div>' +
+        '<div class="v16-info-card"><div class="v16-info-card-label">Start Date</div><div class="v16-info-card-value">' + v16EscapeHtml(startDate) + '</div></div>' +
+        '<div class="v16-info-card"><div class="v16-info-card-label">Cycle</div><div class="v16-info-card-value" style="color:#fbbf24">' + cycle + '</div></div>' +
+        '<div class="v16-info-card"><div class="v16-info-card-label">Progress</div><div class="v16-info-card-value" style="color:#818cf8">' + pct + '%</div></div>' +
+      '</div>' +
+      '<div class="v16-card" style="margin-bottom:24px"><div class="v16-card-title">Workflow Progress</div><div style="display:flex;align-items:center;gap:0;padding:8px 0;flex-wrap:nowrap;overflow-x:auto">' + msHtml + '</div></div>' +
+      '<div class="v16-grid-2" style="margin-bottom:24px"><div class="v16-card"><div class="v16-card-title">Project Status</div><div style="display:flex;align-items:center;justify-content:center;padding:20px">' +
+        v16CreateProgressRing(140, pct, '#818cf8') +
+      '</div><div style="display:flex;justify-content:center;gap:20px;margin-top:12px">' +
+        '<div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#22c55e">' + stats.done + '</div><div style="font-size:10px;color:#64748b">Completed</div></div>' +
+        '<div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#60a5fa">' + stats.in_progress + '</div><div style="font-size:10px;color:#64748b">In Progress</div></div>' +
+        '<div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#ef4444">' + stats.overdue + '</div><div style="font-size:10px;color:#64748b">Overdue</div></div>' +
+        '<div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#64748b">' + stats.not_started + '</div><div style="font-size:10px;color:#64748b">Pending</div></div>' +
+      '</div></div>' +
+      '<div style="display:flex;flex-direction:column;gap:12px"><div class="v16-info-card"><div class="v16-info-card-label">Overdue Tasks</div><div class="v16-info-card-value" style="color:#ef4444;font-size:36px">' + stats.overdue + '</div></div>' +
+      '<div class="v16-info-card"><div class="v16-info-card-label">Next Milestone</div><div class="v16-info-card-value" style="color:#60a5fa;font-size:22px">' + v16EscapeHtml(nextMs) + '</div><div style="font-size:12px;color:#64748b;margin-top:2px">Next due date</div></div></div></div>' +
+      '<div class="v16-card"><div class="v16-card-title">Risk Assessment</div><div style="padding:16px;text-align:center"><span style="font-size:28px;font-weight:800;color:' + riskColor + '">' + v16EscapeHtml(riskFlag) + '</span></div></div>';
+    v16AnimateCountUps();
+  })();
 }
+
 
 // ============================================================
 // L4-Tasks (SL500 real tasks)
