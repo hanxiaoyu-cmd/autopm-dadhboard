@@ -1,0 +1,117 @@
+=== initEventListeners ===
+function initEventListeners() {
+            // Core click - assign ready tasks
+            document.getElementById('auto-pm-core').onclick = () => {
+                // If no active project, open new project modal
+                if (!projects || projects.length === 0 || activeProjectIndex < 0) {
+                    showNewProjectModal();
+                    return;
+                }
+                // Check for completed projects (only the currently active one)
+                const currentProject = projects[activeProjectIndex];
+                if (currentProject && currentProject.status === 'completed') {
+                    showArchiveConfirmModal(currentProject);
+                } else {
+                    // Click center ball in manual mode to assign ready tasks
+                    if (!autoMode) {
+                        assignAllReadyTasks();
+                        refreshAllUI();
+                    }
+                    // Show notification
+                    const readyCount = projects.reduce((sum, p) => sum + p.tasks.filter(t => t.status === TASK_STATES.READY).length, 0);
+                    if (readyCount > 0) {
+                        showNotification('📋 Task Assignment', `assigned ready tasks, ${readyCount} tasks waiting for assignment`, 'info');
+                    }
+                }
+            };
+
+            // Reset button
+            document.getElementById('btn-reset').onclick = showResetConfirmDialog;
+
+            // New project button
+            document.getElementById('btn-new-project').onclick = showNewProjectModal;
+
+            // Simulate obstacle button
+            document.getElementById('btn-simulate-obstacle').onclick = simulateObstacle;
+
+            // Time slider
+            document.getElementById('time-slider').onchange = (e) => {
+                timeSpeed = parseInt(e.target.value);
+                updateTimeSpeedLabel();
+            };
+
+            // View toggle (v14 — new nav)
+            var btnOverview = document.getElementById('btn-overview');
+            var btnToday = document.getElementById('btn-today');
+            var btnDetail = document.getElementById('btn-detail');
+            if (btnOverview) btnOverview.onclick = () => switchView('overview');
+            if (btnToday) btnToday.onclick = () => switchView('today');
+            if (btnDetail) btnDetail.onclick = () => switchView('detail');
+            // Legacy buttons (still in DOM for backward compat)
+            var btnGlobalView = document.getElementById('btn-global-view');
+            var btnListView = document.getElementById('btn-list-view');
+            var btnDashboard = document.getElementById('btn-dashboard');
+            if (btnGlobalView) btnGlobalView.onclick = () => switchView('global');
+            if (btnListView) btnListView.onclick = () => switchView('list');
+            if (btnDashboard) btnDashboard.onclick = () => switchView('dashboard');
+
+            // Window resize
+            window.addEventListener('resize', initWorkstations);
+
+            // Click outside modal to close
+            document.getElementById('task-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'task-modal') closeTaskModal();
+            });
+
+            document.getElementById('new-project-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'new-project-modal') closeNewProjectModal();
+            });
+
+            document.getElementById('reset-confirm-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'reset-confirm-modal') closeResetConfirmDialog();
+            });
+
+            document.getElementById('archive-confirm-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'archive-confirm-modal') closeArchiveConfirm();
+            });
+
+            document.getElementById('obstacle-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'obstacle-modal') closeObstacleModal();
+            });
+
+            document.getElementById('detail-panel').addEventListener('click', (e) => {
+                if (e.target.id === 'detail-panel') closeDetailPanel();
+            });
+            
+            // My Tasks panel click outside to close
+            document.getElementById('my-tasks-panel').addEventListener('click', (e) => {
+                if (e.target.id === 'my-tasks-panel') toggleMyTasksPanel();
+            });
+            
+            // My Projects panel click outside to close
+            document.getElementById('my-projects-panel').addEventListener('click', (e) => {
+                if (e.target.id === 'my-projects-panel') toggleMyProjectsPanel();
+            });
+            
+            // User identity modal click outside to close
+            document.getElementById('user-identity-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'user-identity-modal') closeUserIdentityModal();
+            });
+        }
+
+=== Global click handlers that stopPropagation ===
+document.addEventListener('click', function(e) {
+            const target = e.target.closest('[id]') || e.target;
+            const id = target.id || '';
+            
+            if (id === 'btn-c
+---
+document.addEventListener('click', function(e) {
+            const card = e.target.closest('[data-filter]');
+            if (card && document.getElementById('dashboard-view') && !document.getElement
+---
+document.addEventListener('click', function(e) {
+    const container = document.getElementById('identity-selector-container');
+    const dropdown = document.getElementById('identity-dropdown');
+   
+---

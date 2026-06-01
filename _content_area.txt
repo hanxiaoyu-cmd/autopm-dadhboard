@@ -1,0 +1,20 @@
+ed.top-20.left-4 {
+  display: none !important;
+}
+body.v16-active .right-panel-container {
+  display: none !important;
+}
+body.v16-active #center-area {
+  display: none !important;
+}
+body.v16-active .fixed.bottom-8 {
+  display: none !important;
+}
+/* L4 mode CSS removed - L4 now renders in v16ContentArea */
+</style>
+</head>
+<body>
+
+<!-- ========== v16 Sidebar ========== -->
+<div class="v16-sidebar" id="v16Sidebar">
+  <div style="margin-bottom:2px;font-size:10px;color:var(--v16-te

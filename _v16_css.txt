@@ -1,0 +1,20 @@
+body.v16-active {
+  margin-left: 0 !important;
+}
+/* Hide original UI only when NOT in L4 mode */
+body.v16-active header.fixed {
+  display: none !important;
+}
+body.v16-active .fixed.top-20.left-4 {
+  display: none !important;
+}
+body.v16-active .right-panel-container {
+  display: none !important;
+}
+body.v16-active #center-area {
+  display: none !important;
+}
+body.v16-active .fixed.bottom-8 {
+  display: none !important;
+}
+/* L4 mode CSS removed - L4 now renders in v16ContentArea */

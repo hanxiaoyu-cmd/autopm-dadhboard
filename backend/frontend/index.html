@@ -1720,8 +1720,21 @@ body.v16-active #center-area {
 body.v16-active .fixed.bottom-8 {
   display: none !important;
 }
+
+body.v16-active #core-wrapper {
+  display: none !important;
+}
+
+body.v16-active #auto-pm-core {
+  display: none !important;
+}
 /* L4 mode CSS removed - L4 now renders in v16ContentArea */
-</style>
+
+
+/* Hide all old UI containers when v16 is active */
+body.v16-active .min-h-screen {
+  display: none !important;
+}</style>
 </head>
 <body>
 
@@ -14261,6 +14274,8 @@ document.addEventListener('DOMContentLoaded', function() {
   if (oldRightPanel) oldRightPanel.style.display = 'none';
   var oldCenter = document.getElementById('center-area');
   if (oldCenter) oldCenter.style.display = 'none';
+  var oldCore = document.getElementById('core-wrapper');
+  if (oldCore) oldCore.style.display = 'none';
   v16SwitchLevel('L1');
   v16Initialized = true;
 });

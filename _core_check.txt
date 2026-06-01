@@ -1,0 +1,4 @@
+ class="relative z-20" id="core-wrapper">
+            <div class="w-36 h-36 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-blue-800 flex items-center justify-center cursor-pointer" id="auto-pm-core" style="box-shadow: 0 0 30px rgba(59,130,246,0.6), 0 0 60px rgba(59,130,246,0.3), 0 0 90px rgba(59,130,246,0.15); animation: coreBreathe 3s ease-in-out infinite;">
+                <div class="text-xl font-bold text-white text-center leading-tight">
+                    <div id="core-pr
