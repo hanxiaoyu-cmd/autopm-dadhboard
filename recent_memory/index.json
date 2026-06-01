@@ -1,0 +1,292 @@
+[
+  {
+    "file_name": "project/NPI流程AI助手.md",
+    "category": "project",
+    "summary": "NPI Extension流程AI助手——已转向Coze平台（Copilot中国区不可用），V2 HTML已完成，待创建Coze Bot+逐Gate核对",
+    "tags": ["NPI", "AutoPM", "AI工具", "Coze", "SharkNinja", "流程指南", "Copilot Studio"],
+    "importance": 4,
+    "created_at": "2026-05-27T10:30:00Z",
+    "updated_at": "2026-05-27T12:35:00Z",
+    "expires_at": null
+  },
+  {
+    "file_name": "decision/NPI部署平台转向Coze.md",
+    "category": "decision",
+    "summary": "因Copilot Studio中国区GPT/Claude模型限制，NPI流程助手转向Coze平台，知识库通用可迁移",
+    "tags": ["NPI", "Coze", "Copilot Studio", "中国区限制", "平台选择"],
+    "importance": 3,
+    "created_at": "2026-05-27T12:35:00Z",
+    "updated_at": "2026-05-27T12:35:00Z",
+    "expires_at": "2026-08-27T12:35:00Z"
+  },
+  {
+    "file_name": "project/AutoPM_改革.md",
+    "category": "project",
+    "summary": "AutoPM v18.0验证发现Bug（2026-05-29）：My Work页面projects.filter崩溃/API端点错误/UI显示异常；v18.1已修复（防御性检查/API端点修正/token注入）；v18.1浏览器验证✅；v18.2新增L3详情面板/L4 Document侧边栏；验证结果：无console错误/L4 Overview正常/Task Board状态切换正常/Document显示NPI 00-13；⚠️站点显示v18.0而非v18.1",
+    "tags": ["AutoPM", "v18.0", "v18.1", "v18.2", "Render部署", "SharkNinja", "版本档案", "Bug修复", "L4", "L3详情面板", "Document侧边栏", "浏览器验证", "API认证"],
+    "importance": 5,
+    "created_at": "2026-05-28T00:00:00Z",
+    "updated_at": "2026-05-30T15:00:00Z",
+    "expires_at": null
+  },
+  {
+    "file_name": "project/书籍解读与音频.md",
+    "category": "project",
+    "summary": "改变思维书籍解读+音频重做：9本待修，标签A:/B:替换，≤3000字；100人推送41/100",
+    "tags": ["书籍解读", "音频重做", "播客", "100人推送"],
+    "importance": 3,
+    "created_at": "2026-05-28T00:00:00Z",
+    "updated_at": "2026-05-28T00:00:00Z",
+    "expires_at": "2026-07-28T00:00:00Z"
+  },
+  {
+    "file_name": "decision/AutoPM_PDF自动解析.md",
+    "category": "decision",
+    "summary": "AutoPM PDF自动解析决策：短期对话上传→API创建，中期网站端集成；Add Task已含owner/due_date",
+    "tags": ["AutoPM", "PDF", "自动解析", "Add Task", "SL500EUUK"],
+    "importance": 4,
+    "created_at": "2026-05-28T00:00:00Z",
+    "updated_at": "2026-05-28T09:00:00Z",
+    "expires_at": null
+  },
+  {
+    "file_name": "decision/Rodyr提案审查.md",
+    "category": "decision",
+    "summary": "Rodyr/Ufuk提案审查及全面调研：已完成15张Feature Cards审查和公司/产品深度调研，综合得分3.45/10，不建议作为AutoPM主要合作伙伴",
+    "tags": ["Rodyr", "Ufuk", "AutoPM", "提案审查", "Feature Cards", "SharkNinja", "MVP", "调研评估"],
+    "importance": 5,
+    "created_at": "2026-05-28T09:00:00Z",
+    "updated_at": "2026-05-29T00:00:00Z",
+    "expires_at": "2026-08-28T09:00:00Z"
+  },
+  {
+    "file_name": "project/链条15-哲学家的追问.md",
+    "category": "project",
+    "summary": "链条15-哲学家的追问全部完成✅：苏格拉底/康德/尼采/王阳明/萨特全套（卡片+讲述稿+播客）；萨特播客17分40秒（podcasts/萨特：拒绝诺奖的自由战士.podcast）；最动人细节：5万人自发送葬波伏瓦扔花",
+    "tags": ["链条15", "哲学家", "苏格拉底", "康德", "尼采", "王阳明", "萨特", "讲述稿", "知识卡片", "播客", "已完成"],
+    "importance": 3,
+    "created_at": "2026-05-27T20:42:37Z",
+    "updated_at": "2026-05-31T23:04:00Z",
+    "expires_at": "2026-08-27T20:42:37Z"
+  },
+  {
+    "file_name": "decision/Agileex主路线判断.md",
+    "category": "decision",
+    "summary": "[已过时] 原判断Agileex为主路线——已被2026-05-29 Agileex会议后结论替代，Agileex不能解决数据问题，策略已改为Ody为主Agileex为辅，详见decision/Ody_vs_Agileex供应商策略.md",
+    "tags": ["AutoPM", "Agileex", "Rodyr", "路线选择", "Jen汇报", "[已过时]"],
+    "importance": 5,
+    "created_at": "2026-05-28T16:00:00Z",
+    "updated_at": "2026-05-30T08:30:00Z",
+    "expires_at": "2026-08-28T16:00:00Z"
+  },
+  {
+    "file_name": "project/AutoPM Phase 1计划.md",
+    "category": "project",
+    "summary": "AutoPM Phase 1计划（含更新）：以Ody为主平台（知识图谱+AI），Agileex为辅（Power BI展示/微软生态集成）；Phase 1包含界面/报表/集成/AI接口预留",
+    "tags": ["AutoPM", "Agileex", "Ody", "Phase 1", "Power Apps", "Power BI", "Snowflake", "集成开发"],
+    "importance": 5,
+    "created_at": "2026-05-28T16:00:00Z",
+    "updated_at": "2026-05-30T08:30:00Z",
+    "expires_at": null
+  },
+  {
+    "file_name": "project/AutoPM新项目录入.md",
+    "category": "project",
+    "summary": "4个真实项目(IDs 2882-2885)，milestones已全部录入DB(SL500:39/BW1001:56/AS080:29/AS101:17=141个)；2200假项目保留撑场面；L4 Tasks从API加载milestones，状态和日期可内联编辑",
+    "tags": ["AutoPM", "项目录入", "真实项目", "BW1001EUUK", "AS080UK", "AS101KRxx", "v17.5.6", "SharkNinja", "IDs 2882-2885", "里程碑可编辑"],
+    "importance": 4,
+    "created_at": "2026-05-28T19:00:00Z",
+    "updated_at": "2026-05-30T08:30:00Z",
+    "expires_at": "2026-06-28T19:00:00Z"
+  },
+  {
+    "file_name": "project/微软Windows11_AI操作系统电子书.md",
+    "category": "project",
+    "summary": "微软发布14页电子书，将Windows11定义为企业级AI操作系统，核心战略是AI嵌入系统底层与工作流",
+    "tags": ["微软", "Windows11", "AI操作系统", "Copilot", "AI办公", "企业AI"],
+    "importance": 4,
+    "created_at": "2026-05-27T04:06:25Z",
+    "updated_at": "2026-05-27T04:06:25Z",
+    "expires_at": "2026-08-27T04:06:25Z"
+  },
+  {
+    "file_name": "project/神州数码原力企业虾AI智能体活动.md",
+    "category": "project",
+    "summary": "神州数码上海站活动聚焦AI智能体规模化落地，AI for Process方法论与AutoPM思路契合",
+    "tags": ["神州数码", "AI智能体", "规模化落地", "AI for Process", "AutoPM", "ROI案例"],
+    "importance": 4,
+    "created_at": "2026-05-28T05:08:29Z",
+    "updated_at": "2026-05-28T05:08:29Z",
+    "expires_at": "2026-08-28T05:08:29Z"
+  },
+  {
+    "file_name": "project/下周二Jen汇报计划.md",
+    "category": "project",
+    "summary": "周二Jen向Ross汇报Ody vs Agileex评估结果：Agileex天花板明确❌，Ody方向对但未验证✅需Discovery；关键文件：AutoPM_Vendor_Evaluation.md（六维对比+各自vs需求）；推进计划：今晚写Jen brief+Ody验证问题+约Ody二轮会，周二汇报拿Discovery批准",
+    "tags": ["AutoPM", "Jen汇报", "Ross", "Ody", "Agileex", "六维评估", "供应商策略", "Discovery Phase", "下周二"],
+    "importance": 5,
+    "created_at": "2026-05-29T11:00:00Z",
+    "updated_at": "2026-05-30T09:59:00Z",
+    "expires_at": "2026-06-05T11:00:00Z"
+  },
+  {
+    "file_name": "decision/输出质量失败与整改机制.md",
+    "category": "decision",
+    "summary": "2026-05-29 Sunny批评：供应商评估四版才到位；根本原因：写得多代替想得深+填充未验证信息+不听指令；承诺三项机制：任务前对齐/角色先于内容/未知必须标灰；\"你说得对\"必须跟行动而非自我检讨",
+    "tags": ["输出质量", "Sunny批评", "整改机制", "任务前对齐", "角色代入", "未知标灰", "MEMORY更新", "USER更新"],
+    "importance": 5,
+    "created_at": "2026-05-30T09:59:00Z",
+    "updated_at": "2026-05-30T09:59:00Z",
+    "expires_at": null
+  },
+  {
+    "file_name": "decision/Rodyr公司综合评估.md",
+    "category": "decision",
+    "summary": "Rodyr公司综合评估：柏林早期AI初创公司，团队小缺乏企业集成经验，不建议作为AutoPM主要合作伙伴，推荐技术顾问/模块采购/POC验证",
+    "tags": ["Rodyr", "AI初创公司", "AutoPM", "合作伙伴评估", "技术顾问", "POC验证"],
+    "importance": 5,
+    "created_at": "2026-05-29T00:00:00Z",
+    "updated_at": "2026-05-29T00:00:00Z",
+    "expires_at": "2026-08-29T00:00:00Z"
+  },
+  {
+    "file_name": "todo/AutoPM待办清单.md",
+    "category": "todo",
+    "summary": "AutoPM待办清单：确认PLM→Snowflake数据覆盖 | 推进Ody Discovery | L4 Overview动态化 | 下周二Jen汇报",
+    "tags": ["AutoPM", "待办清单", "Jen汇报", "Ody", "Agileex", "Snowflake", "项目录入", "性能优化"],
+    "importance": 5,
+    "created_at": "2026-05-28T00:00:00Z",
+    "updated_at": "2026-05-30T08:30:00Z",
+    "expires_at": "2026-06-28T00:00:00Z"
+  },
+  {
+    "file_name": "project/Agileex调研报告.md",
+    "category": "project",
+    "summary": "Agileex（敏捷艾科）调研报告：公司11年130+人专注微软生态；能做Power BI/Apps/Automate/Snowflake；关键局限：PLM直连不可能、无PM产品经验、AI链路受国内模型限制",
+    "tags": ["Agileex", "AutoPM", "调研报告", "微软生态", "制造业", "AI能力评估", "Power Apps", "Snowflake"],
+    "importance": 5,
+    "created_at": "2026-05-30T00:00:00Z",
+    "updated_at": "2026-05-30T08:30:00Z",
+    "expires_at": "2026-08-30T00:00:00Z"
+  },
+  {
+    "file_name": "decision/Ody_vs_Agileex供应商策略.md",
+    "category": "decision",
+    "summary": "供应商策略v2：六维评估框架确立；核心需求重新定义（不是打通PLM，是汇聚所有项目数据）；两家都不懂PM是关键洞察；Ody★★★☆☆（声称未验证），Agileex★★☆☆☆（天花板明确）",
+    "tags": ["Ody", "Agileex", "供应商策略", "六维评估", "PM理解力", "数据集成", "AI洞察", "Jen汇报", "AutoPM", "Phase 1"],
+    "importance": 5,
+    "created_at": "2026-05-30T08:30:00Z",
+    "updated_at": "2026-05-30T09:00:00Z",
+    "expires_at": null
+  },
+  {
+    "file_name": "project/链条8-探索生命之谜.md",
+    "category": "project",
+    "summary": "链条8-探索生命之谜：达尔文/沃森已完成全套，下一人克里克",
+    "tags": ["链条8", "生命科学", "达尔文", "沃森", "DNA", "富兰克林", "讲述稿", "播客"],
+    "importance": 3,
+    "created_at": "2026-05-30T14:32:00Z",
+    "updated_at": "2026-05-30T14:32:00Z",
+    "expires_at": "2026-08-30T14:32:00Z"
+  },
+  {
+    "file_name": "decision/AutoPM_v18.0_Bug分析.md",
+    "category": "decision",
+    "summary": "AutoPM v18.0 Bug分析与修复决策：My Work页面projects.filter崩溃等4个核心问题，已在v18.1通过防御性检查等方式修复",
+    "tags": ["AutoPM", "v18.0", "v18.1", "Bug分析", "修复决策", "API认证", "前端Bug"],
+    "importance": 4,
+    "created_at": "2026-05-30T15:00:00Z",
+    "updated_at": "2026-05-30T15:00:00Z",
+    "expires_at": "2026-08-30T15:00:00Z"
+  },
+  {
+    "file_name": "project/AutoPM战略调整.md",
+    "category": "project",
+    "summary": "AutoPM战略调整：从独立开发全功能系统转向概念验证demo+智能层方案，聚焦延期预警、跨部门阻塞检测等AI能力，争取Jen支持与Agileex合作",
+    "tags": ["AutoPM", "战略调整", "AI+制造业", "Jen汇报", "Agileex", "智能层"],
+    "importance": 5,
+    "created_at": "2026-05-30T16:00:00Z",
+    "updated_at": "2026-05-30T16:00:00Z",
+    "expires_at": null
+  },
+  {
+    "file_name": "decision/AI+制造业副业方向.md",
+    "category": "decision",
+    "summary": "AI+制造业副业方向：利用制造业深度×AI实践×CTO视野的交叉能力，提供AI工具代建服务，6周内目标接到第一个单子并交付",
+    "tags": ["副业", "AI+制造业", "AI工具代建", "Coze", "中小制造企业", "外贸公司"],
+    "importance": 5,
+    "created_at": "2026-05-30T16:00:00Z",
+    "updated_at": "2026-05-30T16:00:00Z",
+    "expires_at": null
+  },
+  {
+    "file_name": "project/网易智企帝王蟹AI员工平台.md",
+    "category": "project",
+    "summary": "网易智企发布\"帝王蟹\"AI员工管理平台及\"CodeWave SDD\"企业级AI Coding平台，解决AI落地五大断层，与用户AutoPM探索路径高度契合",
+    "tags": ["网易智企", "帝王蟹平台", "AI员工", "企业AI", "AI智能体商业化", "AutoPM", "CodeWave SDD", "AI Coding平台", "规格驱动开发"],
+    "importance": 4,
+    "created_at": "2026-05-30T18:05:08Z",
+    "updated_at": "2026-05-31T13:00:00Z",
+    "expires_at": "2026-08-30T18:05:08Z"
+  },
+  {
+    "file_name": "project/詹姆斯·沃森播客素材研究笔记.md",
+    "category": "project",
+    "summary": "《改变世界的100人》播客素材——詹姆斯·沃森完整研究笔记，包含核心故事、关键细节、人物关系、科学贡献、争议与代价等",
+    "tags": ["链条8", "生命科学", "沃森", "DNA", "富兰克林", "播客素材", "研究笔记"],
+    "importance": 4,
+    "created_at": "2026-05-30T19:00:00Z",
+    "updated_at": "2026-05-30T19:00:00Z",
+    "expires_at": "2026-08-30T19:00:00Z"
+  },
+  {
+    "file_name": "decision/agent-browser高级使用技巧.md",
+    "category": "decision",
+    "summary": "agent-browser高级使用技巧：API认证、页面导航、自定义JS执行、API端点验证、Bug诊断",
+    "tags": ["agent-browser", "高级技巧", "API认证", "页面导航", "JS执行"],
+    "importance": 4,
+    "created_at": "2026-05-30T20:00:00Z",
+    "updated_at": "2026-05-30T20:00:00Z",
+    "expires_at": "2026-08-30T20:00:00Z"
+  },
+  {
+    "file_name": "project/MEM论文_V3修订.md",
+    "category": "project",
+    "summary": "MEM论文V3修订全部完成✅：7章节+参考文献完成，3轮审核通过，docx已生成（65638 bytes云电脑pandoc），中文文件名下载问题已解决（创建英文名副本+永久ASCII命名规则）",
+    "tags": ["MEM论文", "论文修订", "V3", "SharkNinja", "多项目进度管理", "双品牌架构", "数据校准", "华东师大", "王振源", "AHP", "CCPM", "德尔菲法", "docx已生成", "ByteString问题已解决"],
+    "importance": 5,
+    "created_at": "2026-05-31T03:00:00Z",
+    "updated_at": "2026-05-31T23:59:00Z",
+    "expires_at": "2026-07-31T23:59:00Z"
+  },
+  {
+    "file_name": "project/链条18+19_10人推送计划.md",
+    "category": "project",
+    "summary": "6/1-6/10每日自动执行：链条18经济学5人（斯密/马克思/凯恩斯/哈耶克/张五常）+链条19电影5人（卓别林/希区柯克/黑泽明/斯皮尔伯格/李安）；每人卡片+讲述稿+音频；voice=儒雅逸辰，mode=solo；用户确认无需提醒",
+    "tags": ["100人推送", "链条18", "链条19", "经济学思想家", "电影大师", "播客", "卡片", "讲述稿", "日程自动执行", "萨特已完成50人"],
+    "importance": 4,
+    "created_at": "2026-05-31T23:00:00Z",
+    "updated_at": "2026-05-31T23:00:00Z",
+    "expires_at": "2026-06-15T00:00:00Z"
+  },
+  {
+    "file_name": "decision/AutoPM使用技巧.md",
+    "category": "decision",
+    "summary": "AutoPM使用技巧：复用原版组件、v17 API字段说明、v18.1 Bug修复等详细指南",
+    "tags": ["AutoPM", "使用技巧", "API说明", "Bug修复", "版本管理"],
+    "importance": 4,
+    "created_at": "2026-06-01T00:00:00Z",
+    "updated_at": "2026-06-01T00:00:00Z",
+    "expires_at": "2026-09-01T00:00:00Z"
+  },
+  {
+    "file_name": "decision/bash命令技巧.md",
+    "category": "decision",
+    "summary": "bash文件系统盘点命令：du查看大小、find统计文件类型等常用技巧",
+    "tags": ["bash", "命令行", "文件系统", "盘点技巧"],
+    "importance": 3,
+    "created_at": "2026-06-01T00:00:00Z",
+    "updated_at": "2026-06-01T00:00:00Z",
+    "expires_at": "2026-09-01T00:00:00Z"
+  }
+]

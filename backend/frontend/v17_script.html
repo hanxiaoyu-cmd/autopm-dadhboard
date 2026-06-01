@@ -1,0 +1,1420 @@
+
+<!-- ========== v17.0 Four-Layer Architecture JS ========== -->
+<script>
+// ============================================================
+// v17.0 State
+// ============================================================
+let v16CurrentLevel = 'L1';
+let v16CurrentTab = 'Dashboard';
+let v16Initialized = false;
+window._v17L4Project = null;
+window._v17L3Owner = null;
+window._v17AIChatOpen = false;
+window._v17AIChatHistory = [];
+window._v17Blockers = [];
+
+// Color system v17.0
+const C = {critical:'#FF4444',atRisk:'#FFAA00',onTrack:'#00CC66',info:'#888888',blue:'#3b82f6',purple:'#818cf8'};
+
+// Tab definitions per level (v17.0)
+const V16_TABS = {
+  L1: ['Dashboard', 'Pipeline', 'Analytics', 'AI Brief'],
+  L2: ['Overview', 'Projects', 'Team', 'AI Advisor'],
+  L3: ['My Work', 'AI Daily'],
+  L4: ['Overview', 'Tasks', 'AI Copilot', 'Workflow', 'Document', 'Team'],
+  LD: ['Documents']
+};
+
+// AI contextual hints per level/context
+const AI_HINTS = {
+  L1: [
+    'Based on current trends, 3 more projects will enter At Risk within 2 weeks. Recommend reviewing SC capacity now.',
+    'SC has been #1 risk department for 3 weeks. Root cause: 2 unfilled positions.',
+    'Portfolio health is trending down. Compliance bottleneck accounts for 35% of delays.'
+  ],
+  L2: [
+    'Moving 1 engineer from ID to EE would unblock 4 projects at G3-G4.',
+    'Your G2 approval averages 12 days. Industry benchmark: 5 days.',
+    'PMO utilization at 87% — consider redistributing 2 projects to NPI.'
+  ],
+  L3: [
+    'Do PCB approval first — it is blocking 2 downstream tasks.',
+    'This task has been In Progress for 8 days. Average is 3 days. Need help?',
+    'You are the bottleneck on 3 projects. Focus on P0 items first.'
+  ],
+  L4: [
+    '3 similar EE blockers were resolved by escalating to VP. Suggest escalation?',
+    'Fastest path to MP: if DQTP completes by Jul 10, you can save 2 weeks.',
+    'This task is on the critical path. Any delay pushes MP date.'
+  ]
+};
+
+function aiHint(level) {
+  var hints = AI_HINTS[level] || AI_HINTS.L1;
+  return hints[Math.floor(Math.random() * hints.length)];
+}
+
+function aiBubble(text) {
+  return '<div style="margin:8px 0;padding:8px 12px;background:#1a1a2e;border:1px solid #7c3aed33;border-radius:8px;font-size:12px;color:#c4b5fd;display:flex;align-items:flex-start;gap:8px;animation:v17fadeIn 0.4s ease"><span style="font-size:14px;flex-shrink:0">🤖</span><span>' + text + '</span></div>';
+}
+
+// ============================================================
+// v17 Level & Tab Switching
+// ============================================================
+function v16SwitchLevel(level) {
+  v16CurrentLevel = level;
+  v16CurrentTab = V16_TABS[level][0];
+  document.querySelectorAll('.v16-sidebar-item[data-level]').forEach(el => {
+    el.classList.toggle('active', el.dataset.level === level);
+  });
+  var header = document.querySelector('header.fixed');
+  if (header) header.style.display = 'none';
+  var leftPanel = document.querySelector('.fixed.top-20.left-4');
+  if (leftPanel) leftPanel.style.display = 'none';
+  var rightPanel = document.querySelector('.right-panel-container');
+  if (rightPanel) rightPanel.style.display = 'none';
+  var centerArea = document.getElementById('center-area');
+  if (centerArea) centerArea.style.display = 'none';
+  var v16Area = document.getElementById('v16ContentArea');
+  if (v16Area) v16Area.style.display = '';
+  var v16TabBar = document.getElementById('v16TabBar');
+  if (v16TabBar) v16TabBar.style.display = '';
+  v16RenderTabBar();
+  v16RenderContent();
+}
+
+function v16RenderTabBar() {
+  const bar = document.getElementById('v16TabBar');
+  if (!bar) return;
+  const tabs = V16_TABS[v16CurrentLevel];
+  bar.innerHTML = tabs.map(t => {
+    const active = t === v16CurrentTab ? 'active' : '';
+    const iconMap = {
+      'Dashboard':'📊','Pipeline':'🏭','Analytics':'📈','AI Brief':'🤖',
+      'AI Advisor':'🤖','AI Daily':'🤖','AI Copilot':'🧠',
+      'Overview':'📊','Projects':'📋','Team':'👥','AI Suggestions':'🤖',
+      'My Work':'📋','Tasks':'✅','Workflow':'🔄','Documents':'📁'
+    };
+    return '<button class="v16-tab-item ' + active + '" onclick="v16SwitchTab(\'' + t + '\')">' + (iconMap[t]||'') + ' ' + t + '</button>';
+  }).join('');
+}
+
+function v16SwitchTab(name) {
+  v16CurrentTab = name;
+  v16RenderTabBar();
+  v16RenderContent();
+}
+
+// ============================================================
+// v17 Content Renderer
+// ============================================================
+function v16RenderContent() {
+  const area = document.getElementById('v16ContentArea');
+  if (!area) return;
+  const existingViews = ['overview-view','today-view','my-dashboard-view','data-import-view','taskboard-view','dashboard-view','gantt-view','nodeflow-view'];
+  existingViews.forEach(id => { const el = document.getElementById(id); if (el) el.classList.add('hidden'); });
+  const key = v16CurrentLevel + '-' + v16CurrentTab;
+  const renderers = {
+    'L1-Dashboard': v16RenderL1Dashboard,
+    'L1-Pipeline': v16RenderL1Pipeline,
+    'L1-Analytics': v16RenderL1Analytics,
+    'L1-AI Brief': v16RenderL1AIBrief,
+    'L2-Overview': v16RenderL2Overview,
+    'L2-Projects': v16RenderL2Projects,
+    'L2-Team': v16RenderL2Team,
+    'L2-AI Advisor': v16RenderL2AIAdvisor,
+    'L3-My Work': v16RenderL3MyWork,
+    'L3-AI Daily': v16RenderL3AIDaily,
+    'L4-Overview': v16RenderL4Overview,
+    'L4-Tasks': v16RenderL4Tasks,
+    'L4-AI Copilot': v16RenderL4AICopilot,
+    'L4-Workflow': v16RenderL4Workflow,
+    'L4-Document': v16RenderL4Document,
+    'L4-Team': v16RenderL4Team,
+    'LD-Documents': v16RenderL4Document
+  };
+  const fn = renderers[key];
+  if (fn) {
+    area.innerHTML = '';
+    area.style.display = '';
+    fn(area);
+    area.classList.remove('v16-fade-in');
+    void area.offsetWidth;
+    area.classList.add('v16-fade-in');
+    requestAnimationFrame(() => { v16AnimateCountUps(); v16AnimateBars(); });
+  }
+}
+
+// ============================================================
+// Animation Helpers
+// ============================================================
+function v16AnimateCountUps() {
+  document.querySelectorAll('[data-v16-count]').forEach(el => {
+    const target = parseFloat(el.dataset.v16Count);
+    const isFloat = el.dataset.v16Float === '1';
+    const suffix = el.dataset.v16Suffix || '';
+    const duration = 1200;
+    const start = performance.now();
+    function tick(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const val = target * eased;
+      el.textContent = (isFloat ? val.toFixed(1) : Math.round(val).toLocaleString()) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+}
+function v16AnimateBars() {
+  document.querySelectorAll('[data-v16-bar-width]').forEach(el => {
+    const w = el.dataset.v16BarWidth;
+    requestAnimationFrame(() => { el.style.width = w; });
+  });
+}
+
+// ============================================================
+// SVG Helpers
+// ============================================================
+function v16CreateProgressRing(size, pct, color) {
+  const r = (size - 12) / 2;
+  const c = 2 * Math.PI * r;
+  const offset = c - (pct / 100) * c;
+  return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'">' +
+    '<circle cx="'+(size/2)+'" cy="'+(size/2)+'" r="'+r+'" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8"/>' +
+    '<circle cx="'+(size/2)+'" cy="'+(size/2)+'" r="'+r+'" fill="none" stroke="'+color+'" stroke-width="8" stroke-dasharray="'+c+'" stroke-dashoffset="'+offset+'" stroke-linecap="round" transform="rotate(-90 '+(size/2)+' '+(size/2)+')" style="transition:stroke-dashoffset 1.2s cubic-bezier(0.22,1,0.36,1)"/>' +
+    '<text x="'+(size/2)+'" y="'+(size/2+6)+'" text-anchor="middle" fill="'+color+'" font-size="20" font-weight="700">'+pct+'%</text></svg>';
+}
+
+function v16CreateDonutSVG(size, segments) {
+  var total = segments.reduce(function(s,seg){return s+seg.value;},0);
+  var cx=size/2, cy=size/2, r=size/2-30;
+  var c = 2*Math.PI*r;
+  var offset = 0;
+  var arcs = '';
+  var legend = '';
+  segments.forEach(function(seg){
+    var pct = seg.value/total;
+    var dashLen = pct * c;
+    var gapLen = c - dashLen;
+    arcs += '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+seg.color+'" stroke-width="24" stroke-dasharray="'+dashLen+' '+gapLen+'" stroke-dashoffset="'+(-offset)+'" transform="rotate(-90 '+cx+' '+cy+')" style="transition:all 0.8s ease"/>';
+    offset += dashLen;
+    legend += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="width:10px;height:10px;border-radius:2px;background:'+seg.color+';flex-shrink:0"></span><span style="font-size:12px;color:#cbd5e1">'+seg.label+'</span><span style="font-size:12px;font-weight:600;color:#fff;margin-left:auto">'+seg.value+'</span></div>';
+  });
+  return '<div style="display:flex;align-items:center"><svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'">'+arcs+
+    '<text x="'+cx+'" y="'+(cy-4)+'" text-anchor="middle" fill="#fff" font-size="22" font-weight="700">'+total+'</text>'+
+    '<text x="'+cx+'" y="'+(cy+14)+'" text-anchor="middle" fill="#64748b" font-size="11">Total</text></svg>' +
+    '<div style="margin-left:16px">'+legend+'</div></div>';
+}
+
+// ============================================================
+// Toast
+// ============================================================
+function v16ShowToast(msg, color) {
+  var existing = document.getElementById('v17Toast');
+  if (existing) existing.remove();
+  var toast = document.createElement('div');
+  toast.id = 'v17Toast';
+  var bg = color || 'rgba(0,204,102,0.15)';
+  var fg = color ? '#fff' : '#00CC66';
+  var border = color || 'rgba(0,204,102,0.3)';
+  toast.style.cssText = 'position:fixed;bottom:80px;right:24px;background:'+bg+';border:1px solid '+border+';border-radius:8px;padding:10px 18px;color:'+fg+';font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.3);transition:opacity 0.5s';
+  toast.innerHTML = msg || '✓ Saved';
+  document.body.appendChild(toast);
+  setTimeout(function(){toast.style.opacity='0';},1200);
+  setTimeout(function(){if(toast.parentNode)toast.remove();},1700);
+}
+
+// ============================================================
+// L1-DASHBOARD (Company Level — scaled to ~2200 projects)
+// ============================================================
+function v16RenderL1Dashboard(area) {
+  var token = localStorage.getItem('auth_token') || '';
+  var headers = token ? {'Authorization': 'Bearer ' + token} : {};
+  fetch('/api/projects', {headers: headers})
+    .then(function(r) { return r.json(); })
+    .then(function(projects) {
+      var total = projects.length;
+      var delayed = projects.filter(function(p){return p.risk_flag==='Critical';}).length;
+      var atRisk = projects.filter(function(p){return p.risk_flag==='High';}).length;
+      var blocked = projects.filter(function(p){return p.blocked_department;}).length;
+      var onTrack = Math.max(0, total - delayed - atRisk);
+      var healthScore = total > 0 ? (3 + (onTrack / total) * 2).toFixed(1) : '0.0';
+      if (parseFloat(healthScore) > 5) healthScore = '5.0';
+      var deptCounts = {};
+      projects.forEach(function(p){ if(p.blocked_department) deptCounts[p.blocked_department] = (deptCounts[p.blocked_department]||0)+1; });
+      var deptRiskMap = {};
+      projects.forEach(function(p){ var d = p.department||'Other'; if(!deptRiskMap[d]) deptRiskMap[d]={total:0,risk:0}; deptRiskMap[d].total++; if(p.risk_flag==='Critical'||p.risk_flag==='High') deptRiskMap[d].risk++; });
+      var bottlenecks = Object.keys(deptCounts).map(function(k){return {dept:k,count:deptCounts[k],pct:blocked>0?Math.round(deptCounts[k]/blocked*100):0,color:deptCounts[k]>5?'#FF4444':deptCounts[k]>2?'#FFAA00':'#FFAA00'};}).sort(function(a,b){return b.count-a.count;});
+      if(bottlenecks.length===0) bottlenecks=[{dept:'None',count:0,pct:0,color:'#00CC66'}];
+      var healthStars = Math.round(parseFloat(healthScore));
+      var starsHtml = '';
+      for (var s = 0; s < 5; s++) starsHtml += s < healthStars ? '<span style="color:#fbbf24">★</span>' : '<span style="color:#334155">☆</span>';
+      var maxBn = bottlenecks[0].count || 1;
+      var riskOrder = {'Critical':0,'High':1,'Medium':2,'Low':3,'None':4};
+      projects.sort(function(a,b) { return (riskOrder[a.risk_flag]||5) - (riskOrder[b.risk_flag]||5); });
+      var donutSegs=[{label:'On Track',value:onTrack,color:'#00CC66'},{label:'At Risk',value:atRisk,color:'#FFAA00'},{label:'Delayed',value:delayed,color:'#FF4444'}];
+      var donutHtml=v16CreateDonutSVG(160,donutSegs);
+      // Needs decision
+      var needsDecision = projects.filter(function(p){return p.notes && p.notes.indexOf('DECISION REQUIRED')>=0;});
+      var decisionHtml = needsDecision.slice(0,5).map(function(p){
+        return '<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.03)"><span style="width:8px;height:8px;border-radius:50%;background:#FFAA00;flex-shrink:0;animation:v17pulse 2s infinite"></span><span style="font-size:12px;color:#fff;flex:1">'+p.name+'</span><span style="font-size:10px;color:#FFAA00">'+(p.notes||'').replace('DECISION REQUIRED: ','')+'</span></div>';
+      }).join('');
+      // 7-day trend
+      var trendData = [18, 19, 20, 19, 21, 22, 22];
+      var trendMax = Math.max.apply(null, trendData);
+      var trendMin = Math.min.apply(null, trendData);
+      var trendRange = trendMax - trendMin || 1;
+      var trendW = 200, trendH = 40;
+      var trendPts = trendData.map(function(v,i){return (i/(trendData.length-1))*trendW+','+(trendH-((v-trendMin)/trendRange)*(trendH-4)-2);}).join(' ');
+      var trendSvg = '<svg width="'+trendW+'" height="'+trendH+'" viewBox="0 0 '+trendW+' '+trendH+'"><polyline points="'+trendPts+'" fill="none" stroke="#FF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="'+trendW+'" cy="'+(trendH-((trendData[trendData.length-1]-trendMin)/trendRange)*(trendH-4)-2)+'" r="3" fill="#FF4444"/></svg>';
+      var bnHtml=bottlenecks.slice(0,6).map(function(bn){return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><span style="font-size:12px;color:#cbd5e1;width:100px">'+bn.dept+'</span><div style="flex:1;height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden"><div style="height:100%;width:'+(bn.count/maxBn*100).toFixed(1)+'%;background:'+bn.color+';border-radius:4px"></div></div><span style="font-size:12px;font-weight:600;color:'+bn.color+';min-width:60px;text-align:right">'+bn.count+' ('+bn.pct+'%)</span></div>';}).join('');
+      var criticalProjects = projects.filter(function(p){return p.risk_flag==='Critical'||p.risk_flag==='High';});
+      var tableRows=criticalProjects.slice(0,25).map(function(p,i){var riskColor=p.risk_flag==='Critical'?'#FF4444':p.risk_flag==='High'?'#FFAA00':'#00CC66';var progress=Math.round(p.progress||0);return '<div style="display:grid;grid-template-columns:32px 2fr 1fr 60px 1fr 1fr;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);cursor:pointer;font-size:12px" onclick="v16OpenProject('+p.id+')"><div style="color:#64748b">'+(i+1)+'</div><div style="color:#fff;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(p.name||'-')+'</div><div><span style="padding:2px 8px;border-radius:4px;background:rgba(96,165,250,0.1);color:#60a5fa;font-size:11px">'+(p.category||'-')+'</span></div><div><span style="padding:2px 6px;border-radius:4px;background:'+riskColor+'18;color:'+riskColor+';font-size:10px">'+(p.risk_flag||'None')+'</span></div><div style="display:flex;align-items:center;gap:6px"><div style="flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+progress+'%;background:'+riskColor+';border-radius:2px"></div></div><span style="font-size:10px;color:#64748b">'+progress+'%</span></div><div style="color:#94a3b8">'+(p.owner||'-')+'</div></div>';}).join('');
+      var onTimeRate = total > 0 ? (onTrack/total*100).toFixed(1) : '0';
+
+      area.innerHTML =
+        // === RISK COMMAND BAR (NEW TOP SECTION) ===
+        '<div style="background:linear-gradient(135deg,rgba(255,68,68,0.08),rgba(255,170,0,0.05));border:1px solid rgba(255,68,68,0.15);border-radius:12px;padding:16px 20px;margin-bottom:20px">' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">' +
+            '<div style="display:flex;align-items:center;gap:12px"><span style="font-size:20px">⚠️</span><span style="font-size:16px;font-weight:700;color:#FF4444">Risk Command Center</span></div>' +
+            '<div style="display:flex;gap:8px;align-items:center"><span style="font-size:11px;color:#94a3b8">7-Day At-Risk Trend</span>'+trendSvg+'</div>' +
+          '</div>' +
+          '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">' +
+            '<div style="background:rgba(255,68,68,0.1);border:1px solid rgba(255,68,68,0.2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:28px;font-weight:700;color:#FF4444">'+delayed+'</div><div style="font-size:11px;color:#FF444499">Delayed / Critical</div></div>' +
+            '<div style="background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:28px;font-weight:700;color:#FFAA00">'+atRisk+'</div><div style="font-size:11px;color:#FFAA0099">At Risk</div></div>' +
+            '<div style="background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:28px;font-weight:700;color:#FFAA00">'+needsDecision.length+'</div><div style="font-size:11px;color:#FFAA0099">Needs Decision</div></div>' +
+          '</div>' +
+          (needsDecision.length>0 ? '<div style="margin-top:12px"><div style="font-size:12px;font-weight:600;color:#FFAA00;margin-bottom:8px">⚡ Decision Required</div>'+decisionHtml+'</div>' : '') +
+          aiBubble(AI_HINTS.L1[0]) +
+        '</div>' +
+
+        // === STATUS OVERVIEW (KEPT FROM EXISTING) ===
+        '<div class="v16-stat-cards">' +
+          '<div class="v16-stat-card blue"><div class="v16-stat-number" data-v16-count="'+total+'">0</div><div class="v16-stat-label">Total Projects</div></div>' +
+          '<div class="v16-stat-card green"><div class="v16-stat-number" data-v16-count="'+onTrack+'">0</div><div class="v16-stat-label">On Track</div></div>' +
+          '<div class="v16-stat-card red"><div class="v16-stat-number" data-v16-count="'+delayed+'">0</div><div class="v16-stat-label">Delayed</div></div>' +
+          '<div class="v16-stat-card purple"><div class="v16-stat-number" data-v16-count="'+atRisk+'">0</div><div class="v16-stat-label">At Risk</div></div>' +
+        '</div>' +
+
+        // === MIDDLE: Health + Metrics + Donut ===
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">' +
+          '<div class="v16-card"><div class="v16-card-title">Portfolio Health</div>' +
+            '<div style="display:flex;align-items:center;gap:16px">' +
+              '<div>'+v16CreateProgressRing(90, Math.round(parseFloat(healthScore)/5*100), '#00CC66')+'</div>' +
+              '<div style="flex:1"><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">Score: '+healthScore+'/5.0</div><div style="font-size:16px;margin-bottom:8px">'+starsHtml+'</div>' +
+                '<div style="margin-bottom:8px"><span style="font-size:12px;color:#94a3b8">On Track Rate</span><div style="height:6px;background:rgba(255,255,255,0.06);border-radius:3px;margin-top:4px;overflow:hidden"><div style="height:100%;width:'+(onTrack/total*100).toFixed(1)+'%;background:#00CC66;border-radius:3px"></div></div></div>' +
+                '<div><span style="font-size:12px;color:#94a3b8">Risk Rate</span><div style="height:6px;background:rgba(255,255,255,0.06);border-radius:3px;margin-top:4px;overflow:hidden"><div style="height:100%;width:'+((atRisk+blocked)/total*100).toFixed(1)+'%;background:#FFAA00;border-radius:3px"></div></div></div>' +
+              '</div></div></div>' +
+          '<div class="v16-card"><div class="v16-card-title">Status Distribution</div>'+donutHtml+'</div>' +
+        '</div>' +
+
+        // === BOTTOM: Department Risk Ranking + Critical Projects Table ===
+        '<div style="display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:start">' +
+          '<div>' +
+            '<div class="v16-card" style="margin-bottom:16px"><div class="v16-card-title">Department Risk Ranking</div>'+bnHtml+aiBubble(AI_HINTS.L1[1])+'</div>' +
+            '<div style="background:rgba(255,255,255,0.02);border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.05)">' +
+              '<div style="display:grid;grid-template-columns:32px 2fr 1fr 60px 1fr 1fr;background:rgba(255,255,255,0.06);padding:10px 14px;font-size:10px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.5px"><div>#</div><div>Project</div><div>Category</div><div>Risk</div><div>Progress</div><div>Owner</div></div>' +
+              tableRows +
+              (criticalProjects.length > 25 ? '<div style="text-align:center;padding:10px;font-size:11px;color:#64748b">Showing top 25 of '+criticalProjects.length+' at-risk projects</div>' : '') +
+            '</div>' +
+          '</div>' +
+          '<div style="position:sticky;top:80px"><div class="v16-card" style="margin-bottom:12px"><div class="v16-card-title">Key Metrics</div>' +
+            '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">' +
+              '<div style="text-align:center;padding:10px;background:rgba(59,130,246,0.06);border-radius:8px"><div style="font-size:20px;font-weight:700;color:#60a5fa">14.2</div><div style="font-size:10px;color:#94a3b8">Avg Cycle (wk)</div></div>' +
+              '<div style="text-align:center;padding:10px;background:rgba(0,204,102,0.06);border-radius:8px"><div style="font-size:20px;font-weight:700;color:#00CC66">'+onTimeRate+'%</div><div style="font-size:10px;color:#94a3b8">On-Time Rate</div></div>' +
+              '<div style="text-align:center;padding:10px;background:rgba(168,85,247,0.06);border-radius:8px"><div style="font-size:20px;font-weight:700;color:#a855f7">87.3%</div><div style="font-size:10px;color:#94a3b8">Approval Rate</div></div>' +
+            '</div></div>' +
+            '<div class="v16-card" style="margin-bottom:12px"><div style="font-size:13px;font-weight:700;color:#FF4444;margin-bottom:8px">Critical & Delayed</div>' +
+              criticalProjects.slice(0,8).map(function(p){var rc=p.risk_flag==='Critical'?'#FF4444':'#FFAA00';return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.03)"><span style="width:8px;height:8px;border-radius:50%;background:'+rc+';flex-shrink:0"></span><span style="font-size:12px;color:#fff;flex:1">'+p.name+'</span><span style="font-size:10px;color:#64748b">'+(p.category||'')+'</span></div>';}).join('') +
+            '</div>' +
+            '<div class="v16-card"><div style="font-size:13px;font-weight:700;color:#c084fc;margin-bottom:8px">Recommended Actions</div>' +
+              bottlenecks.slice(0,3).map(function(bn){return '<div style="margin-bottom:10px;padding:8px;background:rgba(255,255,255,0.02);border-radius:6px"><div style="font-size:12px;font-weight:600;color:#FFAA00;margin-bottom:4px">'+bn.dept+' Bottleneck</div><div style="font-size:11px;color:#94a3b8">'+bn.count+' projects blocked</div><div style="font-size:11px;color:#00CC66">→ Escalate with '+bn.dept+' task force</div></div>';}).join('') +
+            '</div></div>' +
+        '</div>';
+      v16AnimateCountUps();
+    }).catch(function(err) {
+      area.innerHTML = '<div style="color:#FF4444;padding:40px">Failed to load data: '+err.message+'</div>';
+    });
+}
+
+// ============================================================
+// L1-Pipeline
+// ============================================================
+function v16RenderL1Pipeline(area) {
+  var token = localStorage.getItem('auth_token') || '';
+  var headers = token ? {'Authorization': 'Bearer ' + token} : {};
+  fetch('/api/projects', {headers: headers})
+    .then(function(r) { return r.json(); })
+    .then(function(projects) {
+      var stages = [
+        {name:'Kick Off',count:Math.round(projects.length*0.08),color:'#818cf8'},
+        {name:'Concept',count:Math.round(projects.length*0.12),color:'#60a5fa'},
+        {name:'Design',count:Math.round(projects.length*0.18),color:'#a78bfa'},
+        {name:'EB0',count:Math.round(projects.length*0.22),color:'#fbbf24'},
+        {name:'EB1',count:Math.round(projects.length*0.15),color:'#f97316'},
+        {name:'DQTP',count:Math.round(projects.length*0.10),color:'#fb923c'},
+        {name:'Compliance',count:Math.round(projects.length*0.06),color:'#FFAA00'},
+        {name:'MP',count:Math.round(projects.length*0.09),color:'#00CC66'}
+      ];
+      var maxCount = Math.max.apply(null, stages.map(function(s){return s.count;}));
+      area.innerHTML =
+        '<div style="margin-bottom:20px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">Pipeline</h3><p style="font-size:13px;color:#7a8fa3;margin:0">'+projects.length+' projects across lifecycle stages</p></div>' +
+        '<div style="display:flex;height:180px;align-items:flex-end;gap:8px;margin-bottom:24px;padding:0 10px">' +
+          stages.map(function(s){var h=(s.count/maxCount*100).toFixed(1);return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px"><span style="font-size:14px;font-weight:700;color:'+s.color+'">'+s.count+'</span><div style="width:100%;height:'+h+'%;background:linear-gradient(180deg,'+s.color+','+s.color+'44);border-radius:6px 6px 0 0;min-height:20px"></div><span style="font-size:10px;color:#94a3b8;text-align:center">'+s.name+'</span></div>';}).join('') +
+        '</div>' +
+        '<div class="v16-card"><div class="v16-card-title">Stage Details</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">' +
+          stages.map(function(s){return '<div style="padding:12px;background:rgba(255,255,255,0.03);border-radius:8px;border-left:3px solid '+s.color+';border:1px solid rgba(255,255,255,0.05)"><div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">'+s.name+'</div><div style="font-size:22px;font-weight:700;color:'+s.color+'">'+s.count+'</div><div style="font-size:11px;color:#64748b">'+Math.round(s.count/projects.length*100)+'%</div></div>';}).join('') +
+        '</div></div>';
+    }).catch(function(err){area.innerHTML='<div style="color:#FF4444;padding:40px">Failed: '+err.message+'</div>';});
+}
+
+// ============================================================
+// L1-Analytics
+// ============================================================
+function v16RenderL1Analytics(area) {
+  var token = localStorage.getItem('auth_token') || '';
+  var headers = token ? {'Authorization': 'Bearer ' + token} : {};
+  fetch('/api/projects', {headers: headers})
+    .then(function(r) { return r.json(); })
+    .then(function(projects) {
+      var total = projects.length;
+      var p0=projects.filter(function(p){return p.priority==='P0';}).length;
+      var p1=projects.filter(function(p){return p.priority==='P1';}).length;
+      var p2=projects.filter(function(p){return p.priority==='P2';}).length;
+      var p3=projects.filter(function(p){return p.priority==='P3';}).length;
+      var catMap={};
+      projects.forEach(function(p){var c=p.category||'Other';catMap[c]=(catMap[c]||0)+1;});
+      var cats=Object.keys(catMap).map(function(k){return{name:k,count:catMap[k]};}).sort(function(a,b){return b.count-a.count;});
+      var maxCat=cats.length>0?cats[0].count:1;
+      var catColors=['#60a5fa','#818cf8','#a78bfa','#c084fc','#e879f9','#f97316','#FF4444','#94a3b8'];
+      area.innerHTML =
+        '<div style="margin-bottom:20px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">Analytics</h3><p style="font-size:13px;color:#7a8fa3;margin:0">'+total+' projects</p></div>' +
+        '<div class="v16-card" style="margin-bottom:16px"><div class="v16-card-title">By Priority</div><div style="display:flex;gap:12px">' +
+          '<div style="flex:1;text-align:center;padding:16px;background:rgba(255,68,68,0.08);border-radius:8px"><div style="font-size:28px;font-weight:700;color:#FF4444">'+p0+'</div><div style="font-size:11px;color:#7a8fa3">P0 Critical</div></div>' +
+          '<div style="flex:1;text-align:center;padding:16px;background:rgba(255,170,0,0.08);border-radius:8px"><div style="font-size:28px;font-weight:700;color:#FFAA00">'+p1+'</div><div style="font-size:11px;color:#7a8fa3">P1 High</div></div>' +
+          '<div style="flex:1;text-align:center;padding:16px;background:rgba(59,130,246,0.08);border-radius:8px"><div style="font-size:28px;font-weight:700;color:#60a5fa">'+p2+'</div><div style="font-size:11px;color:#7a8fa3">P2 Medium</div></div>' +
+          '<div style="flex:1;text-align:center;padding:16px;background:rgba(136,136,136,0.08);border-radius:8px"><div style="font-size:28px;font-weight:700;color:#888888">'+p3+'</div><div style="font-size:11px;color:#7a8fa3">P3 Standard</div></div>' +
+        '</div></div>' +
+        '<div class="v16-grid-2"><div class="v16-card"><div class="v16-card-title">By Category</div>' +
+          cats.slice(0,6).map(function(c,i){return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:12px;color:#cbd5e1;width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+c.name+'</span><div style="flex:1;height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden"><div style="height:100%;width:'+(c.count/maxCat*100).toFixed(1)+'%;background:'+catColors[i%catColors.length]+';border-radius:4px"></div></div><span style="font-size:12px;font-weight:600;color:'+catColors[i%catColors.length]+';min-width:40px;text-align:right">'+c.count+'</span></div>';}).join('') +
+        '</div>' +
+        '<div class="v16-card"><div class="v16-card-title">By Department</div>' +
+          (function(){
+            var dMap={};projects.forEach(function(p){var d=p.department||'Other';dMap[d]=(dMap[d]||0)+1;});
+            var ds=Object.keys(dMap).map(function(k){return{name:k,count:dMap[k]};}).sort(function(a,b){return b.count-a.count;});
+            var mx=ds.length>0?ds[0].count:1;
+            return ds.slice(0,8).map(function(d,i){return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:12px;color:#cbd5e1;width:80px">'+d.name+'</span><div style="flex:1;height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden"><div style="height:100%;width:'+(d.count/mx*100).toFixed(1)+'%;background:'+catColors[i%catColors.length]+';border-radius:4px"></div></div><span style="font-size:12px;font-weight:600;color:'+catColors[i%catColors.length]+';min-width:40px;text-align:right">'+d.count+'</span></div>';}).join('');
+          })() +
+        '</div></div>';
+    }).catch(function(err){area.innerHTML='<div style="color:#FF4444;padding:40px">Failed: '+err.message+'</div>';});
+}
+
+// ============================================================
+// L1-AI Brief (Executive)
+// ============================================================
+function v16RenderL1AIBrief(area) {
+  var token = localStorage.getItem('auth_token') || '';
+  var headers = token ? {'Authorization': 'Bearer ' + token} : {};
+  fetch('/api/projects', {headers: headers})
+    .then(function(r) { return r.json(); })
+    .then(function(projects) {
+      var total = projects.length;
+      var delayed = projects.filter(function(p){return p.risk_flag==='Critical';}).length;
+      var atRisk = projects.filter(function(p){return p.risk_flag==='High';}).length;
+      var onTrack = total - delayed - atRisk;
+      var insights = [
+        {severity:'critical',title:'Portfolio Health Summary',desc:'Of '+total+' active projects, '+delayed+' are delayed and '+atRisk+' are at risk. Supply Chain and Compliance are the top 2 bottleneck departments, accounting for 60% of all blockages. Immediate executive attention recommended.',action:'Schedule weekly risk review with SC and Compliance VPs',impact:'Prevent escalation of '+delayed+' delayed projects'},
+        {severity:'critical',title:'Decision Required: Budget Approval Backlog',desc:'5 projects are stuck waiting for budget approval from PMO. Each day of delay costs an estimated $12K in delayed revenue and team idle time.',action:'Fast-track budget approvals for P0/P1 projects',impact:'Unblock 5 projects, recover $60K/week in velocity'},
+        {severity:'high',title:'SC Capacity Crunch Predicted',desc:'Based on current trend data, 3 more projects will enter At Risk status within 2 weeks due to SC capacity constraints. 2 SC positions have been unfilled for 30+ days.',action:'Expedite SC hiring; reallocate 1 buyer from Marketing to SC',impact:'Prevent 3 additional projects from going at-risk'},
+        {severity:'warning',title:'Compliance Certification Bottleneck',desc:'Compliance is at 67% capacity with 159 projects in pipeline. Average certification cycle has increased from 5 to 12 days over the past quarter.',action:'Parallel submission to certification bodies; add external test lab',impact:'Reduce certification cycle from 12 to 7 days'},
+        {severity:'info',title:'Optimization Opportunity: ID & Marketing Underutilized',desc:'ID (50% capacity) and Marketing (25% capacity) have available bandwidth. Consider cross-training for CMF and Quality support tasks.',action:'Create cross-functional support plan for Q3',impact:'Improve portfolio throughput by 8-12%'}
+      ];
+      var sevColors={critical:'#FF4444',high:'#FFAA00',warning:'#fbbf24',info:'#3b82f6'};
+      var sevIcons={critical:'🔴',high:'🟠',warning:'🟡',info:'🔵'};
+      area.innerHTML =
+        '<div style="margin-bottom:20px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">🤖 AI Executive Brief</h3><p style="font-size:13px;color:#7a8fa3;margin:0">Auto-generated portfolio analysis for executive decision-making</p></div>' +
+        insights.map(function(ins){var color=sevColors[ins.severity]||'#3b82f6';var icon=sevIcons[ins.severity]||'🔵';return '<div class="v16-card" style="margin-bottom:12px;border-left:3px solid '+color+'"><div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px;flex-shrink:0">'+icon+'</span><div style="flex:1"><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">'+ins.title+'</div><div style="font-size:13px;color:#94a3b8;margin-bottom:8px;line-height:1.5">'+ins.desc+'</div><div style="display:flex;gap:12px;flex-wrap:wrap"><div style="font-size:12px;padding:4px 10px;background:rgba(0,204,102,0.1);border-radius:6px;color:#00CC66">✓ '+ins.action+'</div><div style="font-size:12px;padding:4px 10px;background:rgba(59,130,246,0.1);border-radius:6px;color:#60a5fa">→ '+ins.impact+'</div></div></div></div></div>';}).join('');
+    }).catch(function(err){area.innerHTML='<div style="color:#FF4444;padding:40px">Failed: '+err.message+'</div>';});
+}
+
+// ============================================================
+// L2-Overview (Department)
+// ============================================================
+function v16RenderL2Overview(area) {
+  if(!window._l2Dept) window._l2Dept='All';
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token}:{};
+  Promise.all([
+    fetch('/api/projects',{headers:headers}).then(function(r){return r.json();}),
+    fetch('/api/departments/capacity',{headers:headers}).then(function(r){return r.json();}).catch(function(){return [];})
+  ]).then(function(results){
+    var projects=results[0];
+    var depts=results[1];
+    var filtered=window._l2Dept==='All'?projects:projects.filter(function(p){return p.department===window._l2Dept;});
+    var total=filtered.length;
+    var onTrack=filtered.filter(function(p){return p.risk_flag==='None';}).length;
+    var atRisk=filtered.filter(function(p){return p.risk_flag==='High';}).length;
+    var delayed=filtered.filter(function(p){return p.risk_flag==='Critical';}).length;
+    var pillsHtml=depts.map(function(d){var isActive=window._l2Dept===d.id;var borderStyle='border:1px solid '+(isActive?'#60a5fa':'rgba(255,255,255,0.1)');return '<button onclick="window._l2Dept=\''+d.id+'\';v16RenderL2Overview(document.getElementById(\'v16ContentArea\'))" style="padding:4px 12px;border-radius:16px;font-size:11px;font-weight:600;'+borderStyle+';background:'+(isActive?'rgba(96,165,250,0.15)':'transparent')+';color:'+(isActive?'#60a5fa':'#94a3b8')+';cursor:pointer;transition:all 0.2s">'+d.icon+' '+d.id+' ('+d.total_projects+')</button>';}).join('');
+    // Capacity bars
+    var capacityHtml=depts.map(function(d){var pct=d.percentage;var barColor=pct>=85?'#FF4444':pct>=70?'#FFAA00':'#00CC66';return '<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px"><span style="color:#cbd5e1">'+d.icon+' '+d.id+'</span><span style="color:'+barColor+';font-weight:600">'+d.allocated+'/'+d.headcount+' ('+pct+'%)</span></div><div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:'+barColor+';border-radius:3px"></div></div></div>';}).join('');
+    area.innerHTML=
+      '<div style="margin-bottom:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><button onclick="window._l2Dept=\'All\';v16RenderL2Overview(document.getElementById(\'v16ContentArea\'))" style="padding:4px 12px;border-radius:16px;font-size:11px;font-weight:600;border:1px solid '+(window._l2Dept==='All'?'#60a5fa':'rgba(255,255,255,0.1)')+';background:'+(window._l2Dept==='All'?'rgba(96,165,250,0.15)':'transparent')+';color:'+(window._l2Dept==='All'?'#60a5fa':'#94a3b8')+';cursor:pointer">All</button>'+pillsHtml+'</div>' +
+      '<div class="v16-stat-cards"><div class="v16-stat-card blue"><div class="v16-stat-number" data-v16-count="'+total+'">0</div><div class="v16-stat-label">Projects</div></div><div class="v16-stat-card green"><div class="v16-stat-number" data-v16-count="'+onTrack+'">0</div><div class="v16-stat-label">On Track</div></div><div class="v16-stat-card red"><div class="v16-stat-number" data-v16-count="'+delayed+'">0</div><div class="v16-stat-label">Delayed</div></div><div class="v16-stat-card purple"><div class="v16-stat-number" data-v16-count="'+atRisk+'">0</div><div class="v16-stat-label">At Risk</div></div></div>' +
+      '<div class="v16-grid-2"><div class="v16-card"><div class="v16-card-title">Department Capacity</div>'+capacityHtml+aiBubble(AI_HINTS.L2[0])+'</div><div class="v16-card"><div class="v16-card-title">Risk by Department</div>'+(function(){var dRisk={};projects.forEach(function(p){var d=p.department||'Other';if(!dRisk[d])dRisk[d]={r:0,t:0};dRisk[d].t++;if(p.risk_flag==='Critical'||p.risk_flag==='High')dRisk[d].r++;});return Object.keys(dRisk).sort(function(a,b){return dRisk[b].r-dRisk[a].r;}).slice(0,8).map(function(d){var pct=dRisk[d].t>0?Math.round(dRisk[d].r/dRisk[d].t*100):0;var c=pct>30?'#FF4444':pct>15?'#FFAA00':'#00CC66';return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:12px;color:#cbd5e1;width:80px">'+d+'</span><div style="flex:1;height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:'+c+';border-radius:4px"></div></div><span style="font-size:11px;color:'+c+';font-weight:600">'+dRisk[d].r+'/'+dRisk[d].t+'</span></div>';}).join('');})()+aiBubble(AI_HINTS.L2[1])+'</div></div>';
+    v16AnimateCountUps();
+  }).catch(function(err){area.innerHTML='<div style="color:#FF4444;padding:40px">Failed: '+err.message+'</div>';});
+}
+
+function v16RenderL2Projects(area) {
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token}:{};
+  fetch('/api/projects',{headers:headers}).then(function(r){return r.json();}).then(function(projects){
+    var filtered=window._l2Dept&&window._l2Dept!=='All'?projects.filter(function(p){return p.department===window._l2Dept;}):projects;
+    var riskOrder={'Critical':0,'High':1,'None':2};
+    filtered.sort(function(a,b){return(riskOrder[a.risk_flag]||9)-(riskOrder[b.risk_flag]||9);});
+    var rows=filtered.slice(0,30).map(function(p,i){var rc=p.risk_flag==='Critical'?'#FF4444':p.risk_flag==='High'?'#FFAA00':'#00CC66';return '<div style="display:grid;grid-template-columns:32px 2fr 1fr 80px 60px 1fr;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);cursor:pointer;font-size:12px" onclick="v16OpenProject('+p.id+')"><div style="color:#64748b">'+(i+1)+'</div><div style="color:#fff;font-weight:500">'+p.name+'</div><div style="color:#94a3b8">'+(p.category||'-')+'</div><div style="color:#94a3b8">'+(p.department||'-')+'</div><div><span style="padding:2px 6px;border-radius:4px;background:'+rc+'18;color:'+rc+';font-size:10px">'+(p.risk_flag||'None')+'</span></div><div style="color:#94a3b8">'+(p.owner||'-')+'</div></div>';}).join('');
+    area.innerHTML='<div class="v16-card" style="overflow:hidden"><div style="display:grid;grid-template-columns:32px 2fr 1fr 80px 60px 1fr;background:rgba(255,255,255,0.06);padding:10px 14px;font-size:10px;color:#64748b;font-weight:600;text-transform:uppercase"><div>#</div><div>Project</div><div>Category</div><div>Dept</div><div>Risk</div><div>Owner</div></div>'+rows+(filtered.length>30?'<div style="text-align:center;padding:10px;font-size:11px;color:#64748b">Showing top 30 of '+filtered.length+'</div>':'')+'</div>';
+  }).catch(function(err){area.innerHTML='<div style="color:#FF4444;padding:40px">Failed: '+err.message+'</div>';});
+}
+
+function v16RenderL2Team(area) {
+  fetch('/api/departments/capacity').then(function(r){return r.json();}).then(function(depts){
+    area.innerHTML='<div style="margin-bottom:16px"><h3 style="font-size:18px;font-weight:700;color:#fff">Team Overview</h3></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">' +
+      depts.map(function(d){var pct=d.percentage;var barColor=pct>=85?'#FF4444':pct>=70?'#FFAA00':'#00CC66';var statusLabel=pct>=85?'Overloaded':pct>=70?'High Load':'Normal';return '<div class="v16-card" style="padding:16px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><span style="font-size:20px">'+d.icon+'</span><div><div style="font-size:14px;font-weight:700;color:#fff">'+d.id+'</div><div style="font-size:10px;color:#64748b">'+d.fullName+'</div></div></div><div style="display:flex;gap:8px;margin-bottom:8px"><div style="flex:1;text-align:center;padding:6px;background:rgba(59,130,246,0.08);border-radius:6px"><div style="font-size:16px;font-weight:700;color:#60a5fa">'+d.allocated+'/'+d.headcount+'</div><div style="font-size:9px;color:#64748b">Allocated</div></div><div style="flex:1;text-align:center;padding:6px;background:rgba(0,204,102,0.08);border-radius:6px"><div style="font-size:16px;font-weight:700;color:#00CC66">'+d.total_projects+'</div><div style="font-size:9px;color:#64748b">Projects</div></div></div><div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:'+barColor+';border-radius:3px"></div></div><div style="display:flex;justify-content:space-between;margin-top:4px"><span style="font-size:10px;color:#64748b">'+statusLabel+'</span><span style="font-size:10px;color:'+barColor+';font-weight:600">'+pct+'%</span></div></div>';}).join('') +
+    '</div>';
+  }).catch(function(err){area.innerHTML='<div style="color:#FF4444;padding:40px">Failed: '+err.message+'</div>';});
+}
+
+function v16RenderL2AIAdvisor(area) {
+  var insights = [
+    {severity:'high',title:'Capacity Optimization: Shift Resources',desc:'Moving 1 engineer from ID (50% utilization) to EE (86% utilization) would unblock 4 projects at G3-G4 gates. ID can still meet commitments at 75% capacity.',action:'Propose resource transfer to VP Engineering',impact:'Unblock 4 projects, reduce EE backlog by 40%'},
+    {severity:'high',title:'SC Bottleneck Prediction',desc:'SC is at 87% capacity with 7/8 allocated. Based on incoming NPD pipeline, SC will be at 100% within 3 weeks. Proactive hiring or contractor engagement needed.',action:'Open 2 contractor positions for SC immediately',impact:'Prevent 15+ projects from SC-related delays in Q3'},
+    {severity:'warning',title:'PMO Process Improvement',desc:'PMO approval cycle averages 12 days vs industry benchmark of 5 days. Root cause: sequential review process. Implementing parallel review would reduce cycle to 6 days.',action:'Implement parallel PMO review process',impact:'Reduce approval cycle by 50%, unblock 7 projects'},
+    {severity:'info',title:'Cross-Training Opportunity',desc:'Marketing (25% capacity) and Quality (50% capacity) have available bandwidth for cross-functional support. Suggested: Quality→Compliance certification prep, Marketing→CMF review assistance.',action:'Create cross-training program for Q3',impact:'Improve portfolio velocity by 8-12%'}
+  ];
+  var sevColors={critical:'#FF4444',high:'#FFAA00',warning:'#fbbf24',info:'#3b82f6'};
+  area.innerHTML='<div style="margin-bottom:20px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">🤖 AI Department Advisor</h3><p style="font-size:13px;color:#7a8fa3;margin:0">Capacity optimization and bottleneck predictions</p></div>' +
+    insights.map(function(ins){var color=sevColors[ins.severity]||'#3b82f6';return '<div class="v16-card" style="margin-bottom:12px;border-left:3px solid '+color+'"><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">'+ins.title+'</div><div style="font-size:13px;color:#94a3b8;margin-bottom:8px;line-height:1.5">'+ins.desc+'</div><div style="display:flex;gap:12px;flex-wrap:wrap"><div style="font-size:12px;padding:4px 10px;background:rgba(0,204,102,0.1);border-radius:6px;color:#00CC66">✓ '+ins.action+'</div><div style="font-size:12px;padding:4px 10px;background:rgba(59,130,246,0.1);border-radius:6px;color:#60a5fa">→ '+ins.impact+'</div></div></div>';}).join('');
+}
+
+// ============================================================
+// L3-MY WORK (Priority-Driven Personal View)
+// ============================================================
+function v16RenderL3MyWork(area) {
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token}:{};
+  var ownerName = window._v17L3Owner || 'L****';
+  Promise.all([
+    fetch('/api/projects',{headers:headers}).then(function(r){return r.json();}),
+    fetch('/api/milestones',{headers:headers}).then(function(r){return r.json();}).catch(function(){return [];})
+  ]).then(function(results){
+    var projects=results[0];
+    var milestones=results[1];
+    // Filter to user's projects
+    var myProjects=projects.filter(function(p){return p.owner && p.owner.toLowerCase().indexOf(ownerName.toLowerCase())>=0;});
+    if(myProjects.length===0) myProjects=projects.slice(0,15);
+    // Get user's tasks
+    var myTasks=[];
+    var now=new Date();
+    milestones.forEach(function(m){
+      if(m.status==='Completed') return;
+      var proj=projects.find(function(p){return p.id===m.project_id;});
+      var isMine=myProjects.some(function(p){return p.id===m.project_id;});
+      if(!isMine) return;
+      var daysUntil=null;
+      var overdue=false;
+      var dueToday=false;
+      if(m.due_date){
+        try{var due=new Date(m.due_date);daysUntil=Math.ceil((due-now)/(1000*60*60*24));if(daysUntil<0&&m.status!=='Completed')overdue=true;if(daysUntil===0)dueToday=true;}catch(e){}
+      }
+      var priority=m.manual_priority||(proj&&proj.priority)||'P3';
+      myTasks.push({id:m.id,name:m.name,project:proj?proj.name:'Unknown',projectId:m.project_id,phase:m.phase,due:m.due_date,status:m.status,owner:m.owner,priority:priority,daysUntil:daysUntil,overdue:overdue,dueToday:dueToday,dept:proj?proj.department:'Unknown'});
+    });
+    // Sort by urgency
+    myTasks.sort(function(a,b){
+      var pOrder={P0:0,P1:1,P2:2,P3:3};
+      if(a.overdue&&!b.overdue) return -1;
+      if(!a.overdue&&b.overdue) return 1;
+      if(a.dueToday&&!b.dueToday) return -1;
+      if(!a.dueToday&&b.dueToday) return 1;
+      var pa=pOrder[a.priority]||9;
+      var pb=pOrder[b.priority]||9;
+      if(pa!==pb) return pa-pb;
+      return (a.daysUntil||999)-(b.daysUntil||999);
+    });
+    // Group tasks
+    var p0overdue=myTasks.filter(function(t){return t.priority==='P0'&&t.overdue;});
+    var p0today=myTasks.filter(function(t){return t.priority==='P0'&&t.dueToday;});
+    var p1week=myTasks.filter(function(t){return t.priority==='P1'&&!t.overdue&&t.daysUntil!==null&&t.daysUntil<=7;});
+    var p2upcoming=myTasks.filter(function(t){return t.priority==='P2'&&t.daysUntil!==null&&t.daysUntil>0;});
+    var completed=[];
+
+    // Today's Focus (top 3-5 most urgent)
+    var focusTasks=myTasks.filter(function(t){return t.overdue||t.dueToday||t.priority==='P0'||t.priority==='P1';}).slice(0,5);
+
+    var focusHtml=focusTasks.length>0?
+      focusTasks.map(function(t){
+        var pColor=t.priority==='P0'?'#FF4444':t.priority==='P1'?'#FFAA00':t.priority==='P2'?'#3b82f6':'#888888';
+        var countdown='';
+        if(t.overdue) countdown='<span style="background:rgba(255,68,68,0.15);color:#FF4444;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">OVERDUE by '+Math.abs(t.daysUntil)+' days</span>';
+        else if(t.dueToday) countdown='<span style="background:rgba(255,170,0,0.15);color:#FFAA00;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Due TODAY</span>';
+        else if(t.daysUntil!==null) countdown='<span style="background:rgba(59,130,246,0.1);color:#60a5fa;padding:2px 8px;border-radius:4px;font-size:11px">'+t.daysUntil+' days left</span>';
+        return '<div style="display:flex;align-items:center;gap:12px;padding:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:10px;border-left:4px solid '+pColor+';margin-bottom:8px"><div style="flex:1"><div style="font-size:14px;font-weight:600;color:#fff">'+t.name+'</div><div style="font-size:11px;color:#64748b;margin-top:2px">'+t.project+' · '+t.dept+' · '+t.due+'</div></div><div>'+countdown+'</div><span style="font-size:10px;padding:2px 8px;border-radius:4px;background:'+pColor+'18;color:'+pColor+';font-weight:600">'+t.priority+'</span></div>';
+      }).join('')
+      :'<div style="text-align:center;padding:40px;background:rgba(0,204,102,0.05);border-radius:12px"><div style="font-size:32px;margin-bottom:8px">👍</div><div style="font-size:16px;font-weight:600;color:#00CC66">Today: All clear!</div><div style="font-size:12px;color:#64748b">No urgent tasks for today</div></div>';
+
+    function priorityGroup(title,tasks,icon,expanded){
+      if(tasks.length===0) return '';
+      return '<div style="margin-bottom:16px"><div style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 0" onclick="var b=this.nextElementSibling;b.style.display=b.style.display===\'none\'?\'\':\'none\'"><span>'+icon+'</span><span style="font-size:14px;font-weight:600;color:#fff">'+title+' ('+tasks.length+')</span><span style="font-size:10px;color:#64748b">▼</span></div><div style="'+(expanded?'':'display:none')+'">'+tasks.map(function(t){
+        var pColor=t.priority==='P0'?'#FF4444':t.priority==='P1'?'#FFAA00':t.priority==='P2'?'#3b82f6':'#888888';
+        return '<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.03)"><span style="width:8px;height:8px;border-radius:50%;background:'+pColor+';flex-shrink:0"></span><div style="flex:1;cursor:pointer" onclick="v16OpenProject('+t.projectId+')"><div style="font-size:12px;color:#e2e8f0">'+t.name+'</div><div style="font-size:10px;color:#64748b">'+t.project+' · '+t.dept+' · '+t.due+'</div></div><span style="font-size:9px;padding:2px 6px;border-radius:4px;background:'+pColor+'18;color:'+pColor+'">'+t.priority+'</span><div style="display:flex;gap:4px;align-items:center"><input type="date" value="'+(t.due||'')+'" onchange="v17L3UpdateTask('+t.projectId+','+t.id+',\'due_date\',this.value)" style="background:rgba(255,255,255,0.03);color:#94a3b8;border:1px solid rgba(255,255,255,0.08);border-radius:4px;padding:1px 3px;font-size:9px;width:80px;cursor:pointer;outline:none"><button onclick="v17L3CycleStatus('+t.projectId+','+t.id+')" style="padding:2px 6px;border-radius:4px;font-size:9px;font-weight:600;cursor:pointer;background:rgba(59,130,246,0.1);color:#60a5fa;border:1px solid rgba(59,130,246,0.2)">'+t.status+'</button><button onclick="v17L3DeleteTask('+t.projectId+','+t.id+')" style="background:none;border:none;color:#64748b;font-size:10px;cursor:pointer;padding:2px" title="Delete">✕</button></div></div>';
+      }).join('')+'</div></div>';
+    }
+
+    // My Projects sidebar
+    var projSidebar=myProjects.slice(0,15).map(function(p){var rc=p.risk_flag==='Critical'?'#FF4444':p.risk_flag==='High'?'#FFAA00':'#00CC66';var prog=Math.round(p.progress||0);return '<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.03);cursor:pointer" onclick="v16OpenProject('+p.id+')"><span style="width:8px;height:8px;border-radius:50%;background:'+rc+';flex-shrink:0"></span><div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:500;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+p.name+'</div><div style="display:flex;align-items:center;gap:6px;margin-top:2px"><div style="flex:1;height:3px;background:rgba(255,255,255,0.04);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+prog+'%;background:'+rc+';border-radius:2px"></div></div><span style="font-size:9px;color:#64748b">'+prog+'%</span></div></div></div>';}).join('');
+
+    area.innerHTML=
+      '<div style="display:grid;grid-template-columns:1fr 260px;gap:20px;align-items:start">' +
+        '<div>' +
+          // TODAY'S FOCUS
+          '<div style="margin-bottom:20px"><div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:4px">Today\'s Focus</div><div style="font-size:12px;color:#64748b;margin-bottom:12px">Your most urgent items — focus here first</div>'+focusHtml+aiBubble(AI_HINTS.L3[0])+'</div>' +
+          // PRIORITY GROUPS
+          priorityGroup('P0 — Overdue',p0overdue,'🔴',true)+
+          priorityGroup('P0 — Due Today',p0today,'🟠',true)+
+          priorityGroup('P1 — This Week',p1week,'🟡',false)+
+          priorityGroup('P2 — Upcoming',p2upcoming,'🔵',false)+
+          priorityGroup('Completed This Week',completed,'⚪',false)+
+        '</div>' +
+        // MY PROJECTS SIDEBAR
+        '<div style="position:sticky;top:80px"><div class="v16-card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><span style="font-size:14px;font-weight:600;color:#fff">My Projects ('+myProjects.length+')</span><button onclick="v17L3AddTask()" style="padding:3px 10px;border-radius:6px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);color:#60a5fa;font-size:11px;font-weight:600;cursor:pointer">+ Add Task</button></div>'+projSidebar+'</div></div>' +
+      '</div>';
+  }).catch(function(err){area.innerHTML='<div style="color:#FF4444;padding:40px">Failed: '+err.message+'</div>';});
+}
+
+function v16RenderL3AIDaily(area) {
+  var insights = [
+    {severity:'critical',title:'Priority Recommendation',desc:'Do PCB approval first — it is blocking 2 downstream tasks from EE team. This single action will unblock the critical path for XT-500.',action:'Start PCB approval now',impact:'Unblock 2 tasks, keep MP date on track'},
+    {severity:'high',title:'Who You Are Blocking',desc:'Your overdue task "DQTP Test Plan Approval" is blocking 3 team members from starting their EB1 phase work. They have been waiting 2 days.',action:'Complete DQTP approval by EOD',impact:'3 team members can proceed with EB1 work'},
+    {severity:'warning',title:'Weekly Risk Preview',desc:'Next week, 2 of your projects will hit compliance milestones. Based on current trajectory, both may need escalation to avoid delays.',action:'Pre-emptively schedule compliance review',impact:'Prevent 2 projects from going at-risk'},
+    {severity:'info',title:'Workload Balance',desc:'You have 5 P0/P1 tasks this week but only 3 were completed last week at similar load. Consider delegating 1-2 P2 tasks.',action:'Delegate 2 P2 tasks to available team members',impact:'Focus on high-impact items, improve completion rate'}
+  ];
+  var sevColors={critical:'#FF4444',high:'#FFAA00',warning:'#fbbf24',info:'#3b82f6'};
+  area.innerHTML='<div style="margin-bottom:20px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">🤖 AI Daily Brief</h3><p style="font-size:13px;color:#7a8fa3;margin:0">Your personalized daily intelligence</p></div>' +
+    insights.map(function(ins){var color=sevColors[ins.severity]||'#3b82f6';return '<div class="v16-card" style="margin-bottom:12px;border-left:3px solid '+color+'"><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">'+ins.title+'</div><div style="font-size:13px;color:#94a3b8;margin-bottom:8px;line-height:1.5">'+ins.desc+'</div><div style="display:flex;gap:12px;flex-wrap:wrap"><div style="font-size:12px;padding:4px 10px;background:rgba(0,204,102,0.1);border-radius:6px;color:#00CC66">✓ '+ins.action+'</div><div style="font-size:12px;padding:4px 10px;background:rgba(59,130,246,0.1);border-radius:6px;color:#60a5fa">→ '+ins.impact+'</div></div></div>';}).join('');
+}
+
+// ============================================================
+// L4-OVERVIEW (Project Level — the most important layer)
+// ============================================================
+function v16RenderL4Overview(area) {
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token}:{};
+  // Load project data + blockers
+  Promise.all([
+    fetch('/api/projects',{headers:headers}).then(function(r){return r.json();}),
+    fetch('/api/departments/capacity',{headers:headers}).then(function(r){return r.json();}).catch(function(){return [];})
+  ]).then(function(results){
+    var projects=results[0];
+    var depts=results[1];
+    // Find XT-500 or first P0 project
+    var proj=projects.find(function(p){return p.name==='XT-500';})||projects.find(function(p){return p.priority==='P0';})||projects[0];
+    if(!proj){area.innerHTML='<div style="color:#64748b;padding:40px">No project found</div>';return;}
+    window._v17L4Project=proj;
+    // Load blockers for this project
+    fetch('/api/projects/'+proj.id+'/blockers',{headers:headers}).then(function(r){return r.json();}).then(function(blockers){
+      window._v17Blockers=blockers;
+      var tasks=typeof sl500LoadTasks==='function'?sl500LoadTasks():[];
+      var stats=typeof sl500GetStats==='function'?sl500GetStats(tasks):{total:0,completed:0,overdue:0,in_progress:0};
+      var progress=stats.total>0?Math.round(stats.completed/stats.total*100):Math.round(proj.progress||0);
+
+      // === BLOCKER BANNER ===
+      var blockerBanner='';
+      if(blockers.length>0){
+        blockerBanner='<div style="background:linear-gradient(135deg,rgba(255,68,68,0.12),rgba(255,68,68,0.06));border:2px solid rgba(255,68,68,0.3);border-radius:12px;padding:16px 20px;margin-bottom:20px;animation:v17pulseRed 2s infinite">';
+        blockerBanner+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:20px">🚫</span><span style="font-size:16px;font-weight:700;color:#FF4444">'+blockers.length+' BLOCKERS ACTIVE</span></div>';
+        blockers.forEach(function(b){
+          var dayColor=b.days>=7?'#FF4444':b.days>=3?'#FF4444':'#FFAA00';
+          var pulseStyle=b.days>=7?'animation:v17pulseRed 1.5s infinite':'';
+          blockerBanner+='<div style="display:flex;align-items:center;gap:12px;padding:8px 12px;background:rgba(255,68,68,0.08);border-radius:8px;margin-bottom:6px;border-left:3px solid '+dayColor+'">';
+          blockerBanner+='<div style="flex:1"><span style="font-size:13px;color:#fff;font-weight:500">'+b.description+'</span>';
+          blockerBanner+='<div style="font-size:11px;color:#94a3b8;margin-top:2px">Waiting on <span style="color:'+dayColor+';font-weight:600;'+pulseStyle+'">'+b.owner+' · '+b.days+' days</span></div></div>';
+          blockerBanner+='<button onclick="v17ResolveBlocker('+proj.id+','+b.id+')" style="padding:4px 12px;border-radius:6px;background:rgba(0,204,102,0.15);border:1px solid rgba(0,204,102,0.3);color:#00CC66;font-size:11px;font-weight:600;cursor:pointer">Resolve</button>';
+          blockerBanner+='</div>';
+        });
+        blockerBanner+=aiBubble(AI_HINTS.L4[0]);
+        blockerBanner+='</div>';
+      } else {
+        blockerBanner='<div style="background:rgba(0,204,102,0.08);border:1px solid rgba(0,204,102,0.2);border-radius:8px;padding:10px 16px;margin-bottom:20px;display:flex;align-items:center;gap:8px"><span>✅</span><span style="font-size:13px;font-weight:600;color:#00CC66">No blockers — project is flowing</span></div>';
+      }
+
+      // === DELIVERY DASHBOARD (4 stat cards) ===
+      var totalMilestones=stats.total||12;
+      var completedMilestones=stats.completed||3;
+      var milestonePct=totalMilestones>0?Math.round(completedMilestones/totalMilestones*100):0;
+      var nextMilestone='EB0 Gate';
+      var nextMilestoneDays=12;
+      var phase=proj.phase||'EB0';
+
+      var dashCards=
+        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">' +
+          '<div style="background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(59,130,246,0.03));border:1px solid rgba(59,130,246,0.15);border-radius:12px;padding:16px"><div style="font-size:11px;color:#7a8fa3;margin-bottom:4px">📦 Deliverables</div><div style="font-size:24px;font-weight:700;color:#60a5fa">'+completedMilestones+'/'+totalMilestones+'</div><div style="font-size:11px;color:#64748b">'+milestonePct+'% done</div></div>' +
+          '<div style="background:linear-gradient(135deg,rgba(255,68,68,0.08),rgba(255,68,68,0.03));border:1px solid rgba(255,68,68,0.15);border-radius:12px;padding:16px"><div style="font-size:11px;color:#7a8fa3;margin-bottom:4px">🚧 Blockers</div><div style="font-size:24px;font-weight:700;color:#FF4444">'+blockers.length+'</div><div style="font-size:11px;color:#64748b">'+(blockers.length>0?'↓'+Math.min(blockers.length,2)+' vs last week':'None active')+'</div></div>' +
+          '<div style="background:linear-gradient(135deg,rgba(255,170,0,0.08),rgba(255,170,0,0.03));border:1px solid rgba(255,170,0,0.15);border-radius:12px;padding:16px"><div style="font-size:11px;color:#7a8fa3;margin-bottom:4px">⏰ Next Milestone</div><div style="font-size:18px;font-weight:700;color:#FFAA00">'+nextMilestone+'</div><div style="font-size:11px;color:#64748b">in '+nextMilestoneDays+' days</div></div>' +
+          '<div style="background:linear-gradient(135deg,rgba(0,204,102,0.08),rgba(0,204,102,0.03));border:1px solid rgba(0,204,102,0.15);border-radius:12px;padding:16px"><div style="font-size:11px;color:#7a8fa3;margin-bottom:4px">📊 Progress</div><div style="font-size:24px;font-weight:700;color:#00CC66">'+progress+'%</div><div style="font-size:11px;color:#64748b">'+phase+' · Day 42</div></div>' +
+        '</div>';
+
+      // === MILESTONE TIMELINE ===
+      var milestones=[
+        {name:'Kick Off',date:'2025-01-15',status:'completed',blockers:0},
+        {name:'Concept Approval',date:'2025-02-28',status:'completed',blockers:0},
+        {name:'Design Freeze',date:'2025-04-15',status:'completed',blockers:0},
+        {name:'EB0 Gate',date:'2025-05-30',status:'in-progress',blockers:blockers.length},
+        {name:'DQTP Complete',date:'2025-07-15',status:'upcoming',blockers:0},
+        {name:'EB1 Gate',date:'2025-08-30',status:'upcoming',blockers:0},
+        {name:'Pilot Run',date:'2025-10-15',status:'upcoming',blockers:0},
+        {name:'MP Release',date:'2025-12-01',status:'upcoming',blockers:0}
+      ];
+      var tlSvg='<svg width="100%" height="90" viewBox="0 0 800 90" preserveAspectRatio="xMidYMid meet"><line x1="30" y1="30" x2="770" y2="30" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>';
+      var todayX=380;
+      tlSvg+='<line x1="'+todayX+'" y1="10" x2="'+todayX+'" y2="55" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,3"/><text x="'+todayX+'" y="75" text-anchor="middle" fill="#60a5fa" font-size="9" font-weight="600">TODAY</text>';
+      var msSpacing=740/(milestones.length-1);
+      milestones.forEach(function(ms,i){
+        var x=30+i*msSpacing;
+        var color=ms.status==='completed'?'#64748b':ms.status==='in-progress'?'#FFAA00':'#475569';
+        var r=ms.status==='in-progress'?7:5;
+        if(ms.status==='in-progress'){tlSvg+='<circle cx="'+x+'" cy="30" r="12" fill="'+color+'22" stroke="'+color+'" stroke-width="1.5"><animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/></circle>';}
+        tlSvg+='<circle cx="'+x+'" cy="30" r="'+r+'" fill="'+color+'"/>';
+        tlSvg+='<text x="'+x+'" y="18" text-anchor="middle" fill="#94a3b8" font-size="8">'+ms.date+'</text>';
+        tlSvg+='<text x="'+x+'" y="50" text-anchor="middle" fill="#cbd5e1" font-size="9" font-weight="500">'+ms.name+'</text>';
+        if(ms.blockers>0){tlSvg+='<text x="'+x+'" y="65" text-anchor="middle" fill="#FF4444" font-size="8" font-weight="600">⚠️ '+ms.blockers+' blockers</text>';}
+      });
+      tlSvg+='</svg>';
+
+      // === DEPARTMENT WHEEL ===
+      var departments=[
+        {id:'PMO',name:'PMO',icon:'📋',capacity:{h:8,a:7},angle:0},
+        {id:'PD',name:'PD',icon:'📐',capacity:{h:6,a:4},angle:30},
+        {id:'NPI',name:'NPI',icon:'🔄',capacity:{h:5,a:4},angle:60},
+        {id:'ID',name:'ID',icon:'🎨',capacity:{h:4,a:2},angle:90},
+        {id:'EE',name:'EE',icon:'⚡',capacity:{h:7,a:6},angle:120},
+        {id:'CMF',name:'CMF',icon:'🖌️',capacity:{h:5,a:3},angle:150},
+        {id:'DQTP',name:'DQTP',icon:'🔬',capacity:{h:6,a:5},angle:180},
+        {id:'SC',name:'SC',icon:'📦',capacity:{h:8,a:7},angle:210},
+        {id:'Quality',name:'QA',icon:'✅',capacity:{h:4,a:2},angle:240},
+        {id:'Compliance',name:'Comp',icon:'📋',capacity:{h:3,a:2},angle:270},
+        {id:'MFG',name:'MFG',icon:'🏭',capacity:{h:6,a:4},angle:300},
+        {id:'Marketing',name:'MKT',icon:'📢',capacity:{h:4,a:1},angle:330}
+      ];
+      var ownerToDept={'CN NPI':'PMO','US PMO':'PMO','US PD':'PD','US ID':'ID','US Eng':'EE','CN Artwork':'CMF','CN CMF':'CMF','CN EE':'EE','US EE':'EE','CN DQTP':'DQTP','CN Quality':'Quality','US Quality':'Quality','CN SC':'SC','CN Compliance':'Compliance','Factory':'MFG','US Creative':'Marketing','UK Marketing':'Marketing'};
+      var deptStats={};
+      departments.forEach(function(d){deptStats[d.id]={total:0,completed:0,overdue:0,active:0};});
+      tasks.forEach(function(t){
+        var deptId=ownerToDept[t.owner]||'PMO';
+        if(!deptStats[deptId])deptStats[deptId]={total:0,completed:0,overdue:0,active:0};
+        deptStats[deptId].total++;
+        var ls=typeof sl500ComputeLiveStatus==='function'?sl500ComputeLiveStatus(t):'not_started';
+        if(ls==='completed')deptStats[deptId].completed++;
+        else if(ls==='overdue')deptStats[deptId].overdue++;
+        else if(ls==='in_progress')deptStats[deptId].active++;
+      });
+      var cx=250,cy=220,outerR=180,innerR=70;
+      var wheelW=500,wheelH=450;
+      var wheelSvg='<svg width="'+wheelW+'" height="'+wheelH+'" viewBox="0 0 '+wheelW+' '+wheelH+'" style="display:block;margin:0 auto">';
+      [innerR,innerR+40,outerR-20,outerR].forEach(function(r){wheelSvg+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>';});
+      var ringR=innerR-10;var ringCirc=2*Math.PI*ringR;var ringDash=ringCirc*(progress/100);
+      wheelSvg+='<circle cx="'+cx+'" cy="'+cy+'" r="'+ringR+'" fill="rgba(15,23,42,0.9)" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>';
+      wheelSvg+='<circle cx="'+cx+'" cy="'+cy+'" r="'+ringR+'" fill="none" stroke="#60a5fa" stroke-width="4" stroke-dasharray="'+ringDash+','+(ringCirc-ringDash)+'" stroke-dashoffset="'+(ringCirc*0.25)+'" transform="rotate(-90 '+cx+' '+cy+')"/>';
+      wheelSvg+='<text x="'+cx+'" y="'+(cy-12)+'" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">XT-500</text>';
+      wheelSvg+='<text x="'+cx+'" y="'+(cy+6)+'" text-anchor="middle" fill="#60a5fa" font-size="20" font-weight="700">'+progress+'%</text>';
+      wheelSvg+='<text x="'+cx+'" y="'+(cy+22)+'" text-anchor="middle" fill="#94a3b8" font-size="10">'+phase+' · Day 42</text>';
+      departments.forEach(function(d,i){
+        var rad=(d.angle-90)*Math.PI/180;
+        var nx=cx+outerR*Math.cos(rad);
+        var ny=cy+outerR*Math.sin(rad);
+        var ds=deptStats[d.id]||{total:0,completed:0,overdue:0,active:0};
+        var cap=d.capacity;
+        var overloaded=cap.a>cap.h;
+        var statusColor=overloaded?'#FF4444':ds.overdue>0?'#FF4444':ds.active>0?'#FFAA00':ds.completed===ds.total&&ds.total>0?'#00CC66':'#475569';
+        var lineStart=innerR+5;var lineEnd=outerR-18;
+        var lsx=cx+lineStart*Math.cos(rad);var lsy=cy+lineStart*Math.sin(rad);
+        var lex=cx+lineEnd*Math.cos(rad);var ley=cy+lineEnd*Math.sin(rad);
+        wheelSvg+='<line x1="'+lsx+'" y1="'+lsy+'" x2="'+lex+'" y2="'+ley+'" stroke="'+statusColor+'33" stroke-width="1.5"/>';
+        var nodeR=22;
+        wheelSvg+='<circle cx="'+nx+'" cy="'+ny+'" r="'+nodeR+'" fill="rgba(15,23,42,0.9)" stroke="'+statusColor+'" stroke-width="2" style="cursor:pointer" onclick="v16ShowDeptDetail(\''+d.id+'\')"/>';
+        wheelSvg+='<text x="'+nx+'" y="'+(ny-2)+'" text-anchor="middle" fill="#fff" font-size="14">'+d.icon+'</text>';
+        wheelSvg+='<text x="'+nx+'" y="'+(ny+12)+'" text-anchor="middle" fill="#94a3b8" font-size="7" font-weight="600">'+d.name+'</text>';
+        if(ds.total>0||cap.a>0){
+          var bx=nx+16,by=ny-16;
+          var badgeText=ds.active+'/'+cap.a;
+          wheelSvg+='<circle cx="'+bx+'" cy="'+by+'" r="9" fill="'+statusColor+'" opacity="0.9"/>';
+          wheelSvg+='<text x="'+bx+'" y="'+(by+3)+'" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">'+badgeText+'</text>';
+        }
+      });
+      wheelSvg+='</svg>';
+
+      // Project selector
+      var selectorHtml='<select id="v16ProjectSelector" onchange="v17SwitchL4Project(this.value)" style="background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 12px;font-size:12px;outline:none;cursor:pointer">';
+      projects.filter(function(p){return p.priority==='P0'||p.name==='XT-500';}).slice(0,10).forEach(function(p){
+        selectorHtml+='<option value="'+p.id+'"'+(p.id===proj.id?' selected':'')+'>'+p.name+' ('+p.status+')</option>';
+      });
+      selectorHtml+='</select>';
+
+      area.innerHTML=
+        '<div style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between"><div><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">Project Overview</h3><p style="font-size:13px;color:#7a8fa3;margin:0">'+proj.name+' · '+proj.category+' · '+proj.factory+'</p></div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:#64748b">Project:</span>'+selectorHtml+'</div></div>' +
+        blockerBanner +
+        dashCards +
+        '<div style="margin-bottom:16px"><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:8px">Milestone Timeline</div><div class="v16-card" style="overflow-x:auto">'+tlSvg+'</div>'+aiBubble(AI_HINTS.L4[1])+'</div>' +
+        '<div style="margin-top:20px"><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:12px">Department Workflow</div><div class="v16-card" style="position:relative;height:'+wheelH+'px;overflow:hidden">'+wheelSvg+'<div id="v16DeptDetailPanel" style="display:none;position:absolute;top:10px;right:10px;width:220px;background:rgba(15,23,42,0.95);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;z-index:10"></div></div></div>';
+    }).catch(function(err){area.innerHTML='<div style="color:#FF4444;padding:40px">Blocker load failed: '+err.message+'</div>';});
+  }).catch(function(err){area.innerHTML='<div style="color:#FF4444;padding:40px">Failed: '+err.message+'</div>';});
+}
+
+function v17ResolveBlocker(projectId,blockerId) {
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token,'Content-Type':'application/json'}:{'Content-Type':'application/json'};
+  fetch('/api/projects/'+projectId+'/blockers/'+blockerId+'/resolve',{method:'PUT',headers:headers})
+    .then(function(r){return r.json();})
+    .then(function(data){
+      v16ShowToast('✅ Blocker resolved!');
+      v16RenderL4Overview(document.getElementById('v16ContentArea'));
+    }).catch(function(err){v16ShowToast('❌ Failed to resolve','rgba(255,68,68,0.15)');});
+}
+
+function v17SwitchL4Project(projectId) {
+  fetch('/api/projects').then(function(r){return r.json();}).then(function(projects){
+    var p=projects.find(function(x){return x.id==projectId;});
+    if(p) window._v17L4Project=p;
+    v16RenderL4Overview(document.getElementById('v16ContentArea'));
+  }).catch(function(){});
+}
+
+// ============================================================
+// L4-TASKS (with Blocked column + operational features)
+// ============================================================
+function v16RenderL4Tasks(area) {
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token}:{};
+  fetch('/api/projects',{headers:headers}).then(function(r){return r.json();}).then(function(projects){
+    var proj=window._v17L4Project||projects.find(function(p){return p.name==='XT-500';})||projects[0];
+    if(!proj){area.innerHTML='No project';return;}
+    // Load milestones/tasks for this project
+    fetch('/api/milestones?project_id='+proj.id,{headers:headers}).then(function(r){return r.json();}).then(function(milestones){
+      var tasks=milestones;
+      var notStarted=tasks.filter(function(t){return t.status==='Not Started';});
+      var inProgress=tasks.filter(function(t){return t.status==='In Progress';});
+      var blocked=tasks.filter(function(t){return t.status==='Blocked';});
+      var completed=tasks.filter(function(t){return t.status==='Completed';});
+
+      function taskCard(t,columnType){
+        var pColor=t.manual_priority==='P0'?'#FF4444':t.manual_priority==='P1'?'#FFAA00':t.manual_priority==='P2'?'#3b82f6':'#888888';
+        var dueDate=t.due_date||'';
+        var html='<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:10px;margin-bottom:6px;border-left:3px solid '+pColor+'">';
+        html+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">';
+        html+='<span style="font-size:12px;font-weight:500;color:#fff;flex:1;cursor:pointer" onclick="v17EditTaskName('+t.id+',this)">'+t.name+'</span>';
+        html+='<span style="font-size:9px;padding:1px 6px;border-radius:3px;background:'+pColor+'18;color:'+pColor+'">'+(t.manual_priority||'P3')+'</span>';
+        html+='<button onclick="v17DeleteTask('+proj.id+','+t.id+')" style="margin-left:4px;background:none;border:none;color:#64748b;font-size:10px;cursor:pointer;padding:2px">✕</button>';
+        html+='</div>';
+        html+='<div style="font-size:10px;color:#64748b;margin-bottom:4px">'+(t.owner||'Unassigned')+' · '+(t.phase||'')+'</div>';
+        html+='<div style="display:flex;align-items:center;gap:6px">';
+        html+='<input type="date" value="'+dueDate+'" onchange="v17UpdateTask('+proj.id+','+t.id+',\'due_date\',this.value)" style="background:rgba(255,255,255,0.03);color:#94a3b8;border:1px solid rgba(255,255,255,0.08);border-radius:4px;padding:2px 4px;font-size:9px;width:90px;cursor:pointer;outline:none">';
+        html+='<button onclick="v17CycleTaskStatus('+proj.id+','+t.id+')" style="padding:2px 8px;border-radius:4px;font-size:9px;font-weight:600;cursor:pointer;background:rgba(59,130,246,0.1);color:#60a5fa;border:1px solid rgba(59,130,246,0.2)">'+t.status+'</button>';
+        html+='</div>';
+        if(columnType==='blocked'){
+          html+='<div style="font-size:10px;color:#FF4444;margin-top:4px">⏳ Blocked</div>';
+        }
+        html+='</div>';
+        return html;
+      }
+
+      function column(title,icon,tasks,type,bgColor){
+        var headerBg=type==='blocked'?'rgba(255,68,68,0.08)':type==='completed'?'rgba(0,204,102,0.05)':'rgba(255,255,255,0.02)';
+        return '<div style="flex:1;min-width:220px"><div style="background:'+headerBg+';border:1px solid rgba(255,255,255,0.06);border-radius:10px;overflow:hidden"><div style="padding:10px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05)"><div style="display:flex;align-items:center;gap:6px"><span>'+icon+'</span><span style="font-size:13px;font-weight:600;color:#fff">'+title+'</span><span style="font-size:11px;color:#64748b">('+tasks.length+')</span></div><button onclick="v17AddTask('+proj.id+',\''+type+'\')" style="width:22px;height:22px;border-radius:4px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);color:#60a5fa;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center">+</button></div><div style="padding:8px;max-height:500px;overflow-y:auto">'+tasks.map(function(t){return taskCard(t,type);}).join('')+'</div></div></div>';
+      }
+
+      area.innerHTML=
+        '<div style="margin-bottom:16px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">Task Board</h3><p style="font-size:13px;color:#7a8fa3;margin:0">'+proj.name+' — '+tasks.length+' tasks'+aiBubble(AI_HINTS.L4[2])+'</p></div>' +
+        '<div style="display:flex;gap:12px;overflow-x:auto;padding-bottom:8px">' +
+        column('Not Started','⬜',notStarted,'not_started') +
+        column('In Progress','🔵',inProgress,'in_progress') +
+        column('Blocked','🚫',blocked,'blocked') +
+        column('Complete','✅',completed,'completed') +
+        '</div>';
+    }).catch(function(err){area.innerHTML='<div style="color:#FF4444;padding:40px">Failed: '+err.message+'</div>';});
+  }).catch(function(err){area.innerHTML='<div style="color:#FF4444;padding:40px">Failed: '+err.message+'</div>';});
+}
+
+// Task operations
+function v17CycleTaskStatus(projectId,taskId){
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token,'Content-Type':'application/json'}:{'Content-Type':'application/json'};
+  var cycle={'Not Started':'In Progress','In Progress':'Blocked','Blocked':'Completed','Completed':'Not Started'};
+  fetch('/api/milestones?project_id='+projectId,{headers:headers}).then(function(r){return r.json();}).then(function(tasks){
+    var t=tasks.find(function(x){return x.id===taskId;});
+    if(!t)return;
+    var newStatus=cycle[t.status]||'Not Started';
+    fetch('/api/projects/'+projectId+'/tasks/'+taskId,{method:'PUT',headers:headers,body:JSON.stringify({status:newStatus})}).then(function(r){return r.json();}).then(function(){
+      v16ShowToast('✓ Status updated to '+newStatus);
+      v16RenderL4Tasks(document.getElementById('v16ContentArea'));
+    });
+  });
+}
+
+function v17UpdateTask(projectId,taskId,field,value){
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token,'Content-Type':'application/json'}:{'Content-Type':'application/json'};
+  var body={};body[field]=value;
+  fetch('/api/projects/'+projectId+'/tasks/'+taskId,{method:'PUT',headers:headers,body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(){
+    v16ShowToast('✓ '+field+' updated');
+    v16RenderL4Tasks(document.getElementById('v16ContentArea'));
+  });
+}
+
+function v17EditTaskName(projectId,taskId,el){
+  var newName=prompt('Edit task name:',el.textContent);
+  if(!newName||newName===el.textContent)return;
+  v17UpdateTask(projectId,taskId,'name',newName);
+}
+
+function v17DeleteTask(projectId,taskId){
+  if(!confirm('Delete this task?'))return;
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token}:{};
+  fetch('/api/projects/'+projectId+'/tasks/'+taskId,{method:'DELETE',headers:headers}).then(function(){
+    v16ShowToast('✓ Task deleted');
+    v16RenderL4Tasks(document.getElementById('v16ContentArea'));
+  });
+}
+
+function v17AddTask(projectId,type){
+  var name=prompt('New task name:');
+  if(!name)return;
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token,'Content-Type':'application/json'}:{'Content-Type':'application/json'};
+  var statusMap={'not_started':'Not Started','in_progress':'In Progress','blocked':'Blocked','completed':'Completed'};
+  fetch('/api/projects/'+projectId+'/tasks',{method:'POST',headers:headers,body:JSON.stringify({name:name,project_id:projectId,manual_priority:'P2',due_date:null})}).then(function(r){return r.json();}).then(function(){
+    v16ShowToast('✓ Task added');
+    v16RenderL4Tasks(document.getElementById('v16ContentArea'));
+  });
+}
+
+// ============================================================
+// L4-AI COPILOT (Project-level AI analysis)
+// ============================================================
+function v16RenderL4AICopilot(area) {
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token}:{};
+  fetch('/api/projects',{headers:headers}).then(function(r){return r.json();}).then(function(projects){
+    var proj=window._v17L4Project||projects.find(function(p){return p.name==='XT-500';})||projects[0];
+    if(!proj){area.innerHTML='<div style="color:#64748b;padding:40px">No project found</div>';return;}
+    fetch('/api/projects/'+proj.id+'/blockers',{headers:headers}).then(function(r){return r.json();}).then(function(blockers){
+      fetch('/api/milestones?project_id='+proj.id,{headers:headers}).then(function(r){return r.json();}).then(function(milestones){
+        var progress=Math.round(proj.progress||0);
+        var daysLeft=proj.end_date?Math.ceil((new Date(proj.end_date)-new Date())/(1000*60*60*24)):'--';
+
+        // === CRITICAL PATH ANALYSIS ===
+        var criticalSteps=[
+          {step:'PCB Layout Approval',dept:'EE',status:blockers.find(function(b){return b.owner==='EE';})?'blocked':'pending',days:blockers.find(function(b){return b.owner==='EE';})?(blockers.find(function(b){return b.owner==='EE';}).days):0,downstream:2},
+          {step:'Material Sample',dept:'SC',status:blockers.find(function(b){return b.owner==='SC';})?'blocked':'pending',days:blockers.find(function(b){return b.owner==='SC';})?(blockers.find(function(b){return b.owner==='SC';}).days):0,downstream:1},
+          {step:'Color Code Confirmation',dept:'CMF',status:blockers.find(function(b){return b.owner==='CMF';})?'blocked':'pending',days:blockers.find(function(b){return b.owner==='CMF';})?(blockers.find(function(b){return b.owner==='CMF';}).days):0,downstream:1},
+          {step:'EB0 Gate',dept:'PMO',status:'upcoming',days:0,downstream:3},
+          {step:'DQTP Complete',dept:'DQTP',status:'upcoming',days:0,downstream:2},
+          {step:'EB1 Gate',dept:'PMO',status:'upcoming',days:0,downstream:1},
+          {step:'Pilot Run',dept:'MFG',status:'upcoming',days:0,downstream:1},
+          {step:'MP Release',dept:'PMO',status:'upcoming',days:0,downstream:0},
+        ];
+        var cpHtml=criticalSteps.map(function(s,i){
+          var sColor=s.status==='blocked'?'#FF4444':s.status==='pending'?'#FFAA00':'#64748b';
+          var sIcon=s.status==='blocked'?'🚫':s.status==='pending'?'⏳':'⬜';
+          var bar='<div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;margin-bottom:6px;border-left:3px solid '+sColor+'">'+
+            '<div style="width:24px;text-align:center;font-size:14px">'+sIcon+'</div>'+
+            '<div style="flex:1"><div style="font-size:13px;font-weight:500;color:#fff">'+s.step+'</div><div style="font-size:10px;color:#94a3b8">'+s.dept+(s.downstream>0?' · blocks '+s.downstream+' downstream':'')+'</div></div>'+
+            (s.status==='blocked'?'<div style="padding:2px 10px;border-radius:4px;background:rgba(255,68,68,0.15);color:#FF4444;font-size:11px;font-weight:600;animation:v17pulse 2s infinite">'+s.days+'d blocked</div>':s.status==='pending'?'<div style="padding:2px 10px;border-radius:4px;background:rgba(255,170,0,0.1);color:#FFAA00;font-size:11px">Pending</div>':'<div style="padding:2px 10px;border-radius:4px;background:rgba(100,116,139,0.1);color:#64748b;font-size:11px">Upcoming</div>')+
+            '</div>';
+          if(i<criticalSteps.length-1) bar+='<div style="margin-left:26px;width:2px;height:12px;background:rgba(255,255,255,0.06)"></div>';
+          return bar;
+        }).join('');
+
+        // === RISK SCAN ===
+        var riskFactors=[];
+        if(blockers.length>0) riskFactors.push({level:'critical',label:blockers.length+' Active Blockers',detail:'Longest: '+Math.max.apply(null,blockers.map(function(b){return b.days||0;}))+' days',action:'Escalate blockers to VP level'});
+        if(proj.risk_flag==='Critical') riskFactors.push({level:'critical',label:'Project Flagged Critical',detail:'Risk to MP date',action:'Schedule emergency review'});
+        if(daysLeft!=='--'&&daysLeft<30) riskFactors.push({level:'high',label:'Timeline Pressure',detail:daysLeft+' days to deadline',action:'Fast-track critical items'});
+        if(milestones.filter(function(m){return m.status==='Blocked';}).length>0) riskFactors.push({level:'high',label:'Tasks in Blocked State',detail:milestones.filter(function(m){return m.status==='Blocked';}).length+' tasks blocked',action:'Clear blockers to resume flow'});
+        if(milestones.filter(function(m){return m.status==='Not Started';}).length>milestones.length*0.5) riskFactors.push({level:'warning',label:'Low Execution Rate',detail:'More than half tasks not started',action:'Check resource allocation'});
+        riskFactors.push({level:'info',label:'Similar Projects Pattern',detail:'3 comparable projects saw EE delays at EB0',action:'Pre-engage EE for next gate'});
+        var riskColors={critical:'#FF4444',high:'#FFAA00',warning:'#fbbf24',info:'#3b82f6'};
+        var riskHtml=riskFactors.map(function(rf){
+          var c=riskColors[rf.level]||'#888888';
+          return '<div style="padding:12px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;margin-bottom:8px;border-left:3px solid '+c+'">'+
+            '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="width:8px;height:8px;border-radius:50%;background:'+c+'"></span><span style="font-size:13px;font-weight:600;color:#fff">'+rf.label+'</span></div>'+
+            '<div style="font-size:11px;color:#94a3b8;margin-left:16px;margin-bottom:6px">'+rf.detail+'</div>'+
+            '<div style="margin-left:16px;padding:4px 10px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.15);border-radius:6px;font-size:11px;color:#c4b5fd;display:inline-block">💡 '+rf.action+'</div></div>';
+        }).join('');
+
+        // === OPTIMAL ROUTE ===
+        var optimalSteps=[
+          {order:1,action:'Escalate PCB layout to EE VP',impact:'Unblock 2 tasks, save 3 days',effort:'Low',timeSave:'3 days'},
+          {order:2,action:'Parallel-track DQTP test prep',impact:'Avoid EB0→DQTP serial delay',effort:'Medium',timeSave:'5 days'},
+          {order:3,action:'Pre-approve material alternates',impact:'Reduce SC single-source risk',effort:'Medium',timeSave:'2 days'},
+          {order:4,action:'Schedule compliance pre-review',impact:'Catch issues before EB1 gate',effort:'Low',timeSave:'4 days'},
+        ];
+        var totalSave=optimalSteps.reduce(function(s,o){return s+parseInt(o.timeSave);},0);
+        var optHtml=optimalSteps.map(function(os){
+          var eColor=os.effort==='Low'?'#00CC66':os.effort==='Medium'?'#FFAA00':'#FF4444';
+          return '<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;margin-bottom:8px">'+
+            '<div style="width:28px;height:28px;border-radius:50%;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#c4b5fd;flex-shrink:0">'+os.order+'</div>'+
+            '<div style="flex:1"><div style="font-size:13px;font-weight:500;color:#fff">'+os.action+'</div><div style="font-size:10px;color:#94a3b8;margin-top:2px">Impact: '+os.impact+'</div><div style="display:flex;gap:8px;margin-top:6px"><span style="font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(0,204,102,0.1);color:#00CC66">Saves '+os.timeSave+'</span><span style="font-size:10px;padding:2px 6px;border-radius:4px;background:'+eColor+'18;color:'+eColor+'">Effort: '+os.effort+'</span></div></div></div>';
+        }).join('');
+
+        // === SIMILAR PROJECT REFERENCE ===
+        var similarProjects=[
+          {name:'XT-480',dept:'PMO',outcome:'MP delayed 3 weeks — EE blocker at EB0',lesson:'Escalate EE earlier, pre-approve PCB design',status:'Delayed'},
+          {name:'PB-612',dept:'PMO',outcome:'MP on time — parallel DQTP prep saved 2 weeks',lesson:'Start DQTP prep before EB0 gate',status:'On Track'},
+          {name:'AF-305',dept:'NPI',outcome:'MP delayed 5 weeks — SC material shortage',lesson:'Pre-qualify alternate suppliers for critical parts',status:'Delayed'},
+        ];
+        var simHtml=similarProjects.map(function(sp){
+          var sc=sp.status==='Delayed'?'#FF4444':'#00CC66';
+          return '<div style="padding:12px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;margin-bottom:8px;border-left:3px solid '+sc+'">'+
+            '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px;font-weight:600;color:#fff">'+sp.name+'</span><span style="font-size:10px;padding:2px 6px;border-radius:4px;background:'+sc+'18;color:'+sc+'">'+sp.status+'</span><span style="font-size:10px;color:#64748b">'+sp.dept+'</span></div>'+
+            '<div style="font-size:11px;color:#94a3b8;margin-bottom:6px">'+sp.outcome+'</div>'+
+            '<div style="padding:4px 10px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.15);border-radius:6px;font-size:11px;color:#c4b5fd;display:inline-block">📖 '+sp.lesson+'</div></div>';
+        }).join('');
+
+        area.innerHTML=
+          '<div style="margin-bottom:16px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">🧠 AI Project Copilot</h3><p style="font-size:13px;color:#7a8fa3;margin:0">'+proj.name+' — Intelligent analysis & recommendations</p></div>'+
+          // Critical Path
+          '<div class="v16-card" style="margin-bottom:16px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><span style="font-size:16px">🗺️</span><span style="font-size:15px;font-weight:700;color:#fff">Critical Path Analysis</span></div>'+cpHtml+aiBubble('Items in red are actively blocking your timeline. Resolving PCB approval first gives the biggest impact.')+'</div>'+
+          // Risk Scan
+          '<div class="v16-card" style="margin-bottom:16px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><span style="font-size:16px">🔍</span><span style="font-size:15px;font-weight:700;color:#fff">Risk Scan</span><span style="font-size:11px;padding:2px 8px;border-radius:4px;background:rgba(255,68,68,0.15);color:#FF4444">'+riskFactors.length+' factors</span></div>'+riskHtml+'</div>'+
+          // Optimal Route
+          '<div class="v16-card" style="margin-bottom:16px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:16px">⚡</span><span style="font-size:15px;font-weight:700;color:#fff">Optimal Route</span></div><span style="font-size:12px;color:#00CC66;font-weight:600">Total potential savings: '+totalSave+' days</span></div>'+optHtml+'</div>'+
+          // Similar Project Reference
+          '<div class="v16-card" style="margin-bottom:16px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><span style="font-size:16px">📚</span><span style="font-size:15px;font-weight:700;color:#fff">Similar Project Reference</span></div>'+simHtml+'</div>';
+      });
+    });
+  }).catch(function(err){area.innerHTML='<div style="color:#FF4444;padding:40px">Failed: '+err.message+'</div>';});
+}
+
+// ============================================================
+// L4-Workflow (iframe — DO NOT TOUCH)
+// ============================================================
+function v16RenderL4Workflow(area) {
+  area.innerHTML = '<iframe src="/workflow.html" style="width:100%;height:calc(100vh - 120px);border:none;border-radius:8px;background:#0f0f1e" frameborder="0"></iframe>';
+}
+
+// ============================================================
+// L4-Document — Full drill-down: Brand → Category → Project → Folders/Files
+// ============================================================
+function v16RenderL4Document(area) {
+  if(!window._docState) window._docState={level:1, brand:null, category:null, project:null, folder:null};
+  var st=window._docState;
+  // On L4, default to the current project's brand/category (level 3 = project view)
+  if(typeof v16CurrentLevel!=='undefined' && v16CurrentLevel==='L4' && st.level<3) {
+    var proj=window._v17L4Project;
+    if(proj && proj.brand) { st.level=3; st.brand=proj.brand; st.category=proj.category||'Extension'; st.project=proj.name||'XT-500'; st.factory=proj.factory||'Factory Alpha'; }
+    else { st.level=3; st.brand='Ninja'; st.category='Extension'; st.project='XT-500'; st.factory='Factory Alpha'; }
+  }
+
+  var brandData = {
+    Shark: {
+      color:'#7c3aed',
+      icon:'<svg viewBox="0 0 64 64" width="48" height="48"><circle cx="32" cy="32" r="30" fill="#7c3aed15" stroke="#7c3aed" stroke-width="1.5"/><path d="M20 42 L20 26 C20 20 26 16 32 16 C38 16 44 20 44 26 L44 30 L38 30 L38 26 C38 22 35 20 32 20 C29 20 26 22 26 26 L26 42 Z" fill="#7c3aed" opacity="0.85"/><rect x="18" y="42" width="28" height="4" rx="2" fill="#7c3aed" opacity="0.5"/><circle cx="42" cy="24" r="3" fill="#a78bfa" opacity="0.6"/></svg>',
+      categories: {
+        'Vacuum Cleaners': {products:['Robot Vacuum','Upright Vacuum','Cordless Stick'],projects:['RV-900','RV-850','UV-600','CS-400']},
+        'Floor & Carpet Cleaners': {products:['Steam Mop','Carpet Cleaner'],projects:['SM-300','CC-200']},
+        'Air Purifiers': {products:['HEPA Air Purifier'],projects:['AP-100']},
+        'Fans': {products:['Tower Fan','Bladeless Fan'],projects:['TF-150','BF-100']},
+        'Skincare': {products:['Facial Device','LED Mask'],projects:['FD-500','LM-200']},
+        'Haircare': {products:['Styler','Blow Dry Brush'],projects:['ST-400','BD-300']}
+      }
+    },
+    Ninja: {
+      color:'#059669',
+      icon:'<svg viewBox="0 0 64 64" width="48" height="48"><circle cx="32" cy="32" r="30" fill="#05966915" stroke="#059669" stroke-width="1.5"/><rect x="22" y="14" width="20" height="24" rx="4" fill="#059669" opacity="0.85"/><rect x="25" y="10" width="14" height="6" rx="3" fill="#059669" opacity="0.6"/><path d="M24 38 L20 50 L44 50 L40 38 Z" fill="#059669" opacity="0.5"/><ellipse cx="32" cy="26" rx="6" ry="5" fill="#34d399" opacity="0.4"/></svg>',
+      categories: {
+        'Small Kitchen Appliances': {products:['Air Fryer','Blender','Oven','Food Processor'],projects:['XT-500','AF-400','BL-300','OV-200','FP-100']},
+        'Beverage Machines': {products:['Coffee Maker','Espresso Machine','Tea Maker'],projects:['CM-600','EM-500','TM-100']},
+        'Outdoor Cooking': {products:['Grill'],projects:['GR-700']}
+      }
+    }
+  };
+
+  var projectFolders = {
+    'XT-500': [
+      {name:'Specifications',icon:'📄',type:'folder',files:['Product Brief','Functional Spec','BOM v3.2','Electrical Schematic']},
+      {name:'Design Files',icon:'🎨',type:'folder',files:['ID Concept v2','CMF Color Board','UI Layout','Packaging Design']},
+      {name:'Test Reports',icon:'🔬',type:'folder',files:['DQTP Test Plan','Reliability Report','Safety Test Results','Compliance Certificate']},
+      {name:'Approvals',icon:'✅',type:'folder',files:['EB0 Gate Approval','Concept Sign-off','Design Freeze Approval','MP Authorization']},
+      {name:'Supply Chain',icon:'📦',type:'folder',files:['Material Spec Sheet','Supplier Audit Report','Cost Tracker','Tooling Schedule']},
+      {name:'Manufacturing',icon:'🏭',type:'folder',files:['Pilot Run Report','Assembly Guide','Quality Checklist','Packaging Spec']}
+    ]
+  };
+  var defaultFolders = [
+    {name:'Specifications',icon:'📄',type:'folder',files:['Product Brief','Functional Spec','BOM']},
+    {name:'Design Files',icon:'🎨',type:'folder',files:['Concept Design','CMF Board']},
+    {name:'Test Reports',icon:'🔬',type:'folder',files:['Test Plan','Results Summary']},
+    {name:'Approvals',icon:'✅',type:'folder',files:['Gate Approval','Sign-off Sheet']}
+  ];
+
+  function breadcrumb(parts) {
+    var bc='<div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;font-size:12px;flex-wrap:wrap">';
+    bc+='<span style="color:#60a5fa;cursor:pointer" onclick="window._docState={level:1,brand:null,category:null,project:null,folder:null};v16RenderL4Document(document.getElementById(\'v16ContentArea\'))">Document</span>';
+    parts.forEach(function(p,i) {
+      bc+='<span style="color:#475569">›</span>';
+      if(i===parts.length-1) { bc+='<span style="color:#fff">'+p.label+'</span>'; }
+      else { bc+='<span style="color:#60a5fa;cursor:pointer" onclick="window._docState={level:'+(i+2)+',brand:\''+(st.brand||'')+'\',category:\''+(i>=1?st.category||'':'')+'\',project:\''+(i>=2?st.project||'':'')+'\'};v16RenderL4Document(document.getElementById(\'v16ContentArea\'))">'+p.label+'</span>'; }
+    });
+    bc+='</div>';
+    return bc;
+  }
+
+  var html='';
+  var bd=brandData[st.brand];
+
+  if(st.level===1) {
+    html+='<div style="margin-bottom:16px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">Document Center</h3><p style="font-size:13px;color:#7a8fa3;margin:0">Select a brand to browse documents</p></div>';
+    html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">';
+    Object.keys(brandData).forEach(function(brand) {
+      var b=brandData[brand];
+      var catCount=Object.keys(b.categories).length;
+      var projCount=0; Object.values(b.categories).forEach(function(c){projCount+=c.projects.length;});
+      html+='<div onclick="window._docState={level:2,brand:\''+brand+'\',category:null,project:null,folder:null};v16RenderL4Document(document.getElementById(\'v16ContentArea\'))" style="border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.3s;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02)" onmouseover="this.style.transform=\'translateY(-2px)\'" onmouseout="this.style.transform=\'\'">';
+      html+='<div style="height:80px;background:linear-gradient(135deg,'+b.color+'44,'+b.color+'11);display:flex;align-items:center;justify-content:center;border-bottom:2px solid '+b.color+'66"><div style="display:flex;justify-content:center">'+b.icon+'</div></div>';
+      html+='<div style="padding:20px;text-align:center"><div style="font-size:20px;font-weight:700;color:#fff">'+brand+'</div><div style="font-size:11px;color:#64748b;margin-top:4px">'+catCount+' categories · '+projCount+' projects</div></div></div>';
+    });
+    html+='</div>';
+  } else if(st.level===2) {
+    html+=breadcrumb([{label:st.brand}]);
+    html+='<div style="margin-bottom:16px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">'+st.brand+' Categories</h3><p style="font-size:13px;color:#7a8fa3;margin:0">Select a product category</p></div>';
+    html+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">';
+    Object.keys(bd.categories).forEach(function(cat) {
+      var catData=bd.categories[cat];
+      html+='<div onclick="window._docState={level:3,brand:\''+st.brand+'\',category:\''+cat.replace(/'/g,"\\'")+'\',project:null,folder:null};v16RenderL4Document(document.getElementById(\'v16ContentArea\'))" style="padding:20px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor=\''+bd.color+'66\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.06)\'">';
+      html+='<div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">'+cat+'</div>';
+      html+='<div style="font-size:11px;color:#64748b">'+catData.products.length+' products · '+catData.projects.length+' projects</div></div>';
+    });
+    html+='</div>';
+  } else if(st.level===3) {
+    html+=breadcrumb([{label:st.brand},{label:st.category}]);
+    var catData=bd.categories[st.category];
+    html+='<div style="margin-bottom:16px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">'+st.category+' Projects</h3><p style="font-size:13px;color:#7a8fa3;margin:0">Select a project to view documents</p></div>';
+    html+='<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">';
+    catData.projects.forEach(function(proj) {
+      var folders=projectFolders[proj]||defaultFolders;
+      html+='<div onclick="window._docState.level=4;window._docState.project=\''+proj+'\';window._docState.folder=null;v16RenderL4Document(document.getElementById(\'v16ContentArea\'))" style="padding:20px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor=\''+bd.color+'66\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.06)\'">';
+      html+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><span style="font-size:18px">📁</span><div style="font-size:15px;font-weight:700;color:#fff">'+proj+'</div></div>';
+      html+='<div style="font-size:11px;color:#64748b">'+folders.length+' folders · '+folders.reduce(function(s,f){return s+f.files.length;},0)+' files</div>';
+      html+='</div>';
+    });
+    html+='</div>';
+  } else if(st.level===4) {
+    html+=breadcrumb([{label:st.brand},{label:st.category},{label:st.project}]);
+    var folders=projectFolders[st.project]||defaultFolders;
+    html+='<div style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between"><div><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">'+st.project+' Documents</h3><p style="font-size:13px;color:#7a8fa3;margin:0">'+folders.length+' folders · '+folders.reduce(function(s,f){return s+f.files.length;},0)+' files</p></div></div>';
+    html+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">';
+    folders.forEach(function(folder) {
+      html+='<div onclick="window._docState.level=5;window._docState.folder=\''+folder.name+'\';v16RenderL4Document(document.getElementById(\'v16ContentArea\'))" style="padding:16px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor=\''+(bd?bd.color:'#3b82f6')+'44\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.06)\'">';
+      html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:20px">'+folder.icon+'</span><span style="font-size:13px;font-weight:600;color:#fff">'+folder.name+'</span></div>';
+      html+='<div style="font-size:11px;color:#64748b">'+folder.files.length+' files</div>';
+      html+='</div>';
+    });
+    html+='</div>';
+  } else if(st.level===5) {
+    html+=breadcrumb([{label:st.brand},{label:st.category},{label:st.project},{label:st.folder}]);
+    var allFolders=projectFolders[st.project]||defaultFolders;
+    var currentFolder=allFolders.find(function(f){return f.name===st.folder;})||{files:[]};
+    html+='<div style="margin-bottom:16px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">'+st.folder+'</h3><p style="font-size:13px;color:#7a8fa3;margin:0">'+currentFolder.files.length+' files</p></div>';
+    html+='<div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;overflow:hidden">';
+    currentFolder.files.forEach(function(file,i) {
+      var ext=file.indexOf('Spec')>=0||file.indexOf('Brief')>=0?'pdf':file.indexOf('Schematic')>=0||file.indexOf('Board')>=0?'cad':file.indexOf('Report')>=0||file.indexOf('Results')>=0?'doc':'sheet';
+      var extIcon=ext==='pdf'?'📕':ext==='cad'?'📐':ext==='doc'?'📝':'📊';
+      var extLabel=ext==='pdf'?'PDF':ext==='cad'?'CAD':ext==='doc'?'DOCX':'XLSX';
+      var borderColor=i<currentFolder.files.length-1?'border-bottom:1px solid rgba(255,255,255,0.04)':'';
+      html+='<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;'+borderColor+';cursor:pointer;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.03)\'" onmouseout="this.style.background=\'\'">';
+      html+='<span style="font-size:20px">'+extIcon+'</span>';
+      html+='<div style="flex:1"><div style="font-size:13px;font-weight:500;color:#fff">'+file+'</div><div style="font-size:10px;color:#64748b">Updated 2 days ago · 1.2 MB</div></div>';
+      html+='<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:rgba(59,130,246,0.1);color:#60a5fa">'+extLabel+'</span>';
+      html+='<span style="font-size:14px;color:#64748b;cursor:pointer" title="Download">⬇</span>';
+      html+='</div>';
+    });
+    html+='</div>';
+  }
+  area.innerHTML=html;
+}
+
+// ============================================================
+// L4-Team
+// ============================================================
+function v16RenderL4Team(area) {
+  var teamMembers = [
+    {name:'CN NPI',role:'PMO',tasks:5,overdue:1},
+    {name:'US PMO',role:'PMO',tasks:3,overdue:0},
+    {name:'US PD',role:'Product Design',tasks:4,overdue:1},
+    {name:'US ID',role:'Industrial Design',tasks:2,overdue:0},
+    {name:'US Eng',role:'EE',tasks:6,overdue:2},
+    {name:'CN CMF',role:'CMF',tasks:3,overdue:0},
+    {name:'CN DQTP',role:'DQTP',tasks:5,overdue:1},
+    {name:'CN SC',role:'Supply Chain',tasks:7,overdue:3},
+    {name:'CN Compliance',role:'Compliance',tasks:2,overdue:1},
+    {name:'Factory',role:'Manufacturing',tasks:4,overdue:0}
+  ];
+  area.innerHTML='<div style="margin-bottom:16px"><h3 style="font-size:18px;font-weight:700;color:#fff">XT-500 Team</h3></div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">' +
+    teamMembers.map(function(m){var rc=m.overdue>0?'#FF4444':'#00CC66';return '<div class="v16-card" style="padding:16px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:16px">👤</span><div><div style="font-size:13px;font-weight:600;color:#fff">'+m.name+'</div><div style="font-size:10px;color:#64748b">'+m.role+'</div></div></div><div style="display:flex;gap:8px"><div style="flex:1;text-align:center;padding:4px;background:rgba(59,130,246,0.08);border-radius:4px"><div style="font-size:14px;font-weight:700;color:#60a5fa">'+m.tasks+'</div><div style="font-size:8px;color:#64748b">Tasks</div></div><div style="flex:1;text-align:center;padding:4px;background:rgba(255,68,68,0.08);border-radius:4px"><div style="font-size:14px;font-weight:700;color:'+rc+'">'+m.overdue+'</div><div style="font-size:8px;color:#64748b">Overdue</div></div></div></div>';}).join('') +
+  '</div>';
+}
+
+// Department detail panel for wheel
+function v16ShowDeptDetail(deptId) {
+  var departments=[
+    {id:'PMO',name:'PMO',icon:'📋',fullName:'CN NPI / US PMO',h:8,a:7},
+    {id:'PD',name:'PD',icon:'📐',fullName:'US Product Design',h:6,a:4},
+    {id:'NPI',name:'NPI',icon:'🔄',fullName:'NPI Engineering',h:5,a:4},
+    {id:'ID',name:'ID',icon:'🎨',fullName:'US Industrial Design',h:4,a:2},
+    {id:'EE',name:'EE',icon:'⚡',fullName:'US/CN Electrical Engineering',h:7,a:6},
+    {id:'CMF',name:'CMF',icon:'🖌️',fullName:'CN Artwork & CMF',h:5,a:3},
+    {id:'DQTP',name:'DQTP',icon:'🔬',fullName:'CN DQTP Lab',h:6,a:5},
+    {id:'SC',name:'SC',icon:'📦',fullName:'CN Supply Chain',h:8,a:7},
+    {id:'Quality',name:'QA',icon:'✅',fullName:'CN/US Quality Assurance',h:4,a:2},
+    {id:'Compliance',name:'Comp',icon:'📋',fullName:'CN Compliance',h:3,a:2},
+    {id:'MFG',name:'MFG',icon:'🏭',fullName:'Factory Manufacturing',h:6,a:4},
+    {id:'Marketing',name:'MKT',icon:'📢',fullName:'US Creative / UK Marketing',h:4,a:1}
+  ];
+  var dept=departments.find(function(d){return d.id===deptId;});
+  if(!dept)return;
+  var tasks=typeof sl500LoadTasks==='function'?sl500LoadTasks():[];
+  var ownerToDept={'CN NPI':'PMO','US PMO':'PMO','US PD':'PD','US ID':'ID','US Eng':'EE','CN Artwork':'CMF','CN CMF':'CMF','CN EE':'EE','US EE':'EE','CN DQTP':'DQTP','CN Quality':'Quality','US Quality':'Quality','CN SC':'SC','CN Compliance':'Compliance','Factory':'MFG','US Creative':'Marketing','UK Marketing':'Marketing'};
+  var deptTasks=tasks.filter(function(t){return (ownerToDept[t.owner]||'PMO')===deptId;});
+  var completed=0,overdue=0,active=0;
+  deptTasks.forEach(function(t){var ls=typeof sl500ComputeLiveStatus==='function'?sl500ComputeLiveStatus(t):'not_started';if(ls==='completed')completed++;else if(ls==='overdue')overdue++;else if(ls==='in_progress')active++;});
+  var panel=document.getElementById('v16DeptDetailPanel');
+  if(!panel)return;
+  var pct=deptTasks.length>0?Math.round(completed/deptTasks.length*100):0;
+  var overloaded=dept.a>dept.h;
+  var suggestion='';
+  if(overloaded) suggestion='<div style="margin-top:8px;padding:8px;background:rgba(255,68,68,0.08);border-radius:6px;border-left:3px solid #FF4444"><div style="font-size:10px;font-weight:600;color:#FF4444;margin-bottom:2px">⚠️ Overloaded</div><div style="font-size:9px;color:#94a3b8">'+dept.name+' has '+dept.a+' tasks but '+dept.h+' people. Consider requesting support.</div></div>';
+  panel.style.display='block';
+  panel.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><span style="font-size:20px">'+dept.icon+'</span><div><div style="font-size:14px;font-weight:700;color:#fff">'+dept.name+'</div><div style="font-size:10px;color:#94a3b8">'+dept.fullName+'</div></div></div><div style="display:flex;gap:8px;margin-bottom:12px"><div style="flex:1;text-align:center;padding:6px;border-radius:6px;background:rgba(59,130,246,0.1)"><div style="font-size:14px;font-weight:700;color:#60a5fa">'+active+'/'+dept.a+'</div><div style="font-size:8px;color:#64748b">Active/Capacity</div></div><div style="flex:1;text-align:center;padding:6px;border-radius:6px;background:rgba(34,197,94,0.1)"><div style="font-size:14px;font-weight:700;color:#00CC66">'+completed+'</div><div style="font-size:8px;color:#64748b">Done</div></div><div style="flex:1;text-align:center;padding:6px;border-radius:6px;background:rgba(255,68,68,0.1)"><div style="font-size:14px;font-weight:700;color:#FF4444">'+overdue+'</div><div style="font-size:8px;color:#64748b">Overdue</div></div></div>'+suggestion+'<div style="text-align:right;margin-top:8px"><span style="font-size:10px;color:#60a5fa;cursor:pointer" onclick="document.getElementById(\'v16DeptDetailPanel\').style.display=\'none\'">Close</span></div>';
+}
+
+// ============================================================
+// L3 Task CRUD Operations
+// ============================================================
+function v17L3CycleStatus(projectId,taskId){
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token,'Content-Type':'application/json'}:{'Content-Type':'application/json'};
+  var cycle={'Not Started':'In Progress','In Progress':'Blocked','Blocked':'Completed','Completed':'Not Started'};
+  fetch('/api/milestones?project_id='+projectId,{headers:headers}).then(function(r){return r.json();}).then(function(tasks){
+    var t=tasks.find(function(x){return x.id===taskId;});
+    if(!t)return;
+    var newStatus=cycle[t.status]||'Not Started';
+    fetch('/api/projects/'+projectId+'/tasks/'+taskId,{method:'PUT',headers:headers,body:JSON.stringify({status:newStatus})}).then(function(r){return r.json();}).then(function(){
+      v16ShowToast('✓ Status → '+newStatus);
+      v16RenderL3MyWork(document.getElementById('v16ContentArea'));
+    });
+  });
+}
+
+function v17L3UpdateTask(projectId,taskId,field,value){
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token,'Content-Type':'application/json'}:{'Content-Type':'application/json'};
+  var body={};body[field]=value;
+  fetch('/api/projects/'+projectId+'/tasks/'+taskId,{method:'PUT',headers:headers,body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(){
+    v16ShowToast('✓ '+field+' updated');
+    v16RenderL3MyWork(document.getElementById('v16ContentArea'));
+  });
+}
+
+function v17L3DeleteTask(projectId,taskId){
+  if(!confirm('Delete this task?'))return;
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token}:{};
+  fetch('/api/projects/'+projectId+'/tasks/'+taskId,{method:'DELETE',headers:headers}).then(function(){
+    v16ShowToast('✓ Task deleted');
+    v16RenderL3MyWork(document.getElementById('v16ContentArea'));
+  });
+}
+
+function v17L3AddTask(){
+  var name=prompt('New task name:');
+  if(!name)return;
+  var proj=window._v17L4Project;
+  if(!proj){
+    // Use first project from My Projects
+    var token=localStorage.getItem('auth_token')||'';
+    var headers=token?{'Authorization':'Bearer '+token}:{};
+    fetch('/api/projects',{headers:headers}).then(function(r){return r.json();}).then(function(projects){
+      var ownerName=window._v17L3Owner||'L****';
+      var myProj=projects.find(function(p){return p.owner&&p.owner.toLowerCase().indexOf(ownerName.toLowerCase())>=0;})||projects[0];
+      if(myProj) v17L3CreateTask(myProj.id,name);
+    });
+    return;
+  }
+  v17L3CreateTask(proj.id,name);
+}
+
+function v17L3CreateTask(projectId,name){
+  var token=localStorage.getItem('auth_token')||'';
+  var headers=token?{'Authorization':'Bearer '+token,'Content-Type':'application/json'}:{'Content-Type':'application/json'};
+  fetch('/api/projects/'+projectId+'/tasks',{method:'POST',headers:headers,body:JSON.stringify({name:name,project_id:projectId,manual_priority:'P2',due_date:null})}).then(function(r){return r.json();}).then(function(){
+    v16ShowToast('✓ Task added');
+    v16RenderL3MyWork(document.getElementById('v16ContentArea'));
+  });
+}
+
+// Helper to navigate to project
+function v16OpenProject(projectId) {
+  window._v17L4Project = {id: projectId};
+  v16SwitchLevel('L4');
+}
+
+// ============================================================
+// AI CHAT WIDGET (Global floating)
+// ============================================================
+function v17InitAIChat() {
+  if(document.getElementById('v17AIChatBtn'))return;
+  // Floating button
+  var btn=document.createElement('div');
+  btn.id='v17AIChatBtn';
+  btn.style.cssText='position:fixed;bottom:20px;right:20px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#6d28d9);display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;z-index:10000;box-shadow:0 4px 20px rgba(124,58,237,0.4);transition:all 0.3s';
+  btn.innerHTML='🤖<span style="position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#FF4444;font-size:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;animation:v17pulse 2s infinite" id="v17AIBadge">3</span>';
+  btn.onclick=v17ToggleAIChat;
+  btn.onmouseover=function(){this.style.transform='scale(1.1)';};
+  btn.onmouseout=function(){this.style.transform='scale(1)';};
+  document.body.appendChild(btn);
+  // Chat panel (hidden) — mobile responsive
+  var panel=document.createElement('div');
+  panel.id='v17AIChatPanel';
+  panel.style.cssText='position:fixed;bottom:0;right:0;width:360px;height:520px;background:#0f1629;border:1px solid rgba(124,58,237,0.3);border-radius:16px;z-index:10001;display:none;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.5);overflow:hidden';
+  panel.innerHTML=v17BuildAIChatPanel();
+  document.body.appendChild(panel);
+  // Mobile responsive: adjust on resize
+  function v17ResizeChat(){
+    var p=document.getElementById('v17AIChatPanel');
+    if(!p)return;
+    if(window.innerWidth<480){
+      p.style.width='100%';p.style.height='70vh';p.style.borderRadius='16px 16px 0 0';p.style.bottom='0';p.style.right='0';
+    }else{
+      p.style.width='360px';p.style.height='520px';p.style.borderRadius='16px';p.style.bottom='0';p.style.right='0';
+    }
+  }
+  window.addEventListener('resize',v17ResizeChat);
+  v17ResizeChat();
+}
+
+function v17BuildAIChatPanel() {
+  return '<div style="padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(124,58,237,0.05))"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:18px">🤖</span><span style="font-size:14px;font-weight:700;color:#fff">AutoPM AI</span><span style="font-size:10px;color:#00CC66;background:rgba(0,204,102,0.15);padding:1px 6px;border-radius:4px">Online</span></div><button onclick="v17ToggleAIChat()" style="background:none;border:none;color:#64748b;font-size:16px;cursor:pointer">✕</button></div>' +
+    '<div id="v17AIChatMessages" style="flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px"></div>' +
+    '<div style="padding:10px 12px;border-top:1px solid rgba(255,255,255,0.06)"><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">' +
+      '<button onclick="v17AIQuickAction(\'risks\')" style="padding:3px 8px;border-radius:6px;font-size:10px;background:rgba(255,68,68,0.1);border:1px solid rgba(255,68,68,0.2);color:#FF4444;cursor:pointer">🔍 Risks</button>' +
+      '<button onclick="v17AIQuickAction(\'resources\')" style="padding:3px 8px;border-radius:6px;font-size:10px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);color:#60a5fa;cursor:pointer">📊 Resources</button>' +
+      '<button onclick="v17AIQuickAction(\'delivery\')" style="padding:3px 8px;border-radius:6px;font-size:10px;background:rgba(0,204,102,0.1);border:1px solid rgba(0,204,102,0.2);color:#00CC66;cursor:pointer">⚡ Delivery</button>' +
+      '<button onclick="v17AIQuickAction(\'critical\')" style="padding:3px 8px;border-radius:6px;font-size:10px;background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.2);color:#FFAA00;cursor:pointer">🗺️ Critical Path</button>' +
+      '<button onclick="v17AIQuickAction(\'workload\')" style="padding:3px 8px;border-radius:6px;font-size:10px;background:rgba(136,136,136,0.1);border:1px solid rgba(136,136,136,0.2);color:#888888;cursor:pointer">👥 Workload</button>' +
+    '</div><div style="display:flex;gap:6px"><input id="v17AIInput" type="text" placeholder="Ask about anything..." style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;color:#fff;font-size:12px;outline:none" onkeypress="if(event.key===\'Enter\')v17AISendMessage()"><button onclick="v17AISendMessage()" style="padding:8px 14px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#6d28d9);border:none;color:#fff;font-size:12px;font-weight:600;cursor:pointer">→</button></div></div>';
+}
+
+function v17ToggleAIChat() {
+  var panel=document.getElementById('v17AIChatPanel');
+  if(!panel)return;
+  if(panel.style.display==='none'||panel.style.display==='') {
+    panel.style.display='flex';
+    v17AIGreet();
+  } else {
+    panel.style.display='none';
+  }
+}
+
+function v17AIGreet() {
+  var msgs=document.getElementById('v17AIChatMessages');
+  if(!msgs||msgs.children.length>0)return;
+  var greetings={
+    L1:'Portfolio has 3 items needing executive attention today. SC is the #1 bottleneck with 22 blocked projects.',
+    L2:'PMO is at 87% capacity with 2 projects at risk of delay. Want me to suggest resource rebalancing?',
+    L3:'You have 2 P0 tasks overdue. Let me help prioritize your day.',
+    L4:'XT-500 has 3 blockers. PCB layout approval is the most critical — waiting 5 days on EE.'
+  };
+  var msg=greetings[v16CurrentLevel]||greetings.L1;
+  v17AIAddMessage('ai',msg);
+}
+
+function v17AIAddMessage(type,text) {
+  var msgs=document.getElementById('v17AIChatMessages');
+  if(!msgs)return;
+  var div=document.createElement('div');
+  div.style.cssText='padding:8px 12px;border-radius:10px;font-size:12px;line-height:1.5;max-width:90%;'+(type==='ai'?'background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.15);color:#c4b5fd;align-self:flex-start':'background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.15);color:#93c5fd;align-self:flex-end');
+  div.innerHTML=(type==='ai'?'🤖 ':'') + text;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function v17AIQuickAction(action) {
+  var responses={
+    risks:'<b>Risk Analysis:</b><br>• 159 projects delayed (Critical)<br>• 307 projects at risk (High)<br>• Top risk: SC bottleneck — 22 blocked projects<br>• Trend: At-risk count increasing (18→22 over 7 days)<br><br>Recommendation: Escalate SC and Compliance blockers this week.',
+    resources:'<b>Resource Optimization:</b><br>• PMO: 7/8 allocated (87%) — overloaded<br>• SC: 7/8 allocated (87%) — overloaded<br>• ID: 2/4 allocated (50%) — has capacity<br>• Marketing: 1/4 allocated (25%) — available<br><br>Suggestion: Move 1 resource from Marketing to SC support.',
+    delivery:'<b>Delivery Acceleration:</b><br>• Critical path: PCB approval → DQTP test → EB1 gate<br>• If PCB approved today, MP date can be maintained<br>• Fastest route: Escalate EE, parallel DQTP prep<br><br>Estimated time savings: 2 weeks if action taken today.',
+    critical:'<b>Critical Path for XT-500:</b><br>1. PCB layout approval (EE) — 5 days blocked<br>2. Material sample (SC) — 3 days blocked<br>3. Color code confirmation (CMF) — 1 day blocked<br>4. EB0 Gate — depends on #1-3<br>5. DQTP testing — depends on EB0<br><br>Any delay on items 1-3 pushes MP date.',
+    workload:'<b>Workload Analysis:</b><br>🔴 PMO: 7/8 (87%) — consider redistribution<br>🔴 SC: 7/8 (87%) — 2 unfilled positions<br>🟡 EE: 6/7 (86%) — near capacity<br>🟢 ID: 2/4 (50%) — available for cross-support<br>🟢 Marketing: 1/4 (25%) — most available<br><br>3 team members are overloaded. Consider rebalancing.'
+  };
+  v17AIAddMessage('user',action.charAt(0).toUpperCase()+action.slice(1)+' analysis');
+  setTimeout(function(){v17AIAddMessage('ai',responses[action]||'Analysis not available.');},400);
+}
+
+function v17AISendMessage() {
+  var input=document.getElementById('v17AIInput');
+  if(!input||!input.value.trim())return;
+  var msg=input.value.trim();
+  input.value='';
+  v17AIAddMessage('user',msg);
+  setTimeout(function(){
+    var response=v17AIMatchResponse(msg);
+    v17AIAddMessage('ai',response);
+  },500);
+}
+
+function v17AIMatchResponse(msg) {
+  var m=msg.toLowerCase();
+  if(m.indexOf('risk')>=0||m.indexOf('delay')>=0) return 'Based on current data, the top 3 risks are:<br>1. SC bottleneck (22 projects blocked)<br>2. Compliance delays (avg 12 days vs 5 day benchmark)<br>3. PMO prioritization conflict (7 projects waiting)<br><br>Want me to draft an escalation email for the SC bottleneck?';
+  if(m.indexOf('help')>=0||m.indexOf('priorit')>=0) return 'Your top priority should be resolving PCB layout approval on XT-500. It is on the critical path and has been blocked for 5 days. Escalating to EE VP would be the fastest resolution path.';
+  if(m.indexOf('blocker')>=0) return 'There are 3 active blockers on XT-500:<br>1. PCB layout approval (EE, 5 days) 🔴<br>2. Material sample (SC, 3 days) 🟠<br>3. Color code confirmation (CMF, 1 day) 🟡<br><br>Resolving #1 would unblock 2 downstream tasks.';
+  if(m.indexOf('resource')>=0||m.indexOf('capacity')>=0) return 'Department capacity status:<br>🔴 PMO: 87% — overloaded<br>🔴 SC: 87% — overloaded<br>🟢 ID: 50% — available<br>🟢 Marketing: 25% — most available<br><br>Suggestion: Cross-train Marketing for CMF support tasks.';
+  if(m.indexOf('email')>=0||m.indexOf('draft')>=0||m.indexOf('escalat')>=0) return '<b>Draft Escalation Email:</b><br><br>Subject: URGENT: PCB Layout Approval — XT-500 Extension<br><br>Hi EE Team Lead,<br><br>The PCB layout approval for XT-500 has been pending for 5 days, blocking 2 downstream tasks and putting the MP date at risk.<br><br>Can we escalate this for priority review today?<br><br>Best regards,<br>AutoPM System';
+  if(m.indexOf('when')>=0||m.indexOf('mp')>=0||m.indexOf('launch')>=0) return 'Based on current progress (35%, EB0 phase), the projected MP date for XT-500 is December 1, 2025. However, if the 3 current blockers are not resolved within 2 weeks, MP will be delayed by 3-4 weeks.';
+  return 'I can help you with:<br>• 🔍 Risk analysis — type "risks"<br>• 📊 Resource optimization — type "resources"<br>• ⚡ Delivery acceleration — type "delivery"<br>• 🗺️ Critical path — type "critical path"<br>• 👥 Workload analysis — type "workload"<br><br>Or ask me anything about your projects!';
+}
+
+// ============================================================
+// v17 Init
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+  document.body.classList.add('v16-active');
+  var oldHeader = document.querySelector('header.fixed');
+  if (oldHeader) oldHeader.style.display = 'none';
+  var oldLeftPanel = document.querySelector('.fixed.top-20.left-4');
+  if (oldLeftPanel) oldLeftPanel.style.display = 'none';
+  var oldRightPanel = document.querySelector('.right-panel-container');
+  if (oldRightPanel) oldRightPanel.style.display = 'none';
+  var oldCenter = document.getElementById('center-area');
+  if (oldCenter) oldCenter.style.display = 'none';
+  v16SwitchLevel('L1');
+  v16Initialized = true;
+  v17InitAIChat();
+});
+</script>
+
+<style>
+@keyframes v17pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes v17pulseRed {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,68,68,0.3); }
+  50% { box-shadow: 0 0 12px 2px rgba(255,68,68,0.2); }
+}
+@keyframes v17fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>

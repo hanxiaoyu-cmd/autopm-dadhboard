@@ -1,0 +1,4 @@
+project_name,project_type,current_phase,status,pm_name,department,blocked_at,blocked_days,blocked_department,start_date,target_launch_date,priority,notes
+Project-Alpha,NPD,Design,On Track,Alice Wang,R&D,,,0,2026-01-15,2026-09-30,P1,New product development for US market
+Project-Beta,Extension,DQTP,At Risk,Bob Chen,Engineering,Compliance,14,Quality,2026-02-01,2026-07-15,P2,Waiting for compliance approval from Quality team
+Project-Gamma,Cost Out,Production,Delayed,Carol Li,Supply Chain,Production,21,Manufacturing,2025-11-01,2026-06-01,P3,Manufacturing delay due to component shortage

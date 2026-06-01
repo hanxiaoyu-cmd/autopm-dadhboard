@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.db
+.env
+uploads/*
+!uploads/.gitkeep
+feedback_data.json
+*.sqlite3
+.vscode/
+.idea/
+.DS_Store

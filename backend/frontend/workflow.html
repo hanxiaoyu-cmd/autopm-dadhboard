@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoPM Gate Flowchart v4 EN — Sugiyama Auto Layout + Edit</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0f0f1e;--bg2:#161630;--bg3:#1e1e3a;--bg4:#282850;
+  --text:#e0e0f0;--text2:#9090b0;--text3:#606080;
+  --green:#2ecc71;--red:#e74c3c;--yellow:#f0c040;--orange:#e67e22;
+  --border:#303060;--glow:rgba(100,100,255,.15);
+  --conn-normal:rgba(100,100,255,0.3);--conn-critical:rgba(231,76,60,0.4);--conn-done:rgba(46,204,113,0.4);
+  --dept-pd:#4A90D9;--dept-uiid:#7B68EE;--dept-pmo:#F0C040;--dept-eng:#5DADE2;
+  --dept-npi:#E67E22;--dept-comp:#E74C3C;--dept-cmf:#E91E8F;--dept-sc:#2ECC71;
+  --dept-factory:#95A5A6;--dept-quality:#1ABC9C;--dept-ee:#F39C12;
+  --dept-tooling:#8E44AD;--dept-package:#3498DB;--dept-dqtp:#C0392B;--dept-planning:#27AE60;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;overflow-x:hidden}
+body{display:flex;flex-direction:column;min-height:100vh}
+
+/* Header */
+.header{background:linear-gradient(135deg,#0d0d20 0%,#1a1a3a 100%);border-bottom:1px solid var(--border);padding:6px 12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;position:sticky;top:0;z-index:100}
+.header-left{display:flex;align-items:center;gap:14px}
+.logo{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#4A90D9,#7B68EE);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.header-title{font-size:13px;font-weight:700;letter-spacing:.3px}
+.header-sub{font-size:9px;color:var(--text2);margin-top:1px}
+.header-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.btn{padding:3px 8px;border-radius:4px;border:1px solid var(--border);background:var(--bg3);color:var(--text);cursor:pointer;font-size:10px;transition:all .2s;display:flex;align-items:center;gap:5px}
+.btn:hover{background:var(--bg4);border-color:#5050a0}
+.btn-primary{background:linear-gradient(135deg,#4A90D9,#7B68EE);border-color:transparent;color:#fff}
+.btn-primary:hover{opacity:.85}
+.btn-danger{border-color:var(--red);color:var(--red)}
+.btn-danger:hover{background:rgba(231,76,60,.15)}
+
+/* Branch selector bar */
+.branch-bar{background:var(--bg2);padding:4px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.branch-bar-label{font-size:11px;color:var(--text3);font-weight:600;margin-right:4px;white-space:nowrap}
+.branch-toggle{display:flex;align-items:center;gap:4px;padding:3px 8px;border-radius:4px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;font-size:11px;font-weight:600;transition:all .25s;user-select:none;white-space:nowrap}
+.branch-toggle:hover{background:var(--bg4)}
+.branch-toggle.active{border-color:var(--lane-color,#5050a0);color:#fff;background:rgba(255,255,255,.06);box-shadow:0 0 8px rgba(255,255,255,.04)}
+.branch-toggle.locked{opacity:.55;cursor:default;border-style:dashed}
+.branch-toggle .toggle-dot{width:8px;height:8px;border-radius:50%;transition:all .25s;flex-shrink:0}
+.branch-toggle.active .toggle-dot{background:var(--lane-color,#888);box-shadow:0 0 6px var(--lane-color,#888)}
+.branch-toggle:not(.active) .toggle-dot{background:#444}
+.branch-toggle.locked .toggle-dot{background:var(--lane-color,#888)}
+.branch-divider{width:1px;height:22px;background:var(--border);margin:0 4px;flex-shrink:0}
+.preset-bar{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.preset-btn{padding:2px 6px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;font-size:8px;font-weight:700;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
+.preset-btn:hover{background:var(--bg4);color:var(--text2)}
+.preset-btn.active{background:var(--bg4);border-color:#6060a0;color:var(--text)}
+.preset-btn .level-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:3px;vertical-align:middle}
+.preset-label{font-size:10px;color:var(--text3);margin-right:2px;white-space:nowrap;font-weight:600}
+
+/* Progress */
+.progress-section{background:var(--bg2);padding:4px 12px;border-bottom:1px solid var(--border)}
+.progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;font-size:10px}
+.progress-label{color:var(--text2)}
+.progress-pct{font-weight:700;font-size:12px;background:linear-gradient(90deg,var(--green),var(--dept-eng));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.progress-bar-outer{height:3px;background:var(--bg4);border-radius:2px;overflow:hidden}
+.progress-bar-inner{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--dept-eng));transition:width .6s cubic-bezier(.25,.8,.25,1)}
+.progress-stats{display:flex;gap:16px;margin-top:2px;font-size:9px;color:var(--text2);flex-wrap:wrap}
+.stat-item{display:flex;align-items:center;gap:4px}
+.stat-dot{width:7px;height:7px;border-radius:50%}
+.stat-dot.green{background:var(--green)}.stat-dot.yellow{background:var(--yellow)}.stat-dot.red{background:var(--red)}.stat-dot.gray{background:var(--text3)}
+
+/* Legend */
+.legend-bar{background:var(--bg2);padding:3px 12px;border-bottom:1px solid var(--border);display:flex;gap:6px;flex-wrap:wrap;font-size:9px;align-items:center}
+.legend-item{display:flex;align-items:center;gap:3px;color:var(--text2)}
+.legend-color{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+/* Flow wrapper — canvas for auto layout */
+.flow-wrapper{flex:1;overflow:auto;padding:20px 16px 40px;background:linear-gradient(180deg,var(--bg) 0%,#0d0d1a 100%)}
+.flow-area{position:relative;display:inline-block;min-width:100%}
+.conn-svg{position:absolute;top:0;left:0;pointer-events:none;z-index:1;overflow:visible}
+.conn-svg path{pointer-events:stroke;cursor:pointer;transition:stroke .2s, stroke-width .2s, opacity .2s}
+.conn-svg path.highlighted{stroke:rgba(120,140,255,0.8)!important;stroke-width:2.5!important;opacity:1!important}
+.conn-svg path.dimmed{opacity:0.08!important}
+
+/* Gate column headers */
+.gate-header{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;z-index:3}
+.gate-diamond-wrap{position:relative;display:flex;flex-direction:column;align-items:center;cursor:pointer}
+.gate-diamond{width:64px;height:64px;transform:rotate(45deg);border-radius:10px;border:2px solid var(--border);background:var(--bg3);display:flex;align-items:center;justify-content:center;transition:all .3s}
+.gate-diamond-inner{transform:rotate(-45deg);text-align:center;line-height:1.2}
+.gate-emoji{font-size:18px}
+.gate-label{font-size:9px;font-weight:700;margin-top:1px;color:var(--text2)}
+.gate-diamond.status-completed{border-color:var(--green);background:rgba(46,204,113,.08)}
+.gate-diamond.status-in-progress{border-color:var(--yellow);background:rgba(240,192,64,.06)}
+.gate-diamond.status-not-started{border-color:var(--border);background:var(--bg3)}
+.gate-diamond.critical{border-color:var(--red);animation:pulse-red 2s infinite}
+.gate-pct-badge{position:absolute;top:-4px;right:-12px;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;background:var(--bg4);color:var(--text2);white-space:nowrap;z-index:3}
+.gate-pct-badge.done{background:var(--green);color:#fff}
+.gate-pct-badge.crit{background:var(--red);color:#fff;animation:pulse-red 1.5s infinite}
+.gate-subtitle{font-size:9px;color:var(--text3);margin-top:6px;text-align:center;white-space:nowrap}
+
+@keyframes pulse-red{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* Column vertical guide line */
+.col-guide{position:absolute;top:0;width:1px;background:linear-gradient(180deg,rgba(48,48,96,.3),rgba(48,48,96,.05));z-index:0;pointer-events:none}
+
+/* Task node — absolutely positioned */
+.task-node{position:absolute;display:flex;align-items:center;gap:0;width:140px;height:36px;border-radius:6px;background:var(--bg3);border:1.5px solid var(--border);cursor:pointer;transition:all .2s;z-index:2;overflow:visible}
+.task-node:hover{background:var(--bg4);transform:translateY(-1px);box-shadow:0 3px 12px rgba(0,0,0,.3)}
+.task-node.highlighted{box-shadow:0 0 12px rgba(100,140,255,.4)!important;border-color:rgba(100,140,255,.6)!important}
+.task-node.dimmed{opacity:.25!important}
+.node-dept-bar{width:4px;min-height:100%;border-radius:2px 0 0 2px;flex-shrink:0;position:absolute;left:0;top:0;bottom:0}
+.node-content{flex:1;padding:2px 6px 2px 8px;min-width:0;display:flex;flex-direction:column;justify-content:center}
+.node-name{font-size:10px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
+.node-meta{font-size:8px;color:var(--text3);line-height:1.2;margin-top:1px}
+.node-status-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--text3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;cursor:pointer;transition:all .2s;position:absolute;right:4px;top:50%;transform:translateY(-50%)}
+.node-status-dot.s-not-started{border-color:var(--text3);color:transparent}
+.node-status-dot.s-in-progress{border-color:var(--yellow);background:rgba(240,192,64,.12);color:var(--yellow)}
+.node-status-dot.s-completed{border-color:var(--green);background:var(--green);color:#fff}
+.node-status-dot:hover{transform:translateY(-50%) scale(1.15)}
+
+/* Branch tag — top right */
+.node-branch-tag{position:absolute;top:-7px;right:2px;padding:0 4px;border-radius:3px;font-size:7px;font-weight:700;line-height:13px;color:#fff;opacity:.85;z-index:3}
+
+/* External dep warning */
+.ext-dep-warn{position:absolute;top:-8px;left:8px;font-size:10px;z-index:3;animation:blink-warn 2s infinite}
+@keyframes blink-warn{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* Status border overrides */
+.task-node.st-completed{border-color:var(--green)}
+.task-node.st-in-progress{border-color:var(--yellow)}
+.task-node.st-blocked{border-color:var(--red);animation:pulse-border 2s infinite}
+@keyframes pulse-border{0%,100%{border-color:var(--red)}50%{border-color:rgba(231,76,60,.3)}}
+
+/* Critical task indicator */
+.task-node.is-critical::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);border-radius:6px 6px 0 0}
+
+/* Tooltip */
+.tooltip{position:fixed;z-index:9999;background:#1e1e3e;border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:11px;pointer-events:none;max-width:280px;box-shadow:0 8px 30px rgba(0,0,0,.5);opacity:0;transition:opacity .15s}
+.tooltip.visible{opacity:1}
+.tooltip-title{font-weight:700;margin-bottom:4px;font-size:12px}
+.tooltip-row{color:var(--text2);margin:2px 0;display:flex;gap:6px}
+.tooltip-label{color:var(--text3);min-width:56px}
+
+/* Gate Side Panel */
+.side-panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;opacity:0;transition:opacity .25s}
+.side-panel-overlay.active{display:block;opacity:1}
+.side-panel{position:fixed;top:0;right:-420px;width:400px;max-width:90vw;height:100vh;background:var(--bg2);border-left:1px solid var(--border);z-index:301;transition:right .3s cubic-bezier(.25,.8,.25,1);overflow-y:auto;display:flex;flex-direction:column}
+.side-panel.active{right:0}
+.side-panel-header{padding:18px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.side-panel-title{font-size:12px;font-weight:700}
+.side-panel-close{background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;padding:4px 8px}
+.side-panel-close:hover{color:var(--text)}
+.side-panel-body{padding:16px 20px;flex:1}
+.side-panel-section{margin-bottom:16px}
+.side-panel-section-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.side-task-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;margin-bottom:4px;background:var(--bg3);border:1px solid var(--border);font-size:11px;transition:all .2s;cursor:pointer}
+.side-task-item:hover{background:var(--bg4);border-color:#5050a0}
+.side-task-item .st-bar{width:3px;height:22px;border-radius:2px;flex-shrink:0}
+.side-task-item .st-info{flex:1;min-width:0}
+.side-task-item .st-name{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.side-task-item .st-dept{font-size:9px;color:var(--text3)}
+.side-task-item .st-status{width:16px;height:16px;border-radius:50%;border:2px solid var(--text3);display:flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0}
+.side-task-item .st-status.s-completed{border-color:var(--green);background:var(--green);color:#fff}
+.side-task-item .st-status.s-in-progress{border-color:var(--yellow);background:rgba(240,192,64,.12);color:var(--yellow)}
+.side-task-item .st-status.s-not-started{border-color:var(--text3);color:transparent}
+.side-task-item.in-hidden-lane{opacity:.5;border-style:dashed}
+.side-lane-tag{font-size:8px;padding:1px 5px;border-radius:3px;font-weight:700;color:#fff;margin-left:4px}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.active{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:90vw;max-height:90vh;overflow:auto;position:relative}
+.modal-close{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer}
+.modal-close:hover{color:var(--text)}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:#4040a0}
+
+/* Edit features */
+.edit-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;display:none;align-items:center;justify-content:center}
+.edit-modal-overlay.active{display:flex}
+.edit-modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;width:300px;max-width:90vw}
+.edit-modal h4{font-size:14px;margin-bottom:12px;color:var(--text)}
+.edit-field{margin-bottom:10px}
+.edit-field label{display:block;font-size:11px;color:var(--text2);margin-bottom:3px;font-weight:600}
+.edit-field input,.edit-field select{width:100%;padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:12px;outline:none}
+.edit-field input:focus,.edit-field select:focus{border-color:#5050a0}
+.edit-modal-btns{display:flex;gap:8px;margin-top:14px;justify-content:flex-end}
+.ctx-menu{position:fixed;z-index:500;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:4px 0;min-width:120px;box-shadow:0 8px 30px rgba(0,0,0,.5);display:none}
+.ctx-menu.active{display:block}
+.ctx-menu-item{padding:6px 14px;font-size:12px;cursor:pointer;color:var(--text);display:flex;align-items:center;gap:6px}
+.ctx-menu-item:hover{background:var(--bg4);color:#fff}
+.ctx-menu-item.danger{color:var(--red)}
+.ctx-menu-item.danger:hover{background:rgba(231,76,60,.15)}
+.task-node.dragging{opacity:.7;cursor:grabbing;z-index:10!important;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+
+/* Connection mode */
+.flow-area.conn-mode{cursor:crosshair}
+.flow-area.conn-mode .task-node{cursor:crosshair}
+.flow-area.conn-mode .task-node .node-status-dot{pointer-events:none}
+.task-node.conn-source{box-shadow:0 0 16px rgba(46,204,113,.6)!important;border-color:var(--green)!important;z-index:5}
+.task-node.conn-target-hover:hover{box-shadow:0 0 16px rgba(100,140,255,.6)!important;border-color:#7070ff!important}
+.conn-mode-bar{position:fixed;top:58px;left:50%;transform:translateX(-50%);z-index:150;background:linear-gradient(135deg,#4A90D9,#7B68EE);color:#fff;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:600;display:none;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,.4);white-space:nowrap}
+.conn-mode-bar.active{display:flex}
+.conn-mode-bar .cancel-link{color:rgba(255,255,255,.8);cursor:pointer;text-decoration:underline;font-size:12px;font-weight:400}
+
+/* Add task modal */
+.add-task-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;display:none;align-items:center;justify-content:center}
+.add-task-modal-overlay.active{display:flex}
+.add-task-modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;width:400px;max-width:90vw;max-height:85vh;overflow-y:auto}
+.add-task-modal h4{font-size:14px;margin-bottom:14px;color:var(--text)}
+.add-task-modal .edit-field{margin-bottom:10px}
+.add-task-modal .edit-field label{display:block;font-size:11px;color:var(--text2);margin-bottom:3px;font-weight:600}
+.add-task-modal .edit-field input,.add-task-modal .edit-field select{width:100%;padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:12px;outline:none}
+.add-task-modal .edit-field input:focus,.add-task-modal .edit-field select:focus{border-color:#5050a0}
+.deps-checkbox-list{max-height:180px;overflow-y:auto;border:1px solid var(--border);border-radius:6px;background:var(--bg3);padding:4px}
+.deps-checkbox-item{display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:11px;color:var(--text);cursor:pointer;border-radius:3px}
+.deps-checkbox-item:hover{background:var(--bg4)}
+.deps-checkbox-item input{accent-color:var(--green);cursor:pointer}
+.add-task-modal-btns{display:flex;gap:8px;margin-top:14px;justify-content:flex-end}
+
+/* Deps list for deletion */
+.deps-list-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;display:none;align-items:center;justify-content:center}
+.deps-list-modal-overlay.active{display:flex}
+.deps-list-modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;width:360px;max-width:90vw;max-height:70vh;overflow-y:auto}
+.deps-list-modal h4{font-size:14px;margin-bottom:12px;color:var(--text)}
+.dep-list-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;margin-bottom:4px;background:var(--bg3);border:1px solid var(--border);font-size:11px}
+.dep-list-item .dep-info{flex:1;min-width:0}
+.dep-list-item .dep-name{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dep-list-item .dep-id{font-size:9px;color:var(--text3)}
+.dep-list-item .dep-dir{font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;color:#fff}
+.dep-remove-btn{background:none;border:none;color:var(--red);cursor:pointer;font-size:14px;padding:2px 6px;border-radius:4px;flex-shrink:0}
+.dep-remove-btn:hover{background:rgba(231,76,60,.15)}
+.deps-list-empty{color:var(--text3);font-size:12px;text-align:center;padding:16px 0}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo">S</div>
+    <div>
+      <div class="header-title">AutoPM Gate Flowchart v4</div>
+      <div class="header-sub">Sugiyama Auto Layout &nbsp;|&nbsp; Click to toggle &nbsp;·&nbsp; Dbl-click to edit &nbsp;·&nbsp; Right-click menu &nbsp;·&nbsp; Drag to adjust</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="btn" onclick="startConnMode()">🔗 Add Connection</button>
+    <button class="btn" onclick="openAddTaskModal()">➕ Add Task</button>
+    <button class="btn" onclick="resetAll()">🔄 Reset</button>
+    <button class="btn" onclick="autoArrange()">📐 Auto Arrange</button>
+    <button class="btn" onclick="resetToDefault()" style="color:#e74c3c">🔄 Restore Default</button>
+    <button class="btn" onclick="exportJSON()">📤 Export JSON</button>
+    <button class="btn" onclick="importJSON()">📥 Import JSON</button>
+    <button class="btn btn-primary" onclick="exportPNG()">📸 Export PNG</button>
+  </div>
+</div>
+
+<div class="branch-bar" id="branchBar"></div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <span class="progress-label">Visible Branch Progress</span>
+    <span class="progress-pct" id="overallPct">0%</span>
+  </div>
+  <div class="progress-bar-outer"><div class="progress-bar-inner" id="overallBar" style="width:0%"></div></div>
+  <div class="progress-stats" id="overallStats"></div>
+</div>
+
+<div class="legend-bar" id="legendBar"></div>
+
+<div class="flow-wrapper" id="flowWrapper">
+  <div class="flow-area" id="flowArea">
+    <svg id="connSvg" class="conn-svg"></svg>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="side-panel-overlay" id="sidePanelOverlay" onclick="closeSidePanel()"></div>
+<div class="side-panel" id="sidePanel">
+  <div class="side-panel-header">
+    <div class="side-panel-title" id="sidePanelTitle">Gate Details</div>
+    <button class="side-panel-close" onclick="closeSidePanel()">✕</button>
+  </div>
+  <div class="side-panel-body" id="sidePanelBody"></div>
+</div>
+
+<div class="modal-overlay" id="exportModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 style="margin-bottom:12px">Export Preview</h3>
+    <canvas id="exportCanvas" style="max-width:100%;border-radius:8px"></canvas>
+    <div style="margin-top:12px;text-align:center">
+      <button class="btn btn-primary" onclick="downloadPNG()">💾 Download PNG</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="edit-modal-overlay" id="editModal">
+  <div class="edit-modal">
+    <h4 id="editModalTitle">Edit Node</h4>
+    <input type="hidden" id="editTaskId">
+    <div class="edit-field"><label>Task Name</label><input id="editName" type="text"></div>
+    <div class="edit-field"><label>Department</label><select id="editDept">
+      <option>PD</option><option>UI/ID</option><option>PMO</option><option>ENG</option>
+      <option>NPI</option><option>Compliance</option><option>CMF</option><option>SC</option>
+      <option>Factory</option><option>Quality</option><option>EE</option><option>Tooling</option>
+      <option>Package</option><option>DQTP</option><option>Planning</option>
+    </select></div>
+    <div class="edit-field"><label>Days</label><input id="editDays" type="number" min="1"></div>
+    <div class="edit-modal-btns">
+      <button class="btn" onclick="closeEditModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditModal()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="ctx-menu" id="ctxMenu">
+  <div class="ctx-menu-item" onclick="ctxEdit()">✏️ Edit</div>
+  <div class="ctx-menu-item" onclick="ctxConnectFrom()">🔗 Connect from Node</div>
+  <div class="ctx-menu-item" onclick="ctxDeleteConn()">✂️ Delete Connection</div>
+  <div class="ctx-menu-item" onclick="ctxAddTaskHere()">➕ Add Task to Gate</div>
+  <div class="ctx-menu-item danger" onclick="ctxDelete()">🗑 Delete Node</div>
+</div>
+
+<!-- Connection mode indicator -->
+<div class="conn-mode-bar" id="connModeBar">
+  <span id="connModeText">🔗 Connection Mode: Click source node</span>
+  <span class="cancel-link" onclick="cancelConnMode()">Cancel (Esc)</span>
+</div>
+
+<!-- Add Task Modal -->
+<div class="add-task-modal-overlay" id="addTaskModal">
+  <div class="add-task-modal">
+    <h4>➕ Add New Task</h4>
+    <div class="edit-field"><label>Task Name (Required)</label><input id="addTaskName" type="text" placeholder="Enter task name"></div>
+    <div class="edit-field"><label>Department</label><select id="addTaskDept">
+      <option>PD</option><option>ENG</option><option>NPI</option><option>PMO</option>
+      <option>CMF</option><option>SC</option><option>Package</option><option>Quality</option>
+      <option>Compliance</option><option>DQTP</option><option>Tooling</option><option>EE</option>
+      <option>Factory</option><option>UI/ID</option><option>Planning</option>
+    </select></div>
+    <div class="edit-field"><label>Branch</label><select id="addTaskLane">
+      <option value="main">Main Line (NPI)</option><option value="comp">Compliance</option>
+      <option value="dqtp">DQTP</option><option value="tool">Tooling+Structure</option>
+      <option value="ee">EE+SW</option><option value="cmf">CMF</option>
+      <option value="pkg">Package</option><option value="qa">QA</option>
+    </select></div>
+    <div class="edit-field"><label>Days</label><input id="addTaskDays" type="number" min="1" value="3"></div>
+    <div class="edit-field"><label>Gate</label><select id="addTaskGate">
+      <option value="0">Gate 1 — Kick Off</option><option value="1">Gate 2 — ECN Open</option>
+      <option value="2">Gate 3 — ECN DD Approve</option><option value="3">Gate 4 — EB Build</option>
+      <option value="4">Gate 5 — Sample Dist. & Testing</option><option value="5">Gate 6 — ECN IMP Review</option>
+    </select></div>
+    <div class="edit-field"><label>Dependencies (Multi-select)</label><div class="deps-checkbox-list" id="addTaskDepsList"></div></div>
+    <div class="add-task-modal-btns">
+      <button class="btn" onclick="closeAddTaskModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveAddTaskModal()">Add</button>
+    </div>
+  </div>
+</div>
+
+<!-- Deps List Modal (for deleting connections) -->
+<div class="deps-list-modal-overlay" id="depsListModal">
+  <div class="deps-list-modal">
+    <h4 id="depsListTitle">✂️ Dependencies</h4>
+    <div id="depsListContent"></div>
+    <div style="margin-top:14px;text-align:right">
+      <button class="btn" onclick="closeDepsListModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden file input for import -->
+<input type="file" id="importFileInput" accept=".json" style="display:none" onchange="handleImportFile(event)">
+
+<script>
+// ═══════════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════════
+const DEPT_COLORS = {
+  'PD':'#4A90D9','UI/ID':'#7B68EE','PMO':'#F0C040','ENG':'#5DADE2',
+  'NPI':'#E67E22','Compliance':'#E74C3C','CMF':'#E91E8F','SC':'#2ECC71',
+  'Factory':'#95A5A6','Quality':'#1ABC9C','EE':'#F39C12','Tooling':'#8E44AD',
+  'Package':'#3498DB','DQTP':'#C0392B','Planning':'#27AE60',
+  'PD/ENG/Quality':'#4A90D9','SC/Factory':'#2ECC71','CMF/Quality':'#E91E8F','PD/UI-ID':'#4A90D9'
+};
+
+const GATES = [
+  {
+    id:'g1', emoji:'🚀', name:'Gate 1', subtitle:'Kick Off', critical:false,
+    tasks:[
+      {id:'g1t1',name:'PIS',dept:'PD',days:5,deps:[],lane:'main'},
+      {id:'g1t2',name:'RKO',dept:'PD',days:3,deps:[],lane:'main'},
+      {id:'g1t3',name:'ID Spec',dept:'UI/ID',days:5,deps:[],lane:'cmf'},
+      {id:'g1t4',name:'UI Spec',dept:'UI/ID',days:5,deps:[],lane:'cmf'},
+      {id:'g1t5',name:'Sample Plan',dept:'PMO',days:3,deps:[],lane:'main'},
+      {id:'g1t6',name:'Selection Factory',dept:'SC',days:5,deps:[],lane:'main'},
+      {id:'g1t7',name:'PSD',dept:'ENG',days:5,deps:[],lane:'ee'},
+      {id:'g1t8',name:'UI Flow',dept:'ENG',days:5,deps:[],lane:'ee'}
+    ]
+  },
+  {
+    id:'g2', emoji:'📋', name:'Gate 2', subtitle:'ECN Open', critical:false,
+    tasks:[
+      {id:'g2t1',name:'Finalize PIS & RKO',dept:'PD',days:3,deps:["g1t1","g1t2"],lane:'main'},
+      {id:'g2t2',name:'Finalize ID Spec & UI Spec',dept:'UI/ID',days:3,deps:["g1t3","g1t4"],lane:'cmf'},
+      {id:'g2t3',name:'Change PPT',dept:'NPI',days:3,deps:["g1t1","g1t2","g1t3","g1t4","g1t5","g1t6","g1t7","g1t8"],lane:'main'},
+      {id:'g2t4',name:'Project Plan Creation',dept:'NPI',days:5,deps:["g1t1","g1t2","g1t3","g1t4","g1t5","g1t6","g1t7","g1t8"],lane:'main'},
+      {id:'g2t5',name:'Create ECN',dept:'NPI',days:2,deps:["g2t3"],lane:'main'},
+      {id:'g2t6',name:'Release E-BOM',dept:'NPI',days:3,deps:["g2t5"],lane:'main'},
+      {id:'g2t7',name:'Provide Comments & Plan',dept:'Compliance',days:3,deps:["g2t3"],lane:'comp'},
+      {id:'g2t8',name:'Color Sample to Factory',dept:'CMF',days:5,deps:["g1t7"],lane:'cmf'},
+      {id:'g2t9',name:'1st Round Color Tuning',dept:'CMF',days:5,deps:["g2t8"],lane:'cmf'},
+      {id:'g2t10',name:'2nd Round Color Tuning',dept:'CMF',days:5,deps:["g2t9"],lane:'cmf'},
+      {id:'g2t11',name:'Release C-BOM',dept:'SC',days:3,deps:["g2t6"],lane:'main'},
+      {id:'g2t12',name:'Finalize Sample Plan',dept:'NPI',days:10,deps:["g2t11","g1t5"],lane:'main'},
+      {id:'g2t13',name:'PCBA Change PPT',dept:'EE',days:3,deps:["g2t3"],lane:'ee'},
+      {id:'g2t14',name:'Dev Cycle Assessment',dept:'EE',days:3,deps:["g2t13"],lane:'ee'},
+      {id:'g2t24',name:'2D/3D',dept:'Tooling',days:5,deps:["g2t3"],lane:'tool'},
+      {id:'g2t15',name:'Tooling Costing',dept:'Tooling',days:5,deps:["g2t24"],lane:'tool'},
+      {id:'g2t16',name:'Package Matrix',dept:'Package',days:3,deps:["g1t1"],lane:'pkg'},
+      {id:'g2t25',name:'TR / Test Request',dept:'DQTP',days:3,deps:["g2t3"],lane:'dqtp'},
+      {id:'g2t17',name:'DQTP Comments',dept:'DQTP',days:3,deps:["g2t25"],lane:'dqtp'},
+      {id:'g2t18',name:'DQTP Test Plan',dept:'DQTP',days:5,deps:["g2t25"],lane:'dqtp'},
+      {id:'g2t19',name:'Structure Design',dept:'Factory',days:5,deps:["g2t3"],lane:'tool'},
+      {id:'g2t20',name:'Structure Design Review',dept:'ENG',days:3,deps:["g2t19"],lane:'tool'},
+      {id:'g2t21',name:'Review Project Plan',dept:'PMO',days:2,deps:["g2t4"],lane:'main'},
+      {id:'g2t22',name:'Finalize Sample Plan',dept:'PMO',days:3,deps:["g1t5"],lane:'main'},
+      {id:'g2t23',name:'Finalize PSD & UI Flow',dept:'Factory',days:3,deps:["g1t7","g1t8"],lane:'ee'}
+    ]
+  },
+  {
+    id:'g3', emoji:'🔐', name:'Gate 3', subtitle:'ECN DD Approve (Critical!)', critical:true,
+    tasks:[
+      {id:'g3t1',name:'Approve ECN (PD)',dept:'PD',days:2,deps:["g2t1"],lane:'main'},
+      {id:'g3t2',name:'Approve ECN (ENG)',dept:'ENG',days:2,deps:["g2t20"],lane:'ee'},
+      {id:'g3t3',name:'Approve ECN (Quality)',dept:'Quality',days:2,deps:["g3t5"],lane:'main'},
+      {id:'g3t4',name:'Consolidate All Docs',dept:'NPI',days:3,deps:["g2t6"],lane:'main'},
+      {id:'g3t5',name:'Submit ECN DD Approve',dept:'NPI',days:2,deps:["g3t1","g3t2","g3t3","g3t4"],isCritical:true,lane:'main'},
+      {id:'g3t6',name:'Compliance Kick Off',dept:'Compliance',days:5,deps:["g3t5"],lane:'comp'},
+      {id:'g3t7',name:'DFM Report',dept:'Tooling',days:10,deps:["g2t15"],lane:'tool'},
+      {id:'g3t8',name:'Tooling PO',dept:'Tooling',days:3,deps:["g3t7"],lane:'tool'},
+      {id:'g3t10',name:'Release Sample PO',dept:'PMO',days:9,deps:["g3t5"],lane:'main'},
+      {id:'g3t_new7',name:'HW & SW Design',dept:'EE',days:28,deps:["g2t13"],lane:'ee'},
+      {id:'g3t_new8',name:'Package Design',dept:'Package',days:3,deps:["g2t16"],lane:'main'}
+    ]
+  },
+  {
+    id:'g4', emoji:'🔨', name:'Gate 4', subtitle:'EB Build', critical:false,
+    tasks:[
+      {id:'g4t1',name:'Release EB Artwork',dept:'PD',days:5,deps:["g3t5"],lane:'main'},
+      {id:'g4t2',name:'Finalize (UI/ID)',dept:'UI/ID',days:3,deps:["g2t2"],lane:'cmf'},
+      {id:'g4t3',name:'Approve Test Results',dept:'ENG',days:3,deps:["g3t5","g3t1"],lane:'ee'},
+      {id:'g4t4',name:'PSI Check Result',dept:'Quality',days:3,deps:["g4t5"],lane:'main'},
+      {id:'g4t5',name:'Coordinate EB Build',dept:'NPI',days:28,deps:["g3t5","g3t10"],lane:'main'},
+      {id:'g4t6',name:'Compliance Submission & Doc Req',dept:'Compliance',days:5,deps:["g3t6","g4t5"],lane:'comp'},
+      {id:'g4t7',name:'Color Confirm + EB Materials',dept:'CMF',days:14,deps:["g2t10"],lane:'cmf'},
+      {id:'g4t8',name:'Procurement & Production',dept:'Factory',days:28,deps:["g3t10"],lane:'ee'},
+      {id:'g4t12',name:'Release SW Version',dept:'EE',days:5,deps:["g3t_new7"],lane:'ee'},
+      {id:'g4t13',name:'Tooling Process → T1',dept:'Tooling',days:60,deps:["g3t8"],lane:'tool'},
+      {id:'g4t14',name:'FAI Report',dept:'Tooling',days:5,deps:["g4t13"],lane:'tool'},
+      {id:'g4t15',name:'Package Material Prep',dept:'Package',days:15,deps:["g3t_new8"],lane:'pkg'},
+      {id:'g4t16',name:'DQTP Certification Testing',dept:'DQTP',days:28,deps:["g2t18"],lane:'dqtp'}
+    ]
+  },
+  {
+    id:'g5', emoji:'📤', name:'Gate 5', subtitle:'Sample Distribution & Testing', critical:false,
+    tasks:[
+      {id:'g5t1',name:'Distribute Samples',dept:'NPI',days:2,deps:["g4t5"],lane:'main'},
+      {id:'g5t3',name:'Confirmation & Sign-off',dept:'CMF',days:5,deps:["g4t7"],lane:'cmf'},
+      {id:'g5t11',name:'Lifetime Testing',dept:'CMF',days:28,deps:["g4t7"],lane:'cmf'},
+      {id:'g5t12',name:'Dishwasher Testing',dept:'CMF',days:14,deps:["g4t7"],lane:'cmf'},
+      {id:'g5t13',name:'UV Testing',dept:'CMF',days:14,deps:["g4t7"],lane:'cmf'},
+      {id:'g5t4',name:'Execute + Workflow',dept:'Factory',days:10,deps:["g4t8"],lane:'ee'},
+      {id:'g5t5',name:'Black & White Box Testing',dept:'EE',days:20,deps:["g4t12"],lane:'ee'},
+      {id:'g5t6',name:'DQTP Testing',dept:'DQTP',days:55,deps:["g4t16"],lane:'dqtp'},
+      {id:'g5t7',name:'Review & Feedback',dept:'PD/UI-ID',days:3,deps:["g5t1"],lane:'main'},
+      {id:'g5t8',name:'Feedback',dept:'ENG',days:3,deps:["g4t3"],lane:'ee'},
+      {id:'g5t9',name:'MP Sample Plan & PO',dept:'PMO',days:10,deps:["g5t1"],lane:'main'},
+      {id:'g5t_new4',name:'Compliance Testing',dept:'Compliance',days:45,deps:["g4t6"],lane:'comp'},
+      {id:'g5t_new5',name:'Tooling Modification',dept:'Tooling',days:10,deps:["g4t14"],lane:'main'},
+      {id:'g5t_new6',name:'Final FAI Report',dept:'Tooling',days:3,deps:["g5t_new5"],lane:'tool'},
+      {id:'g5t_new9',name:'Package Testing',dept:'Package',days:7,deps:["g4t15"],lane:'main'}
+    ]
+  },
+  {
+    id:'g6', emoji:'🔍', name:'Gate 6', subtitle:'ECN IMP Review → MP', critical:false,
+    tasks:[
+      {id:'g6t1',name:'Approve ECN (IMP)',dept:'PD/ENG/Quality',days:2,deps:["g5t7","g5t8"],lane:'main'},
+      {id:'g6t2',name:'Compliance Report',dept:'Compliance',days:3,deps:["g5t_new4"],lane:'comp'},
+      {id:'g6t3',name:'DQTP Report',dept:'DQTP',days:3,deps:["g5t6"],lane:'dqtp'},
+      {id:'g6t4',name:'Release AS',dept:'EE',days:3,deps:["g5t5"],lane:'ee'},
+      {id:'g6t5',name:'Update BOM/C-BOM',dept:'SC/Factory',days:3,deps:[],lane:'cmf'},
+      {id:'g6t6',name:'Sign Golden Sample',dept:'CMF/Quality',days:2,deps:["g5t3"],lane:'cmf'},
+      {id:'g6t7',name:'Distribute MP Samples',dept:'NPI',days:3,deps:["g5t9"],lane:'main'},
+      {id:'g6t8',name:'Workflow for MP',dept:'NPI',days:10,deps:["g6t1"],lane:'main'},
+      {id:'g6t9',name:'Sign Golden Sample',dept:'Quality',days:2,deps:["g6t6"],lane:'main'},
+      {id:'g6t_new1',name:'Consolidate IMP Docs',dept:'NPI',days:3,deps:["g6t1"],lane:'main'},
+      {id:'g6t_new2',name:'Release MP Artwork',dept:'PD',days:3,deps:["g6t1"],lane:'main'},
+      {id:'g6t_new10',name:'OOBE',dept:'Package',days:3,deps:["g5t_new9"],lane:'pkg'}
+    ]
+  }
+];
+
+// Branch/lane definitions
+const LANES = [
+  {id:'main',name:'Main Line',short:'NPI',color:'#E67E22',order:0},
+  {id:'comp',name:'Compliance',short:'Comp',color:'#E74C3C',order:1},
+  {id:'dqtp',name:'DQTP',short:'DQTP',color:'#C0392B',order:2},
+  {id:'tool',name:'Tooling+Structure',short:'Tool',color:'#8E44AD',order:3},
+  {id:'ee',name:'EE+SW',short:'EE',color:'#F39C12',order:4},
+  {id:'cmf',name:'CMF',short:'CMF',color:'#E91E8F',order:5},
+  {id:'pkg',name:'Package',short:'Pkg',color:'#3498DB',order:6},
+  {id:'qa',name:'QA',short:'QA',color:'#1ABC9C',order:7},
+];
+
+// Sub-type tags per dept
+const LANE_SUBTAGS = {
+  'CMF':'CMF','SC':'SC','Package':'Pkg','Quality':'QA',
+  'UI/ID':'UI','PD/UI-ID':'UI','Factory':'Fac',
+  'SC/Factory':'SC','CMF/Quality':'CMF','PD/ENG/Quality':'PD',
+  'PD':'PD','NPI':'NPI','PMO':'PMO','Compliance':'Comp',
+  'DQTP':'DQTP','Tooling':'Tool','EE':'EE','ENG':'ENG',
+  'Planning':'Plan',
+};
+
+// ═══════════════════════════════════════════
+//  LAYOUT CONSTANTS
+// ═══════════════════════════════════════════
+const NODE_W = 140, NODE_H = 36, NODE_GAP = 10;
+const COL_W = 200, HEADER_H = 120, LEFT_PAD = 40, TOP_PAD = 20;
+const COL_COUNT = 7; // 6 gates + MP
+
+// ═══════════════════════════════════════════
+//  SAME-GATE INTERNAL CONNECTION WHITELIST
+//  Only these same-column dependency pairs will be drawn.
+//  All other same-column deps are hidden (but kept in data for tooltip).
+// ═══════════════════════════════════════════
+const SAME_GATE_WHITELIST = new Set([
+  'g2t8→g2t9',   // Color Sample → 1st Round Color Tuning,
+  'g2t9→g2t10',  // 1st Round → 2nd Round Color Tuning,
+  'g2t25→g2t17', // TR/Test Request → DQTP Comments,
+  'g2t25→g2t18', // TR/Test Request → DQTP Test Plan,
+  'g2t24→g2t15', // 2D/3D → Tooling Costing,
+  'g2t13→g2t14', // PCBA Change PPT → Dev Cycle Assessment,
+  'g2t19→g2t20', // Structure Design → Structure Design Review,
+  'g3t7→g3t8',   // DFM Report → Tooling PO,
+  'g4t13→g4t14', // Tooling Process → T1 → FAI Report,
+  'g5t_new5→g5t_new6', // Tooling Modification → Final FAI Report,
+  'g6t6→g6t9',   // Sign Golden Sample → Sign Golden Sample
+]);
+
+// Extra vertical gap for whitelisted sequential pairs (pixels)
+const SEQ_EXTRA_GAP = 35;
+
+// ═══════════════════════════════════════════
+//  LANE VISIBILITY STATE
+// ═══════════════════════════════════════════
+const GATES_DATA_KEY = 'autopm_gate_v4_en_gates';
+const LANE_VIS_KEY = 'autopm_gate_v4_en_lanes';
+const STATUS_KEY = 'autopm_gate_v4_en_status';
+const DEFAULT_LANES = {main:true, comp:true, dqtp:true, tool:true, ee:true, cmf:true, pkg:true, qa:true};
+
+let laneVisible = {};
+function loadLanes(){
+  try{ const s=localStorage.getItem(LANE_VIS_KEY); if(s) laneVisible={...DEFAULT_LANES,...JSON.parse(s)}; else laneVisible={...DEFAULT_LANES}; }catch(e){ laneVisible={...DEFAULT_LANES}; }
+  laneVisible.main = true; // Main line always visible
+}
+function saveLanes(){ try{ localStorage.setItem(LANE_VIS_KEY,JSON.stringify(laneVisible)); }catch(e){} }
+
+function toggleLane(laneId){
+  if(laneId==='main') return;
+  laneVisible[laneId] = !laneVisible[laneId];
+  saveLanes();
+  renderAll();
+}
+
+function setPreset(preset){
+  switch(preset){
+    case 'L1': laneVisible={main:true,comp:false,dqtp:false,tool:false,ee:false,cmf:false,pkg:false,qa:false}; break;
+    case 'L2': laneVisible={main:true,comp:true,dqtp:true,tool:false,ee:false,cmf:false,pkg:false,qa:true}; break;
+    case 'L3': laneVisible={main:true,comp:true,dqtp:true,tool:true,ee:true,cmf:true,pkg:true,qa:true}; break;
+    case 'L4': laneVisible={main:true,comp:true,dqtp:true,tool:true,ee:true,cmf:true,pkg:true,qa:true}; break;
+  }
+  saveLanes(); renderAll();
+}
+
+function getCurrentPreset(){
+  const on = Object.entries(laneVisible).filter(([k,v])=>v).map(([k])=>k).sort().join(',');
+  if(on==='main') return 'L1';
+  if(on==='comp,dqtp,main,qa') return 'L2';
+  if(on==='comp,cmf,dqtp,ee,main,pkg,qa,tool') return 'L3';
+  if(on==='comp,cmf,dqtp,ee,main,pkg,qa,tool') return 'L4';
+  return 'custom';
+}
+
+// ═══════════════════════════════════════════
+//  TASK STATE
+// ═══════════════════════════════════════════
+let state = {};
+function loadState(){
+  try{ const s=localStorage.getItem(STATUS_KEY); if(s) state=JSON.parse(s); }catch(e){}
+  GATES.forEach(g=>g.tasks.forEach(t=>{ if(!state[t.id]) state[t.id]='not-started'; }));
+}
+function saveState(){ try{localStorage.setItem(STATUS_KEY,JSON.stringify(state));}catch(e){} }
+function cycleStatus(taskId){
+  const cur=state[taskId];
+  state[taskId]=cur==='not-started'?'in-progress':cur==='in-progress'?'completed':'not-started';
+  saveState(); renderAll();
+}
+
+// ═══════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════
+function findTask(id){ for(const g of GATES) for(const t of g.tasks) if(t.id===id) return t; return null; }
+function findTaskName(id){ const t=findTask(id); return t?t.name:id; }
+function findTaskGateIdx(id){ for(let i=0;i<GATES.length;i++) for(const t of GATES[i].tasks) if(t.id===id) return i; return -1; }
+function escHtml(s){ return s.replace(/'/g,'&#39;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+function isTaskVisible(taskId){
+  const task = findTask(taskId);
+  if(!task) return false;
+  return laneVisible[task.lane] !== false;
+}
+
+function hasHiddenDep(taskId){
+  const task = findTask(taskId);
+  if(!task || !task.deps.length) return false;
+  return task.deps.some(d => !isTaskVisible(d));
+}
+
+function isBlocked(taskId){
+  const task=findTask(taskId);
+  if(!task||!task.deps.length) return false;
+  return task.deps.some(d=>state[d]!=='completed');
+}
+
+function gateStats(gate){
+  const tasks = gate.tasks.filter(t => isTaskVisible(t.id));
+  const total=tasks.length;
+  let completed=0,inProgress=0,notStarted=0;
+  tasks.forEach(t=>{const s=state[t.id];if(s==='completed')completed++;else if(s==='in-progress')inProgress++;else notStarted++;});
+  const pct=total?Math.round(completed/total*100):0;
+  let gateStatus='not-started';
+  if(completed===total && total>0)gateStatus='completed';
+  else if(completed>0||inProgress>0)gateStatus='in-progress';
+  return{total,completed,inProgress,notStarted,pct,gateStatus};
+}
+
+function overallStats(){
+  let total=0,completed=0,inProgress=0,notStarted=0;
+  GATES.forEach(g=>{
+    g.tasks.filter(t=>isTaskVisible(t.id)).forEach(t=>{
+      total++;
+      const s=state[t.id];
+      if(s==='completed')completed++;
+      else if(s==='in-progress')inProgress++;
+      else notStarted++;
+    });
+  });
+  const pct=total?Math.round(completed/total*100):0;
+  return{total,completed,inProgress,notStarted,pct};
+}
+
+// ═══════════════════════════════════════════
+//  SUGIYAMA AUTO LAYOUT
+// ═══════════════════════════════════════════
+// Positions: {taskId: {x, y, col, rowIdx}}
+let layoutPositions = {};
+
+function computeLayout(){
+  layoutPositions = {};
+
+  // Step 1: Assign each visible task to its column (gate index)
+  const columns = []; // columns[colIdx] = [taskId, ...]
+  for(let i=0; i<7; i++) columns.push([]); // g1..g6 + mp
+  
+  GATES.forEach((gate, gi) => {
+    gate.tasks.forEach(task => {
+      if(isTaskVisible(task.id)){
+        columns[gi].push(task.id);
+      }
+    });
+  });
+
+  // Step 2: Build reverse-dep map (who depends on me)
+  const dependentsOf = {}; // taskId -> [taskId, ...]
+  GATES.forEach(g => g.tasks.forEach(t => {
+    t.deps.forEach(depId => {
+      if(!dependentsOf[depId]) dependentsOf[depId] = [];
+      dependentsOf[depId].push(t.id);
+    });
+  }));
+
+  // Step 3: Initial ordering — group by lane
+  const laneOrder = {};
+  LANES.forEach((l,i) => laneOrder[l.id] = i);
+  
+  function getLaneOrder(taskId){
+    const t = findTask(taskId);
+    return t ? (laneOrder[t.lane] ?? 99) : 99;
+  }
+
+  // Sort first column by lane order
+  columns[0].sort((a,b) => getLaneOrder(a) - getLaneOrder(b));
+
+  // Step 4: Barycenter heuristic — iterate left to right
+  function computeBarycenter(taskId, prevColumn){
+    const task = findTask(taskId);
+    if(!task || !task.deps.length) return -1; // no deps
+    let sum = 0, count = 0;
+    task.deps.forEach(depId => {
+      const idx = prevColumn.indexOf(depId);
+      if(idx >= 0){ sum += idx; count++; }
+    });
+    return count > 0 ? sum / count : -1;
+  }
+
+  // Left-to-right pass
+  for(let c = 1; c < columns.length; c++){
+    const prevCol = columns[c-1];
+    columns[c].sort((a, b) => {
+      const ba = computeBarycenter(a, prevCol);
+      const bb = computeBarycenter(b, prevCol);
+      if(ba === -1 && bb === -1) return getLaneOrder(a) - getLaneOrder(b);
+      if(ba === -1) return 1;
+      if(bb === -1) return -1;
+      return ba - bb;
+    });
+  }
+
+  // Right-to-left pass
+  for(let c = columns.length - 2; c >= 0; c--){
+    const nextCol = columns[c+1];
+    columns[c].sort((a, b) => {
+      let sumA = 0, cntA = 0, sumB = 0, cntB = 0;
+      (dependentsOf[a]||[]).forEach(d => {
+        const idx = nextCol.indexOf(d);
+        if(idx >= 0){ sumA += idx; cntA++; }
+      });
+      (dependentsOf[b]||[]).forEach(d => {
+        const idx = nextCol.indexOf(d);
+        if(idx >= 0){ sumB += idx; cntB++; }
+      });
+      const ba = cntA > 0 ? sumA / cntA : -1;
+      const bb = cntB > 0 ? sumB / cntB : -1;
+      if(ba === -1 && bb === -1) return getLaneOrder(a) - getLaneOrder(b);
+      if(ba === -1) return 1;
+      if(bb === -1) return -1;
+      return ba - bb;
+    });
+  }
+
+  // Second left-to-right pass for better convergence
+  for(let c = 1; c < columns.length; c++){
+    const prevCol = columns[c-1];
+    columns[c].sort((a, b) => {
+      const ba = computeBarycenter(a, prevCol);
+      const bb = computeBarycenter(b, prevCol);
+      if(ba === -1 && bb === -1) return getLaneOrder(a) - getLaneOrder(b);
+      if(ba === -1) return 1;
+      if(bb === -1) return -1;
+      return ba - bb;
+    });
+  }
+
+  // Step 5: Assign coordinates — with extra gap for whitelisted sequential pairs
+  for(let c = 0; c < columns.length; c++){
+    const x = LEFT_PAD + c * COL_W + (COL_W - NODE_W) / 2;
+    let yCursor = HEADER_H + TOP_PAD;
+    columns[c].forEach((taskId, rowIdx) => {
+      // Check if this task's predecessor (in same column) is in the whitelist
+      // If so, add extra gap before this task
+      if(rowIdx > 0){
+        const prevTaskId = columns[c][rowIdx - 1];
+        const key = prevTaskId + '→' + taskId;
+        if(SAME_GATE_WHITELIST.has(key)){
+          yCursor += SEQ_EXTRA_GAP;
+        }
+      }
+      layoutPositions[taskId] = { x, y: yCursor, col: c, rowIdx };
+      yCursor += NODE_H + NODE_GAP;
+    });
+  }
+
+  // Apply custom Y positions from drag
+  Object.entries(customPositions).forEach(([tid, cp])=>{
+    if(layoutPositions[tid] && cp.y !== undefined){
+      layoutPositions[tid].y = cp.y;
+    }
+  });
+}
+
+// ═══════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════
+function resetAll(){
+  if(!confirm('Reset all progress?'))return;
+  GATES.forEach(g=>g.tasks.forEach(t=>state[t.id]='not-started'));
+  saveState();renderAll();
+}
+
+function resetAllData(){
+  if(!confirm('Reset all data (incl. edits and positions)?'))return;
+  GATES.forEach(g=>g.tasks.forEach(t=>state[t.id]='not-started'));
+  customPositions={}; taskEdits={};
+  saveState(); saveCustomPositions(); saveTaskEdits();
+  // Reload page to reset GATES data
+  location.reload();
+}
+
+function renderAll(){
+  computeLayout();
+  renderBranchBar();
+  renderProgress();
+  renderLegend();
+  renderFlowArea();
+  requestAnimationFrame(()=>{ requestAnimationFrame(()=>{ drawConnections(); }); });
+}
+
+// ── Branch Selector Bar ──
+function renderBranchBar(){
+  const bar = document.getElementById('branchBar');
+  const preset = getCurrentPreset();
+
+  let html = '<span class="branch-bar-label">Branches: </span>';
+  LANES.forEach(lane => {
+    const active = laneVisible[lane.id];
+    const locked = lane.id === 'main';
+    const cls = 'branch-toggle' + (active?' active':'') + (locked?' locked':'');
+    html += `<div class="${cls}" style="--lane-color:${lane.color}" onclick="${locked?'':'toggleLane(\''+lane.id+'\')'}" title="${locked?'Required, cannot hide':(active?'Click to hide':'Click to show')}">
+      <span class="toggle-dot"></span>
+      <span>${lane.name}</span>
+      ${locked?'<span style="font-size:9px;opacity:.5;margin-left:2px">🔒</span>':''}
+    </div>`;
+  });
+
+  html += '<div class="branch-divider"></div>';
+  html += '<span class="preset-label">Quick Presets: </span>';
+  html += '<div class="preset-bar">';
+  const presets = [
+    {id:'L1',label:'L1 Simple',color:'#95A5A6',desc:'Color/Label change'},
+    {id:'L2',label:'L2 Standard',color:'#F0C040',desc:'New color+Packaging'},
+    {id:'L3',label:'L3 Complex',color:'#E67E22',desc:'Tooling/EE change'},
+    {id:'L4',label:'L4 Major',color:'#E74C3C',desc:'Full redesign'},
+    {id:'custom',label:'Custom',color:'#7B68EE',desc:'Free selection'},
+  ];
+  presets.forEach(p => {
+    const isActive = preset === p.id;
+    html += `<button class="preset-btn${isActive?' active':''}" onclick="setPreset('${p.id}')" title="${p.desc}">
+      <span class="level-dot" style="background:${p.color}"></span>${p.label}
+    </button>`;
+  });
+  html += '</div>';
+  bar.innerHTML = html;
+}
+
+function renderProgress(){
+  const s=overallStats();
+  document.getElementById('overallPct').textContent=s.pct+'%';
+  const bar=document.getElementById('overallBar');
+  bar.style.width=s.pct+'%';
+  bar.style.background=s.pct===100?'linear-gradient(90deg,#2ecc71,#27ae60)':'linear-gradient(90deg,var(--green),var(--dept-eng))';
+
+  let hiddenTotal = 0;
+  GATES.forEach(g=>{ g.tasks.forEach(t=>{ if(!isTaskVisible(t.id)) hiddenTotal++; }); });
+
+  document.getElementById('overallStats').innerHTML=`
+    <div class="stat-item"><div class="stat-dot green"></div>Completed ${s.completed}</div>
+    <div class="stat-item"><div class="stat-dot yellow"></div>In Progress ${s.inProgress}</div>
+    <div class="stat-item"><div class="stat-dot gray"></div>Not Started ${s.notStarted}</div>
+    <div class="stat-item" style="color:var(--text3)">${s.total} visible${hiddenTotal?' · '+hiddenTotal+' hidden':''}</div>`;
+}
+
+function renderLegend(){
+  const visTasks = [];
+  GATES.forEach(g=>g.tasks.forEach(t=>{ if(isTaskVisible(t.id)) visTasks.push(t); }));
+  const depts=[...new Set(visTasks.map(t=>t.dept))];
+  document.getElementById('legendBar').innerHTML=depts.map(d=>
+    `<div class="legend-item"><div class="legend-color" style="background:${DEPT_COLORS[d]||'#888'}"></div>${d}</div>`
+  ).join('')+
+  `<div class="legend-item" style="margin-left:12px"><div class="legend-color" style="background:rgba(100,100,255,0.4)"></div>Dependency</div>`+
+  `<div class="legend-item"><div class="legend-color" style="background:rgba(231,76,60,0.5)"></div>Critical Path</div>`+
+  `<div class="legend-item"><div class="legend-color" style="background:rgba(46,204,113,0.5)"></div>Completed</div>`+
+  `<div class="legend-item"><div class="legend-color" style="background:var(--yellow);opacity:.7"></div>⚠ Ext. Dependency</div>`;
+}
+
+// ── Main Flow Area Rendering ──
+function renderFlowArea(){
+  const area = document.getElementById('flowArea');
+  
+  // Calculate total dimensions
+  let maxY = 0;
+  let maxCol = 0;
+  Object.values(layoutPositions).forEach(p => {
+    const bottom = p.y + NODE_H;
+    if(bottom > maxY) maxY = bottom;
+    if(p.col > maxCol) maxCol = p.col;
+  });
+  
+  const totalW = LEFT_PAD + (maxCol + 1) * COL_W + 40;
+  const totalH = maxY + 60;
+  
+  area.style.width = totalW + 'px';
+  area.style.height = totalH + 'px';
+
+  // Build HTML: gate headers + column guides + task nodes
+  let html = '';
+
+  // Column guide lines
+  for(let c = 0; c < COL_COUNT; c++){
+    const cx = LEFT_PAD + c * COL_W + COL_W / 2;
+    html += `<div class="col-guide" style="left:${cx}px;height:${totalH}px"></div>`;
+  }
+
+  // Gate diamonds at top
+  for(let c = 0; c < COL_COUNT; c++){
+    if(c < GATES.length){
+      const gate = GATES[c];
+      const st = gateStats(gate);
+      const statusCls = 'status-' + st.gateStatus;
+      const critCls = gate.critical && st.gateStatus !== 'completed' ? 'critical' : '';
+      let badgeCls = '', badgeText = st.pct + '%';
+      if(st.gateStatus==='completed'){badgeCls='done';badgeText='✓';}
+      else if(gate.critical && st.gateStatus!=='completed'){badgeCls='crit';badgeText='Bottleneck';}
+
+      const gx = LEFT_PAD + c * COL_W + (COL_W - 64) / 2;
+      html += `<div class="gate-header" style="left:${gx}px;top:8px;width:64px" onclick="openGatePanel(${c})" title="Click to view all tasks">
+        <div class="gate-diamond-wrap">
+          <div class="gate-diamond ${statusCls} ${critCls}" id="gate-diamond-${c}">
+            <div class="gate-diamond-inner">
+              <div class="gate-emoji">${gate.emoji}</div>
+              <div class="gate-label">${gate.name.replace('Gate ','G')}</div>
+            </div>
+          </div>
+          <div class="gate-pct-badge ${badgeCls}">${badgeText}</div>
+        </div>
+        <div class="gate-subtitle">${gate.subtitle}</div>
+      </div>`;
+    } else {
+      // MP milestone
+      const gx = LEFT_PAD + c * COL_W + (COL_W - 60) / 2;
+      html += `<div class="gate-header" style="left:${gx}px;top:8px;width:60px">
+        <div style="width:60px;height:60px;border-radius:50%;border:2px solid var(--green);background:rgba(46,204,113,.08);display:flex;align-items:center;justify-content:center;font-size:22px">🏭</div>
+        <div style="font-size:10px;font-weight:700;color:var(--green);margin-top:4px;text-align:center">MP</div>
+      </div>`;
+    }
+  }
+
+  // Task nodes (absolutely positioned)
+  const visibleTaskIds = [];
+  GATES.forEach(gate => {
+    gate.tasks.forEach(task => {
+      if(!isTaskVisible(task.id)) return;
+      const pos = layoutPositions[task.id];
+      if(!pos) return;
+
+      const ts = state[task.id];
+      const deptColor = DEPT_COLORS[task.dept] || '#888';
+      const blocked = isBlocked(task.id) && ts === 'not-started';
+      const stCls = blocked ? 'st-blocked' : ts==='completed' ? 'st-completed' : ts==='in-progress' ? 'st-in-progress' : '';
+      const criticalCls = task.isCritical ? 'is-critical' : '';
+      const statusIcon = ts==='completed' ? '✓' : ts==='in-progress' ? '●' : '';
+      const statusCls = 's-' + ts;
+
+      // Hidden dep warning
+      const hiddenDep = hasHiddenDep(task.id);
+      const hiddenDepNames = hiddenDep ? task.deps.filter(d=>!isTaskVisible(d)).map(d=>{const t=findTask(d);return t?t.name:'?';}).join(', ') : '';
+
+      // Branch tag
+      const laneObj = LANES.find(l => l.id === task.lane);
+      const branchTag = laneObj ? laneObj.short : '';
+      const branchColor = laneObj ? laneObj.color : '#888';
+
+      html += `<div class="task-node ${stCls} ${criticalCls}" id="node-${task.id}" data-id="${task.id}"
+        style="left:${pos.x}px;top:${pos.y}px;width:${NODE_W}px;height:${NODE_H}px"
+        onmouseenter="hoverNode('${task.id}')"
+        onmouseleave="unhoverNode()"
+        onclick="handleNodeClick('${task.id}')">
+        ${hiddenDep ? '<span class="ext-dep-warn" title="Hidden branch dep: '+escHtml(hiddenDepNames)+'">⚠</span>' : ''}
+        ${branchTag ? `<span class="node-branch-tag" style="background:${branchColor}">${branchTag}</span>` : ''}
+        <div class="node-dept-bar" style="background:${deptColor}"></div>
+        <div class="node-content">
+          <div class="node-name">${escHtml(task.name)}</div>
+          <div class="node-meta"><span style="color:${deptColor}">${task.dept}</span> · ${task.days}d</div>
+        </div>
+        <div class="node-status-dot ${statusCls}" onclick="event.stopPropagation();handleNodeClick('${task.id}')" title="Toggle Status">${statusIcon}</div>
+      </div>`;
+      visibleTaskIds.push(task.id);
+    });
+  });
+
+  // We need the SVG to stay, so we rebuild just the non-SVG content
+  const svg = document.getElementById('connSvg');
+  area.innerHTML = '';
+  area.appendChild(svg);
+  
+  // Create a container div for the rest
+  const container = document.createElement('div');
+  container.innerHTML = html;
+  while(container.firstChild){
+    area.appendChild(container.firstChild);
+  }
+
+  // Init drag, dblclick, contextmenu for visible nodes
+  visibleTaskIds.forEach(tid=>{
+    const el = document.getElementById('node-'+tid);
+    if(el){
+      initDrag(el, tid);
+      initDblClick(el, tid);
+      initContextMenu(el, tid);
+    }
+  });
+}
+
+// ═══════════════════════════════════════════
+//  CONNECTIONS (SVG)
+// ═══════════════════════════════════════════
+const SVG_NS='http://www.w3.org/2000/svg';
+
+function drawConnections(){
+  const area=document.getElementById('flowArea');
+  const svg=document.getElementById('connSvg');
+  const areaRect=area.getBoundingClientRect();
+
+  const w=area.scrollWidth, h=area.scrollHeight;
+  svg.setAttribute('width',w);
+  svg.setAttribute('height',h);
+  svg.style.width=w+'px';
+  svg.style.height=h+'px';
+
+  svg.innerHTML='';
+
+  // Defs: arrow markers
+  const defs=document.createElementNS(SVG_NS,'defs');
+  [['arrowNormal','rgba(100,100,255,0.5)'],['arrowCritical','rgba(231,76,60,0.6)'],['arrowDone','rgba(46,204,113,0.6)']].forEach(([id,fill])=>{
+    const marker=document.createElementNS(SVG_NS,'marker');
+    marker.setAttribute('id',id);
+    marker.setAttribute('viewBox','0 0 8 6');
+    marker.setAttribute('refX','8');
+    marker.setAttribute('refY','3');
+    marker.setAttribute('markerWidth','6');
+    marker.setAttribute('markerHeight','5');
+    marker.setAttribute('orient','auto');
+    const path=document.createElementNS(SVG_NS,'path');
+    path.setAttribute('d','M0,0 L8,3 L0,6 z');
+    path.setAttribute('fill',fill);
+    marker.appendChild(path);
+    defs.appendChild(marker);
+  });
+  svg.appendChild(defs);
+
+  // Draw gate-to-gate thick arrows
+  for(let c=0;c<5;c++){
+    const gate=GATES[c];
+    const st=gateStats(gate);
+    const diamond1=document.getElementById('gate-diamond-'+c);
+    const diamond2=document.getElementById('gate-diamond-'+(c+1));
+    if(!diamond1||!diamond2)continue;
+    const r1=diamond1.getBoundingClientRect();
+    const r2=diamond2.getBoundingClientRect();
+    const sx=r1.right-areaRect.left+4;
+    const sy=r1.top+r1.height/2-areaRect.top;
+    const ex=r2.left-areaRect.left-4;
+    const ey=r2.top+r2.height/2-areaRect.top;
+    const dx=ex-sx;
+    const cpx=Math.max(dx*0.4,20);
+
+    const pathEl=document.createElementNS(SVG_NS,'path');
+    pathEl.setAttribute('d',`M${sx},${sy} C${sx+cpx},${sy} ${ex-cpx},${ey} ${ex},${ey}`);
+    pathEl.setAttribute('stroke',st.gateStatus==='completed'?'rgba(46,204,113,0.3)':'rgba(80,80,160,0.2)');
+    pathEl.setAttribute('stroke-width','3');
+    pathEl.setAttribute('fill','none');
+    pathEl.setAttribute('stroke-dasharray','6,4');
+    svg.appendChild(pathEl);
+  }
+
+  // Draw task dependency connections
+  GATES.forEach(gate=>{
+    gate.tasks.forEach(task=>{
+      if(!task.deps.length)return;
+      if(!isTaskVisible(task.id))return;
+
+      task.deps.forEach(depId=>{
+        const sourceEl=document.getElementById('node-'+depId);
+        const targetEl=document.getElementById('node-'+task.id);
+        if(!sourceEl||!targetEl)return;
+
+        const sourcePos=layoutPositions[depId];
+        const targetPos=layoutPositions[task.id];
+        if(!sourcePos||!targetPos)return;
+
+        const sameCol=sourcePos.col===targetPos.col;
+        const depKey=depId+'→'+task.id;
+
+        // Same-column: only draw if whitelisted
+        if(sameCol && !SAME_GATE_WHITELIST.has(depKey)) return;
+
+        const sr=sourceEl.getBoundingClientRect();
+        const tr=targetEl.getBoundingClientRect();
+
+        let sx,sy,ex,ey,pathD;
+        if(sameCol){
+          // Same column (whitelisted): top node bottom-center → bottom node top-center
+          sx=sr.left+sr.width/2-areaRect.left;
+          sy=sr.bottom-areaRect.top;
+          ex=tr.left+tr.width/2-areaRect.left;
+          ey=tr.top-areaRect.top;
+          const dy=ey-sy;
+          const cpy=Math.max(dy*0.3,8);
+          pathD=`M${sx},${sy} C${sx},${sy+cpy} ${ex},${ey-cpy} ${ex},${ey}`;
+        } else {
+          // Different column: right-center → left-center
+          sx=sr.right-areaRect.left;
+          sy=sr.top+sr.height/2-areaRect.top;
+          ex=tr.left-areaRect.left;
+          ey=tr.top+tr.height/2-areaRect.top;
+          const dx=ex-sx;
+          const cpx=Math.max(Math.abs(dx)*0.25,18);
+          pathD=`M${sx},${sy} C${sx+cpx},${sy} ${ex-cpx},${ey} ${ex},${ey}`;
+        }
+
+        // Determine style
+        const isToGate3=targetPos.col===2;
+        const sourceDone=state[depId]==='completed';
+        const targetDone=state[task.id]==='completed';
+        const bothDone=sourceDone&&targetDone;
+        const isCrossRow=Math.abs(sourcePos.y-targetPos.y)>NODE_H+NODE_GAP;
+
+        let strokeColor,strokeWidth,markerId;
+        if(bothDone){
+          strokeColor='rgba(46,204,113,0.4)';
+          strokeWidth=isCrossRow?1.8:1.2;
+          markerId='arrowDone';
+        } else if(isToGate3||task.isCritical){
+          strokeColor='rgba(231,76,60,0.35)';
+          strokeWidth=isCrossRow?2:1.5;
+          markerId='arrowCritical';
+        } else {
+          strokeColor='rgba(100,100,255,0.25)';
+          strokeWidth=isCrossRow?1.6:1;
+          markerId='arrowNormal';
+        }
+
+        const pathEl=document.createElementNS(SVG_NS,'path');
+        pathEl.setAttribute('d',pathD);
+        pathEl.setAttribute('stroke',strokeColor);
+        pathEl.setAttribute('stroke-width',strokeWidth);
+        pathEl.setAttribute('fill','none');
+        pathEl.setAttribute('marker-end',`url(#${markerId})`);
+        pathEl.setAttribute('data-dep',depId);
+        pathEl.setAttribute('data-target',task.id);
+        pathEl.style.pointerEvents='stroke';
+        pathEl.style.cursor='pointer';
+
+        pathEl.addEventListener('mouseenter',()=>hoverNode(task.id));
+        pathEl.addEventListener('mouseleave',()=>unhoverNode());
+
+        svg.appendChild(pathEl);
+      });
+    });
+  });
+}
+
+// ═══════════════════════════════════════════
+//  INTERACTION
+// ═══════════════════════════════════════════
+function hoverNode(taskId){
+  const upstream=new Set();
+  const downstream=new Set();
+
+  function findUp(id){
+    const task=findTask(id);
+    if(!task)return;
+    task.deps.forEach(did=>{
+      if(!upstream.has(did)){upstream.add(did);findUp(did);}
+    });
+  }
+  function findDown(id){
+    GATES.forEach(g=>g.tasks.forEach(t=>{
+      if(t.deps.includes(id)&&!downstream.has(t.id)){downstream.add(t.id);findDown(t.id);}
+    }));
+  }
+  findUp(taskId);
+  findDown(taskId);
+
+  const chain=new Set([taskId,...upstream,...downstream]);
+
+  // Highlight nodes
+  document.querySelectorAll('.task-node').forEach(n=>{
+    const nid=n.getAttribute('data-id');
+    if(chain.has(nid)){n.classList.add('highlighted');n.classList.remove('dimmed');}
+    else{n.classList.add('dimmed');n.classList.remove('highlighted');}
+  });
+
+  // Highlight connections
+  document.querySelectorAll('#connSvg path[data-dep]').forEach(p=>{
+    const dep=p.getAttribute('data-dep');
+    const target=p.getAttribute('data-target');
+    if(chain.has(dep)&&chain.has(target)){p.classList.add('highlighted');p.classList.remove('dimmed');}
+    else{p.classList.add('dimmed');p.classList.remove('highlighted');}
+  });
+
+  // Show tooltip
+  const task=findTask(taskId);
+  if(task){
+    const ts=state[taskId];
+    const blocked=isBlocked(taskId)&&ts==='not-started';
+    const statusText=blocked?'Blocked':ts==='completed'?'Completed':ts==='in-progress'?'In Progress':'Not Started';
+    const depNames=task.deps.length?task.deps.map(d=>findTaskName(d)).join(', '):'None';
+    const deptColor=DEPT_COLORS[task.dept]||'#888';
+    const hiddenDep=hasHiddenDep(taskId);
+    const hiddenDepInfo=hiddenDep?task.deps.filter(d=>!isTaskVisible(d)).map(d=>{const t=findTask(d);return t?t.name+'(hidden)':'?';}).join(', '):'';
+    const laneObj=LANES.find(l=>l.id===task.lane);
+
+    const tip=document.getElementById('tooltip');
+    tip.innerHTML=`<div class="tooltip-title">${escHtml(task.name)}</div>
+      <div class="tooltip-row"><span class="tooltip-label">Department</span><span style="color:${deptColor}">${task.dept}</span></div>
+      <div class="tooltip-row"><span class="tooltip-label">Duration</span><span>${task.days}d</span></div>
+      <div class="tooltip-row"><span class="tooltip-label">Status</span><span>${statusText}</span></div>
+      <div class="tooltip-row"><span class="tooltip-label">Branch</span><span style="color:${laneObj?laneObj.color:'#888'}">${laneObj?laneObj.name:'?'}</span></div>
+      <div class="tooltip-row"><span class="tooltip-label">Prerequisites</span><span style="font-size:10px">${escHtml(depNames)}</span></div>
+      ${task.isCritical?'<div class="tooltip-row" style="color:var(--red);font-weight:700">⚠ Critical Path</div>':''}
+      ${hiddenDep?'<div class="tooltip-row" style="color:var(--yellow);font-weight:700">⚠ Hidden branch dep: '+escHtml(hiddenDepInfo)+'</div>':''}`;
+    tip.classList.add('visible');
+  }
+}
+
+function unhoverNode(){
+  document.querySelectorAll('.task-node').forEach(n=>{n.classList.remove('highlighted','dimmed');});
+  document.querySelectorAll('#connSvg path').forEach(p=>{p.classList.remove('highlighted','dimmed');});
+  document.getElementById('tooltip').classList.remove('visible');
+}
+
+// Tooltip positioning
+document.addEventListener('mousemove',e=>{
+  const tip=document.getElementById('tooltip');
+  if(!tip.classList.contains('visible'))return;
+  let x=e.clientX+14,y=e.clientY+14;
+  const tw=280,th=180;
+  if(x+tw>window.innerWidth)x=e.clientX-tw-10;
+  if(y+th>window.innerHeight)y=e.clientY-th-10;
+  tip.style.left=x+'px';tip.style.top=y+'px';
+});
+
+// ═══════════════════════════════════════════
+//  GATE SIDE PANEL
+// ═══════════════════════════════════════════
+function openGatePanel(gateIdx){
+  const gate = GATES[gateIdx];
+  if(!gate) return;
+
+  document.getElementById('sidePanelTitle').textContent = gate.emoji + ' ' + gate.name + ' — ' + gate.subtitle;
+
+  // Group tasks by lane
+  const grouped = {};
+  LANES.forEach(l => { grouped[l.id] = []; });
+  gate.tasks.forEach(t => {
+    const lane = t.lane || 'main';
+    if(grouped[lane]) grouped[lane].push(t);
+  });
+
+  let html = '';
+
+  // Gate progress
+  const st = gateStats(gate);
+  html += `<div style="margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span style="font-size:12px;color:var(--text2)">Visible Tasks Progress</span>
+      <span style="font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--green),var(--dept-eng));-webkit-background-clip:text;-webkit-text-fill-color:transparent">${st.pct}%</span>
+    </div>
+    <div style="height:6px;background:var(--bg4);border-radius:3px;overflow:hidden">
+      <div style="height:100%;width:${st.pct}%;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--dept-eng));transition:width .4s"></div>
+    </div>
+    <div style="margin-top:6px;font-size:11px;color:var(--text3)">
+      Completed ${st.completed} · In Progress ${st.inProgress} · Not Started ${st.notStarted} · ${st.total} visible
+    </div>
+  </div>`;
+
+  // Tasks by lane
+  LANES.forEach(lane => {
+    const tasks = grouped[lane.id];
+    if(!tasks || !tasks.length) return;
+    const isHidden = !laneVisible[lane.id];
+
+    html += `<div class="side-panel-section">
+      <div class="side-panel-section-title" style="color:${isHidden?'var(--text3)':lane.color}">
+        ${lane.name} ${isHidden?'<span style="font-size:9px;opacity:.6">(Hidden)</span>':''}
+      </div>`;
+
+    tasks.forEach(t => {
+      const ts = state[t.id];
+      const deptColor = DEPT_COLORS[t.dept]||'#888';
+      const stCls = 's-'+ts;
+      const statusIcon = ts==='completed'?'✓':ts==='in-progress'?'●':'';
+
+      html += `<div class="side-task-item${isHidden?' in-hidden-lane':''}" onclick="cycleStatus('${t.id}');openGatePanel(${gateIdx})">
+        <div class="st-bar" style="background:${deptColor}"></div>
+        <div class="st-info">
+          <div class="st-name">${escHtml(t.name)}</div>
+          <div class="st-dept"><span style="color:${deptColor}">${t.dept}</span> · ${t.days}d</div>
+        </div>
+        <div class="st-status ${stCls}">${statusIcon}</div>
+        <span class="side-lane-tag" style="background:${lane.color}">${lane.short}</span>
+      </div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  document.getElementById('sidePanelBody').innerHTML = html;
+  document.getElementById('sidePanel').classList.add('active');
+  document.getElementById('sidePanelOverlay').classList.add('active');
+}
+
+function closeSidePanel(){
+  document.getElementById('sidePanel').classList.remove('active');
+  document.getElementById('sidePanelOverlay').classList.remove('active');
+}
+
+// ═══════════════════════════════════════════
+//  EXPORT PNG
+// ═══════════════════════════════════════════
+function exportPNG(){
+  const canvas=document.getElementById('exportCanvas');
+  const ctx=canvas.getContext('2d');
+  const dpr=2;
+
+  const colW=220, headerH=110, padX=30, padY=30;
+  const nodeW=140, nodeH=24, nodeGap=6;
+  const totalCols = 7;
+  const seqExtraGapExport = 18; // scaled-down extra gap for export (35 * nodeH_export/nodeH_interactive ≈ 18)
+
+  // Build column ordering (same as computeLayout) for export
+  const exportColumns = [];
+  for(let i=0;i<totalCols;i++) exportColumns.push([]);
+  GATES.forEach((gate,gi)=>{
+    gate.tasks.forEach(task=>{
+      if(isTaskVisible(task.id)) exportColumns[gi].push(task.id);
+    });
+  });
+  // Sort columns the same way as computeLayout (by lane order)
+  const laneOrderMap = {};
+  LANES.forEach((l,i) => laneOrderMap[l.id] = i);
+  exportColumns.forEach(col => col.sort((a,b) => {
+    const ta=findTask(a), tb=findTask(b);
+    return (laneOrderMap[ta?.lane]??99) - (laneOrderMap[tb?.lane]??99);
+  }));
+
+  // Helper: compute export Y for a task in its column (with extra gaps)
+  function exportTaskY(colIdx, rowIdx){
+    let y = headerH;
+    for(let ri=0; ri<=rowIdx; ri++){
+      if(ri > 0){
+        const prevId = exportColumns[colIdx][ri-1];
+        const curId = exportColumns[colIdx][ri];
+        if(prevId && curId && SAME_GATE_WHITELIST.has(prevId+'→'+curId)){
+          y += seqExtraGapExport;
+        }
+      }
+      if(ri < rowIdx) y += nodeH + nodeGap;
+    }
+    return y;
+  }
+
+  // Calculate rows per column + total height with extra gaps
+  const colCounts = [];
+  let maxExportH = 0;
+  for(let c=0;c<totalCols;c++){
+    let count = exportColumns[c].length;
+    colCounts.push(count);
+    if(count > 0){
+      let lastY = exportTaskY(c, count-1) + nodeH;
+      if(lastY > maxExportH) maxExportH = lastY;
+    }
+  }
+
+  const W = padX*2 + totalCols*colW;
+  const H = padY*2 + headerH + maxExportH + 20;
+  canvas.width=W*dpr;canvas.height=H*dpr;
+  canvas.style.width=W+'px';canvas.style.height=H+'px';
+  ctx.scale(dpr,dpr);
+
+  // Background
+  ctx.fillStyle='#0f0f1e';
+  ctx.fillRect(0,0,W,H);
+
+  // Title
+  ctx.fillStyle='#e0e0f0';
+  ctx.font='bold 20px Segoe UI,system-ui,sans-serif';
+  ctx.fillText('AutoPM Gate Flowchart v4 — Auto Layout',30,30);
+
+  const os=overallStats();
+  ctx.fillStyle='#9090b0';
+  ctx.font='12px Segoe UI,system-ui,sans-serif';
+  const presetLabel=getCurrentPreset();
+  ctx.fillText(`Progress: ${os.pct}%  |  Completed: ${os.completed}  In Progress: ${os.inProgress}  Not Started: ${os.notStarted}  ${os.total} visible  |  Preset: ${presetLabel}`,30,50);
+
+  // Progress bar
+  ctx.fillStyle='#282850';
+  rr(ctx,30,60,300,6,3);ctx.fill();
+  ctx.fillStyle='#2ecc71';
+  rr(ctx,30,60,300*os.pct/100,6,3);ctx.fill();
+
+  // Column headers (gates)
+  for(let c=0;c<totalCols;c++){
+    const x=padX+c*colW;
+    if(c<GATES.length){
+      const gate=GATES[c];
+      const st=gateStats(gate);
+      const borderColor=st.gateStatus==='completed'?'#2ecc71':st.gateStatus==='in-progress'?'#f0c040':gate.critical?'#e74c3c':'#303060';
+      ctx.fillStyle='#1e1e3a';
+      rr(ctx,x,padY,colW-10,headerH-10,8);ctx.fill();
+      ctx.strokeStyle=borderColor;ctx.lineWidth=2;
+      rr(ctx,x,padY,colW-10,headerH-10,8);ctx.stroke();
+
+      ctx.fillStyle='#e0e0f0';
+      ctx.font='bold 13px Segoe UI,system-ui,sans-serif';
+      ctx.fillText(gate.emoji+' '+gate.subtitle,x+8,padY+24);
+      ctx.fillStyle='#9090b0';
+      ctx.font='10px Segoe UI,system-ui,sans-serif';
+      ctx.fillText(`${st.pct}% (${st.completed}/${st.total})`,x+8,padY+42);
+
+      ctx.fillStyle='#282850';
+      rr(ctx,x+8,padY+52,colW-26,4,2);ctx.fill();
+      ctx.fillStyle=st.gateStatus==='completed'?'#2ecc71':'#5DADE2';
+      rr(ctx,x+8,padY+52,(colW-26)*st.pct/100,4,2);ctx.fill();
+    } else {
+      ctx.fillStyle='#1e1e3a';
+      rr(ctx,x,padY,colW-10,headerH-10,8);ctx.fill();
+      ctx.strokeStyle='#2ecc71';ctx.lineWidth=2;
+      rr(ctx,x,padY,colW-10,headerH-10,8);ctx.stroke();
+      ctx.fillStyle='#2ecc71';
+      ctx.font='bold 16px Segoe UI,system-ui,sans-serif';
+      ctx.fillText('🏭 MP',x+colW/2-30,padY+45);
+    }
+  }
+
+  // Draw task nodes using layout positions
+  GATES.forEach(gate=>{
+    gate.tasks.forEach(task=>{
+      if(!isTaskVisible(task.id))return;
+      const pos=layoutPositions[task.id];
+      if(!pos)return;
+
+      const ts=state[task.id];
+      const dc=DEPT_COLORS[task.dept]||'#888';
+      const blocked=isBlocked(task.id)&&ts==='not-started';
+      const borderColor=ts==='completed'?'#2ecc71':ts==='in-progress'?'#f0c040':blocked?'#e74c3c':'#303060';
+
+      const nx=padX+pos.col*colW+10;
+      const ny=padY+exportTaskY(pos.col, pos.rowIdx);
+
+      // Node background
+      ctx.fillStyle='#1e1e3a';
+      rr(ctx,nx,ny,nodeW,nodeH,4);ctx.fill();
+      ctx.strokeStyle=borderColor;ctx.lineWidth=1.5;
+      rr(ctx,nx,ny,nodeW,nodeH,4);ctx.stroke();
+
+      // Dept bar
+      ctx.fillStyle=dc;
+      rr(ctx,nx,ny,3,nodeH,1);ctx.fill();
+
+      // Status dot
+      ctx.beginPath();
+      ctx.arc(nx+nodeW-8,ny+nodeH/2,4,0,Math.PI*2);
+      ctx.fillStyle=ts==='completed'?'#2ecc71':ts==='in-progress'?'#f0c040':'#4040a0';
+      ctx.fill();
+
+      // Warning marker
+      if(hasHiddenDep(task.id)){
+        ctx.fillStyle='#f0c040';
+        ctx.font='bold 9px sans-serif';
+        ctx.fillText('⚠',nx+6,ny+8);
+      }
+
+      // Branch tag
+      const laneObj=LANES.find(l=>l.id===task.lane);
+      if(laneObj){
+        ctx.fillStyle=laneObj.color;
+        ctx.font='bold 7px sans-serif';
+        ctx.fillText(laneObj.short,nx+nodeW-30,ny+8);
+      }
+
+      // Task name
+      ctx.fillStyle=ts==='completed'?'#606080':'#c0c0e0';
+      ctx.font='10px Segoe UI,system-ui,sans-serif';
+      const maxChars=14;
+      const name=task.name.length>maxChars?task.name.slice(0,maxChars)+'…':task.name;
+      ctx.fillText(name,nx+8,ny+14);
+
+      // Days
+      ctx.fillStyle='#606080';
+      ctx.font='9px Segoe UI,system-ui,sans-serif';
+      ctx.fillText(task.days+'d',nx+nodeW-30,ny+18);
+    });
+  });
+
+  // Connection lines (simplified) — same whitelist logic as drawConnections
+  ctx.lineWidth=1;
+  GATES.forEach(gate=>{
+    gate.tasks.forEach(task=>{
+      if(!task.deps.length)return;
+      if(!isTaskVisible(task.id))return;
+      task.deps.forEach(depId=>{
+        if(!isTaskVisible(depId))return;
+        const sp=layoutPositions[depId], tp=layoutPositions[task.id];
+        if(!sp||!tp)return;
+
+        // Same-column: only draw if whitelisted
+        const depKey=depId+'→'+task.id;
+        if(sp.col===tp.col && !SAME_GATE_WHITELIST.has(depKey)) return;
+
+        const bothDone=state[depId]==='completed'&&state[task.id]==='completed';
+        ctx.strokeStyle=bothDone?'rgba(46,204,113,0.3)':tp.col===2||task.isCritical?'rgba(231,76,60,0.25)':'rgba(100,100,255,0.2)';
+
+        if(sp.col===tp.col){
+          // Same column (whitelisted): bottom-center → top-center
+          const sx2=padX+sp.col*colW+10+nodeW/2;
+          const sy2=padY+exportTaskY(sp.col, sp.rowIdx)+nodeH;
+          const ex2=sx2;
+          const ey2=padY+exportTaskY(tp.col, tp.rowIdx);
+          ctx.beginPath();
+          ctx.moveTo(sx2,sy2);
+          const dy2=ey2-sy2;
+          const cpy2=Math.max(Math.abs(dy2)*0.3,5);
+          ctx.bezierCurveTo(sx2,sy2+cpy2,ex2,ey2-cpy2,ex2,ey2);
+          ctx.stroke();
+        } else {
+          // Cross column: right-center → left-center
+          const sx2=padX+sp.col*colW+10+nodeW;
+          const sy2=padY+exportTaskY(sp.col, sp.rowIdx)+nodeH/2;
+          const ex2=padX+tp.col*colW+10;
+          const ey2=padY+exportTaskY(tp.col, tp.rowIdx)+nodeH/2;
+          ctx.beginPath();
+          ctx.moveTo(sx2,sy2);
+          const cpx2=Math.max(Math.abs(ex2-sx2)*0.25,12);
+          ctx.bezierCurveTo(sx2+cpx2,sy2,ex2-cpx2,ey2,ex2,ey2);
+          ctx.stroke();
+        }
+      });
+    });
+  });
+
+  // Timestamp
+  ctx.fillStyle='#606080';
+  ctx.font='9px Segoe UI,system-ui,sans-serif';
+  ctx.fillText('Generated: '+new Date().toLocaleString('en-US')+' | Layout: Sugiyama Auto | Preset: '+getCurrentPreset(),30,H-10);
+
+  document.getElementById('exportModal').classList.add('active');
+}
+
+function rr(ctx,x,y,w,h,r){
+  if(w<0)w=0;if(h<0)h=0;r=Math.min(r,w/2,h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
+}
+
+function downloadPNG(){
+  const canvas=document.getElementById('exportCanvas');
+  const link=document.createElement('a');
+  link.download='AutoPM_Gate_Flowchart_v4_'+new Date().toISOString().slice(0,10)+'.png';
+  link.href=canvas.toDataURL('image/png');
+  link.click();
+}
+function closeModal(){document.getElementById('exportModal').classList.remove('active');}
+
+
+// ═══════════════════════════════════════════
+//  EDIT FEATURES
+// ═══════════════════════════════════════════
+const CUSTOM_POS_KEY = 'autopm_gate_v4_en_custom_pos';
+const EDITS_KEY = 'autopm_gate_v4_en_edits';
+
+let customPositions = {};
+let taskEdits = {};
+
+function loadCustomPositions(){
+  try{ const s=localStorage.getItem(CUSTOM_POS_KEY); if(s) customPositions=JSON.parse(s); }catch(e){ customPositions={}; }
+}
+function saveCustomPositions(){ try{localStorage.setItem(CUSTOM_POS_KEY,JSON.stringify(customPositions));}catch(e){} }
+
+function loadTaskEdits(){
+  try{ const s=localStorage.getItem(EDITS_KEY); if(s) taskEdits=JSON.parse(s); }catch(e){ taskEdits={}; }
+  // Apply edits to GATES data
+  Object.entries(taskEdits).forEach(([tid, ed])=>{
+    const t = findTask(tid);
+    if(t){
+      if(ed.name) t.name = ed.name;
+      if(ed.dept) t.dept = ed.dept;
+      if(ed.days) t.days = ed.days;
+    }
+  });
+}
+function saveTaskEdits(){ try{localStorage.setItem(EDITS_KEY,JSON.stringify(taskEdits));}catch(e){} }
+
+// Auto-arrange: clear custom positions
+function autoArrange(){
+  customPositions = {};
+  saveCustomPositions(); saveGatesData();
+  renderAll();
+}
+
+function resetToDefault(){
+  if(!confirm('Restore defaults? All edits will be lost!')) return;
+  localStorage.removeItem(GATES_DATA_KEY);
+  localStorage.removeItem(CUSTOM_POS_KEY);
+  localStorage.removeItem(EDITS_KEY);
+  localStorage.removeItem(STATUS_KEY);
+  localStorage.removeItem(LANE_VIS_KEY);
+  location.reload();
+}
+
+// ── Drag ──
+let dragState = null;
+
+function initDrag(el, taskId){
+  el.addEventListener('mousedown', e=>{
+    if(e.button !== 0) return;
+    // Don't drag if clicking status dot
+    if(e.target.classList.contains('node-status-dot')) return;
+    const pos = layoutPositions[taskId];
+    if(!pos) return;
+    dragState = { taskId, startY: e.clientY, origY: pos.y, el };
+    el.classList.add('dragging');
+    e.preventDefault();
+  });
+}
+
+document.addEventListener('mousemove', e=>{
+  if(!dragState) return;
+  const dy = e.clientY - dragState.startY;
+  const newY = dragState.origY + dy;
+  const el = dragState.el;
+  if(el) el.style.top = newY + 'px';
+  // Update layoutPositions in real-time for connection drawing
+  if(layoutPositions[dragState.taskId]){
+    layoutPositions[dragState.taskId].y = newY;
+  }
+});
+
+document.addEventListener('mouseup', e=>{
+  if(!dragState) return;
+  const el = dragState.el;
+  if(el) el.classList.remove('dragging');
+  // Save custom position
+  const pos = layoutPositions[dragState.taskId];
+  if(pos){
+    customPositions[dragState.taskId] = { y: pos.y };
+    saveCustomPositions();
+  }
+  drawConnections();
+  dragState = null;
+});
+
+// ── Double-click edit ──
+function initDblClick(el, taskId){
+  el.addEventListener('dblclick', e=>{
+    e.stopPropagation();
+    e.preventDefault();
+    openEditModal(taskId);
+  });
+}
+
+function openEditModal(taskId){
+  const task = findTask(taskId);
+  if(!task) return;
+  document.getElementById('editTaskId').value = taskId;
+  document.getElementById('editName').value = task.name;
+  document.getElementById('editDept').value = task.dept;
+  document.getElementById('editDays').value = task.days;
+  document.getElementById('editModalTitle').textContent = 'Edit: ' + task.name;
+  document.getElementById('editModal').classList.add('active');
+}
+
+function closeEditModal(){
+  document.getElementById('editModal').classList.remove('active');
+}
+
+function saveEditModal(){
+  const taskId = document.getElementById('editTaskId').value;
+  const task = findTask(taskId);
+  if(!task) return;
+  const newName = document.getElementById('editName').value.trim();
+  const newDept = document.getElementById('editDept').value;
+  const newDays = parseInt(document.getElementById('editDays').value) || task.days;
+  if(newName) task.name = newName;
+  task.dept = newDept;
+  task.days = Math.max(1, newDays);
+  taskEdits[taskId] = { name: task.name, dept: task.dept, days: task.days };
+  saveTaskEdits(); saveGatesData();
+  closeEditModal();
+  renderAll();
+}
+
+// ── Right-click context menu ──
+let ctxTaskId = null;
+
+function initContextMenu(el, taskId){
+  el.addEventListener('contextmenu', e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    ctxTaskId = taskId;
+    const menu = document.getElementById('ctxMenu');
+    menu.style.left = e.clientX + 'px';
+    menu.style.top = e.clientY + 'px';
+    menu.classList.add('active');
+  });
+}
+
+function ctxEdit(){
+  document.getElementById('ctxMenu').classList.remove('active');
+  if(ctxTaskId) openEditModal(ctxTaskId);
+}
+
+function ctxDelete(){
+  document.getElementById('ctxMenu').classList.remove('active');
+  if(!ctxTaskId) return;
+  const task = findTask(ctxTaskId);
+  if(!task) return;
+  if(!confirm('Delete node "'+task.name+'"?')) return;
+  // Remove from GATES
+  GATES.forEach(g=>{
+    const idx = g.tasks.findIndex(t=>t.id===ctxTaskId);
+    if(idx>=0) g.tasks.splice(idx,1);
+  });
+  // Remove deps referencing this task
+  GATES.forEach(g=>g.tasks.forEach(t=>{
+    t.deps = t.deps.filter(d=>d!==ctxTaskId);
+  }));
+  // Remove custom position and edits
+  delete customPositions[ctxTaskId];
+  delete taskEdits[ctxTaskId];
+  delete state[ctxTaskId];
+  saveCustomPositions(); saveTaskEdits(); saveState(); saveGatesData();
+  ctxTaskId = null;
+  renderAll();
+}
+
+// Close context menu on click elsewhere
+document.addEventListener('click', (e)=>{
+  if(!e.target.closest('.ctx-menu')){
+    document.getElementById('ctxMenu').classList.remove('active');
+  }
+  // Close add-task modal on overlay click
+  if(e.target.id === 'addTaskModal') closeAddTaskModal();
+  // Close deps-list modal on overlay click
+  if(e.target.id === 'depsListModal') closeDepsListModal();
+});
+
+// Close modals on Escape
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){
+    if(connMode){ cancelConnMode(); return; }
+    closeEditModal();
+    closeAddTaskModal();
+    closeDepsListModal();
+    document.getElementById('ctxMenu').classList.remove('active');
+  }
+});
+
+// ═══════════════════════════════════════════
+//  GATES DATA PERSISTENCE
+// ═══════════════════════════════════════════
+function loadGatesData(){
+  try{
+    const s = localStorage.getItem(GATES_DATA_KEY);
+    if(s){
+      const saved = JSON.parse(s);
+      if(saved && saved.length){
+        GATES.length = 0;
+        saved.forEach(g => GATES.push(g));
+      }
+    }
+  }catch(e){}
+}
+function saveGatesData(){
+  try{ localStorage.setItem(GATES_DATA_KEY, JSON.stringify(GATES)); }catch(e){}
+}
+
+// ═══════════════════════════════════════════
+//  CONNECTION MODE
+// ═══════════════════════════════════════════
+let connMode = false;
+let connSource = null;
+
+function startConnMode(sourceId){
+  closeCtxMenu();
+  connMode = true;
+  connSource = sourceId || null;
+  document.getElementById('flowArea').classList.add('conn-mode');
+  document.getElementById('connModeBar').classList.add('active');
+  if(connSource){
+    document.getElementById('connModeText').textContent = '🔗 Connection Mode: Click target to connect';
+    const srcEl = document.getElementById('node-'+connSource);
+    if(srcEl) srcEl.classList.add('conn-source');
+  } else {
+    document.getElementById('connModeText').textContent = '🔗 Connection Mode: Click source node';
+  }
+  // Add target-hover class to all visible nodes
+  document.querySelectorAll('.task-node').forEach(n => n.classList.add('conn-target-hover'));
+}
+
+function cancelConnMode(){
+  connMode = false;
+  connSource = null;
+  document.getElementById('flowArea').classList.remove('conn-mode');
+  document.getElementById('connModeBar').classList.remove('active');
+  document.querySelectorAll('.task-node').forEach(n=>{
+    n.classList.remove('conn-source','conn-target-hover');
+  });
+}
+
+function handleNodeClick(taskId){
+  if(connMode){
+    handleConnClick(taskId);
+  } else {
+    cycleStatus(taskId);
+  }
+}
+
+function handleConnClick(taskId){
+  if(!connSource){
+    // First click: set source
+    connSource = taskId;
+    document.getElementById('connModeText').textContent = '🔗 Connection Mode: Click target to connect';
+    const srcEl = document.getElementById('node-'+taskId);
+    if(srcEl) srcEl.classList.add('conn-source');
+  } else {
+    // Second click: create connection
+    if(taskId === connSource){
+      // Can't connect to self
+      return;
+    }
+    const targetTask = findTask(taskId);
+    if(!targetTask) return;
+    // Check if dep already exists
+    if(targetTask.deps.includes(connSource)){
+      cancelConnMode();
+      return; // Already connected
+    }
+    // Add dep
+    targetTask.deps.push(connSource);
+    saveGatesData();
+    cancelConnMode();
+    renderAll();
+  }
+}
+
+// ═══════════════════════════════════════════
+//  ADD TASK
+// ═══════════════════════════════════════════
+let addTaskNewCounter = 0;
+
+function openAddTaskModal(preselectedGate){
+  closeCtxMenu();
+  document.getElementById('addTaskName').value = '';
+  document.getElementById('addTaskDept').value = 'PD';
+  document.getElementById('addTaskLane').value = 'main';
+  document.getElementById('addTaskDays').value = '3';
+  if(preselectedGate !== undefined){
+    document.getElementById('addTaskGate').value = String(preselectedGate);
+  } else {
+    document.getElementById('addTaskGate').value = '0';
+  }
+
+  // Build deps checkbox list
+  const list = document.getElementById('addTaskDepsList');
+  let html = '';
+  GATES.forEach(gate => {
+    gate.tasks.forEach(task => {
+      html += `<label class="deps-checkbox-item">
+        <input type="checkbox" value="${task.id}">
+        <span style="color:${DEPT_COLORS[task.dept]||'#888'}">${escHtml(task.name)}</span>
+        <span style="color:var(--text3);font-size:9px">${task.id}</span>
+      </label>`;
+    });
+  });
+  list.innerHTML = html || '<div style="padding:8px;color:var(--text3);font-size:11px">No tasks available</div>';
+
+  document.getElementById('addTaskModal').classList.add('active');
+  document.getElementById('addTaskName').focus();
+}
+
+function closeAddTaskModal(){
+  document.getElementById('addTaskModal').classList.remove('active');
+}
+
+function saveAddTaskModal(){
+  const name = document.getElementById('addTaskName').value.trim();
+  if(!name){
+    alert('Please enter task name');
+    return;
+  }
+  const dept = document.getElementById('addTaskDept').value;
+  const lane = document.getElementById('addTaskLane').value;
+  const days = Math.max(1, parseInt(document.getElementById('addTaskDays').value) || 3);
+  const gateIdx = parseInt(document.getElementById('addTaskGate').value);
+
+  // Collect selected deps
+  const deps = [];
+  document.querySelectorAll('#addTaskDepsList input[type=checkbox]:checked').forEach(cb => {
+    deps.push(cb.value);
+  });
+
+  // Generate unique ID
+  addTaskNewCounter++;
+  const newId = 'g' + (gateIdx + 1) + 't_new' + addTaskNewCounter;
+  // Ensure uniqueness
+  let finalId = newId;
+  let counter = addTaskNewCounter;
+  while(findTask(finalId)){
+    counter++;
+    finalId = 'g' + (gateIdx + 1) + 't_new' + counter;
+  }
+
+  const newTask = {
+    id: finalId,
+    name: name,
+    dept: dept,
+    days: days,
+    deps: deps,
+    lane: lane
+  };
+
+  if(gateIdx >= 0 && gateIdx < GATES.length){
+    GATES[gateIdx].tasks.push(newTask);
+    state[newTask.id] = 'not-started';
+    saveState();
+    saveGatesData();
+  }
+
+  closeAddTaskModal();
+  renderAll();
+}
+
+// ═══════════════════════════════════════════
+//  DELETE CONNECTION (DEPS LIST)
+// ═══════════════════════════════════════════
+let depsListTaskId = null;
+
+function openDepsListModal(taskId){
+  closeCtxMenu();
+  depsListTaskId = taskId;
+  const task = findTask(taskId);
+  if(!task) return;
+
+  document.getElementById('depsListTitle').textContent = '✂️ Dependencies — ' + task.name;
+
+  let html = '';
+
+  // Upstream deps (this task depends on these)
+  if(task.deps.length > 0){
+    html += '<div style="font-size:10px;color:var(--text3);font-weight:700;margin-bottom:6px">⬅ Upstream (This task depends on)</div>';
+    task.deps.forEach(depId => {
+      const dep = findTask(depId);
+      const depName = dep ? dep.name : depId;
+      const depDept = dep ? dep.dept : '?';
+      html += `<div class="dep-list-item">
+        <div class="dep-info">
+          <div class="dep-name" style="color:${DEPT_COLORS[depDept]||'#888'}">${escHtml(depName)}</div>
+          <div class="dep-id">${depId}</div>
+        </div>
+        <div class="dep-dir" style="background:#5050a0">Upstream</div>
+        <button class="dep-remove-btn" onclick="removeDep('${taskId}','${depId}','upstream')" title="Remove this dependency">❌</button>
+      </div>`;
+    });
+  }
+
+  // Downstream deps (these tasks depend on this one)
+  const downstream = [];
+  GATES.forEach(g => g.tasks.forEach(t => {
+    if(t.deps.includes(taskId)){
+      downstream.push(t);
+    }
+  }));
+
+  if(downstream.length > 0){
+    html += '<div style="font-size:10px;color:var(--text3);font-weight:700;margin-top:10px;margin-bottom:6px">➡ Downstream (Depends on this task)</div>';
+    downstream.forEach(dt => {
+      html += `<div class="dep-list-item">
+        <div class="dep-info">
+          <div class="dep-name" style="color:${DEPT_COLORS[dt.dept]||'#888'}">${escHtml(dt.name)}</div>
+          <div class="dep-id">${dt.id}</div>
+        </div>
+        <div class="dep-dir" style="background:var(--green)">Downstream</div>
+        <button class="dep-remove-btn" onclick="removeDep('${dt.id}','${taskId}','downstream')" title="Remove this dependency">❌</button>
+      </div>`;
+    });
+  }
+
+  if(!task.deps.length && !downstream.length){
+    html = '<div class="deps-list-empty">No dependencies for this node</div>';
+  }
+
+  document.getElementById('depsListContent').innerHTML = html;
+  document.getElementById('depsListModal').classList.add('active');
+}
+
+function closeDepsListModal(){
+  document.getElementById('depsListModal').classList.remove('active');
+  depsListTaskId = null;
+}
+
+function removeDep(fromTaskId, depId, direction){
+  const task = findTask(fromTaskId);
+  if(!task) return;
+  task.deps = task.deps.filter(d => d !== depId);
+  saveGatesData();
+  // Refresh the modal
+  openDepsListModal(depsListTaskId || fromTaskId);
+  renderAll();
+}
+
+// ═══════════════════════════════════════════
+//  CONTEXT MENU EXTENSIONS
+// ═══════════════════════════════════════════
+function closeCtxMenu(){
+  document.getElementById('ctxMenu').classList.remove('active');
+}
+
+function ctxConnectFrom(){
+  closeCtxMenu();
+  if(ctxTaskId) startConnMode(ctxTaskId);
+}
+
+function ctxDeleteConn(){
+  closeCtxMenu();
+  if(ctxTaskId) openDepsListModal(ctxTaskId);
+}
+
+function ctxAddTaskHere(){
+  closeCtxMenu();
+  if(ctxTaskId){
+    const gateIdx = findTaskGateIdx(ctxTaskId);
+    openAddTaskModal(gateIdx >= 0 ? gateIdx : 0);
+  } else {
+    openAddTaskModal(0);
+  }
+}
+
+// Flow area background right-click: add task to nearest gate
+document.getElementById('flowWrapper').addEventListener('contextmenu', e=>{
+  // Only handle clicks on the background (not on nodes)
+  if(e.target.closest('.task-node') || e.target.closest('.gate-header')) return;
+  e.preventDefault();
+  // Determine which gate column based on x position
+  const wrapper = document.getElementById('flowWrapper');
+  const scrollLeft = wrapper.scrollLeft;
+  const clickX = e.clientX - 40 + scrollLeft; // approximate
+  const colIdx = Math.floor((clickX - LEFT_PAD) / COL_W);
+  const gateIdx = Math.max(0, Math.min(colIdx, GATES.length - 1));
+  openAddTaskModal(gateIdx);
+});
+
+// ═══════════════════════════════════════════
+//  EXPORT / IMPORT JSON
+// ═══════════════════════════════════════════
+function exportJSON(){
+  const data = {
+    version: 4,
+    exportTime: new Date().toISOString(),
+    gates: GATES,
+    state: state,
+    laneVisible: laneVisible,
+    customPositions: customPositions,
+    taskEdits: taskEdits
+  };
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'AutoPM_Flowchart_' + new Date().toISOString().slice(0,10) + '.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function importJSON(){
+  document.getElementById('importFileInput').click();
+}
+
+function handleImportFile(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    try{
+      const data = JSON.parse(evt.target.result);
+      if(!data.gates || !data.state){
+        alert('Invalid backup: missing gates or state data');
+        return;
+      }
+      if(!confirm('Import will overwrite all data. Continue?')) return;
+
+      // Restore GATES
+      GATES.length = 0;
+      data.gates.forEach(g => GATES.push(g));
+
+      // Restore state
+      state = data.state || {};
+      laneVisible = data.laneVisible || {...DEFAULT_LANES};
+      customPositions = data.customPositions || {};
+      taskEdits = data.taskEdits || {};
+
+      // Save all to localStorage
+      saveState();
+      saveLanes();
+      saveCustomPositions();
+      saveTaskEdits();
+      saveGatesData();
+
+      renderAll();
+      alert('Data imported successfully!');
+    } catch(err){
+      alert('Import failed: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = ''; // reset file input so same file can be re-imported
+}
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+loadGatesData();
+loadState();
+loadLanes();
+loadCustomPositions();
+loadTaskEdits();
+renderAll();
+
+let resizeTimer;
+window.addEventListener('resize',()=>{
+  clearTimeout(resizeTimer);
+  resizeTimer=setTimeout(()=>drawConnections(),200);
+});
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    closeSidePanel();
+  }
+});
+</script>
+</body>
+</html>
