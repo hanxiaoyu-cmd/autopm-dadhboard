@@ -1797,8 +1797,8 @@ body.v16-active .fixed.bottom-8 {
 </div>
 
 
-    <!-- Top Navigation -->
-    <header class="fixed top-0 right-0 z-50 glass-card" style="left:68px;">
+    <!-- Top Navigation (hidden: v16 framework takes over) -->
+    <header class="fixed top-0 right-0 z-50 glass-card" style="left:68px;display:none!important;">
         <div class="flex items-center justify-between px-6 py-4">
             <!-- Left: System Name + View Toggle + Reset -->
             <div class="flex items-center gap-4">
@@ -2744,7 +2744,7 @@ body.v16-active .fixed.bottom-8 {
 
     <script>
     // ===== Version Management =====
-    const APP_VERSION = '18.3';
+    const APP_VERSION = '18.4';
     (function setVersion(){
       document.getElementById('sidebarVersion')&&(document.getElementById('sidebarVersion').textContent='v'+APP_VERSION);
       document.getElementById('topNavVersion')&&(document.getElementById('topNavVersion').textContent='v'+APP_VERSION);
@@ -14137,7 +14137,7 @@ function v16RenderL4Team(area) {
 // ============================================================
 // v16 Exit to Import
 // ============================================================
-function v16ExitToImport(){document.body.classList.remove('v16-l4-mode');var header=document.querySelector('header.fixed');if(header)header.style.display='';var leftPanel=document.querySelector('.fixed.top-20.left-4');if(leftPanel)leftPanel.style.display='';var rightPanel=document.querySelector('.right-panel-container');if(rightPanel)rightPanel.style.display='';var centerArea=document.getElementById('center-area');if(centerArea)centerArea.style.display='';var v16Area=document.getElementById('v16ContentArea');if(v16Area)v16Area.style.display='none';var v16TabBar=document.getElementById('v16TabBar');if(v16TabBar)v16TabBar.style.display='none';if(typeof switchView==='function'){switchView('data-import');}}
+function v16ExitToImport(){document.body.classList.remove('v16-l4-mode');if(typeof switchView==='function'){switchView('data-import');}}
 
 // ============================================================
 // v16 Init
