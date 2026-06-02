@@ -13908,10 +13908,18 @@ function v183FilterDepartment(value) {
 async function v16RenderL3MyWork(area) {
   area.innerHTML = '<div style="padding:24px;color:#94a3b8">Loading your workbench...</div>';
   var headers = await v16GetAuthHeaders();
-  var resp = await fetch('/api/projects?limit=20', {headers: headers});
+  var resp = await fetch('/api/projects?limit=200', {headers: headers});
   var projects = resp.ok ? await resp.json() : [];
   window._v16L3Projects = projects;
-  var myProjects = projects.slice(0,4);
+  var preferredNames = ['BW1001EUUK', 'AS080UK/EU'];
+  var myProjects = preferredNames.map(function(name){
+    return projects.find(function(p){ return (p.name || '').toLowerCase() === name.toLowerCase(); });
+  }).filter(Boolean);
+  if (myProjects.length < 2) {
+    projects.forEach(function(p){
+      if (myProjects.length < 2 && myProjects.indexOf(p) < 0) myProjects.push(p);
+    });
+  }
   var allTasks = [];
   for (var i = 0; i < myProjects.length; i++) {
     var r = await fetch('/api/milestones?project_id=' + myProjects[i].id, {headers: headers});
@@ -13930,8 +13938,8 @@ async function v16RenderL3MyWork(area) {
   }).join('');
   var priorityRows = delay.tasks.slice(0,5).map(function(t){
     return '<div style="padding:9px 0;border-top:1px solid rgba(255,255,255,0.05);cursor:pointer" onclick="v16SelectL3Project(' + t.project_id + ')"><div style="font-size:12px;color:#fff">' + v16EscapeHtml(t.name || '-') + '</div><div style="font-size:11px;color:#94a3b8">' + v16EscapeHtml(t._project ? t._project.name : 'Project') + ' · ' + v16EscapeHtml(t.owner || '-') + ' · <span style="color:#ef4444">' + v16DaysLate(t) + 'd late</span></div></div>';
-  }).join('') || '<div style="font-size:12px;color:#22c55e;padding:10px 0">No delayed task in your four active projects.</div>';
-  area.innerHTML = '<div style="display:grid;grid-template-columns:360px 1fr;gap:18px;height:calc(100vh - 185px)"><div style="overflow:auto"><div class="v16-card" style="margin-bottom:12px"><div class="v16-card-title">My Workbench</div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">' + v183RenderMetric('Tasks', stats.total, '#60a5fa', 'four projects') + v183RenderMetric('Overdue', stats.overdue, '#ef4444', 'needs action') + v183RenderMetric('In Progress', stats.in_progress, '#60a5fa', 'active') + v183RenderMetric('Done', stats.done, '#22c55e', 'completed') + '</div></div><div class="v16-card" style="margin-bottom:12px"><div class="v16-card-title">AI Priority Queue</div>' + priorityRows + '</div><div class="v16-card" style="padding:0;overflow:hidden"><div style="padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px;font-weight:700;color:#fff">My Projects</div>' + projectItems + '</div></div><div id="v16L3TaskPanel" style="overflow:auto"></div></div>';
+  }).join('') || '<div style="font-size:12px;color:#22c55e;padding:10px 0">No delayed task in your two real projects.</div>';
+  area.innerHTML = '<div style="display:grid;grid-template-columns:360px 1fr;gap:18px;height:calc(100vh - 185px)"><div style="overflow:auto"><div class="v16-card" style="margin-bottom:12px"><div class="v16-card-title">My Workbench</div><div style="font-size:11px;color:#94a3b8;margin:-4px 0 10px">Real project plans imported from Project plan folder</div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">' + v183RenderMetric('Tasks', stats.total, '#60a5fa', '2 real projects') + v183RenderMetric('Overdue', stats.overdue, '#ef4444', 'needs action') + v183RenderMetric('In Progress', stats.in_progress, '#60a5fa', 'active') + v183RenderMetric('Done', stats.done, '#22c55e', 'completed') + '</div></div><div class="v16-card" style="margin-bottom:12px"><div class="v16-card-title">AI Priority Queue</div>' + priorityRows + '</div><div class="v16-card" style="padding:0;overflow:hidden"><div style="padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px;font-weight:700;color:#fff">My Projects</div>' + projectItems + '</div></div><div id="v16L3TaskPanel" style="overflow:auto"></div></div>';
   if (selected) await v16SelectL3Project(selected);
 }
 // ============================================================

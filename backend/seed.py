@@ -9,6 +9,7 @@ from database import engine, SessionLocal, Base
 from models import Project, Milestone, Risk, User, Alert, Feedback, UserProject
 from auth import hash_password
 from alerts_engine import refresh_alerts
+from real_project_seed import ensure_real_project_plans
 
 DEPARTMENTS = [
     {'id': 'PMO', 'headcount': 8, 'allocated': 7, 'fullName': 'CN NPI / US PMO'},
@@ -32,7 +33,8 @@ def seed(force=False):
     db = SessionLocal()
     try:
         if not force and db.query(User).filter(User.username == "sunny").first():
-            print("Database already seeded. Skipping.")
+            ensured = ensure_real_project_plans(db, username="sunny")
+            print(f"Database already seeded. Ensured real project plans: {', '.join(ensured)}")
             return
 
         if force:
@@ -301,10 +303,13 @@ def seed(force=False):
 
         # -- Subscribe sunny to all 4 projects --
         for proj in created_projects:
-            up = UserProject(user_id=sunny.id, project_id=proj.id, created_at=now_str)
+            up = UserProject(username=sunny.username, project_id=proj.id, created_at=now_str)
             db.add(up)
         db.commit()
         print(f"Subscribed sunny to {len(created_projects)} projects")
+
+        ensured = ensure_real_project_plans(db, username=sunny.username)
+        print(f"Ensured real project plans: {', '.join(ensured)}")
 
         # -- Verification --
         total = db.query(Project).count()
