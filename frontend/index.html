@@ -2756,7 +2756,7 @@ body.v16-active .min-h-screen {
 
     <script>
     // ===== Version Management =====
-    const APP_VERSION = '18.4';
+    const APP_VERSION = '18.5';
     (function setVersion(){
       document.getElementById('sidebarVersion')&&(document.getElementById('sidebarVersion').textContent='v'+APP_VERSION);
       document.getElementById('topNavVersion')&&(document.getElementById('topNavVersion').textContent='v'+APP_VERSION);
@@ -13783,7 +13783,7 @@ function v16FilterL4Dept() {
   var status = active ? (active.dataset.v16Filter || 'all') : 'all';
   v16FilterL4Tasks(status, active);
 }
-function v16RenderL4Overview(area) {
+async function v16RenderL4Overview(area) {
   var project = await v16EnsureProject();
   if (!project || !project.id) {
     area.innerHTML = '<div style="padding:20px;color:#94a3b8">No project selected</div>';
