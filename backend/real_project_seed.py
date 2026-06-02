@@ -60,8 +60,8 @@ REAL_PROJECT_PLANS = [
         ],
     },
     {
-        "legacy_names": ["Project-A8"],
-        "name": "AS080UK/EU",
+        "legacy_names": ["AS080UK/EU", "Project-A8"],
+        "name": "AS080UK&EU",
         "category": "NPD CAT A",
         "status": "In Progress",
         "phase": "EB1",
@@ -201,6 +201,19 @@ def ensure_real_project_plans(db, username="sunny"):
         ).first()
         if not subscription:
             db.add(UserProject(username=username, project_id=project.id, created_at=now))
+
+        for legacy_name in plan.get("legacy_names", []):
+            duplicate = db.query(Project).filter(Project.name == legacy_name).first()
+            if duplicate and duplicate.id != project.id:
+                for milestone in db.query(Milestone).filter(Milestone.project_id == duplicate.id).all():
+                    key = (milestone.phase or "", milestone.name)
+                    if key in existing_tasks:
+                        db.delete(milestone)
+                    else:
+                        milestone.project_id = project.id
+                        existing_tasks[key] = milestone
+                db.query(UserProject).filter(UserProject.project_id == duplicate.id).delete()
+                db.delete(duplicate)
 
         ensured.append(project.name)
 

@@ -13911,10 +13911,10 @@ async function v16RenderL3MyWork(area) {
   var resp = await fetch('/api/projects?limit=200', {headers: headers});
   var projects = resp.ok ? await resp.json() : [];
   window._v16L3Projects = projects;
-  var preferredNames = ['BW1001EUUK', 'AS080UK/EU'];
+  var preferredNames = ['BW1001EUUK', 'AS080UK&EU', 'AS080UK/EU'];
   var myProjects = preferredNames.map(function(name){
     return projects.find(function(p){ return (p.name || '').toLowerCase() === name.toLowerCase(); });
-  }).filter(Boolean);
+  }).filter(Boolean).slice(0, 2);
   if (myProjects.length < 2) {
     projects.forEach(function(p){
       if (myProjects.length < 2 && myProjects.indexOf(p) < 0) myProjects.push(p);
