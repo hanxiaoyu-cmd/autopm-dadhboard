@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S Company AutoPM v18.8</title>
+    <title>S Company AutoPM v18.9</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2756,7 +2756,7 @@ body.v16-active .min-h-screen {
 
     <script>
     // ===== Version Management =====
-    const APP_VERSION = '18.5';
+    const APP_VERSION = '18.9';
     (function setVersion(){
       document.getElementById('sidebarVersion')&&(document.getElementById('sidebarVersion').textContent='v'+APP_VERSION);
       document.getElementById('topNavVersion')&&(document.getElementById('topNavVersion').textContent='v'+APP_VERSION);
@@ -14218,37 +14218,124 @@ function v16DocOpenFolder(folderName) {
   v16RenderL4Document(document.getElementById('v16ContentArea'));
 }
 
-function v16RenderL4Workflow(area) {
-  var tasks=sl500LoadTasks();var stats=sl500GetStats(tasks);var progress=stats.total>0?Math.round(stats.completed/stats.total*100):0;
+// v18.9: Workflow now loads real project tasks from API
+async function v16RenderL4Workflow(area) {
+  area.innerHTML = '<div style="padding:24px;color:#94a3b8">Loading workflow data...</div>';
+  var project = await v16EnsureProject();
+  if (!project) { area.innerHTML = '<div style="padding:20px;color:#ef4444">No project selected</div>'; return; }
+  var headers = await v16GetAuthHeaders();
+  var resp = await fetch('/api/milestones?project_id=' + project.id, {headers: headers});
+  if (!resp.ok) { area.innerHTML = '<div style="padding:20px;color:#ef4444">Failed to load tasks</div>'; return; }
+  var tasks = await resp.json();
+  var stats = v16TaskStats(tasks);
+  var progress = stats.total ? Math.round(stats.done / stats.total * 100) : 0;
   var departments=[
     {id:'pmo',name:'PMO',fullName:'Project Management',icon:'📋',color:'#667eea',angle:0},
-    {id:'pd',name:'PD',fullName:'Product Development',icon:'🛍️',color:'#f093fb',angle:30},
+    {id:'pd',name:'PD',fullName:'Product Development',icon:'🛍',color:'#f093fb',angle:30},
     {id:'id',name:'ID',fullName:'Industrial Design',icon:'🎨',color:'#4facfe',angle:60},
     {id:'cmf',name:'CMF',fullName:'Color & Materials',icon:'🎯',color:'#43e97b',angle:90},
     {id:'ui',name:'UI',fullName:'User Interface',icon:'💻',color:'#fa709a',angle:120},
     {id:'ee',name:'EE',fullName:'Electronic Engineering',icon:'🔌',color:'#a8edea',angle:150},
-    {id:'comp',name:'COMP',fullName:'Compliance & Certification',icon:'🛡️',color:'#ff9a9e',angle:180},
+    {id:'comp',name:'COMP',fullName:'Compliance & Cert.',icon:'🛡',color:'#ff9a9e',angle:180},
     {id:'dqtp',name:'DQTP',fullName:'Design Quality Test',icon:'🧪',color:'#fcb69f',angle:210},
     {id:'sc',name:'SC',fullName:'Supply Chain',icon:'🛒',color:'#a1c4fd',angle:240},
     {id:'qa',name:'QA',fullName:'Quality Assurance',icon:'💎',color:'#d4fc79',angle:270},
     {id:'mkt',name:'MKT',fullName:'Marketing',icon:'📈',color:'#84fab0',angle:300},
     {id:'mfg',name:'MFG',fullName:'Manufacturing',icon:'🏭',color:'#fdcbf1',angle:330}
   ];
-  var ownerToDept={'CN NPI':'pmo','US PMO':'pmo','US PD':'pd','US ID':'id','US Eng':'ee','CN Artwork':'cmf','CN CMF':'cmf','CN EE':'ee','US EE':'ee','CN DQTP':'dqtp','CN Quality':'qa','US Quality':'qa','CN SC':'sc','CN Compliance':'comp','Factory':'mfg','US Creative':'mkt','UK Marketing':'mkt'};
-  var deptStatus={};departments.forEach(function(d){deptStatus[d.id]={completed:0,in_progress:0,overdue:0,not_started:0,total:0};});
-  tasks.forEach(function(t){var ls=sl500ComputeLiveStatus(t);var owners=(t.owner||'').split(', ');var mappedDepts={};owners.forEach(function(o){var did=ownerToDept[o.trim()];if(did)mappedDepts[did]=true;});if(Object.keys(mappedDepts).length===0)mappedDepts['pmo']=true;Object.keys(mappedDepts).forEach(function(did){if(deptStatus[did]){deptStatus[did][ls]=(deptStatus[did][ls]||0)+1;deptStatus[did].total=(deptStatus[did].total||0)+1;}});});
-  departments.forEach(function(d){var s=deptStatus[d.id];if(s.overdue>0)d.status='overdue';else if(s.in_progress>0)d.status='active';else if(s.completed===s.total&&s.total>0)d.status='completed';else d.status='idle';d.taskCount=s.total;});
+  var ownerToDept={
+    'CN NPI':'pmo','US PMO':'pmo','CN PMO':'pmo',
+    'US PD':'pd','CN NPD':'pd',
+    'US ID':'id',
+    'CN Artwork':'cmf','CN CMF':'cmf',
+    'CN EE':'ee','US EE':'ee','US Eng':'ee','US Engineering':'ee','UK Engineering':'ee',
+    'CN Compliance':'comp','US Compliance':'comp','CN Testing':'dqtp',
+    'CN DQTP':'dqtp',
+    'CN SC':'sc',
+    'CN Quality':'qa','US Quality':'qa',
+    'US Creative':'mkt','UK marketing':'mkt','UK Marketing':'mkt',
+    'Factory':'mfg','CN ME':'mfg','CN Tooling':'mfg',
+    'CN Packaging':'sc'
+  };
+  var deptStatus={};departments.forEach(function(d){deptStatus[d.id]={done:0,in_progress:0,overdue:0,not_started:0,total:0};});
+  tasks.forEach(function(t){
+    var ls=v16TaskLiveStatus(t);
+    var owners=(t.owner||'').split(/,\//).map(function(o){return o.trim();}).filter(Boolean);
+    var mappedDepts={};
+    owners.forEach(function(o){var did=ownerToDept[o];if(did)mappedDepts[did]=true;});
+    if(Object.keys(mappedDepts).length===0){
+      var ph=(t.phase||'').toLowerCase();
+      if(ph.indexOf('compliance')>=0||ph.indexOf('certification')>=0)mappedDepts['comp']=true;
+      else if(ph.indexOf('dqtp')>=0||ph.indexOf('testing')>=0)mappedDepts['dqtp']=true;
+      else if(ph.indexOf('pcba')>=0)mappedDepts['ee']=true;
+      else if(ph.indexOf('tooling')>=0)mappedDepts['mfg']=true;
+      else if(ph.indexOf('pkg')>=0||ph.indexOf('pack')>=0)mappedDepts['sc']=true;
+      else if(ph.indexOf('color')>=0||ph.indexOf('cmf')>=0)mappedDepts['cmf']=true;
+      else mappedDepts['pmo']=true;
+    }
+    Object.keys(mappedDepts).forEach(function(did){
+      if(deptStatus[did]){
+        var key=ls==='done'?'done':ls==='in_progress'?'in_progress':ls==='overdue'?'overdue':'not_started';
+        deptStatus[did][key]=(deptStatus[did][key]||0)+1;
+        deptStatus[did].total=(deptStatus[did].total||0)+1;
+      }
+    });
+  });
+  departments.forEach(function(d){var s=deptStatus[d.id];if(s.overdue>0)d.status='overdue';else if(s.in_progress>0)d.status='active';else if(s.done===s.total&&s.total>0)d.status='completed';else d.status='idle';d.taskCount=s.total;});
+  window._v16DeptStatus=deptStatus;window._v16Departments=departments;window._v16WorkflowTasks=tasks;
   var containerW=Math.min(800,window.innerWidth-200);var containerH=600;var centerX=containerW/2;var centerY=containerH/2;var radius=Math.min(containerW,containerH)/2-70;
-  var statusStyles={overdue:{bg:'rgba(239,68,68,0.15)',border:'#ef4444',badge:'#ef4444',cls:'sl500-overdue'},active:{bg:'rgba(249,115,22,0.15)',border:'#f97316',badge:'#f97316',cls:'sl500-active'},completed:{bg:'rgba(34,197,94,0.15)',border:'#22c55e',badge:'#22c55e',cls:'sl500-completed'},idle:{bg:'rgba(255,255,255,0.03)',border:'#475569',badge:'#64748b',cls:'idle'}};
+  var statusStyles={overdue:{bg:'rgba(239,68,68,0.15)',border:'#ef4444',badge:'#ef4444'},active:{bg:'rgba(249,115,22,0.15)',border:'#f97316',badge:'#f97316'},completed:{bg:'rgba(34,197,94,0.15)',border:'#22c55e',badge:'#22c55e'},idle:{bg:'rgba(255,255,255,0.03)',border:'#475569',badge:'#64748b'}};
   var svgLines='';departments.forEach(function(d){var rad=((d.angle-90)*Math.PI)/180;var x=centerX+radius*Math.cos(rad);var y=centerY+radius*Math.sin(rad);svgLines+='<line x1="'+centerX+'" y1="'+centerY+'" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="'+statusStyles[d.status].border+'" stroke-width="1.5" opacity="0.3"/>';});
-  var wsHtml='';departments.forEach(function(d,i){var rad=((d.angle-90)*Math.PI)/180;var x=centerX+radius*Math.cos(rad);var y=centerY+radius*Math.sin(rad);var st=statusStyles[d.status];wsHtml+='<div onclick="v16ShowDeptDetail(\''+d.id+'\')" style="position:absolute;left:'+(x-44).toFixed(1)+'px;top:'+(y-44).toFixed(1)+'px;width:88px;height:88px;border-radius:12px;background:'+st.bg+';border:2px solid '+st.border+';display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s ease;box-shadow:0 0 12px '+st.border+'33" class="workstation-node '+st.cls+'"><div style="font-size:22px;margin-bottom:2px">'+d.icon+'</div><div style="font-size:10px;font-weight:700;color:'+st.border+';letter-spacing:0.5px">'+d.name+'</div><div style="position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;border-radius:9px;background:'+st.badge+';color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px">'+d.taskCount+'</div></div>';});
-  var coreHtml='<div style="position:absolute;left:'+(centerX-60)+'px;top:'+(centerY-50)+'px;width:120px;height:100px;border-radius:16px;background:rgba(59,130,246,0.08);border:2px solid rgba(59,130,246,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5"><div style="font-size:11px;font-weight:700;color:#60a5fa">SL500</div><div style="font-size:24px;font-weight:700;color:#fff">'+progress+'%</div><div style="font-size:9px;color:#64748b">Progress</div></div>';
+  var wsHtml='';departments.forEach(function(d){var rad=((d.angle-90)*Math.PI)/180;var x=centerX+radius*Math.cos(rad);var y=centerY+radius*Math.sin(rad);var st=statusStyles[d.status];wsHtml+='<div onclick="v16ShowDeptDetail(\''+d.id+'\')" style="position:absolute;left:'+(x-44).toFixed(1)+'px;top:'+(y-44).toFixed(1)+'px;width:88px;height:88px;border-radius:12px;background:'+st.bg+';border:2px solid '+st.border+';display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s ease;box-shadow:0 0 12px '+st.border+'33"><div style="font-size:22px;margin-bottom:2px">'+d.icon+'</div><div style="font-size:10px;font-weight:700;color:'+st.border+';letter-spacing:0.5px">'+d.name+'</div><div style="position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;border-radius:9px;background:'+st.badge+';color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px">'+d.taskCount+'</div></div>';});
+  var projName=v16EscapeHtml(project.name||'Project');
+  var coreHtml='<div style="position:absolute;left:'+(centerX-65)+'px;top:'+(centerY-52)+'px;width:130px;height:104px;border-radius:16px;background:rgba(59,130,246,0.08);border:2px solid rgba(59,130,246,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5"><div style="font-size:10px;font-weight:700;color:#60a5fa;text-align:center;padding:0 4px">'+projName+'</div><div style="font-size:24px;font-weight:700;color:#fff">'+progress+'%</div><div style="font-size:9px;color:#64748b">'+stats.total+' tasks</div></div>';
   var detailHtml='<div id="v16DeptDetail" style="display:none;position:absolute;right:0;top:0;width:300px;height:100%;background:rgba(15,23,42,0.97);border-left:1px solid rgba(255,255,255,0.06);padding:16px;overflow-y:auto;z-index:10"></div>';
-  area.innerHTML='<div style="margin-bottom:16px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">Department Workflow</h3><p style="font-size:13px;color:#7a8fa3;margin:0">12 departments in SL500 project lifecycle — click for details</p></div><div class="v16-card" style="position:relative;height:'+containerH+'px;overflow:hidden"><svg width="'+containerW+'" height="'+containerH+'" style="position:absolute;left:0;top:0;pointer-events:none"><circle cx="'+centerX+'" cy="'+centerY+'" r="'+(radius+40)+'" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/><circle cx="'+centerX+'" cy="'+centerY+'" r="'+(radius-35)+'" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>'+svgLines+'</svg>'+coreHtml+wsHtml+detailHtml+'</div><div style="display:flex;gap:20px;margin-top:12px;font-size:11px;color:#94a3b8;align-items:center;justify-content:center"><span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#ef4444;margin-right:4px;vertical-align:middle"></span>Overdue</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f97316;margin-right:4px;vertical-align:middle"></span>Active</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;margin-right:4px;vertical-align:middle"></span>Completed</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#475569;margin-right:4px;vertical-align:middle"></span>Idle</span></div>';
-  window._v16DeptStatus=deptStatus;window._v16Departments=departments;
+  area.innerHTML='<div style="margin-bottom:16px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">Department Workflow</h3><p style="font-size:13px;color:#7a8fa3;margin:0">'+projName+' — '+stats.total+' tasks · click node for details</p></div><div class="v16-card" style="position:relative;height:'+containerH+'px;overflow:hidden"><svg width="'+containerW+'" height="'+containerH+'" style="position:absolute;left:0;top:0;pointer-events:none"><circle cx="'+centerX+'" cy="'+centerY+'" r="'+(radius+40)+'" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/><circle cx="'+centerX+'" cy="'+centerY+'" r="'+(radius-35)+'" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>'+svgLines+'</svg>'+coreHtml+wsHtml+detailHtml+'</div><div style="display:flex;gap:20px;margin-top:12px;font-size:11px;color:#94a3b8;align-items:center;justify-content:center"><span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#ef4444;margin-right:4px;vertical-align:middle"></span>Overdue</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f97316;margin-right:4px;vertical-align:middle"></span>Active</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;margin-right:4px;vertical-align:middle"></span>Completed</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#475569;margin-right:4px;vertical-align:middle"></span>Idle</span></div>';
 }
 
-function v16ShowDeptDetail(deptId){var panel=document.getElementById('v16DeptDetail');if(!panel)return;var depts=window._v16Departments||[];var deptStatus=window._v16DeptStatus||{};var dept=depts.find(function(d){return d.id===deptId;});if(!dept)return;var s=deptStatus[deptId]||{completed:0,in_progress:0,overdue:0,not_started:0,total:0};var pct=s.total>0?Math.round(s.completed/s.total*100):0;var tasks=sl500LoadTasks();var ownerToDept={'CN NPI':'pmo','US PMO':'pmo','US PD':'pd','US ID':'id','US Eng':'ee','CN Artwork':'cmf','CN CMF':'cmf','CN EE':'ee','US EE':'ee','CN DQTP':'dqtp','CN Quality':'qa','US Quality':'qa','CN SC':'sc','CN Compliance':'comp','Factory':'mfg','US Creative':'mkt','UK Marketing':'mkt'};var deptTasks=tasks.filter(function(t){var owners=(t.owner||'').split(', ');return owners.some(function(o){return ownerToDept[o.trim()]===deptId;});});var taskListHtml=deptTasks.map(function(t){var ls=sl500ComputeLiveStatus(t);var icon=ls==='completed'?'✅':ls==='in_progress'?'🔵':ls==='overdue'?'🔴':'⬜';return '<div style="display:flex;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.03)"><span>'+icon+'</span><span style="font-size:11px;color:#cbd5e1;flex:1">'+t.name+'</span><span style="font-size:10px;color:#64748b">'+(t.due||'')+'</span></div>';}).join('');panel.style.display='block';panel.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h4 style="font-size:14px;font-weight:600;color:#fff;margin:0">'+dept.icon+' '+dept.name+'</h4><button onclick="document.getElementById(\'v16DeptDetail\').style.display=\'none\'" style="background:none;border:none;color:#64748b;font-size:16px;cursor:pointer">×</button></div><div style="font-size:11px;color:#94a3b8;margin-bottom:12px">'+dept.fullName+'</div><div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:11px;color:#94a3b8">Completion</span><span style="font-size:11px;font-weight:600;color:#fff">'+pct+'%</span></div><div style="height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:#60a5fa;border-radius:3px"></div></div></div><div style="display:flex;gap:8px;margin-bottom:12px;font-size:10px"><span style="color:#22c55e">'+s.completed+' done</span><span style="color:#60a5fa">'+s.in_progress+' active</span><span style="color:#ef4444">'+s.overdue+' overdue</span></div><div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:8px">Tasks ('+deptTasks.length+')</div><div style="max-height:300px;overflow-y:auto">'+taskListHtml+'</div>';}
+function v16ShowDeptDetail(deptId){
+  var panel=document.getElementById('v16DeptDetail');if(!panel)return;
+  var depts=window._v16Departments||[];var deptStatus=window._v16DeptStatus||{};
+  var dept=depts.find(function(d){return d.id===deptId;});if(!dept)return;
+  var s=deptStatus[deptId]||{done:0,in_progress:0,overdue:0,not_started:0,total:0};
+  var pct=s.total>0?Math.round(s.done/s.total*100):0;
+  var tasks=window._v16WorkflowTasks||[];
+  var ownerToDept={
+    'CN NPI':'pmo','US PMO':'pmo','CN PMO':'pmo',
+    'US PD':'pd','CN NPD':'pd','US ID':'id',
+    'CN Artwork':'cmf','CN CMF':'cmf',
+    'CN EE':'ee','US EE':'ee','US Eng':'ee','US Engineering':'ee','UK Engineering':'ee',
+    'CN Compliance':'comp','US Compliance':'comp','CN Testing':'dqtp','CN DQTP':'dqtp',
+    'CN SC':'sc','CN Quality':'qa','US Quality':'qa',
+    'US Creative':'mkt','UK marketing':'mkt','UK Marketing':'mkt',
+    'Factory':'mfg','CN ME':'mfg','CN Tooling':'mfg','CN Packaging':'sc'
+  };
+  var deptTasks=tasks.filter(function(t){
+    var owners=(t.owner||'').split(/,\//).map(function(o){return o.trim();});
+    var hasDirect=owners.some(function(o){return ownerToDept[o]===deptId;});
+    if(hasDirect)return true;
+    var ph=(t.phase||'').toLowerCase();
+    if(deptId==='comp'&&(ph.indexOf('compliance')>=0||ph.indexOf('certification')>=0))return true;
+    if(deptId==='dqtp'&&(ph.indexOf('dqtp')>=0||ph.indexOf('testing')>=0))return true;
+    if(deptId==='ee'&&ph.indexOf('pcba')>=0)return true;
+    if(deptId==='mfg'&&ph.indexOf('tooling')>=0)return true;
+    if(deptId==='sc'&&ph.indexOf('pkg')>=0)return true;
+    if(deptId==='cmf'&&(ph.indexOf('color')>=0||ph.indexOf('cmf')>=0))return true;
+    return false;
+  });
+  var taskListHtml=deptTasks.map(function(t){var ls=v16TaskLiveStatus(t);var icon=ls==='done'?'✅':ls==='in_progress'?'🔵':ls==='overdue'?'🔴':'⬜';return '<div style="display:flex;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.03)"><span>'+icon+'</span><span style="font-size:11px;color:#cbd5e1;flex:1">'+v16EscapeHtml(t.name||'')+'</span><span style="font-size:10px;color:#64748b">'+v16EscapeHtml(t.phase||'')+'</span></div>';}).join('');
+  panel.style.display='block';
+  panel.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h4 style="font-size:14px;font-weight:600;color:#fff;margin:0">'+dept.icon+' '+dept.name+'</h4><button onclick="document.getElementById(\'v16DeptDetail\').style.display=\'none\'" style="background:none;border:none;color:#64748b;font-size:16px;cursor:pointer">x</button></div>'
+    +'<div style="font-size:11px;color:#94a3b8;margin-bottom:12px">'+dept.fullName+'</div>'
+    +'<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:11px;color:#94a3b8">Completion</span><span style="font-size:11px;color:#60a5fa">'+pct+'%</span></div><div style="height:6px;border-radius:3px;background:rgba(255,255,255,0.06);overflow:hidden"><div style="height:100%;border-radius:3px;background:#60a5fa;width:'+pct+'%"></div></div></div>'
+    +'<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:12px">'
+    +'<div style="padding:6px 8px;border-radius:6px;background:rgba(34,197,94,0.08)"><div style="font-size:14px;font-weight:700;color:#22c55e">'+s.done+'</div><div style="font-size:10px;color:#64748b">Done</div></div>'
+    +'<div style="padding:6px 8px;border-radius:6px;background:rgba(249,115,22,0.08)"><div style="font-size:14px;font-weight:700;color:#f97316">'+s.in_progress+'</div><div style="font-size:10px;color:#64748b">In Progress</div></div>'
+    +'<div style="padding:6px 8px;border-radius:6px;background:rgba(239,68,68,0.08)"><div style="font-size:14px;font-weight:700;color:#ef4444">'+s.overdue+'</div><div style="font-size:10px;color:#64748b">Overdue</div></div>'
+    +'<div style="padding:6px 8px;border-radius:6px;background:rgba(100,116,139,0.08)"><div style="font-size:14px;font-weight:700;color:#94a3b8">'+s.not_started+'</div><div style="font-size:10px;color:#64748b">Not Started</div></div></div>'
+    +'<div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:8px">Tasks ('+deptTasks.length+')</div>'
+    +(taskListHtml||'<div style="font-size:11px;color:#475569">No tasks assigned yet</div>');
+}
 
 // ============================================================
 // L4-Team (SL500 real team data)
