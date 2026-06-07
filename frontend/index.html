@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S Company AutoPM v18.9</title>
+    <title>S Company AutoPM v18.10</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2756,7 +2756,7 @@ body.v16-active .min-h-screen {
 
     <script>
     // ===== Version Management =====
-    const APP_VERSION = '18.9';
+    const APP_VERSION = '18.10';
     (function setVersion(){
       document.getElementById('sidebarVersion')&&(document.getElementById('sidebarVersion').textContent='v'+APP_VERSION);
       document.getElementById('topNavVersion')&&(document.getElementById('topNavVersion').textContent='v'+APP_VERSION);
@@ -14340,14 +14340,63 @@ function v16ShowDeptDetail(deptId){
 // ============================================================
 // L4-Team (SL500 real team data)
 // ============================================================
-function v16RenderL4Team(area) {
-  var tasks=sl500LoadTasks();var stats=sl500GetStats(tasks);
-  var ownerMap={};var ownerToDept={'CN NPI':'PMO','US PMO':'PMO','US PD':'PD','US ID':'ID','US Eng':'EE','CN Artwork':'CMF','CN CMF':'CMF','CN EE':'EE','US EE':'EE','CN DQTP':'DQTP','CN Quality':'QA','US Quality':'QA','CN SC':'SC','CN Compliance':'COMP','Factory':'MFG','US Creative':'MKT','UK Marketing':'MKT'};
-  tasks.forEach(function(t){var owners=(t.owner||'').split(', ');owners.forEach(function(o){o=o.trim();if(!o)return;if(!ownerMap[o])ownerMap[o]={name:o,dept:ownerToDept[o]||'Other',tasks:0,completed:0,overdue:0,in_progress:0};var ls=sl500ComputeLiveStatus(t);ownerMap[o].tasks++;if(ls==='completed')ownerMap[o].completed++;else if(ls==='overdue')ownerMap[o].overdue++;else if(ls==='in_progress')ownerMap[o].in_progress++;});});
-  var deptGroups={};Object.values(ownerMap).forEach(function(m){if(!deptGroups[m.dept])deptGroups[m.dept]=[];deptGroups[m.dept].push(m);});
+async function v16RenderL4Team(area) {
+  area.innerHTML = "<div style='padding:24px;color:#94a3b8'>Loading team data...</div>";
+  var project = await v16EnsureProject();
+  if (!project) { area.innerHTML = "<div style='padding:20px;color:#ef4444'>No project selected</div>"; return; }
+  var headers = await v16GetAuthHeaders();
+  var resp = await fetch("/api/milestones?project_id=" + project.id, {headers: headers});
+  if (!resp.ok) { area.innerHTML = "<div style='padding:20px;color:#ef4444'>Failed to load tasks</div>"; return; }
+  var tasks = await resp.json();
+  if (!tasks || tasks.length === 0) {
+    area.innerHTML = "<div style='padding:20px;color:#94a3b8'>No tasks found for this project.</div>";
+    return;
+  }
+  var ownerToDept={
+    "CN NPI":"PMO","US PMO":"PMO","CN PMO":"PMO",
+    "US PD":"PD","CN NPD":"PD","US ID":"ID",
+    "CN Artwork":"CMF","CN CMF":"CMF",
+    "CN EE":"EE","US EE":"EE","US Eng":"EE","US Engineering":"EE","UK Engineering":"EE",
+    "CN Compliance":"COMP","US Compliance":"COMP","CN Testing":"DQTP","CN DQTP":"DQTP",
+    "CN SC":"SC","CN Quality":"QA","US Quality":"QA",
+    "US Creative":"MKT","UK marketing":"MKT","UK Marketing":"MKT",
+    "Factory":"MFG","CN ME":"MFG","CN Tooling":"MFG","CN Packaging":"SC"
+  };
+  var ownerMap={};
+  tasks.forEach(function(t){
+    var owners=(t.owner||"").split(/[,/]/).map(function(o){return o.trim();}).filter(Boolean);
+    owners.forEach(function(o){
+      if(!o)return;
+      if(!ownerMap[o])ownerMap[o]={name:o,dept:ownerToDept[o]||"Other",tasks:0,completed:0,overdue:0,in_progress:0};
+      ownerMap[o].tasks++;
+      var ls=v16TaskLiveStatus(t);
+      if(ls==="done")ownerMap[o].completed++;
+      else if(ls==="overdue")ownerMap[o].overdue++;
+      else if(ls==="in_progress")ownerMap[o].in_progress++;
+    });
+  });
+  var memberCount=Object.keys(ownerMap).length;
+  if(memberCount===0){
+    area.innerHTML="<div style='padding:20px;color:#94a3b8'>No team members assigned to tasks in this project.</div>";
+    return;
+  }
+  var deptGroups={};
+  Object.values(ownerMap).forEach(function(m){
+    if(!deptGroups[m.dept])deptGroups[m.dept]=[];
+    deptGroups[m.dept].push(m);
+  });
   var sortedDepts=Object.keys(deptGroups).sort();
-  var deptHtml=sortedDepts.map(function(dept){var members=deptGroups[dept];var memberRows=members.map(function(m){var loadColor=m.tasks>10?'#ef4444':m.tasks>5?'#fbbf24':'#22c55e';var statusColor=m.overdue>0?'#ef4444':m.in_progress>0?'#60a5fa':'#22c55e';var statusLabel=m.overdue>0?'Has Overdue':m.in_progress>0?'Active':'On Track';return '<tr style="border-bottom:1px solid rgba(255,255,255,0.03)"><td style="padding:8px 10px;font-size:13px;font-weight:500;color:#fff">'+m.name+'</td><td style="padding:8px 10px;font-size:12px;color:#94a3b8">'+m.dept+'</td><td style="padding:8px 10px;font-size:12px;color:#94a3b8">Contributor</td><td style="padding:8px 10px;font-size:12px;font-weight:600;color:'+loadColor+'">'+m.tasks+'</td><td style="padding:8px 10px;font-size:11px;color:'+statusColor+'">● '+statusLabel+'</td></tr>';}).join('');return '<div style="margin-bottom:16px"><div style="font-size:13px;font-weight:600;color:#60a5fa;margin-bottom:8px;padding-left:4px">'+dept+' ('+members.length+')</div><div class="v16-card" style="padding:0;overflow:auto"><table style="width:100%;border-collapse:collapse"><thead><tr style="background:rgba(255,255,255,0.03)"><th style="padding:8px 10px;font-size:10px;color:#64748b;text-align:left">Name</th><th style="padding:8px 10px;font-size:10px;color:#64748b;text-align:left">Dept</th><th style="padding:8px 10px;font-size:10px;color:#64748b;text-align:left">Role</th><th style="padding:8px 10px;font-size:10px;color:#64748b;text-align:left">Tasks</th><th style="padding:8px 10px;font-size:10px;color:#64748b;text-align:left">Status</th></tr></thead><tbody>'+memberRows+'</tbody></table></div></div>';}).join('');
-  area.innerHTML='<div style="margin-bottom:20px"><h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 4px">Project Team</h3><p style="font-size:13px;color:#7a8fa3;margin:0">'+Object.keys(ownerMap).length+' team members across '+sortedDepts.length+' departments</p></div>'+deptHtml;
+  var deptHtml=sortedDepts.map(function(dept){
+    var members=deptGroups[dept];
+    var memberRows=members.map(function(m){
+      var loadColor=m.tasks>10?"#ef4444":m.tasks>5?"#fbbf24":"#22c55e";
+      var statusColor=m.overdue>0?"#ef4444":m.in_progress>0?"#60a5fa":"#22c55e";
+      var statusLabel=m.overdue>0?"Has Overdue":m.in_progress>0?"Active":"On Track";
+      return "<tr style='border-bottom:1px solid rgba(255,255,255,0.03)'><td style='padding:8px 10px;font-size:13px;font-weight:500;color:#fff'>"+v16EscapeHtml(m.name)+"</td><td style='padding:8px 10px;font-size:12px;color:#94a3b8'>"+v16EscapeHtml(m.dept)+"</td><td style='padding:8px 10px;font-size:12px;color:#94a3b8'>Contributor</td><td style='padding:8px 10px;font-size:12px;font-weight:600;color:"+loadColor+"'>"+m.tasks+"</td><td style='padding:8px 10px;font-size:11px;color:"+statusColor+"'>● "+statusLabel+"</td></tr>";
+    }).join("");
+    return "<div style='margin-bottom:16px'><div style='font-size:13px;font-weight:600;color:#60a5fa;margin-bottom:8px;padding-left:4px'>"+v16EscapeHtml(dept)+" ("+members.length+")</div><div class='v16-card' style='padding:0;overflow:auto'><table style='width:100%;border-collapse:collapse'><thead><tr style='background:rgba(255,255,255,0.03)'><th style='padding:8px 10px;font-size:10px;color:#64748b;text-align:left'>Name</th><th style='padding:8px 10px;font-size:10px;color:#64748b;text-align:left'>Dept</th><th style='padding:8px 10px;font-size:10px;color:#64748b;text-align:left'>Role</th><th style='padding:8px 10px;font-size:10px;color:#64748b;text-align:left'>Tasks</th><th style='padding:8px 10px;font-size:10px;color:#64748b;text-align:left'>Status</th></tr></thead><tbody>"+memberRows+"</tbody></table></div></div>";
+  }).join("");
+  area.innerHTML="<div style='margin-bottom:20px'><h3 style='font-size:18px;font-weight:700;color:#fff;margin:0 0 4px'>Project Team</h3><p style='font-size:13px;color:#7a8fa3;margin:0'>"+memberCount+" team members across "+sortedDepts.length+" departments</p></div>"+deptHtml;
 }
 
 // ============================================================
