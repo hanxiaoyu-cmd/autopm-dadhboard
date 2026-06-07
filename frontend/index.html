@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S Company AutoPM v18.10</title>
+    <title>S Company AutoPM v18.11</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2756,7 +2756,7 @@ body.v16-active .min-h-screen {
 
     <script>
     // ===== Version Management =====
-    const APP_VERSION = '18.10';
+    const APP_VERSION = '18.11';
     (function setVersion(){
       document.getElementById('sidebarVersion')&&(document.getElementById('sidebarVersion').textContent='v'+APP_VERSION);
       document.getElementById('topNavVersion')&&(document.getElementById('topNavVersion').textContent='v'+APP_VERSION);
@@ -11112,19 +11112,21 @@ function filterMyDashTasks(filter) {
                 if (token) {
                     headers['Authorization'] = 'Bearer ' + token;
                 }
-                var [projResp, msResp, riskResp] = await Promise.all([
-                    fetch('/api/projects', {headers: headers}),
+                var [projectList, msResp, riskResp] = await Promise.all([
+                    v18FetchProjects(headers),
                     fetch('/api/milestones', {headers: headers}),
                     fetch('/api/risks', {headers: headers})
                 ]);
-                if (projResp.ok) _overviewProjects = await projResp.json();
-                else _overviewProjects = [];
+                _overviewProjects = projectList;
                 if (msResp.ok) _overviewMilestones = await msResp.json();
                 else _overviewMilestones = [];
                 if (riskResp.ok) _overviewRisks = await riskResp.json();
                 else _overviewRisks = [];
+                // Keep the two imported demo projects visible in Project List and My Project.
+                v18EnsureRealProjectsVisible();
                 // Sync stars from backend
                 await syncStarsFromBackend();
+                v18EnsureRealProjectsVisible();
                 // Data loaded - re-render if overview is visible
                 var overviewView = document.getElementById('overview-view');
                 if (overviewView && !overviewView.classList.contains('hidden')) {
@@ -11380,6 +11382,96 @@ function filterMyDashTasks(filter) {
             renderProjectOverview();
         }
 
+        // v18.11: Make the two imported real plans first-class projects in both
+        // Project List and My Project, then route clicks to the editable task table.
+        var V18_REAL_PROJECT_NAMES = ['BW1001EUUK', 'AS080UK&EU', 'AS080UK/EU'];
+
+        function v18NormalizeProjectName(name) {
+            return String(name || '').toLowerCase().replace(/\s+/g, '').replace(/\//g, '&');
+        }
+
+        function v18IsRealImportedProject(project) {
+            if (!project) return false;
+            var normalized = v18NormalizeProjectName(project.name);
+            return V18_REAL_PROJECT_NAMES.some(function(name) {
+                return normalized === v18NormalizeProjectName(name);
+            });
+        }
+
+        function v18GetRealImportedProjects() {
+            var allProjects = window._overviewProjects || [];
+            return allProjects.filter(v18IsRealImportedProject);
+        }
+
+        function v18MergeIds(storageKey, ids) {
+            if (!ids || ids.length === 0) return;
+            var existing = [];
+            try { existing = JSON.parse(localStorage.getItem(storageKey) || '[]'); } catch(e) { existing = []; }
+            ids.forEach(function(id) {
+                if (existing.indexOf(id) < 0) existing.push(id);
+            });
+            localStorage.setItem(storageKey, JSON.stringify(existing));
+        }
+
+        function v18EnsureRealProjectsVisible() {
+            var realIds = v18GetRealImportedProjects().map(function(p) { return p.id; });
+            v18MergeIds('autopm_starred_projects', realIds);
+            v18MergeIds('v16_l3_subscribed', realIds);
+        }
+
+        async function v18FetchProjects(headers) {
+            var urls = [
+                '/api/projects?limit=10000&_=' + Date.now(),
+                '/api/projects?limit=10000',
+                '/api/projects'
+            ];
+            var empty = [];
+            for (var i = 0; i < urls.length; i++) {
+                try {
+                    var resp = await fetch(urls[i], {headers: headers || {}, cache: 'no-store'});
+                    if (!resp.ok) continue;
+                    var data = await resp.json();
+                    if (Array.isArray(data) && data.length > 0) return data;
+                    if (Array.isArray(data)) empty = data;
+                } catch(e) {}
+            }
+            return empty;
+        }
+
+        async function v18OpenRealProjectTasks(projectId) {
+            if (!localStorage.getItem('autopm_token') && typeof ensureAuthToken === 'function') {
+                await ensureAuthToken();
+            }
+            if (!_overviewProjects || _overviewProjects.length === 0) {
+                await loadOverviewData();
+            }
+            var project = (_overviewProjects || []).find(function(p) { return String(p.id) === String(projectId); });
+            if (!project && typeof v16EnsureProject === 'function') {
+                project = await v16EnsureProject(projectId);
+            }
+            if (!project) {
+                showNotification('Project not found', 'Please refresh and try again', 'error');
+                return;
+            }
+            window._v16SelectedProjectId = project.id;
+            window._v17L4Project = project;
+
+            switchView('my-project');
+            var container = document.getElementById('my-dashboard-content');
+            if (!container) return;
+            container.innerHTML =
+                '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">' +
+                    '<div><h2 style="font-size:22px;font-weight:700;color:#fff;margin:0">' + v16EscapeHtml(project.name || 'Project') + '</h2>' +
+                    '<p style="font-size:13px;color:#7a8fa3;margin:4px 0 0">Real project task manager · status, issue notes, progress and due dates are editable</p></div>' +
+                    '<div style="display:flex;gap:8px">' +
+                        '<button onclick="renderMyProject()" style="padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.18);cursor:pointer">Back to My Project</button>' +
+                        '<button onclick="switchView(&quot;overview&quot;)" style="padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;background:rgba(255,255,255,0.06);color:#cbd5e1;border:1px solid rgba(255,255,255,0.08);cursor:pointer">Project List</button>' +
+                    '</div>' +
+                '</div>' +
+                '<div id="v18RealProjectTaskHost"></div>';
+            await v16RenderRealProjectTasks(document.getElementById('v18RealProjectTaskHost'), project);
+        }
+
         async function syncStarsFromBackend() {
             var token = localStorage.getItem('autopm_token');
             var username = localStorage.getItem('autopm_identity') || 'default_user';
@@ -11410,8 +11502,9 @@ function filterMyDashTasks(filter) {
             var container = document.getElementById('my-dashboard-content');
             if (!container) return;
 
-            var starredIds = _getStarredIds();
             var allProjects = window._overviewProjects || [];
+            v18EnsureRealProjectsVisible();
+            var starredIds = _getStarredIds();
 
             var html = '';
             html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">';
@@ -11467,7 +11560,8 @@ function filterMyDashTasks(filter) {
                 var progress = (p.progress > 1) ? Math.round(p.progress) : Math.round((p.progress || 0) * 100);
                 var barColor = (p.risk_flag === 'High' || p.risk_flag === 'Critical') ? '#ef4444' : p.risk_flag === 'Medium' ? '#f59e0b' : '#22c55e';
 
-                html += '<div style="background:' + riskBg + ';border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:16px;cursor:pointer;transition:all 0.2s" onclick="openProjectDetail(' + p.id + ')">';
+                var openAction = v18IsRealImportedProject(p) ? 'v18OpenRealProjectTasks(' + p.id + ')' : 'openProjectDetail(' + p.id + ')';
+                html += '<div style="background:' + riskBg + ';border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:16px;cursor:pointer;transition:all 0.2s" onclick="' + openAction + '">';
                 html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">';
                 html += '<div style="flex:1;min-width:0">';
                 html += '<div style="font-size:15px;font-weight:700;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + p.name + '</div>';
@@ -11492,6 +11586,10 @@ function filterMyDashTasks(filter) {
                 }
 
                 // Owner & priority
+                if (v18IsRealImportedProject(p)) {
+                    html += '<button onclick="event.stopPropagation();v18OpenRealProjectTasks(' + p.id + ')" style="width:100%;margin:0 0 10px;padding:7px 10px;border-radius:7px;border:1px solid rgba(96,165,250,0.28);background:rgba(96,165,250,0.12);color:#bfdbfe;font-size:12px;font-weight:700;cursor:pointer">Manage real tasks</button>';
+                }
+
                 html += '<div style="display:flex;justify-content:space-between;font-size:11px;color:#6b7280">';
                 html += '<span>👤 ' + (p.owner || '-') + '</span>';
                 html += '<span style="font-weight:600;color:' + (p.priority === 'P1' ? '#ef4444' : p.priority === 'P2' ? '#f59e0b' : '#6b7280') + '">' + (p.priority || 'P3') + '</span>';
@@ -11813,6 +11911,9 @@ function filterMyDashTasks(filter) {
 
             var riskOrder = {'Critical': 0, 'High': 1, 'Medium': 2, 'Low': 3, 'None': 4};
             filteredProjects.sort(function(a, b) {
+                if (v18IsRealImportedProject(a) !== v18IsRealImportedProject(b)) {
+                    return v18IsRealImportedProject(a) ? -1 : 1;
+                }
                 return (riskOrder[a.risk_flag] || 5) - (riskOrder[b.risk_flag] || 5);
             });
 
@@ -11981,9 +12082,10 @@ function filterMyDashTasks(filter) {
                     var starStyle = isStarred ? 'color:#fbbf24;font-size:14px;cursor:pointer' : 'color:#6b7280;font-size:14px;cursor:pointer;opacity:0.5';
                     var starIcon = isStarred ? '⭐' : '☆';
 
-                    html += '<div style="display:grid;grid-template-columns:32px 2fr 1fr 80px 1fr 1fr;padding:10px 14px;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.03);background:' + riskBg + ';transition:background 0.2s" data-pid="' + p.id + '" class="overview-project-row">';
+                    var projectOpenAction = v18IsRealImportedProject(p) ? 'v18OpenRealProjectTasks(' + p.id + ')' : 'openProjectDetail(' + p.id + ')';
+                    html += '<div onclick="' + projectOpenAction + '" style="display:grid;grid-template-columns:32px 2fr 1fr 80px 1fr 1fr;padding:10px 14px;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.03);background:' + riskBg + ';transition:background 0.2s;cursor:pointer" data-pid="' + p.id + '" class="overview-project-row">';
                     html += '<div style="display:flex;align-items:center;justify-content:center" onclick="event.stopPropagation();toggleStar(' + p.id + ')"><span style="' + starStyle + '" title="' + (isStarred ? 'Unstar' : 'Star this project') + '">' + starIcon + '</span></div>';
-                    html += '<div style="font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer" onclick="openProjectDetail(' + p.id + ')">' + p.name + '</div>';
+                    html += '<div style="font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer">' + p.name + (v18IsRealImportedProject(p) ? ' <span style="font-size:9px;color:#bfdbfe;background:rgba(96,165,250,0.16);padding:1px 5px;border-radius:4px;margin-left:6px">REAL TASKS</span>' : '') + '</div>';
                     var catColors = {'Extension':'#60a5fa','Color Refresh':'#a78bfa','New CMF':'#c084fc','NPD':'#f472b6','NPD CAT B':'#f472b6','NPD CAT A':'#ec4899','NPD/Dual source':'#fb7185','Display':'#34d399','Due Source':'#fbbf24','Capacity Tools':'#22d3ee','Legacy/Dual Source':'#818cf8','Legacy/Transfer':'#6366f1','Upsell':'#f97316'};
                     var catColor = catColors[p.category] || '#94a3b8';
                     html += '<div><span style="padding:1px 6px;border-radius:4px;font-size:10px;font-weight:600;background:' + catColor + '22;color:' + catColor + '">' + (p.category || '-') + '</span></div>';
@@ -12054,7 +12156,8 @@ function filterMyDashTasks(filter) {
                     var flag = p.risk_flag === 'Critical' ? 'DELAYED' : 'AT RISK';
                     var flagColor = p.risk_flag === 'Critical' ? '#ef4444' : '#f59e0b';
                     var prog = (p.progress > 1) ? Math.round(p.progress) : Math.round((p.progress || 0) * 100);
-                    html += '<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.02);border-radius:6px;cursor:pointer" onclick="openProjectDetail(\'' + p.id + '\')">';
+                    var criticalOpenAction = v18IsRealImportedProject(p) ? 'v18OpenRealProjectTasks(' + p.id + ')' : 'openProjectDetail(\'' + p.id + '\')';
+                    html += '<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.02);border-radius:6px;cursor:pointer" onclick="' + criticalOpenAction + '">';
                     html += '<span style="font-size:9px;font-weight:700;color:' + flagColor + ';background:' + flagColor + '20;padding:1px 5px;border-radius:3px;min-width:52px;text-align:center">' + flag + '</span>';
                     html += '<span style="font-size:11px;color:#d1d5db;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + p.name + '</span>';
                     html += '<span style="font-size:10px;color:#6b7280">' + prog + '%</span>';
@@ -12116,6 +12219,10 @@ function filterMyDashTasks(filter) {
                 p = window._overviewProjects.find(function(pr) { return String(pr.id) === String(projectId); });
             }
             if (!p) return;
+            if (v18IsRealImportedProject(p)) {
+                v18OpenRealProjectTasks(projectId);
+                return;
+            }
 
             // Store for refresh callbacks
             _detailPanelProjectId = projectId;
@@ -13426,8 +13533,7 @@ async function v16EnsureProject(projectId) {
   }
   if (!project) {
     var headers2 = await v16GetAuthHeaders();
-    var resp2 = await fetch('/api/projects?limit=50', {headers: headers2});
-    var list = resp2.ok ? await resp2.json() : [];
+    var list = await v18FetchProjects(headers2);
     window._v16L3Projects = list;
     project = list[0] || null;
   }
@@ -13908,8 +14014,7 @@ function v183FilterDepartment(value) {
 async function v16RenderL3MyWork(area) {
   area.innerHTML = '<div style="padding:24px;color:#94a3b8">Loading your workbench...</div>';
   var headers = await v16GetAuthHeaders();
-  var resp = await fetch('/api/projects?limit=200', {headers: headers});
-  var projects = resp.ok ? await resp.json() : [];
+  var projects = await v18FetchProjects(headers);
   window._v16L3Projects = projects;
   var preferredNames = ['BW1001EUUK', 'AS080UK&EU', 'AS080UK/EU'];
   var myProjects = preferredNames.map(function(name){
