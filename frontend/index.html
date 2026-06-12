@@ -1645,8 +1645,8 @@ function renderDaily(c){
   /* ---- AI 每日摘要 ---- */
   const urgCnt=overdue.length+riskActs.length;
   let topTaskName='';
-  if(overdue.length)topTaskName=overdue[0].name.slice(0,40);
-  else if(riskActs.length)topTaskName=riskActs[0].name.slice(0,40);
+  if(overdue.length)topTaskName=(overdue[0].name||'').slice(0,40);
+  else if(riskActs.length)topTaskName=(riskActs[0].name||'').slice(0,40);
   const aiSummary=urgCnt>0
     ?`Focus first on <strong>${topTaskName||'urgent items'}</strong>. You have <strong>${overdue.length} overdue</strong> and <strong>${riskActs.length} risk / delay</strong> tasks${decisions.length?`, plus <strong>${decisions.length} pending decision</strong>`:''}. Act early — don't let blockers pile up.`
     :`All tasks are on track today! <strong>${myOpen.length} open tasks</strong> across <strong>${myProjects.length} projects</strong>. Great progress — stay ahead.`;
@@ -1691,7 +1691,7 @@ function renderDaily(c){
             const countCls=pOver.length>0?'red':pOpen.filter(t=>t.status==='Blocked').length>0?'amber':'blue';
             return`<div class="dw-proj-item ${DW_PROJ_FILTER===p.id?'active':''}" onclick="dwFilterProj('${p.id}')">
               <span class="dw-pi-dot" style="background:${dwProjDotColor(p)}"></span>
-              <span class="dw-pi-name" title="${p.name}">${p.sku||p.name.replace(/ —.*$/,'').slice(0,28)}</span>
+              <span class="dw-pi-name" title="${p.name||''}">${p.sku||(p.name||'').replace(/ —.*$/,'').slice(0,28)}</span>
               ${pOpen.length?`<span class="dw-pi-count ${countCls}">${pOpen.length}</span>`:''}
             </div>`;
           }).join('')}
@@ -1702,7 +1702,7 @@ function renderDaily(c){
         <div class="dw-group">
           <div class="dw-group-title">Pending Decisions</div>
           ${decisions.map(i=>{const p=getProject(i.projectId);return`<div class="dw-issue-item" onclick="showEditIssueModal('${i.id}')">
-            <div class="dw-issue-title">✋ ${i.title.slice(0,50)}</div>
+            <div class="dw-issue-title">✋ ${(i.title||'').slice(0,50)}</div>
             <div class="dw-issue-meta">${p?.name||''} · ${fmtShort(i.targetDate)}</div>
           </div>`}).join('')}
         </div>`:''}
@@ -1712,7 +1712,7 @@ function renderDaily(c){
         <div class="dw-group">
           <div class="dw-group-title">Open Issues</div>
           ${S.issues.filter(i=>i.owner==='Sunny'&&i.status==='Open'&&i.type!=='Decision Needed').slice(0,5).map(i=>{const p=getProject(i.projectId);return`<div class="dw-issue-item" onclick="showEditIssueModal('${i.id}')">
-            <div class="dw-issue-title">${i.type==='Blocker'?'🔴':i.type==='Delay'?'⚠️':'📋'} ${i.title.slice(0,50)}</div>
+            <div class="dw-issue-title">${i.type==='Blocker'?'🔴':i.type==='Delay'?'⚠️':'📋'} ${(i.title||'').slice(0,50)}</div>
             <div class="dw-issue-meta">${p?.name||''} · ${i.priority}</div>
           </div>`}).join('')}
         </div>`:''}
@@ -1724,7 +1724,7 @@ function renderDaily(c){
             const pT=projTasks(p.id).filter(t=>t.status!=='Done');
             return`<div class="dw-proj-item" onclick="dwFilterProj('${p.id}')">
               <span class="dw-pi-dot" style="background:${dwProjDotColor(p)}"></span>
-              <span class="dw-pi-name" title="${p.name}">${p.sku||p.name.replace(/ —.*$/,'').slice(0,28)}</span>
+              <span class="dw-pi-name" title="${p.name||''}">${p.sku||(p.name||'').replace(/ —.*$/,'').slice(0,28)}</span>
               ${pT.length?`<span class="dw-pi-count gray">${pT.length}</span>`:''}
             </div>`;
           }).join('')}
@@ -3073,7 +3073,7 @@ function showEditIssueModal(iid){
   const projOpts=S.projects.map(p=>`<option value="${p.id}" ${p.id===i.projectId?'selected':''}>${p.name}</option>`).join('');
   const deptOpts=DEPARTMENTS.map(d=>`<option ${d===i.department?'selected':''}>${d}</option>`).join('');
   const types=['Delay','Blocker','Risk','Decision Needed','Recovery'];
-  document.getElementById('modalTitle').textContent=`Edit Issue: ${i.title.slice(0,40)}...`;
+  document.getElementById('modalTitle').textContent=`Edit Issue: ${(i.title||'').slice(0,40)}...`;
   document.getElementById('modalOverlay').style.display='flex';
   document.getElementById('modalContent').innerHTML=`
     <div class="form-grid">
@@ -4973,7 +4973,7 @@ const REAL_DEPT_STATS = {
 
 
 /* ===== APP INIT ===== */
-const APP_VERSION = '20.0';
+const APP_VERSION = '20.1';
 
 function seedData(){
   // Generate demo projects
