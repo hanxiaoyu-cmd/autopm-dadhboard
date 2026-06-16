@@ -618,6 +618,31 @@ textarea.form-input{resize:vertical;min-height:72px}
 .dw-filter-row input{width:150px}
 .dw-filter-row .dw-count{font-size:11px;color:var(--t3);margin-left:auto}
 .dw-task-list{flex:1;overflow-y:auto;padding:10px 14px}
+/* Quick Add Task Button */
+.dw-quick-add-btn{
+  display:flex;align-items:center;gap:8px;
+  width:calc(100% - 28px);margin:4px 14px 10px;
+  padding:10px 14px;
+  background:transparent;
+  border:1px dashed var(--border);
+  border-radius:var(--r8);
+  color:var(--t3);
+  font-size:13px;
+  cursor:pointer;
+  transition:all .15s;
+}
+.dw-quick-add-btn:hover{
+  background:rgba(37,99,235,.06);
+  border-color:var(--blue);
+  color:var(--blue);
+}
+.dw-qab-icon{
+  display:flex;align-items:center;justify-content:center;
+  width:18px;height:18px;
+  font-size:16px;font-weight:500;
+  line-height:1;
+}
+.dw-qab-text{font-weight:500}
 /* 任务行 */
 .dw-task-row{
   display:flex;align-items:flex-start;gap:10px;
@@ -1099,7 +1124,9 @@ textarea.form-input{resize:vertical;min-height:72px}
 .dcc-filter-btn:hover{border-color:#3b82f6;color:#e2e8f0}
 .dcc-filter-btn.active{background:#3b82f6;color:#fff;border-color:#3b82f6;font-weight:700}
 .dcc-filter-sep{width:1px;height:20px;background:#334155;margin:0 6px}
-.dcc-filter-select{font-size:11px;padding:5px 10px;border-radius:6px;border:1px solid #334155;color:#e2e8f0;background:#1e293b;cursor:pointer}
+.dcc-filter-select,.dcc-dept-select{font-size:12px;padding:6px 12px;border-radius:6px;border:1px solid #334155;color:#e2e8f0;background:#1e293b;cursor:pointer;min-width:160px}
+.dcc-dept-select:hover{border-color:#3b82f6}
+.dcc-dept-select:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 2px rgba(59,130,246,.2)}
 
 .dcc-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px;margin-bottom:14px}
 .dcc-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;position:relative;overflow:hidden;transition:border-color .15s}
@@ -1171,6 +1198,32 @@ textarea.form-input{resize:vertical;min-height:72px}
 .dcc-dep-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--bg);flex-wrap:wrap}
 .dcc-dep-arrow{font-size:16px;color:var(--amber);flex-shrink:0}
 
+
+/* Department Management Hub */
+.dcc-hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:14px}
+.dcc-hub-folder{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .15s}
+.dcc-hub-folder:hover{border-color:#3b82f6;background:rgba(59,130,246,0.04)}
+.dcc-hub-folder-icon{font-size:24px;flex-shrink:0;width:36px;text-align:center}
+.dcc-hub-folder-body{flex:1;min-width:0}
+.dcc-hub-folder-name{font-size:12px;font-weight:700;color:var(--t1);margin-bottom:2px}
+.dcc-hub-folder-desc{font-size:10px;color:var(--t3);line-height:1.4;margin-bottom:4px}
+.dcc-hub-folder-meta{display:flex;gap:12px;font-size:9px;color:var(--t4)}
+.dcc-hub-recent{margin-top:14px;border-top:1px solid var(--border);padding-top:14px}
+.dcc-hub-recent-title{font-size:11px;font-weight:700;color:var(--t2);margin-bottom:8px}
+
+/* AI Structured Output */
+.dcc-ai-output{background:rgba(30,27,75,0.6);border:1px solid rgba(139,92,246,0.3);border-radius:8px;padding:12px 14px}
+.dcc-ai-output-title{font-size:12px;font-weight:700;color:#a78bfa;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(139,92,246,0.2)}
+.dcc-ai-output-section{display:flex;gap:8px;margin-bottom:6px;font-size:11px;line-height:1.5}
+.dcc-ai-output-label{color:#818cf8;font-weight:600;min-width:130px;flex-shrink:0}
+.dcc-ai-output-value{color:#cbd5e1;flex:1}
+
+/* Health Brief enhanced */
+.dcc-hb-header{display:flex;align-items:center;gap:12px}
+.dcc-hb-dept-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0}
+.dcc-hb-header-text{flex:1}
+.dcc-hb-why{margin-top:8px;padding:8px 12px;background:rgba(59,130,246,0.06);border-left:3px solid #3b82f6;border-radius:0 6px 6px 0;font-size:10px;color:var(--t2);line-height:1.5}
+.dcc-hb-why-label{font-weight:700;color:var(--blue)}
 .dcc-ai-card{background:linear-gradient(135deg,#0c1426 0%,#1a1040 100%);border:1px solid #312e81;border-radius:10px;padding:16px 18px;margin-bottom:14px;position:relative;overflow:hidden}
 .dcc-ai-card::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(139,92,246,0.12),transparent 70%);pointer-events:none}
 .dcc-ai-title{font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:10px;display:flex;align-items:center;gap:6px}
@@ -1178,8 +1231,12 @@ textarea.form-input{resize:vertical;min-height:72px}
 .dcc-ai-text strong{color:#e2e8f0}
 .dcc-ai-text .hi-red{color:#f87171}
 .dcc-ai-text .hi-amber{color:#fbbf24}
+.dcc-ai-text .hi-orange{color:#fbbf24}
 .dcc-ai-text .hi-green{color:#4ade80}
 .dcc-ai-text .hi-blue{color:#60a5fa}
+.dcc-hb-ai-text .hi-red{color:#f87171}
+.dcc-hb-ai-text .hi-orange{color:#fbbf24}
+.dcc-hb-ai-text .hi-green{color:#4ade80}
 .dcc-ai-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
 .dcc-ai-btn{font-size:10px;padding:4px 12px;border-radius:99px;border:1px solid rgba(139,92,246,0.4);color:#a78bfa;background:rgba(139,92,246,0.08);cursor:pointer;transition:all .15s;font-weight:500}
 .dcc-ai-btn:hover{background:rgba(139,92,246,0.2);border-color:rgba(139,92,246,0.7)}
@@ -1213,6 +1270,137 @@ textarea.form-input{resize:vertical;min-height:72px}
 @media(max-width:600px){.dcc-cards{grid-template-columns:repeat(2,1fr)}.dcc-header{padding:14px 16px}.dcc-h-name{font-size:18px}}
 
 
+
+/* Department Health Brief */
+.dcc-health-brief{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;}
+.dcc-hb-header{margin-bottom:12px;}
+.dcc-hb-title{font-size:18px;font-weight:800;color:var(--t1);}
+.dcc-hb-sub{font-size:11px;color:var(--t3);margin-top:2px;}
+.dcc-hb-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:12px;}
+.dcc-hb-stat{background:var(--surface2);border-radius:8px;padding:10px;text-align:center;}
+.dcc-hb-stat-val{font-size:20px;font-weight:800;line-height:1;}
+.dcc-hb-stat-label{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;margin-top:2px;}
+.dcc-hb-score{display:inline-block;padding:8px 16px;border-radius:8px;text-align:center;}
+.dcc-hb-score-val{font-size:24px;font-weight:900;line-height:1;}
+.dcc-hb-score-label{font-size:9px;text-transform:uppercase;letter-spacing:.3px;}
+.dcc-hb-ai-summary{background:var(--surface2);border-radius:8px;padding:10px 14px;margin-top:10px;}
+.dcc-hb-ai-title{font-size:11px;font-weight:700;color:var(--blue);margin-bottom:4px;}
+.dcc-hb-ai-text{font-size:11px;line-height:1.5;color:var(--t2);}
+
+/* Knowledge Hub */
+.dcc-kh-item{background:var(--surface2);border-radius:8px;padding:10px 14px;margin-bottom:8px;border:1px solid var(--border);}
+.dcc-kh-header{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.dcc-kh-icon{font-size:14px;}
+.dcc-kh-title{font-size:12px;font-weight:600;color:var(--t1);}
+.dcc-kh-summary{font-size:10px;color:var(--t2);margin:4px 0;line-height:1.4;}
+.dcc-kh-link{margin:4px 0;}
+.dcc-kh-tags{margin-top:4px;}
+.dcc-kh-tag{display:inline-block;font-size:9px;padding:2px 6px;background:rgba(59,130,246,0.1);color:#60a5fa;border-radius:3px;margin-right:4px;}
+
+/* ===== EXECUTIVE MISSION CONTROL (EMC) ===== */
+.emc-root{max-width:1440px;margin:0 auto;padding:12px 20px 40px}
+.emc-brief{background:linear-gradient(135deg,#0a0f1e 0%,#111827 50%,#0c1426 100%);border:1px solid #1e3a5f;border-radius:12px;padding:20px 24px;margin-bottom:16px;position:relative;overflow:hidden}
+.emc-brief::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(59,130,246,0.1),transparent 70%);pointer-events:none}
+.emc-brief::after{content:'';position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(139,92,246,0.08),transparent 70%);pointer-events:none}
+.emc-brief-title{font-size:14px;font-weight:700;color:#60a5fa;margin-bottom:8px;letter-spacing:.3px}
+.emc-brief-text{font-size:12px;line-height:1.7;color:#cbd5e1}
+.emc-brief-text strong{color:#e2e8f0}
+.emc-brief-text .hi-red{color:#f87171}
+.emc-brief-text .hi-orange{color:#fbbf24}
+.emc-brief-text .hi-green{color:#4ade80}
+.emc-brief-text .hi-blue{color:#60a5fa}
+.emc-brief-tag{display:inline-block;font-size:9px;padding:2px 8px;border-radius:99px;margin-right:6px;margin-top:6px;font-weight:600;letter-spacing:.3px}
+.emc-brief-tag.red{background:#7f1d1d;color:#fca5a5}
+.emc-brief-tag.orange{background:#78350f;color:#fde68a}
+.emc-brief-tag.green{background:#14532d;color:#86efac}
+.emc-brief-tag.blue{background:#1e3a5f;color:#93c5fd}
+
+.emc-kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:16px}
+.emc-kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 10px;text-align:center;transition:box-shadow .15s}
+.emc-kpi-card:hover{box-shadow:var(--sh2)}
+.emc-kpi-val{font-size:22px;font-weight:800;line-height:1}
+.emc-kpi-lbl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;margin-top:4px;font-weight:600}
+.emc-kpi-card.score-card{grid-column:span 2;display:flex;align-items:center;gap:12px;text-align:left;padding:12px 16px}
+.emc-kpi-card.score-card .emc-kpi-val{font-size:32px}
+.emc-score-ring{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:900;flex-shrink:0}
+
+.emc-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;overflow:hidden}
+.emc-section-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface2)}
+.emc-section-title{font-size:13px;font-weight:700;color:var(--t1);display:flex;align-items:center;gap:6px}
+.emc-section-title .ico{font-size:15px}
+.emc-section-badge{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600}
+.emc-section-badge.red{background:#7f1d1d;color:#fca5a5}
+.emc-section-badge.orange{background:#78350f;color:#fde68a}
+.emc-section-badge.green{background:#14532d;color:#86efac}
+.emc-section-badge.blue{background:#1e3a5f;color:#93c5fd}
+.emc-section-badge.purple{background:#3b0764;color:#c4b5fd}
+.emc-section-body{padding:12px 16px}
+
+.emc-table{width:100%;border-collapse:collapse;font-size:11px}
+.emc-table th{text-align:left;padding:6px 8px;font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap}
+.emc-table td{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+.emc-table tr{transition:background .1s}
+.emc-table tr:hover{background:rgba(59,130,246,.04)}
+.emc-table .num{text-align:center;font-weight:700}
+.emc-table .pn{color:#60a5fa;cursor:pointer;font-weight:600}
+.emc-table .pn:hover{text-decoration:underline}
+
+.emc-risk-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.emc-risk-row:last-child{border-bottom:none}
+.emc-risk-rank{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:800;flex-shrink:0}
+.emc-risk-rank.r1{background:#7f1d1d;color:#fca5a5}
+.emc-risk-rank.r2{background:#78350f;color:#fde68a}
+.emc-risk-rank.r3{background:#78350f;color:#fde68a}
+.emc-risk-info{flex:1;min-width:0}
+.emc-risk-name{font-size:12px;font-weight:600;color:var(--t1)}
+.emc-risk-meta{font-size:10px;color:var(--t3);margin-top:2px}
+.emc-risk-badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
+
+.emc-dept-card{background:var(--surface2);border-radius:8px;padding:12px;border-left:4px solid #22c55e;transition:border-color .15s,box-shadow .15s;cursor:pointer}
+.emc-dept-card:hover{box-shadow:var(--sh2)}
+.emc-dept-card.overload{border-left-color:#ef4444}
+.emc-dept-card.high{border-left-color:#f59e0b}
+.emc-dept-card.ok{border-left-color:#22c55e}
+.emc-dept-name{font-size:13px;font-weight:700;color:var(--t1)}
+.emc-dept-stats{display:flex;gap:12px;margin-top:6px;font-size:10px;color:var(--t2)}
+.emc-dept-stat-val{font-weight:700}
+.emc-dept-cause{font-size:10px;color:var(--t3);margin-top:6px;font-style:italic}
+
+.emc-decision-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.emc-decision-item:last-child{border-bottom:none}
+.emc-decision-title{font-size:12px;font-weight:600;color:var(--t1)}
+.emc-decision-meta{font-size:10px;color:var(--t3);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap}
+.emc-decision-impact{font-size:10px;color:#f87171;margin-top:4px;font-weight:600}
+
+.emc-pattern-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.emc-pattern-card{background:var(--surface2);border-radius:8px;padding:10px 12px}
+.emc-pattern-name{font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px}
+.emc-pattern-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin:4px 0}
+.emc-pattern-bar-fill{height:100%;border-radius:3px;transition:width .3s}
+.emc-pattern-count{font-size:10px;color:var(--t3)}
+
+.emc-ai-card{background:linear-gradient(135deg,#0c1426 0%,#1a1040 100%);border:1px solid #312e81;border-radius:10px;padding:16px 18px;margin-bottom:14px;position:relative;overflow:hidden}
+.emc-ai-card::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(139,92,246,0.12),transparent 70%);pointer-events:none}
+.emc-ai-title{font-size:14px;font-weight:700;color:#a78bfa;margin-bottom:6px}
+.emc-ai-text{font-size:11px;line-height:1.6;color:#cbd5e1;margin-bottom:10px}
+.emc-ai-text strong{color:#e2e8f0}
+.emc-ai-actions{display:flex;flex-wrap:wrap;gap:6px}
+.emc-ai-btn{font-size:10px;padding:5px 12px;border-radius:6px;border:1px solid #4338ca;color:#a5b4fc;background:rgba(67,56,202,0.2);cursor:pointer;transition:all .15s;font-weight:500}
+.emc-ai-btn:hover{background:#4338ca;color:#fff}
+.emc-ai-result{background:rgba(30,27,75,0.5);border:1px solid rgba(139,92,246,0.2);border-radius:8px;padding:12px 14px;margin-top:10px;font-size:11px;color:#cbd5e1;line-height:1.6;max-height:350px;overflow-y:auto;display:none}
+.emc-ai-result.show{display:block}
+.emc-ai-result .hi-red{color:#f87171}
+.emc-ai-result .hi-orange{color:#fbbf24}
+.emc-ai-result .hi-green{color:#4ade80}
+.emc-ai-result .hi-blue{color:#60a5fa}
+.emc-ai-result strong{color:#e2e8f0}
+
+@media(max-width:900px){
+  .emc-kpi-grid{grid-template-columns:1fr 1fr 1fr}
+  .emc-kpi-card.score-card{grid-column:span 3}
+  .emc-pattern-grid{grid-template-columns:1fr 1fr}
+}
+
 </style>
 
 </head>
@@ -1238,12 +1426,13 @@ textarea.form-input{resize:vertical;min-height:72px}
     <div class="user-dropdown" id="userDropdown">
       <div style="padding:8px 12px;font-size:11px;color:var(--text-secondary);font-weight:600">Sunny &middot; NPI Project Manager</div>
       <div style="height:1px;background:var(--border-subtle);margin:4px 0"></div>
-      <div class="dropdown-item" onclick="navigateTo('settings')">Settings</div>
-      <div class="dropdown-item" onclick="exportData()">Export Data</div>
-      <div class="dropdown-item" onclick="document.getElementById('importFile').click()">Import Data</div>
-      <div class="dropdown-item" onclick="toast('Logout (demo)')">Logout</div>
+      <div class="dd-item" onclick="navigateTo('admin')">Settings</div>
+      <div class="dd-item" onclick="exportData()">Export Data</div>
+      <div class="dd-item" onclick="document.getElementById('importFile').click()">Import Data</div>
+      <div class="dd-item" onclick="toast('Logout (demo)')">Logout</div>
     </div>
     <div class="copyright">&copy; 2026 AutoPM &middot; Powered by WorkBuddy</div>
+    <div class="copyright" style="margin-top:2px;font-size:10px;color:#4b5563">Design by Sunny</div>
   </div>
 </aside>
 
@@ -1278,7 +1467,13 @@ textarea.form-input{resize:vertical;min-height:72px}
 
 <!-- ===== MODAL ===== -->
 <div class="modal-overlay" id="modalOverlay" style="display:none" onclick="if(event.target===this)closeModal()">
-  <div class="modal" id="modalContent"></div>
+  <div class="modal">
+    <div class="modal-hdr">
+      <h3 id="modalTitle"></h3>
+      <button class="modal-close" onclick="closeModal()" title="Close">×</button>
+    </div>
+    <div class="modal-body" id="modalContent"></div>
+  </div>
 </div>
 
 <!-- ===== TOAST ===== -->
@@ -1308,7 +1503,7 @@ const GATE_DELIVS={
 };
 const STATUS_OPTS=['Not Started','In Progress','At Risk','Delayed','Blocked','Done'];
 const DEPARTMENTS=['PM','Engineering','Quality','Supply Chain','Manufacturing','Packaging'];
-const DEPT_COLORS={PM:'#2563eb',Engineering:'#7c3aed',Quality:'#16a34a','Supply Chain':'#d97706',Manufacturing:'#ea580c',Packaging:'#db2777'};
+const DEPT_COLORS={PMO:'#2563eb',ProductDev:'#8b5cf6',Engineering:'#7c3aed',MechEng:'#6366f1',ElecEng:'#4f46e5',Firmware:'#7c3aed',IDUI:'#ec4899',Quality:'#16a34a',Compliance:'#059669',SupplyChain:'#d97706',Manufacturing:'#ea580c',Packaging:'#db2777',Tooling:'#f97316',FactoryCM:'#b45309',Finance:'#0891b2',Marketing:'#e11d48',Sales:'#be123c',Legal:'#475569',IT:'#0ea5e9',Regional:'#64748b',Supplier:'#78716c','Supply Chain':'#d97706',PM:'#2563eb'};
 const TODAY_DT=new Date();TODAY_DT.setHours(0,0,0,0);
 const fmtDate=d=>d?new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';
 const fmtShort=d=>d?new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'}):'—';
@@ -1533,7 +1728,6 @@ function navigateTo(page,opts={}){
 
 function render(){
   const c=document.getElementById('content');
-  const dp=document.getElementById('detailPanel');
   // 非 daily 页面清除 daily-mode 类
   if(S.page!=='daily')c.classList.remove('daily-mode');
   const map={daily:renderDaily,projects:renderProjects,dept:renderDept,company:renderCompany,knowledge:renderKnowledge,admin:renderAdmin};
@@ -1761,6 +1955,10 @@ function renderDaily(c){
       <div class="dw-task-list" id="dwTaskList">
         ${dwBuildTaskList(listTasks)}
       </div>
+      <button class="dw-quick-add-btn" onclick="showQuickAddTaskModal()" title="Quick add a new task">
+        <span class="dw-qab-icon">+</span>
+        <span class="dw-qab-text">添加任务</span>
+      </button>
 
       <!-- 底部 AI Chat Bar -->
       <div class="dw-ai-chat">
@@ -2013,7 +2211,7 @@ function dwSelectTask(tid){
     const actions=document.getElementById('dwRightActions');
     const title=document.getElementById('dwRightTitle');
     const t=S.tasks.find(x=>x.id===tid);
-    if(t&&title)title.textContent=t.name.slice(0,40)+(t.name.length>40?'…':'');
+    if(t&&title)title.textContent=(t.name||'').slice(0,40)+((t.name||'').length>40?'…':'');
     if(scroll)scroll.innerHTML=dwBuildDetail(tid);
     if(actions)actions.innerHTML=dwBuildActions(tid);
     else{
@@ -2097,17 +2295,21 @@ function dwSaveDetail(){
     if(blocked>0)proj.status='Blocked';
     else if(delayed>0)proj.status='At Risk';
     if(t.recoveryAction)proj.recoveryAction=t.recoveryAction;
-    if(t.rootCause)proj.keyIssue=t.name.slice(0,40);
+    if(t.rootCause)proj.keyIssue=(t.name||'').slice(0,40);
   }
   saveData();
   toast('Task saved ✓');
-  // 刷新任务列表行
+  // 刷新任务列表行（用 innerHTML 替换内容，避免 outerHTML 替换后 DOM 引用丢失）
   const row=document.querySelector(`.dw-task-row[data-tid="${DW_SELECTED_TASK}"]`);
   if(row){
-    const p=getProject(t.projectId);
-    row.outerHTML=dwBuildTaskList([t]);
-    const newRow=document.querySelector(`.dw-task-row[data-tid="${DW_SELECTED_TASK}"]`);
-    if(newRow)newRow.classList.add('selected');
+    const tempDiv=document.createElement('div');
+    tempDiv.innerHTML=dwBuildTaskList([t]);
+    const newRowEl=tempDiv.querySelector(`.dw-task-row[data-tid="${DW_SELECTED_TASK}"]`);
+    if(newRowEl){
+      row.innerHTML=newRowEl.innerHTML;
+      row.className=newRowEl.className;
+      row.classList.add('selected');
+    }
   }
 }
 
@@ -2195,7 +2397,7 @@ function dwAsk(q){
     const pri=myAll.filter(t=>t.pri==='high'||t.status==='Blocked'||isOverdue(t.dueDate,t.status)).slice(0,3);
     ans=`🤖 <b>Top 3 Focus Items:</b><br>${pri.map((t,i)=>`${i+1}. <b>${t.name}</b> — ${t.status}${t.delayDays>0?' (+'+t.delayDays+'d)':''}`).join('<br>')||'All tasks are on track!'}`;
   }else if(lq.includes('explain')&&t){
-    ans=`🤖 <b>Delay Analysis: ${t.name.slice(0,40)}</b><br>Status: <b>${t.status}</b>${t.delayDays>0?' (+'+t.delayDays+' days)':''}<br>${t.rootCause?`Root Cause: ${t.rootCause}<br>`:'Root Cause not filled in yet.<br>'}${t.impactedMs?`Impacted Milestone: ${t.impactedMs}<br>`:''}${t.recoveryAction?`Recovery Plan: ${t.recoveryAction}`:'No recovery action yet — please fill in the right panel.'}`;
+    ans=`🤖 <b>Delay Analysis: ${(t.name||'').slice(0,40)}</b><br>Status: <b>${t.status}</b>${t.delayDays>0?' (+'+t.delayDays+' days)':''}<br>${t.rootCause?`Root Cause: ${t.rootCause}<br>`:'Root Cause not filled in yet.<br>'}${t.impactedMs?`Impacted Milestone: ${t.impactedMs}<br>`:''}${t.recoveryAction?`Recovery Plan: ${t.recoveryAction}`:'No recovery action yet — please fill in the right panel.'}`;
   }else if(lq.includes('follow-up')&&t){
     const due=fmtShort(t.dueDate);
     ans=`🤖 <b>Draft Follow-up:</b><br><i>Hi ${t.owner},<br>Just following up on task "<b>${t.name}</b>" (due ${due}, Status: ${t.status}). ${t.status==='Delayed'?`Current delay: +${t.delayDays||0}d. `:''}Could you please provide a status update${t.status==='Delayed'?' and confirm the recovery timeline':''}? Let me know if you need any support.<br>Thanks, Sunny</i>`;
@@ -2206,7 +2408,7 @@ function dwAsk(q){
     const myAll=S.tasks.filter(t=>t.owner==='Sunny'&&t.status!=='Done');
     ans=`🤖 <b>Task Update Summary:</b><br>${myAll.slice(0,5).map(t=>`• <b>${t.name}</b> — ${t.status}${t.delayDays>0?' +'+t.delayDays+'d':''} | Due ${fmtShort(t.dueDate)}`).join('<br>')}`;
   }else if(t){
-    ans=`🤖 <b>About "${t.name.slice(0,40)}":</b><br>Project: ${p?.name||'—'} | Status: <b>${t.status}</b> | Owner: ${t.owner}<br>Due: ${fmtShort(t.dueDate)}${t.delayDays>0?' (+'+t.delayDays+'d)':''} | MS: ${t.ms||'—'}<br>${t.rootCause?`Root Cause: ${t.rootCause}<br>`:''}${t.recoveryAction?`Recovery: ${t.recoveryAction}`:''}`;
+    ans=`🤖 <b>About "${(t.name||'').slice(0,40)}":</b><br>Project: ${p?.name||'—'} | Status: <b>${t.status}</b> | Owner: ${t.owner}<br>Due: ${fmtShort(t.dueDate)}${t.delayDays>0?' (+'+t.delayDays+'d)':''} | MS: ${t.ms||'—'}<br>${t.rootCause?`Root Cause: ${t.rootCause}<br>`:''}${t.recoveryAction?`Recovery: ${t.recoveryAction}`:''}`;
   }else{
     ans=`🤖 I'm your AutoPM AI assistant. Select a task first, or ask me to summarize your day, find similar issues, or generate a task update.`;
   }
@@ -2380,174 +2582,9 @@ function clearProjFilters(){
   render();
 }
 
-/* --- PROJECT DETAIL --- */
-function renderProjectDetail(c){
-  const p=getProject(S.projectId);
-  if(!p){c.innerHTML=`<div class="card"><div class="card-body">Project not found</div></div>`;return;}
-  const tasks=projTasks(p.id);
-  const issues=projIssues(p.id);
-  const delivs=projDelivs(p.id);
-  const tab=S.subPage||'overview';
-  const gateProgress=Math.round(p.gates.filter(g=>g.status==='Done').length/NPI_GATES.length*100);
+/* --- OLD PROJECT DETAIL removed --- */
 
-  // Project header
-  let h=`<div class="flex items-center gap8 mb16">
-    <button class="btn btn-secondary btn-sm" onclick="S.projectId=null;render()">← Back</button>
-    <div>
-      <div class="flex items-center gap8">
-        <span class="fw7" style="font-size:16px">${p.name}</span>
-        ${sBadge(p.status)}
-        <span class="badge ${riskCls(p.riskLevel)}">${p.riskLevel} Risk</span>
-      </div>
-      <div class="text-xs text-muted mt4">${p.sku} · PM: ${p.pm} · Launch: ${fmtShort(p.targetLaunch)} · ${p.type}</div>
-    </div>
-    <div class="flex items-center gap8" style="margin-left:auto">
-      <div class="hs ${healthCls(p.healthScore)}">${p.healthScore}</div>
-      <button class="btn btn-secondary btn-xs" onclick="generateReport('${p.id}')">📊 Report</button>
-    </div>
-  </div>`;
 
-  // Gate progress bar
-  h+=`<div class="card mb16"><div class="card-body" style="padding:12px 16px">
-    <div class="text-xs text-muted mb8 fw6">GATE PROGRESS (${gateProgress}% complete)</div>
-    <div class="gate-bar">`;
-  NPI_GATES.forEach((g,i)=>{
-    const gs=p.gates[i]||{};
-    const cls={'Done':'g-dn','In Progress':'g-ip','At Risk':'g-ar','Delayed':'g-dl','Blocked':'g-bk','Not Started':'g-ns'}[gs.status||'Not Started']||'g-ns';
-    h+=`<div class="gate-step ${cls} ${i===p.currentGate?'gate-cur':''}" onclick="S.subPage='deliverables';render()" title="${gs.status||'Not Started'}">
-      <span class="gate-name">${g.short}</span>
-      <span class="gate-pct">${gs.completion||0}%</span>
-    </div>`;
-  });
-  h+=`</div></div></div>`;
-
-  // Tabs
-  h+=`<div class="tabs mb0" style="margin-bottom:0;border-radius:var(--r8) var(--r8) 0 0">
-    ${['overview','tasks','deliverables','risks','decisions','report'].map(t=>`<button class="tab-btn ${tab===t?'active':''}" onclick="S.subPage='${t}';render()">${t.charAt(0).toUpperCase()+t.slice(1)}</button>`).join('')}
-  </div>
-  <div class="card" style="border-radius:0 0 var(--r8) var(--r8);border-top:none">`;
-
-  if(tab==='overview'){
-    const delayedTasks=tasks.filter(t=>t.status==='Delayed'||t.status==='Blocked');
-    const openIssues=issues.filter(i=>i.status==='Open');
-    h+=`<div class="tab-content">
-      <div class="grid-3 mb16">
-        <div style="padding:14px;background:var(--bg);border-radius:var(--r8)">
-          <div class="text-xs fw6 text-muted mb8">TEAM</div>
-          ${Object.entries(p.team||{}).map(([role,name])=>`<div class="flex justify-between text-sm mb4"><span class="text-muted">${role}</span><span class="fw6">${name}</span></div>`).join('')}
-        </div>
-        <div style="padding:14px;background:var(--bg);border-radius:var(--r8)">
-          <div class="text-xs fw6 text-muted mb8">TASK SUMMARY</div>
-          <div class="flex justify-between text-sm mb4"><span>Total Tasks</span><span class="fw6">${tasks.length}</span></div>
-          <div class="flex justify-between text-sm mb4"><span>Done</span><span class="fw6" style="color:var(--green)">${tasks.filter(t=>t.status==='Done').length}</span></div>
-          <div class="flex justify-between text-sm mb4"><span>In Progress</span><span class="fw6" style="color:var(--blue)">${tasks.filter(t=>t.status==='In Progress').length}</span></div>
-          <div class="flex justify-between text-sm mb4"><span>At Risk</span><span class="fw6" style="color:var(--amber)">${tasks.filter(t=>t.status==='At Risk').length}</span></div>
-          <div class="flex justify-between text-sm"><span>Delayed / Blocked</span><span class="fw6" style="color:var(--red)">${tasks.filter(t=>t.status==='Delayed'||t.status==='Blocked').length}</span></div>
-        </div>
-        <div style="padding:14px;background:var(--bg);border-radius:var(--r8)">
-          <div class="text-xs fw6 text-muted mb8">OPEN ISSUES</div>
-          ${openIssues.length?openIssues.map(i=>`<div class="flex items-center gap4 mb6 cursor-pointer" onclick="showEditIssueModal('${i.id}')">
-            <span class="badge ${i.type==='Blocker'?'bdr':i.type==='Decision Needed'?'bb':'br'}" style="font-size:9px">${i.type}</span>
-            <span class="text-xs truncate">${i.title}</span>
-          </div>`).join(''):`<div class="text-xs text-muted">No open issues ✓</div>`}
-        </div>
-      </div>
-      ${delayedTasks.length?`<div class="section-hdr"><span class="section-title">⚠️ Delays & Blockers</span><span class="section-count">${delayedTasks.length}</span></div>
-      ${delayedTasks.map(t=>renderTaskCard(t,p,'tc-red')).join('')}`:
-      `<div class="ai-block"><div class="ai-label">✅ On Track</div><div class="ai-text">No delayed or blocked tasks in this project.</div></div>`}
-    </div>`;
-  }else if(tab==='tasks'){
-    h+=`<div class="tab-content">
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Task</th><th>Dept</th><th>Owner</th><th>Gate</th><th>Due</th><th>Status</th><th>Priority</th><th>Delay</th><th></th></tr></thead>
-          <tbody>`;
-    tasks.forEach(t=>{
-      h+=`<tr class="row-link">
-        <td><div class="fw6 text-sm">${t.name}</div>${t.ms?`<div class="text-xs text-muted">MS: ${t.ms}</div>`:''}</td>
-        <td>${dBadge(t.department)}</td>
-        <td class="text-sm">${t.owner}</td>
-        <td class="text-xs">${NPI_GATES[t.gate]?.short||'—'}</td>
-        <td class="text-xs ${isOverdue(t.dueDate,t.status)?'fw6':''}\" style="${isOverdue(t.dueDate,t.status)?'color:var(--red)':''}">${fmtShort(t.dueDate)}</td>
-        <td>${sBadge(t.status)}</td>
-        <td><span class="badge ${t.pri==='high'?'br':t.pri==='medium'?'ba':'bgr'}">${t.pri}</span></td>
-        <td class="${t.delayDays>0?'fw6':'text-muted'}" style="${t.delayDays>0?'color:var(--red)':''}">${t.delayDays>0?`+${t.delayDays}d`:'—'}</td>
-        <td><button class="btn btn-secondary btn-xs" onclick="showEditTaskModal('${t.id}')">Edit</button></td>
-      </tr>`;
-    });
-    h+=`</tbody></table></div>
-      <div class="mt12"><button class="btn btn-primary btn-sm" onclick="showNewTaskModal('${p.id}')">+ Add Task</button></div>
-    </div>`;
-  }else if(tab==='deliverables'){
-    const curGateDelivs=delivs.filter(d=>d.gate===p.currentGate);
-    const atRisk=delivs.filter(d=>d.status==='Delayed'||d.status==='At Risk');
-    h+=`<div class="tab-content">
-      <div class="flex gap8 mb12">
-        <span class="badge bg">${delivs.filter(d=>d.status==='Done').length} Done</span>
-        <span class="badge bb">${delivs.filter(d=>d.status==='In Progress').length} In Progress</span>
-        <span class="badge ba">${delivs.filter(d=>d.status==='At Risk').length} At Risk</span>
-        <span class="badge br">${delivs.filter(d=>d.status==='Delayed').length} Delayed</span>
-      </div>
-      ${atRisk.length?`<div class="section-hdr"><span class="section-title">⚠️ At Risk / Delayed Deliverables</span><span class="section-count">${atRisk.length}</span></div>
-      <div class="card nopad mb16"><table><thead><tr><th>Deliverable</th><th>Gate</th><th>Owner</th><th>Due</th><th>Status</th><th>Delay</th></tr></thead><tbody>
-      ${atRisk.map(d=>`<tr><td class="fw6 text-sm">${d.name}</td><td class="text-xs">${NPI_GATES[d.gate]?.short||'—'}</td><td class="text-sm">${d.owner}</td><td class="text-xs">${fmtShort(d.dueDate)}</td><td>${sBadge(d.status)}</td><td class="fw6" style="color:var(--red)">${d.delayDays>0?`+${d.delayDays}d`:'—'}</td></tr>`).join('')}
-      </tbody></table></div>`:''}
-      <div class="section-hdr"><span class="section-title">Current Gate: ${NPI_GATES[p.currentGate]?.name}</span><span class="section-count">${curGateDelivs.length}</span></div>
-      <div class="card nopad"><table><thead><tr><th>Deliverable</th><th>Owner</th><th>Dept</th><th>Due</th><th>Status</th></tr></thead><tbody>
-      ${curGateDelivs.map(d=>`<tr><td class="text-sm">${d.name}</td><td class="text-sm">${d.owner}</td><td>${dBadge(d.department)}</td><td class="text-xs">${fmtShort(d.dueDate)}</td><td>${sBadge(d.status)}</td></tr>`).join('')}
-      </tbody></table></div>
-    </div>`;
-  }else if(tab==='risks'){
-    h+=`<div class="tab-content">
-      <div class="flex justify-between items-center mb12">
-        <span class="fw6">Issues & Risks — ${p.name}</span>
-        <button class="btn btn-primary btn-sm" onclick="showNewIssueModal('${p.id}')">+ New Issue</button>
-      </div>`;
-    const openIssues=issues.filter(i=>i.status==='Open');
-    const closedIssues=issues.filter(i=>i.status!=='Open');
-    if(openIssues.length){
-      openIssues.forEach(i=>{
-        h+=`<div class="task-card ${i.type==='Blocker'?'tc-red':i.type==='Decision Needed'?'tc-blue':'tc-amber'} mb8" onclick="showEditIssueModal('${i.id}')">
-          <div class="tc-name">${sBadge(i.type)} ${i.title} ${i.escalation?'<span class="badge bdr">Escalated</span>':''}</div>
-          <div class="tc-meta">
-            ${dBadge(i.department)}<span class="sep">·</span>Owner: ${i.owner}<span class="sep">·</span>Target: ${fmtShort(i.targetDate)}
-            ${i.delayDays>0?`<span class="sep">·</span><span style="color:var(--red);font-weight:600">+${i.delayDays}d</span>`:''}
-          </div>
-          ${i.rootCause?`<div class="tc-recovery"><div class="rk">Root Cause</div><div class="rv mb4">${i.rootCause}</div></div>`:''}
-          ${i.recoveryAction?`<div class="tc-recovery mt4"><div class="rk">Recovery</div><div class="rv">${i.recoveryAction} · ${i.recoveryOwner} · ${fmtShort(i.targetDate)}</div></div>`:''}
-        </div>`;
-      });
-    }else{
-      h+=`<div class="ai-block"><div class="ai-label">✅ No Open Issues</div><div class="ai-text">No open issues in this project.</div></div>`;
-    }
-    if(closedIssues.length){
-      h+=`<div class="section-hdr mt12"><span class="section-title text-muted">Closed Issues (${closedIssues.length})</span></div>
-      <div class="card nopad"><table><thead><tr><th>Issue</th><th>Type</th><th>Owner</th><th>Status</th><th>Delay</th></tr></thead><tbody>
-      ${closedIssues.map(i=>`<tr><td class="text-sm">${i.title}</td><td class="text-xs">${i.type}</td><td class="text-sm">${i.owner}</td><td>${sBadge(i.status)}</td><td class="text-sm">${i.delayDays>0?`+${i.delayDays}d`:'—'}</td></tr>`).join('')}
-      </tbody></table></div>`;
-    }
-    h+=`</div>`;
-  }else if(tab==='decisions'){
-    const decisions=issues.filter(i=>i.type==='Decision Needed');
-    h+=`<div class="tab-content">
-      <div class="flex justify-between items-center mb12">
-        <span class="fw6">Decisions & Approvals</span>
-        <button class="btn btn-primary btn-sm" onclick="showNewIssueModal('${p.id}','Decision Needed')">+ New Decision</button>
-      </div>
-      ${decisions.length?decisions.map(i=>`<div class="task-card tc-blue mb8" onclick="showEditIssueModal('${i.id}')">
-        <div class="tc-name">${sBadge(i.type)} ${i.title} ${i.escalation?'<span class="badge bdr">Escalated</span>':''}</div>
-        <div class="tc-meta">Owner: ${i.owner} · Target: ${fmtShort(i.targetDate)} · ${dBadge(i.department)}</div>
-        ${i.recoveryAction?`<div class="tc-recovery"><div class="rk">Required Action</div><div class="rv">${i.recoveryAction}</div></div>`:''}
-      </div>`).join(''):
-      `<div style="text-align:center;padding:32px;color:var(--t3)">No pending decisions ✓</div>`}
-    </div>`;
-  }else if(tab==='report'){
-    h+=renderProjectReport(p,tasks,issues,delivs);
-  }
-
-  h+=`</div>`;
-  c.innerHTML=h;
-}
 
 function renderProjectReport(p,tasks,issues,delivs){
   const delayed=tasks.filter(t=>t.status==='Delayed'||t.status==='Blocked');
@@ -2614,103 +2651,385 @@ function renderProjectReport(p,tasks,issues,delivs){
    PAGE: COMPANY VIEW
    ======================================================= */
 function renderCompany(c){
+  c=document.getElementById('content');
+  // Data preparation
   const total=S.projects.length;
-  const onTrack=S.projects.filter(p=>p.healthScore>=70).length;
-  const atRisk=S.projects.filter(p=>p.healthScore>=50&&p.healthScore<70).length;
-  const critical=S.projects.filter(p=>p.healthScore<50).length;
-  const blocked=S.tasks.filter(t=>t.status==='Blocked').length;
-  const avgHealth=Math.round(S.projects.reduce((s,p)=>s+p.healthScore,0)/total);
-  const openEsc=S.issues.filter(i=>i.status==='Open'&&i.escalation).length;
-  const decisions=S.issues.filter(i=>i.type==='Decision Needed'&&i.status==='Open').length;
+  const onTrack=S.projects.filter(p=>p.healthScore>=70);
+  const atRisk=S.projects.filter(p=>p.healthScore>=50&&p.healthScore<70);
+  const critical=S.projects.filter(p=>p.healthScore<50);
+  const delayed=S.projects.filter(p=>p.status==='Delayed');
+  const blocked=S.projects.filter(p=>p.status==='Blocked');
+  const inMP=S.projects.filter(p=>p.status==='In MP'||p.status==='Completed');
+  const scoping=S.projects.filter(p=>p.status==='Scoping'||p.status==='Not Started');
+  const onHold=S.projects.filter(p=>p.status==='On Hold'||p.status==='Cancelled');
+  const avgHealth=total?Math.round(S.projects.reduce((s,p)=>s+p.healthScore,0)/total):0;
+  const openEsc=S.issues.filter(i=>i.status==='Open'&&i.escalation);
+  const decisions=S.issues.filter(i=>i.type==='Decision Needed'&&i.status==='Open');
+  const delayedTasks=S.tasks.filter(t=>t.status==='Delayed'||t.status==='Blocked');
+  const overdueTasks=S.tasks.filter(t=>isOverdue(t.dueDate,t.status));
+  const scoreCls=avgHealth>=70?'green':avgHealth>=50?'orange':'red';
+  const scoreBg=avgHealth>=70?'#14532d':avgHealth>=50?'#78350f':'#7f1d1d';
+  const scoreColor=avgHealth>=70?'#4ade80':avgHealth>=50?'#fbbf24':'#f87171';
 
+  let h='<div class="emc-root">';
+
+  // ═══ MODULE 1: AI EXECUTIVE BRIEF ═══
+  const topRiskProj=[...S.projects].sort((a,b)=>a.healthScore-b.healthScore)[0];
+  const maxDelayProj=[...S.projects].sort((a,b)=>b.delayDays-a.delayDays)[0];
   const deptBottlenecks=DEPARTMENTS.map(d=>{
     const dt=S.tasks.filter(t=>t.department===d);
     const dd=dt.filter(t=>t.status==='Delayed'||t.status==='Blocked');
-    return{dept:d,delayed:dd.length,totalDelay:dd.reduce((s,t)=>s+t.delayDays,0)};
+    const od=dt.filter(t=>isOverdue(t.dueDate,t.status));
+    const totalDelay=dd.reduce((s,t)=>s+(t.delayDays||0),0);
+    const avgDelay=dd.length?Math.round(totalDelay/dd.length):0;
+    const rootCauses={};
+    dd.forEach(t=>{const rc=t.rootCause||'Unknown';rootCauses[rc]=(rootCauses[rc]||0)+1;});
+    const topRC=Object.entries(rootCauses).sort((a,b)=>b[1]-a[1])[0];
+    return{dept:d,impacted:[...new Set(dt.map(t=>t.projectId))].length,overdue:od.length,delayed:dd.length,avgDelay,totalDelay,topRC:topRC?topRC[0]:null,pressure:dd.length>3?'overload':dd.length>1?'high':'ok'};
   }).sort((a,b)=>b.totalDelay-a.totalDelay);
 
-  let h=`<div class="kpi-row c5 mb20">
-    <div class="kpi-card"><div class="num num-dark">${total}</div><div class="lbl">Total Projects</div></div>
-    <div class="kpi-card"><div class="num num-green">${onTrack}</div><div class="lbl">On Track</div></div>
-    <div class="kpi-card"><div class="num num-amber">${atRisk}</div><div class="lbl">At Risk</div></div>
-    <div class="kpi-card"><div class="num num-red">${critical}</div><div class="lbl">Critical</div></div>
-    <div class="kpi-card"><div class="num num-red">${blocked}</div><div class="lbl">Blocked Tasks</div></div>
-  </div>`;
+  h+='<div class="emc-brief">';
+  h+='<div class="emc-brief-title">🤖 AI Executive Brief</div>';
+  h+='<div class="emc-brief-text">';
+  // Health statement
+  if(avgHealth>=70){
+    h+='Portfolio is <strong class="hi-green">healthy</strong> with an overall score of <strong>'+avgHealth+'/100</strong>. ';
+  } else if(avgHealth>=50){
+    h+='Portfolio <strong class="hi-orange">needs attention</strong> with a score of <strong>'+avgHealth+'/100</strong>. ';
+  } else {
+    h+='Portfolio is <strong class="hi-red">at risk</strong> with a score of <strong>'+avgHealth+'/100</strong>. ';
+  }
+  h+='<strong>'+onTrack.length+'/'+total+'</strong> projects on track';
+  if(critical.length) h+=', <strong class="hi-red">'+critical.length+' critical</strong>';
+  if(atRisk.length) h+=', <strong class="hi-orange">'+atRisk.length+' at risk</strong>';
+  h+='.<br>';
+  // Max risk
+  if(topRiskProj){
+    h+='Greatest risk: <strong class="hi-red">'+(topRiskProj.sku||topRiskProj.name)+'</strong> (Health: '+topRiskProj.healthScore+(topRiskProj.delayDays>0?', +'+topRiskProj.delayDays+'d delay':'')+'). ';
+  }
+  // Dept bottleneck
+  if(deptBottlenecks[0]&&deptBottlenecks[0].totalDelay>0){
+    h+='<br>Top bottleneck: <strong class="hi-orange">'+deptBottlenecks[0].dept+'</strong> (+ '+deptBottlenecks[0].totalDelay+'d total delay across '+deptBottlenecks[0].impacted+' projects). ';
+  }
+  // Launch impact
+  const launchImpact=S.projects.filter(p=>p.delayDays>0&&p.status!=='Completed'&&p.status!=='On Hold');
+  if(launchImpact.length){
+    h+='<br><strong class="hi-red">'+launchImpact.length+' project(s) may impact launch</strong>: '+launchImpact.slice(0,3).map(p=>p.sku||p.name).join(', ')+(launchImpact.length>3?' +more':'')+'. ';
+  }
+  // Decisions needed
+  if(decisions.length){
+    h+='<br><strong class="hi-orange">'+decisions.length+' pending decision(s)</strong> require leadership action. ';
+  }
+  // What to focus on today
+  h+='<br><strong class="hi-blue">Today\'s focus:</strong> ';
+  if(critical.length){
+    h+='Resolve '+critical.length+' critical project(s) — '+critical.slice(0,2).map(p=>p.sku||p.name).join(', ')+'.';
+  } else if(openEsc.length){
+    h+='Address '+openEsc.length+' escalated issue(s) requiring executive decision.';
+  } else if(deptBottlenecks[0]&&deptBottlenecks[0].pressure==='overload'){
+    h+='Support '+deptBottlenecks[0].dept+' department — resource overload detected.';
+  } else {
+    h+='Portfolio stable. Review upcoming gate milestones and proactive risk mitigation.';
+  }
+  h+='</div>';
+  // Tags
+  h+='<div style="margin-top:8px">';
+  h+='<span class="emc-brief-tag '+scoreCls+'">Health: '+avgHealth+'</span>';
+  if(critical.length) h+='<span class="emc-brief-tag red">'+critical.length+' Critical</span>';
+  if(launchImpact.length) h+='<span class="emc-brief-tag red">'+launchImpact.length+' Launch Risk</span>';
+  if(decisions.length) h+='<span class="emc-brief-tag orange">'+decisions.length+' Decisions</span>';
+  if(deptBottlenecks.filter(d=>d.pressure==='overload').length) h+='<span class="emc-brief-tag orange">'+deptBottlenecks.filter(d=>d.pressure==='overload').length+' Dept Bottleneck</span>';
+  if(avgHealth>=70&&critical.length===0) h+='<span class="emc-brief-tag green">Stable</span>';
+  h+='</div></div>';
 
-  // AI Executive Summary
-  const topRisk=S.projects.sort((a,b)=>a.healthScore-b.healthScore)[0];
-  h+=`<div class="ai-block mb20">
-    <div class="ai-label">🤖 AI Executive Summary</div>
-    <div class="ai-text">
-      Portfolio Health Score: <strong>${avgHealth}/100</strong> — ${avgHealth>=70?'<strong style="color:var(--green)">Healthy</strong>':avgHealth>=50?'<strong style="color:var(--amber)">Needs Attention</strong>':'<strong style="color:var(--red)">At Risk</strong>'}.<br>
-      <strong>${onTrack}/${total} projects on track</strong>${critical>0?`, <strong style="color:var(--red)">${critical} critical</strong>`:''}${atRisk>0?`, <strong style="color:var(--amber)">${atRisk} at risk</strong>`:''}.
-      ${openEsc>0?`<br><strong style="color:var(--red)">${openEsc} escalated issues</strong> require leadership decision.`:''}
-      ${decisions>0?`<br><strong>${decisions} pending decisions</strong> are blocking progress.`:''}
-      ${topRisk?`<br>Highest risk: <strong>${topRisk.name}</strong> (Health: ${topRisk.healthScore}, Delay: +${topRisk.delayDays}d).`:''}
-      ${deptBottlenecks[0]?.totalDelay>0?`<br>Top dept bottleneck: <strong>${deptBottlenecks[0].dept}</strong> (+${deptBottlenecks[0].totalDelay}d total delay, ${deptBottlenecks[0].delayed} tasks).`:''}
-    </div>
-  </div>`;
+  // ═══ MODULE 2: PORTFOLIO HEALTH KPI ═══
+  const d=REAL_DEPT_STATS;
+  h+='<div class="emc-section"><div class="emc-section-hdr"><div class="emc-section-title"><span class="ico">📊</span> Portfolio Health KPI</div></div>';
+  h+='<div class="emc-section-body">';
+  h+='<div class="emc-kpi-grid">';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val">'+d.total+'</div><div class="emc-kpi-lbl">Total SKUs</div></div>';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#60a5fa">'+d.active+'</div><div class="emc-kpi-lbl">Active Projects</div></div>';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#4ade80">'+d.onTrack+'</div><div class="emc-kpi-lbl">On Track</div></div>';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#fbbf24">'+d.atRisk+'</div><div class="emc-kpi-lbl">At Risk</div></div>';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#f87171">'+delayed.length+'</div><div class="emc-kpi-lbl">Delayed</div></div>';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#dc2626">'+blocked.length+'</div><div class="emc-kpi-lbl">Blocked</div></div>';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#94a3b8">'+d.inMP+'</div><div class="emc-kpi-lbl">In MP</div></div>';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#94a3b8">'+d.scoping+'</div><div class="emc-kpi-lbl">Scoping</div></div>';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#64748b">'+d.onHold+'</div><div class="emc-kpi-lbl">On Hold/Cancelled</div></div>';
+  h+='<div class="emc-kpi-card score-card"><div class="emc-score-ring" style="background:'+scoreBg+';color:'+scoreColor+'">'+avgHealth+'</div><div><div class="emc-kpi-val" style="color:'+scoreColor+';font-size:28px">'+avgHealth+'/100</div><div class="emc-kpi-lbl">Portfolio Health Score</div></div></div>';
+  h+='</div></div></div>';
 
-  h+=`<div class="grid-2 mb16">`;
+  // ═══ MODULE 3: LAUNCH / BUSINESS IMPACT ═══
+  const launchDelay=S.projects.filter(p=>p.delayDays>0&&p.status!=='Completed'&&p.status!=='On Hold');
+  const totalDelayDays=launchDelay.reduce((s,p)=>s+p.delayDays,0);
+  const delay7=launchDelay.filter(p=>p.delayDays>=7).length;
+  const delay14=launchDelay.filter(p=>p.delayDays>=14).length;
+  const delay30=launchDelay.filter(p=>p.delayDays>=30).length;
+  const impactedBrands=[...new Set(launchDelay.map(p=>p.brand).filter(Boolean))];
+  const impactedCats=[...new Set(launchDelay.map(p=>p.category||p.type).filter(Boolean))];
 
-  // Project portfolio
-  h+=`<div class="card"><div class="card-hdr"><div class="card-title">Project Portfolio Status</div></div>
-  <div class="card-body">
-    ${S.projects.map(p=>`<div class="flex items-center gap8 mb10 cursor-pointer" onclick="navigateTo('projects',{projectId:'${p.id}'})">
-      <div class="hs ${healthCls(p.healthScore)}" style="width:38px;height:38px;font-size:12px">${p.healthScore}</div>
-      <div style="flex:1;min-width:0">
-        <div class="fw6 text-sm truncate">${p.name}</div>
-        <div class="text-xs text-muted">${p.sku} · ${p.type}</div>
-        <div class="flex gap4 mt2">${sBadge(p.status)}<span class="badge ${riskCls(p.riskLevel)}">${p.riskLevel}</span>${p.delayDays>0?`<span class="badge br">+${p.delayDays}d</span>`:''}</div>
-      </div>
-      <div class="text-xs text-right text-muted">Launch<br><strong>${fmtShort(p.targetLaunch)}</strong></div>
-    </div>`).join('')}
-  </div></div>`;
-
-  // Department bottlenecks
-  h+=`<div class="card"><div class="card-hdr"><div class="card-title">Department Bottlenecks</div></div>
-  <div class="card-body">
-    <div class="card nopad"><table><thead><tr><th>Department</th><th>Delayed Tasks</th><th>Total Delay</th><th>Health</th></tr></thead><tbody>`;
-  deptBottlenecks.forEach(db=>{
-    const dt=S.tasks.filter(t=>t.department===db.dept);
-    const health=dt.length?Math.max(0,100-Math.round((db.delayed/Math.max(dt.length,1))*60)):100;
-    h+=`<tr class="row-link" onclick="S.deptFilter='${db.dept}';navigateTo('dept')">
-      <td><span style="font-weight:600;color:${DEPT_COLORS[db.dept]||'#374151'}">${db.dept}</span></td>
-      <td class="${db.delayed>0?'fw6':'text-muted'}" style="${db.delayed>0?'color:var(--red)':''}">${db.delayed||'—'}</td>
-      <td class="${db.totalDelay>0?'fw6':'text-muted'}" style="${db.totalDelay>0?'color:var(--red)':''}">${db.totalDelay>0?`+${db.totalDelay}d`:'—'}</td>
-      <td><div class="hs ${healthCls(health)}" style="width:30px;height:30px;font-size:10px">${health}</div></td>
-    </tr>`;
-  });
-  h+=`</tbody></table></div>
-  </div></div>`;
-
-  h+=`</div>`; // end grid-2
-
-  // Escalated issues
-  const escIssues=S.issues.filter(i=>i.status==='Open'&&i.escalation);
-  if(escIssues.length){
-    h+=`<div class="section-hdr mt4"><span class="section-title">🚨 Escalated Issues — Requires Leadership Decision</span><span class="section-count">${escIssues.length}</span></div>`;
-    escIssues.forEach(i=>{
-      const p=getProject(i.projectId);
-      h+=`<div class="task-card tc-red mb8" onclick="showEditIssueModal('${i.id}')">
-        <div class="tc-name">${sBadge(i.type)} ${i.title} <span class="badge bdr">Escalated</span></div>
-        <div class="tc-meta">${p?.name||'—'} · ${dBadge(i.department)} · Owner: ${i.owner} · Target: ${fmtShort(i.targetDate)} · +${i.delayDays||0}d</div>
-        ${i.rootCause?`<div class="tc-recovery"><div class="rk">Root Cause</div><div class="rv mb4">${i.rootCause}</div></div>`:''}
-        ${i.recoveryAction?`<div class="tc-recovery mt4"><div class="rk">Recovery Action</div><div class="rv">${i.recoveryAction} · ${i.recoveryOwner} · ${fmtShort(i.targetDate)}</div></div>`:''}
-      </div>`;
+  h+='<div class="emc-section"><div class="emc-section-hdr"><div class="emc-section-title"><span class="ico">🚀</span> Launch / Business Impact</div><span class="emc-section-badge '+(launchDelay.length?'red':'green')+'">'+launchDelay.length+' projects with delay</span></div>';
+  h+='<div class="emc-section-body">';
+  h+='<div class="emc-kpi-grid" style="margin-bottom:10px">';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#f87171">'+launchDelay.length+'</div><div class="emc-kpi-lbl">Launch Impact</div></div>';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#f87171">+'+totalDelayDays+'d</div><div class="emc-kpi-lbl">Total Delay Days</div></div>';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#fbbf24">'+delay7+'</div><div class="emc-kpi-lbl">Delay &ge;7d</div></div>';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#f87171">'+delay14+'</div><div class="emc-kpi-lbl">Delay &ge;14d</div></div>';
+  h+='<div class="emc-kpi-card"><div class="emc-kpi-val" style="color:#dc2626">'+delay30+'</div><div class="emc-kpi-lbl">Delay &ge;30d</div></div>';
+  h+='</div>';
+  if(launchDelay.length){
+    h+='<table class="emc-table"><thead><tr><th>Project</th><th>Brand</th><th>Category</th><th>Launch</th><th>Delay</th><th>Key Issue</th><th></th></tr></thead><tbody>';
+    launchDelay.sort((a,b)=>b.delayDays-a.delayDays).slice(0,10).forEach(p=>{
+      h+='<tr><td><span class="pn" onclick="navigateTo(\'projects\',{projectId:\''+p.id+'\'})">'+(p.sku||p.name)+'</span></td>';
+      h+='<td>'+(p.brand||'--')+'</td>';
+      h+='<td>'+(p.category||p.type||'--')+'</td>';
+      h+='<td>'+fmtShort(p.targetLaunch)+'</td>';
+      h+='<td class="num" style="color:#f87171">+'+p.delayDays+'d</td>';
+      h+='<td style="font-size:10px;max-width:180px;overflow:hidden;text-overflow:ellipsis">'+(p.keyIssue||'--')+'</td>';
+      h+='<td><button class="dcc-action-btn primary" onclick="navigateTo(\'projects\',{projectId:\''+p.id+'\'})">Open</button></td></tr>';
     });
+    h+='</tbody></table>';
+  } else {
+    h+='<div style="padding:20px;text-align:center;color:var(--t3)"><div style="font-size:28px;margin-bottom:8px">✅</div><div>No projects currently impacting launch windows.</div></div>';
+  }
+  if(impactedBrands.length||impactedCats.length){
+    h+='<div style="margin-top:10px;font-size:11px;color:var(--t2)">';
+    if(impactedBrands.length) h+='<strong>Impacted Brands:</strong> '+impactedBrands.map(b=>'<span class="dcc-kh-tag">'+b+'</span>').join('')+' ';
+    if(impactedCats.length) h+='<strong>Impacted Categories:</strong> '+impactedCats.map(c=>'<span class="dcc-kh-tag">'+c+'</span>').join('');
+    h+='</div>';
+  }
+  h+='</div></div>';
+
+  // ═══ MODULE 4: DEPARTMENT BOTTLENECK ═══
+  h+='<div class="emc-section"><div class="emc-section-hdr"><div class="emc-section-title"><span class="ico">🏢</span> Department Bottleneck</div><span class="emc-section-badge '+(deptBottlenecks.filter(d=>d.pressure!=='ok').length?'red':'green')+'">'+deptBottlenecks.filter(d=>d.pressure!=='ok').length+' under pressure</span></div>';
+  h+='<div class="emc-section-body">';
+  h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px">';
+  deptBottlenecks.forEach(db=>{
+    const color=DEPT_COLORS[db.dept]||'#6b7280';
+    h+='<div class="emc-dept-card '+db.pressure+'" onclick="S.deptFilter=\''+db.dept+'\';navigateTo(\'dept\')">';
+    h+='<div class="emc-dept-name" style="color:'+color+'">'+db.dept+'</div>';
+    h+='<div class="emc-dept-stats">';
+    h+='<span><span class="emc-dept-stat-val">'+db.impacted+'</span> projects</span>';
+    h+='<span><span class="emc-dept-stat-val" style="color:'+(db.overdue?'#f87171':'inherit')+'">'+db.overdue+'</span> overdue</span>';
+    h+='<span><span class="emc-dept-stat-val" style="color:'+(db.delayed?'#f87171':'inherit')+'">'+db.delayed+'</span> delayed</span>';
+    h+='<span><span class="emc-dept-stat-val">+'+db.avgDelay+'d</span> avg</span>';
+    h+='</div>';
+    if(db.topRC) h+='<div class="emc-dept-cause">Root cause: '+db.topRC+'</div>';
+    if(db.pressure==='overload') h+='<div style="margin-top:6px"><span class="emc-section-badge red">Leadership Support Needed</span></div>';
+    h+='</div>';
+  });
+  h+='</div></div></div>';
+
+  // ═══ MODULE 5: TOP RISK PROJECTS ═══
+  const topRisk=[...S.projects].sort((a,b)=>a.healthScore-b.healthScore).slice(0,10);
+  h+='<div class="emc-section"><div class="emc-section-hdr"><div class="emc-section-title"><span class="ico">🔴</span> Top Risk Projects</div><span class="emc-section-badge red">Top '+topRisk.length+'</span></div>';
+  h+='<div class="emc-section-body">';
+  h+='<table class="emc-table"><thead><tr><th>#</th><th>Project</th><th>Brand</th><th>Category</th><th>Gate</th><th>Health</th><th>Delay</th><th>Key Issue</th><th>Owner</th><th></th></tr></thead><tbody>';
+  topRisk.forEach((p,i)=>{
+    const gate=NPI_GATES[p.currentGate]?.short||'--';
+    const hCls=p.healthScore>=70?'hs-high':p.healthScore>=50?'hs-med':'hs-low';
+    h+='<tr><td><span class="emc-risk-rank '+(i<1?'r1':i<3?'r2':'')+'">'+(i+1)+'</span></td>';
+    h+='<td><span class="pn" onclick="navigateTo(\'projects\',{projectId:\''+p.id+'\'})">'+(p.sku||p.name)+'</span></td>';
+    h+='<td>'+(p.brand||'--')+'</td>';
+    h+='<td>'+(p.category||p.type||'--')+'</td>';
+    h+='<td style="font-size:10px">'+gate+'</td>';
+    h+='<td><span class="hs '+hCls+'" style="width:28px;height:28px;font-size:10px;display:inline-grid;place-items:center;border-radius:50%">'+p.healthScore+'</span></td>';
+    h+='<td class="num" style="color:'+(p.delayDays>0?'#f87171':'inherit')+'">'+(p.delayDays>0?'+'+p.delayDays+'d':'--')+'</td>';
+    h+='<td style="font-size:10px;max-width:150px;overflow:hidden;text-overflow:ellipsis">'+(p.keyIssue||'--')+'</td>';
+    h+='<td style="font-size:10px">'+(p.pm||p.owner||'--')+'</td>';
+    h+='<td><button class="dcc-action-btn primary" onclick="navigateTo(\'projects\',{projectId:\''+p.id+'\'})">Open</button></td></tr>';
+  });
+  h+='</tbody></table></div></div>';
+
+  // ═══ MODULE 6: DECISION & ESCALATION CENTER ═══
+  const escItems=S.issues.filter(i=>i.status==='Open'&&i.escalation);
+  const decItems=S.issues.filter(i=>i.type==='Decision Needed'&&i.status==='Open');
+  const allUrgent=[...decItems,...escItems.filter(e=>!decItems.some(d=>d.id===e.id))];
+
+  h+='<div class="emc-section"><div class="emc-section-hdr"><div class="emc-section-title"><span class="ico">⚖️</span> Decision & Escalation Center</div><span class="emc-section-badge '+(allUrgent.length?'red':'green')+'">'+allUrgent.length+' items</span></div>';
+  h+='<div class="emc-section-body">';
+  if(allUrgent.length){
+    allUrgent.forEach(i=>{
+      const p=getProject(i.projectId);
+      h+='<div class="emc-decision-item">';
+      h+='<div class="emc-decision-title">'+(i.type==='Decision Needed'?'⚖️':'🚨')+' '+(i.title||'Untitled')+'</div>';
+      h+='<div class="emc-decision-meta">';
+      h+='<span>Owner: <strong>'+(i.owner||'--')+'</strong></span>';
+      h+='<span>Needed by: <strong>'+fmtShort(i.targetDate)+'</strong></span>';
+      h+='<span>Project: '+(p?(p.sku||p.name):'--')+'</span>';
+      h+='<span>'+dBadge(i.department)+'</span>';
+      h+='</div>';
+      if(i.rootCause) h+='<div style="font-size:10px;color:var(--t3);margin-top:3px">Root cause: '+i.rootCause+'</div>';
+      if(i.impact||i.delayDays>0) h+='<div class="emc-decision-impact">Impact: '+(i.impact||'+'+i.delayDays+'d delay potential')+'</div>';
+      // AI recommended action
+      const recAction=i.recoveryAction||'Review and assign decision owner';
+      h+='<div style="font-size:10px;color:#60a5fa;margin-top:3px">🤖 AI suggests: '+recAction+'</div>';
+      h+='</div>';
+    });
+  } else {
+    h+='<div style="padding:20px;text-align:center;color:var(--t3)"><div style="font-size:28px;margin-bottom:8px">✅</div><div>No pending decisions or escalations.</div></div>';
+  }
+  h+='</div></div>';
+
+  // ═══ MODULE 7: ROOT CAUSE / RISK PATTERN ═══
+  const patterns=[
+    {name:'Supplier Issue',icon:'🏭',match:t=>(t.rootCause||'').toLowerCase().includes('supplier')||(t.rootCause||'').toLowerCase().includes('vendor')},
+    {name:'Approval Delay',icon:'📝',match:t=>(t.rootCause||'').toLowerCase().includes('approval')||(t.rootCause||'').toLowerCase().includes('sign')},
+    {name:'Resource Shortage',icon:'👥',match:t=>(t.rootCause||'').toLowerCase().includes('resource')||(t.rootCause||'').toLowerCase().includes('capacity')||(t.rootCause||'').toLowerCase().includes('shortage')},
+    {name:'Certification Delay',icon:'📋',match:t=>(t.rootCause||'').toLowerCase().includes('certif')||(t.rootCause||'').toLowerCase().includes('compliance')},
+    {name:'Sample / Tooling Delay',icon:'🔧',match:t=>(t.rootCause||'').toLowerCase().includes('sample')||(t.rootCause||'').toLowerCase().includes('tooling')||(t.rootCause||'').toLowerCase().includes('mold')},
+    {name:'Design Freeze Delay',icon:'🎨',match:t=>(t.rootCause||'').toLowerCase().includes('design freeze')||(t.rootCause||'').toLowerCase().includes('design change')||(t.rootCause||'').toLowerCase().includes('ecn')},
+    {name:'Process Wait Time',icon:'⏳',match:t=>(t.rootCause||'').toLowerCase().includes('wait')||(t.rootCause||'').toLowerCase().includes('queue')||(t.rootCause||'').toLowerCase().includes('process')}
+  ];
+  const allDelayedOrBlocked=S.tasks.filter(t=>t.status==='Delayed'||t.status==='Blocked');
+  const patternCounts=patterns.map(p=>{
+    const matches=allDelayedOrBlocked.filter(p.match);
+    const totalDelay=matches.reduce((s,t)=>s+(t.delayDays||0),0);
+    return{...p,count:matches.length,totalDelay,items:matches};
+  }).filter(p=>p.count>0).sort((a,b)=>b.count-a.count);
+  // Add unmatched as "Other"
+  const matchedIds=new Set(patternCounts.flatMap(p=>p.items.map(t=>t.id)));
+  const otherCount=allDelayedOrBlocked.filter(t=>!matchedIds.has(t.id)).length;
+  const maxCount=patternCounts.length?patternCounts[0].count:1;
+
+  h+='<div class="emc-section"><div class="emc-section-hdr"><div class="emc-section-title"><span class="ico">🔬</span> Root Cause / Risk Pattern</div><span class="emc-section-badge purple">'+allDelayedOrBlocked.length+' delayed/blocked tasks analyzed</span></div>';
+  h+='<div class="emc-section-body">';
+  h+='<div class="emc-pattern-grid">';
+  patternCounts.forEach(p=>{
+    const pct=Math.round(p.count/Math.max(maxCount,1)*100);
+    const barColor=p.count>=5?'#ef4444':p.count>=3?'#f59e0b':'#3b82f6';
+    h+='<div class="emc-pattern-card">';
+    h+='<div class="emc-pattern-name">'+p.icon+' '+p.name+'</div>';
+    h+='<div class="emc-pattern-bar"><div class="emc-pattern-bar-fill" style="width:'+pct+'%;background:'+barColor+'"></div></div>';
+    h+='<div class="emc-pattern-count"><strong>'+p.count+'</strong> tasks &middot; +'+p.totalDelay+'d total delay</div>';
+    h+='</div>';
+  });
+  if(otherCount>0){
+    h+='<div class="emc-pattern-card"><div class="emc-pattern-name">❓ Other / Unspecified</div><div class="emc-pattern-bar"><div class="emc-pattern-bar-fill" style="width:'+Math.round(otherCount/Math.max(maxCount,1)*100)+'%;background:#64748b"></div></div><div class="emc-pattern-count"><strong>'+otherCount+'</strong> tasks</div></div>';
+  }
+  if(!patternCounts.length&&otherCount===0){
+    h+='<div style="padding:16px;text-align:center;color:var(--t3)"><div style="font-size:24px;margin-bottom:6px">✅</div>No systemic risk patterns detected.</div>';
+  }
+  h+='</div></div></div>';
+
+  // ═══ MODULE 8: AI EXECUTIVE WORKBENCH ═══
+  h+='<div class="emc-ai-card"><div class="emc-ai-title">🤖 AI Executive Workbench</div>';
+  h+='<div class="emc-ai-text">Portfolio health: <strong>'+avgHealth+'/100</strong>. '+launchDelay.length+' projects with launch impact. '+deptBottlenecks.filter(d=>d.pressure==='overload').length+' department(s) need leadership support. '+decisions.length+' pending decision(s).</div>';
+  h+='<div class="emc-ai-actions">';
+  h+='<button class="emc-ai-btn" onclick="emcShowAI(this,\'summary\')">📋 Executive Summary</button>';
+  h+='<button class="emc-ai-btn" onclick="emcShowAI(this,\'risk\')">⚠️ Explain Portfolio Risk</button>';
+  h+='<button class="emc-ai-btn" onclick="emcShowAI(this,\'bottleneck\')">🔍 Identify Top Bottlenecks</button>';
+  h+='<button class="emc-ai-btn" onclick="emcShowAI(this,\'actions\')">🎯 Recommend Leadership Actions</button>';
+  h+='<button class="emc-ai-btn" onclick="emcShowAI(this,\'escalation\')">📢 Draft Escalation Note</button>';
+  h+='<button class="emc-ai-btn" onclick="emcShowAI(this,\'weekly\')">📊 Weekly Business Review</button>';
+  h+='<button class="emc-ai-btn" onclick="emcShowAI(this,\'predict\')">🔮 Predict 30-Day Risk</button>';
+  h+='</div><div class="emc-ai-result" id="emc-ai-result"></div></div>';
+
+  h+='</div>'; // end emc-root
+  c.innerHTML=h;
+}
+
+/* EMC AI Workbench handler */
+function emcShowAI(btn,type){
+  const resultEl=btn.closest('.emc-ai-card').querySelector('.emc-ai-result');
+  if(resultEl.classList.contains('show')&&resultEl.dataset.type===type){resultEl.classList.remove('show');return;}
+  let html='';
+  const total=S.projects.length;
+  const onTrack=S.projects.filter(p=>p.healthScore>=70);
+  const atRisk=S.projects.filter(p=>p.healthScore>=50&&p.healthScore<70);
+  const critical=S.projects.filter(p=>p.healthScore<50);
+  const avgHealth=total?Math.round(S.projects.reduce((s,p)=>s+p.healthScore,0)/total):0;
+  const delayedTasks=S.tasks.filter(t=>t.status==='Delayed'||t.status==='Blocked');
+  const overdueTasks=S.tasks.filter(t=>isOverdue(t.dueDate,t.status));
+  const decisions=S.issues.filter(i=>i.type==='Decision Needed'&&i.status==='Open');
+  const openEsc=S.issues.filter(i=>i.status==='Open'&&i.escalation);
+  const deptBN=DEPARTMENTS.map(d=>{
+    const dt=S.tasks.filter(t=>t.department===d);
+    const dd=dt.filter(t=>t.status==='Delayed'||t.status==='Blocked');
+    return{dept:d,delayed:dd.length,totalDelay:dd.reduce((s,t)=>s+(t.delayDays||0),0)};
+  }).sort((a,b)=>b.totalDelay-a.totalDelay);
+
+  if(type==='summary'){
+    html+='<strong>📋 Executive Summary</strong>';
+    html+='<div style="margin-top:6px">AutoPM portfolio tracks <strong>'+total+' projects</strong> ('+REAL_DEPT_STATS.active+' active SKUs). Health score: <strong>'+avgHealth+'/100</strong>.</div>';
+    html+='<div style="margin-top:4px">'+onTrack.length+' on track, '+atRisk.length+' at risk, <span class="hi-red">'+critical.length+' critical</span>.</div>';
+    html+='<div style="margin-top:4px">'+delayedTasks.length+' delayed/blocked tasks, '+overdueTasks.length+' overdue. '+decisions.length+' pending decisions.</div>';
+    if(openEsc.length) html+='<div style="margin-top:4px"><span class="hi-red">'+openEsc.length+' escalated issues</span> awaiting executive action.</div>';
+  } else if(type==='risk'){
+    html+='<strong>⚠️ Portfolio Risk Analysis</strong>';
+    const topRisk=[...S.projects].sort((a,b)=>a.healthScore-b.healthScore).slice(0,5);
+    html+='<div style="margin-top:6px">';
+    topRisk.forEach((p,i)=>{
+      html+='<div style="margin-bottom:6px"><strong>'+(i+1)+'. '+(p.sku||p.name)+'</strong> — Health: '+p.healthScore+(p.delayDays>0?', +'+p.delayDays+'d':'')+' — '+(p.keyIssue||'Key issue TBD')+'</div>';
+    });
+    html+='</div>';
+    if(critical.length>0) html+='<div style="margin-top:4px"><span class="hi-red">'+critical.length+' projects below health threshold 50</span> — immediate intervention needed.</div>';
+  } else if(type==='bottleneck'){
+    html+='<strong>🔍 Top Bottleneck Analysis</strong>';
+    html+='<div style="margin-top:6px">';
+    deptBN.filter(d=>d.totalDelay>0).slice(0,5).forEach(db=>{
+      html+='<div style="margin-bottom:6px"><strong>'+db.dept+'</strong>: +'+db.totalDelay+'d total delay across '+db.delayed+' tasks. ';
+      if(db.pressure==='overload'||db.delayed>3) html+='<span class="hi-red">Leadership support required.</span>';
+      html+='</div>';
+    });
+    if(!deptBN.some(d=>d.totalDelay>0)) html+='<span class="hi-green">No department bottlenecks detected.</span>';
+    html+='</div>';
+  } else if(type==='actions'){
+    html+='<strong>🎯 Recommended Leadership Actions</strong>';
+    html+='<div style="margin-top:6px">';
+    if(critical.length) html+='<div style="margin-bottom:6px"><span class="hi-red">1. Urgent:</span> Review '+critical.length+' critical project(s): '+critical.map(p=>p.sku||p.name).join(', ')+'.</div>';
+    if(decisions.length) html+='<div style="margin-bottom:6px"><span class="hi-orange">2. Decision:</span> Resolve '+decisions.length+' pending decision(s) — each blocks downstream progress.</div>';
+    if(deptBN[0]&&deptBN[0].totalDelay>10) html+='<div style="margin-bottom:6px"><span class="hi-orange">3. Resource:</span> Provide additional support to '+deptBN[0].dept+' department (+ '+deptBN[0].totalDelay+'d cumulative delay).</div>';
+    if(openEsc.length) html+='<div style="margin-bottom:6px"><span class="hi-red">4. Escalation:</span> Respond to '+openEsc.length+' escalated issue(s).</div>';
+    if(!critical.length&&!decisions.length) html+='<span class="hi-green">No immediate leadership actions required. Portfolio is stable.</span>';
+    html+='</div>';
+  } else if(type==='escalation'){
+    html+='<strong>📢 Escalation Note Draft</strong>';
+    html+='<div style="margin-top:6px;font-size:11px;line-height:1.5">';
+    html+='<div><strong>To:</strong> VP Product Development / GM</div>';
+    html+='<div><strong>From:</strong> PMO — AutoPM Executive Alert</div>';
+    html+='<div><strong>Subject:</strong> Portfolio Risk Alert — '+critical.length+' Critical, '+atRisk.length+' At Risk</div>';
+    html+='<div style="margin-top:8px"><strong>Summary:</strong> Portfolio health score at <strong>'+avgHealth+'/100</strong>. '+delayedTasks.length+' tasks delayed/blocked across '+deptBN.filter(d=>d.delayed>0).length+' departments.</div>';
+    if(critical.length) html+='<div style="margin-top:4px"><strong>Critical projects:</strong> '+critical.map(p=>p.sku+' (H:'+p.healthScore+')').join(', ')+'</div>';
+    if(openEsc.length) html+='<div style="margin-top:4px"><strong>Escalated issues:</strong> '+openEsc.map(i=>i.title).slice(0,3).join('; ')+'</div>';
+    html+='<div style="margin-top:8px"><strong>Requested Action:</strong> Leadership review within 24h to unblock critical path items.</div>';
+    html+='</div>';
+  } else if(type==='weekly'){
+    const doneThisWeek=S.tasks.filter(t=>t.status==='Done').length;
+    const newDelayed=delayedTasks.length;
+    html+='<strong>📊 Weekly Business Review</strong>';
+    html+='<div style="margin-top:6px;font-size:11px;line-height:1.5">';
+    html+='<div><strong>Week of:</strong> '+new Date().toLocaleDateString()+'</div>';
+    html+='<div style="margin-top:6px"><strong>Portfolio:</strong> '+total+' projects, health score '+avgHealth+'/100.</div>';
+    html+='<div><strong>Achievements:</strong> '+doneThisWeek+' tasks completed this week.</div>';
+    html+='<div><strong>Challenges:</strong> '+newDelayed+' tasks delayed/blocked, '+overdueTasks.length+' overdue.</div>';
+    html+='<div><strong>Decisions:</strong> '+decisions.length+' pending executive decisions.</div>';
+    html+='<div style="margin-top:6px"><strong>Next Week Focus:</strong> ';
+    if(critical.length) html+='Resolve '+critical.length+' critical projects. ';
+    if(decisions.length) html+='Clear '+decisions.length+' pending decisions. ';
+    if(!critical.length&&!decisions.length) html+='Continue monitoring and proactive risk mitigation.';
+    html+='</div></div>';
+  } else if(type==='predict'){
+    html+='<strong>🔮 30-Day Risk Prediction</strong>';
+    html+='<div style="margin-top:6px">';
+    const highRisk=S.projects.filter(p=>p.healthScore<60&&p.status!=='Completed');
+    if(highRisk.length){
+      html+='<div style="margin-bottom:6px"><span class="hi-red">'+highRisk.length+' project(s) likely to miss next milestone</span> within 30 days:</div>';
+      highRisk.slice(0,5).forEach(p=>{
+        html+='<div style="margin-bottom:4px;margin-left:12px">• <strong>'+(p.sku||p.name)+'</strong> — Health: '+p.healthScore+', +'+p.delayDays+'d delay, Gate: '+(NPI_GATES[p.currentGate]?.short||'--')+'</div>';
+      });
+    }
+    const deptWatch=deptBN.filter(d=>d.delayed>=2);
+    if(deptWatch.length){
+      html+='<div style="margin-top:6px"><span class="hi-orange">Departments at risk of further delays:</span> '+deptWatch.map(d=>d.dept+' ('+d.delayed+' delayed)').join(', ')+'</div>';
+    }
+    if(!highRisk.length&&!deptWatch.length) html+='<span class="hi-green">No significant risks predicted for the next 30 days. Portfolio trajectory is stable.</span>';
+    html+='</div>';
   }
 
-  // Company-level reports
-  h+=`<div class="card mt16"><div class="card-hdr"><div class="card-title">📊 Export Company Reports</div></div><div class="card-body">
-    <div class="flex gap8 flex-wrap">
-      <button class="btn btn-secondary btn-sm" onclick="toast('Leadership Summary exported (demo)','info')">📋 Leadership Summary</button>
-      <button class="btn btn-secondary btn-sm" onclick="toast('Portfolio Risk Summary exported (demo)','info')">⚠️ Portfolio Risk</button>
-      <button class="btn btn-secondary btn-sm" onclick="toast('Dept Bottleneck Summary exported (demo)','info')">🏢 Dept Bottleneck</button>
-    </div>
-  </div></div>`;
-
-  c.innerHTML=h;
+  resultEl.innerHTML=html;
+  resultEl.classList.add('show');
+  resultEl.dataset.type=type;
 }
 
 /* =======================================================
@@ -2907,7 +3226,7 @@ function saveEditTask(tid){
   if(proj){
     if(isDelayed&&t.delayDays>0){proj.delayDays=Math.max(proj.delayDays||0,t.delayDays);proj.riskLevel='High';}
     if(t.recoveryAction)proj.recoveryAction=t.recoveryAction;
-    if(t.rootCause)proj.keyIssue=t.name.slice(0,40)+(t.delayDays>0?` +${t.delayDays}d`:'');
+    if(t.rootCause)proj.keyIssue=(t.name||'').slice(0,40)+(t.delayDays>0?` +${t.delayDays}d`:'');
     const allTasks=projTasks(t.projectId);
     const blocked=allTasks.filter(x=>x.status==='Blocked').length;
     const delayed=allTasks.filter(x=>x.status==='Delayed').length;
@@ -2966,6 +3285,45 @@ function saveNewTask(pid){
     dueDate:document.getElementById('nt_due')?.value||'',
     status:'Not Started',pri:document.getElementById('nt_pri')?.value||'medium',
     prog:0,ms:document.getElementById('nt_ms')?.value||'',
+    dep:null,riskFlag:false,delayFlag:false,delayDays:0,
+    blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''
+  });
+  closeModal();saveData();render();toast('Task created');
+}
+
+/* Quick Add Task — minimal modal for Daily Work */
+function showQuickAddTaskModal(){
+  const projOpts=S.projects.map(p=>`<option value="${p.id}" ${DW_PROJ_FILTER===p.id?'selected':''}>${p.sku||p.name}</option>`).join('');
+  const defaultProj=DW_PROJ_FILTER||'';
+  document.getElementById('modalTitle').textContent='+ Quick Add Task';
+  document.getElementById('modalOverlay').style.display='flex';
+  document.getElementById('modalContent').innerHTML=`
+    <div class="form-grid">
+      <div class="full"><label class="form-label">Task Name *</label><input class="form-input" id="qat_name" placeholder="What needs to be done?"></div>
+      <div><label class="form-label">Project</label><select class="form-input" id="qat_proj"><option value="">-- Select Project --</option>${projOpts}</select></div>
+      <div><label class="form-label">Due Date</label><input type="date" class="form-input" id="qat_due"></div>
+      <div><label class="form-label">Priority</label><select class="form-input" id="qat_pri"><option value="high">High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select></div>
+    </div>
+    <div class="modal-footer" style="margin:16px -20px -20px;padding:12px 20px">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveQuickTask()">Create Task</button>
+    </div>`;
+  // Auto-focus task name
+  setTimeout(()=>document.getElementById('qat_name')?.focus(),50);
+}
+
+function saveQuickTask(){
+  const name=document.getElementById('qat_name')?.value?.trim();
+  if(!name){toast('Task name required','error');return;}
+  const pid=document.getElementById('qat_proj')?.value;
+  if(!pid){toast('Please select a project','error');return;}
+  S.tasks.push({
+    id:'T-'+Date.now(),projectId:pid,gate:0,
+    name,desc:'',
+    department:'PM',owner:'Sunny',
+    dueDate:document.getElementById('qat_due')?.value||'',
+    status:'Not Started',pri:document.getElementById('qat_pri')?.value||'medium',
+    prog:0,ms:'',
     dep:null,riskFlag:false,delayFlag:false,delayDays:0,
     blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''
   });
@@ -3287,21 +3645,7 @@ function pdSummaryCards(p,tasks,issues,delivs){
   </div>`;
 }
 
-function pdTabBar(tab){
-  const tabs=[['overview','Overview'],['tasks','Tasks'],['risks','Risks'],['decisions','Decisions'],['dependencies','Dependencies'],['documents','Documents'],['ai','AI Analysis']];
-  return `<div class="pd-tab-bar">${tabs.map(([k,l])=>`<button class="pd-tab ${tab===k?'active':''}" onclick="S.subPage='${k}';render()">${l}</button>`).join('')}</div>`;
-}
 
-function pdTabContent(tab,p,tasks,issues,delivs){
-  if(tab==='overview')return pdOverview(p,tasks,issues,delivs);
-  if(tab==='tasks')return pdTasksTab(p,tasks);
-  if(tab==='risks')return pdRisksTab(p,issues);
-  if(tab==='decisions')return pdDecisionsTab(p,issues);
-  if(tab==='dependencies')return pdDepsTab(p);
-  if(tab==='documents')return pdDocsTab(p);
-  if(tab==='ai')return pdAITab(p,tasks,issues);
-  return pdOverview(p,tasks,issues,delivs);
-}
 
 function pdOverview(p,tasks,issues,delivs){
   const delayedT=tasks.filter(t=>t.status==='Delayed'||t.status==='Blocked');
@@ -3685,15 +4029,50 @@ function pdGanttTab(p,tasks){
 
 
 /* ===== DEPARTMENT COMMAND CENTER ===== */
-const DCC_LEADERS = {
-  'All': {name:'NPI Portfolio',role:'VP NPI'},
-  'PM': {name:'Sunny',role:'NPI Program Manager'},
-  'Engineering': {name:'Mike Chen',role:'Sr. Engineering Lead'},
-  'Quality': {name:'Lisa Wang',role:'QA Manager'},
-  'Supply Chain': {name:'Tom Zhang',role:'SC Director'},
-  'Manufacturing': {name:'Amy Liu',role:'MFG Director'},
-  'Packaging': {name:'Jack Wu',role:'PKG Engineering Lead'}
-};
+// Department Master List — extensible configuration
+const DEPT_MASTER = [
+  {id:'PMO',name:'PMO / NPI',group:'Management',leader:'Sunny',role:'NPI Program Manager',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'ProductDev',name:'Product Development',group:'Product',leader:'Sarah Li',role:'Product Director',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Engineering',name:'Engineering',group:'Technical',leader:'Mike Chen',role:'Sr. Engineering Lead',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'MechEng',name:'Mechanical Engineering',group:'Technical',leader:'Wei Fang',role:'ME Lead',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'ElecEng',name:'Electrical Engineering',group:'Technical',leader:'Jun Zhao',role:'EE Lead',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Firmware',name:'Firmware',group:'Technical',leader:'Alex Xu',role:'FW Manager',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'IDUI',name:'ID / UI',group:'Design',leader:'Mia Huang',role:'Design Lead',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Quality',name:'Quality',group:'Quality & Compliance',leader:'Lisa Wang',role:'QA Manager',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Compliance',name:'Compliance',group:'Quality & Compliance',leader:'Rachel Tsai',role:'Compliance Manager',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'SupplyChain',name:'Supply Chain',group:'Operations',leader:'Tom Zhang',role:'SC Director',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Manufacturing',name:'Manufacturing',group:'Operations',leader:'Amy Liu',role:'MFG Director',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Packaging',name:'Packaging',group:'Operations',leader:'Jack Wu',role:'PKG Engineering Lead',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Tooling',name:'Tooling',group:'Operations',leader:'Bin Luo',role:'Tooling Manager',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'FactoryCM',name:'Factory / CM',group:'Operations',leader:'Kevin Zhou',role:'Factory Manager',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Finance',name:'Finance',group:'Support',leader:'Cathy He',role:'Finance Director',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Marketing',name:'Marketing',group:'Support',leader:'Diana Chen',role:'Marketing Director',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Sales',name:'Sales',group:'Support',leader:'Eric Gao',role:'VP Sales',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Legal',name:'Legal',group:'Support',leader:'Frank Wu',role:'Legal Counsel',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'IT',name:'IT',group:'Support',leader:'George Lin',role:'IT Director',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Regional',name:'Regional Team',group:'Support',leader:'--',role:'Regional Lead',active:true,modules:['health','impact','risk','people','mgmt','ai']},
+  {id:'Supplier',name:'Supplier',group:'External',leader:'--',role:'Supplier Mgmt',active:true,modules:['health','impact','risk','people','mgmt','ai']}
+];
+
+// Helper: get dept config by ID
+function getDeptConfig(id){return DEPT_MASTER.find(d=>d.id===id)||null;}
+
+// Legacy compat: DCC_LEADERS for old code
+const DCC_LEADERS={};
+DEPT_MASTER.forEach(d=>{DCC_LEADERS[d.id]={name:d.leader,role:d.role};});
+DCC_LEADERS['All']={name:'NPI Portfolio',role:'VP NPI'};
+// Legacy compat: map old dept names to new IDs
+const DEPT_ALIAS={'PM':'PMO','Supply Chain':'SupplyChain','Packaging':'Packaging'};
+
+// Department Management Hub folders (extensible per department)
+const DEPT_HUB_FOLDERS = [
+  {id:'onboarding',name:'New Employee Onboarding',icon:'🙋',desc:'Getting started guides, role descriptions, and orientation materials',owner:'HR / Dept Lead',items:0},
+  {id:'rules',name:'Department Rules',icon:'📋',desc:'Policies, working agreements, and department-specific regulations',owner:'Dept Lead',items:0},
+  {id:'sop',name:'SOP / Work Instructions',icon:'📖',desc:'Standard operating procedures and step-by-step work instructions',owner:'Process Owner',items:0},
+  {id:'templates',name:'Templates',icon:'📝',desc:'Reusable templates for reports, reviews, and standard deliverables',owner:'PM / Dept Lead',items:0},
+  {id:'lessons',name:'Lessons Learned',icon:'💡',desc:'Historical cases, root cause analyses, and recovery playbooks',owner:'All Members',items:0},
+  {id:'recovery',name:'Recovery Playbook',icon:'🔧',desc:'Step-by-step recovery actions for common delay and blocker scenarios',owner:'PM / Engineering Lead',items:0}
+];
 
 const DCC_DEPT_DELIVERABLES = {
   'Engineering': {
@@ -3921,14 +4300,21 @@ function dccGenResource(dept, deptTasks, deptUsers){
 /* ── Main renderDept dispatcher ── */
 function renderDept(c){
   c=document.getElementById('content');
-  const DEPTS=['All','PM','Engineering','Quality','Supply Chain','Manufacturing','Packaging'];
   const dept=S.deptFilter||'All';
+  // Build grouped department selector
   let h='<div class="dcc-filter-bar">';
-  h+='<span class="dcc-filter-label">View:</span>';
-  DEPTS.forEach(d=>{
-    const active=dept===d;
-    h+='<button class="dcc-filter-btn '+(active?'active':'')+'" onclick="S.deptFilter=\''+d+'\';renderDept(document.getElementById(\'content\'))">'+(d==='All'?'NPI Portfolio':d)+'</button>';
+  h+='<span class="dcc-filter-label">Department:</span>';
+  h+='<select class="dcc-dept-select" onchange="S.deptFilter=this.value;renderDept(document.getElementById(\'content\'))">';
+  h+='<option value="All" '+(dept==='All'?'selected':'')+'>NPI Portfolio (All)</option>';
+  const groups=[...new Set(DEPT_MASTER.filter(d=>d.active).map(d=>d.group))];
+  groups.forEach(g=>{
+    h+='<optgroup label="'+g+'">';
+    DEPT_MASTER.filter(d=>d.active&&d.group===g).forEach(d=>{
+      h+='<option value="'+d.id+'" '+(dept===d.id?'selected':'')+'>'+d.name+'</option>';
+    });
+    h+='</optgroup>';
   });
+  h+='</select>';
   h+='</div>';
   if(dept==='All'){h+=renderNPIPortfolio();}else{h+=renderDeptView(dept);}
   c.innerHTML=h;
@@ -3966,18 +4352,21 @@ function renderNPIPortfolio(){
     h+='<div class="dcc-chart-bar"><div class="dcc-chart-bar-label" style="font-size:9px">'+cat+'</div><div class="dcc-chart-bar-track"><div class="dcc-chart-bar-fill" style="width:'+Math.max(pct,3)+'%;background:'+catColors[i%catColors.length]+'">'+cnt+'</div></div><span style="font-size:10px;color:var(--t3);min-width:36px;text-align:right">'+pct+'%</span></div>';
   });
   h+='</div></div></div>';
-  const depts=['Engineering','Quality','Supply Chain','Manufacturing','Packaging','PM'];
-  const deptBottleneck=depts.map(dept=>{
-    const dt=S.tasks.filter(t=>t.department===dept);
+  // Department Bottleneck in Portfolio view
+  const depts=DEPT_MASTER.filter(d=>d.active).map(d=>d.id);
+  const deptBottleneck=depts.map(deptId=>{
+    const dt=S.tasks.filter(t=>t.department===deptId);
     const overdue=dt.filter(t=>isOverdue(t.dueDate,t.status)).length;
     const delayed=dt.filter(t=>t.status==='Delayed'||t.status==='Blocked').length;
     const impacted=[...new Set(dt.filter(t=>t.status==='Delayed'||t.status==='Blocked').map(t=>t.projectId))].length;
-    return {dept,overdue,delayed,impacted,score:overdue*3+delayed*5+impacted*4};
-  }).sort((a,b)=>b.score-a.score);
+    return {dept:deptId,overdue,delayed,impacted,score:overdue*3+delayed*5+impacted*4};
+  }).filter(d=>d.score>0).sort((a,b)=>b.score-a.score);
   h+='<div class="dcc-section"><div class="dcc-section-hdr"><div class="dcc-section-title"><span class="ico">🔥</span> Department Bottleneck</div></div><div class="dcc-section-body"><table class="dcc-table"><thead><tr><th>Dept</th><th style="text-align:center">Overdue</th><th style="text-align:center">Delayed</th><th style="text-align:center">Impacted</th><th>Score</th></tr></thead><tbody>';
   deptBottleneck.forEach(db=>{
+    const cfg=getDeptConfig(db.dept);
+    const label=cfg?cfg.name:db.dept;
     const color=DEPT_COLORS[db.dept]||'#6b7280';
-    h+='<tr><td><span style="font-weight:700;color:'+color+'">'+db.dept+'</span></td>';
+    h+='<tr style="cursor:pointer" onclick="S.deptFilter=\''+db.dept+'\';renderDept(document.getElementById(\'content\'))"><td><span style="font-weight:700;color:'+color+'">'+label+'</span></td>';
     h+='<td class="num" style="color:'+(db.overdue?'#ef4444':'inherit')+'">'+db.overdue+'</td>';
     h+='<td class="num" style="color:'+(db.delayed?'#ef4444':'inherit')+'">'+db.delayed+'</td>';
     h+='<td class="num" style="color:'+(db.impacted?'#f59e0b':'inherit')+'">'+db.impacted+'</td>';
@@ -3988,15 +4377,21 @@ function renderNPIPortfolio(){
 }
 
 function renderDeptView(dept){
-  const deptTasks=S.tasks.filter(t=>t.department===dept);
+  const cfg=getDeptConfig(dept);
+  const deptName=cfg?cfg.name:dept;
+  const leader=cfg?cfg.leader:'--';
+  const leaderRole=cfg?cfg.role:'--';
+  
+  // Department tasks - try both new ID and legacy name matching
+  const deptTasks=S.tasks.filter(t=>t.department===dept||t.department===deptName||(DEPT_ALIAS[t.department]===dept));
   const deptProjects=S.projects.filter(p=>deptTasks.some(t=>t.projectId===p.id));
-  const deptUsers=S.users.filter(u=>u.dept===dept);
-  const deptKB=S.knowledge.filter(k=>k.relatedFunction===dept||k.tags.some(tag=>tag.includes(dept)));
+  const deptUsers=S.users.filter(u=>u.dept===dept||u.dept===deptName);
   const openT=deptTasks.filter(t=>t.status!=='Done'&&t.status!=='Completed');
   const overdueT=deptTasks.filter(t=>isOverdue(t.dueDate,t.status));
   const delayedT=deptTasks.filter(t=>t.status==='Delayed'||t.status==='Blocked');
   const riskProjects=deptProjects.filter(p=>p.riskLevel==='High');
-  const leader=DCC_LEADERS[dept]||{name:'--',role:'--'};
+  
+  // === PEOPLE WORKLOAD ===
   const ownerWL={};
   deptUsers.forEach(u=>{
     const ut=deptTasks.filter(t=>t.owner===u.name);
@@ -4006,123 +4401,440 @@ function renderDeptView(dept){
     const projs=[...new Set(op.map(t=>t.projectId))];
     const capScore=op.length*1+crit.length*2+od.length*3+(projs.length>1?projs.length:0);
     const capStatus=capScore>10?'overload':capScore>5?'high':'ok';
-    ownerWL[u.name]={user:u,open:op.length,critical:crit.length,overdue:od.length,total:ut.length,projects:projs.length,capScore,capStatus};
+    ownerWL[u.name]={user:u,role:u.role,open:op.length,critical:crit.length,overdue:od.length,total:ut.length,projects:projs.length,capScore,capStatus};
   });
-  const healthScore=deptProjects.length?Math.round((deptProjects.filter(p=>p.riskLevel==='Low').length/deptProjects.length)*100):100;
+  const overloadedCount=Object.values(ownerWL).filter(o=>o.capStatus==='overload').length;
+  const highLoadCount=Object.values(ownerWL).filter(o=>o.capStatus==='high').length;
+  const pressureCount=overloadedCount+highLoadCount;
+  
+  // === HEALTH SCORE (composite) ===
+  const hRiskPenalty=riskProjects.length*15;
+  const overduePenalty=overdueT.length*10;
+  const delayPenalty=delayedT.length*8;
+  const noRecovery=delayedT.filter(t=>!t.recoveryAction&&t.status!=='Done').length;
+  const noRecoveryPenalty=noRecovery*12;
+  const overloadPenalty=overloadedCount*10;
+  const launchImpact=deptProjects.filter(p=>p.riskLevel==='High'&&p.launchDate).length;
+  const launchPenalty=launchImpact*8;
+  const rawHealth=Math.max(0,100-hRiskPenalty-overduePenalty-delayPenalty-noRecoveryPenalty-overloadPenalty-launchPenalty);
+  const healthScore=Math.min(100,Math.max(0,rawHealth));
   const scoreCls=healthScore>=70?'s-good':healthScore>=50?'s-warn':'s-bad';
+  
+  // Build "Why this score?" explanation
+  let whyParts=[];
+  if(riskProjects.length>0) whyParts.push(riskProjects.length+' project'+(riskProjects.length>1?'s are':' is')+' high risk');
+  if(overdueT.length>0) whyParts.push(overdueT.length+' task'+(overdueT.length>1?'s are':' is')+' overdue');
+  if(delayedT.length>0) whyParts.push(delayedT.length+' task'+(delayedT.length>1?'s are':' is')+' delayed/blocked');
+  if(noRecovery>0) whyParts.push(noRecovery+' delayed task'+(noRecovery>1?'s have':' has')+' no recovery action');
+  if(overloadedCount>0) whyParts.push(overloadedCount+' staff member'+(overloadedCount>1?'s are':' is')+' overloaded');
+  if(launchImpact>0) whyParts.push(launchImpact+' project'+(launchImpact>1?'s may':' may')+' impact launch');
+  const whyText=whyParts.length?'Health score is '+scoreCls.replace('s-good','good').replace('s-warn','warning').replace('s-bad','critical')+' because '+whyParts.join(', ')+'.':'All systems operational — no risk factors detected.';
+  
+  // Department color
+  const deptColor=DEPT_COLORS[dept]||'#6b7280';
+  
   let h='<div class="dcc-root">';
-
-  // === 1. DEPARTMENT HEALTH ===
-  h+='<div class="dcc-header">';
-  h+='<div><div class="dcc-h-name">'+dept+' Department</div>';
-  h+='<div class="dcc-h-sub">Leader: '+leader.name+' | '+leader.role+'</div></div>';
-  h+='<div class="dcc-h-stats">';
-  h+='<div class="dcc-h-stat"><div class="dcc-h-stat-val blue">'+deptProjects.length+'</div><div class="dcc-h-stat-lbl">Projects</div></div>';
-  h+='<div class="dcc-h-stat"><div class="dcc-h-stat-val">'+openT.length+'</div><div class="dcc-h-stat-lbl">Open</div></div>';
-  h+='<div class="dcc-h-stat"><div class="dcc-h-stat-val red">'+overdueT.length+'</div><div class="dcc-h-stat-lbl">Overdue</div></div>';
-  h+='<div class="dcc-h-stat"><div class="dcc-h-stat-val orange">'+delayedT.length+'</div><div class="dcc-h-stat-lbl">Delayed</div></div>';
-  h+='<div class="dcc-h-stat"><div class="dcc-h-stat-val '+(riskProjects.length?'red':'green')+'">'+riskProjects.length+'</div><div class="dcc-h-stat-lbl">At Risk</div></div>';
-  h+='<div class="dcc-h-stat"><div class="dcc-h-stat-val '+(Object.values(ownerWL).filter(o=>o.capStatus!=='ok').length?'red':'green')+'">'+Object.values(ownerWL).filter(o=>o.capStatus!=='ok').length+'</div><div class="dcc-h-stat-lbl">Overloaded</div></div>';
+  
+  // ========================================
+  // MODULE 1: DEPARTMENT HEALTH BRIEF
+  // ========================================
+  h+='<div class="dcc-health-brief">';
+  h+='<div class="dcc-hb-header">';
+  h+='<div class="dcc-hb-dept-icon" style="background:'+deptColor+'">'+deptName.charAt(0)+'</div>';
+  h+='<div class="dcc-hb-header-text">';
+  h+='<div class="dcc-hb-title">'+deptName+' Department</div>';
+  h+='<div class="dcc-hb-sub">Leader: '+leader+' | '+leaderRole+'</div>';
   h+='</div>';
-  h+='<div class="dcc-score '+scoreCls+'"><div class="dcc-score-val">'+healthScore+'</div><div class="dcc-score-lbl">Health</div></div>';
+  h+='<div class="dcc-hb-score '+scoreCls+'"><div class="dcc-hb-score-val">'+healthScore+'</div><div class="dcc-hb-score-label">Health</div></div>';
   h+='</div>';
-  h+='<div class="dcc-cards">';
-  [{l:'Projects Supported',v:deptProjects.length,c:'blue'},{l:'Open Tasks',v:openT.length,c:openT.length>5?'orange':'green'},{l:'Overdue',v:overdueT.length,c:overdueT.length?'red':'green'},{l:'Delayed / Blocked',v:delayedT.length,c:delayedT.length?'red':'green'},{l:'High Risk Projects',v:riskProjects.length,c:riskProjects.length?'red':'green'},{l:'Staff Under Pressure',v:Object.values(ownerWL).filter(o=>o.capStatus!=='ok').length,c:Object.values(ownerWL).filter(o=>o.capStatus==='overload').length?'red':'orange'}].forEach(c=>{
-    h+='<div class="dcc-card '+c.c+'"><div class="dcc-card-val">'+c.v+'</div><div class="dcc-card-lbl">'+c.l+'</div></div>';
-  });
+  
+  // KPI row
+  h+='<div class="dcc-hb-stats">';
+  h+='<div class="dcc-hb-stat"><div class="dcc-hb-stat-val">'+deptProjects.length+'</div><div class="dcc-hb-stat-label">Supported Projects</div></div>';
+  h+='<div class="dcc-hb-stat"><div class="dcc-hb-stat-val '+(openT.length?'blue':'green')+'">'+openT.length+'</div><div class="dcc-hb-stat-label">Open Tasks</div></div>';
+  h+='<div class="dcc-hb-stat"><div class="dcc-hb-stat-val '+(overdueT.length?'red':'green')+'">'+overdueT.length+'</div><div class="dcc-hb-stat-label">Overdue</div></div>';
+  h+='<div class="dcc-hb-stat"><div class="dcc-hb-stat-val '+(delayedT.length?'red':'green')+'">'+delayedT.length+'</div><div class="dcc-hb-stat-label">Delayed / Blocked</div></div>';
+  h+='<div class="dcc-hb-stat"><div class="dcc-hb-stat-val '+(riskProjects.length?'red':'green')+'">'+riskProjects.length+'</div><div class="dcc-hb-stat-label">High Risk Projects</div></div>';
+  h+='<div class="dcc-hb-stat"><div class="dcc-hb-stat-val '+(pressureCount?'red':'green')+'">'+pressureCount+'</div><div class="dcc-hb-stat-label">Staff Under Pressure</div></div>';
   h+='</div>';
-
-  // === 2. PROJECT IMPACT ===
+  
+  // AI Health Summary
+  h+='<div class="dcc-hb-ai-summary">';
+  h+='<div class="dcc-hb-ai-title">🤖 AI Health Summary</div>';
+  h+='<div class="dcc-hb-ai-text">';
+  h+=deptName+' supports <strong>'+deptProjects.length+' projects</strong> with <strong>'+openT.length+' open tasks</strong>. ';
+  if(overdueT.length>0) h+='<span class="hi-red">'+overdueT.length+' tasks are overdue</span>. ';
+  if(delayedT.length>0) h+='<span class="hi-orange">'+delayedT.length+' tasks are delayed/blocked</span>. ';
+  if(riskProjects.length>0) h+='<span class="hi-red">'+riskProjects.length+' high-risk projects need attention</span>. ';
+  if(overloadedCount>0) h+='<span class="hi-red">'+overloadedCount+' staff member(s) are overloaded</span>. ';
+  if(whyParts.length===0) h+='<span class="hi-green">All systems operational.</span>';
+  h+='</div>';
+  // Why this score?
+  h+='<div class="dcc-hb-why">';
+  h+='<span class="dcc-hb-why-label">Why this score?</span> ';
+  h+=whyText;
+  h+='</div>';
+  h+='</div>';
+  h+='</div>';
+  
+  // ========================================
+  // MODULE 2: PROJECT IMPACT
+  // ========================================
+  h+='<div class="dcc-section"><div class="dcc-section-hdr"><div class="dcc-section-title"><span class="ico">📊</span> Project Impact</div><span class="dcc-section-badge blue">'+deptProjects.length+' projects affected</span></div>';
+  h+='<div class="dcc-section-body">';
+  h+='<table class="dcc-table"><thead><tr><th>Project</th><th>Current Gate</th><th>Milestone</th><th style="text-align:center">Open</th><th style="text-align:center">Overdue</th><th style="text-align:center">Delayed</th><th>Risk</th><th>Key Issue</th><th style="text-align:center">Action</th></tr></thead><tbody>';
+  
   const projImpact=deptProjects.map(p=>{
     const pt=deptTasks.filter(t=>t.projectId===p.id);
     return {p,open:pt.filter(t=>t.status!=='Done'&&t.status!=='Completed').length,delayed:pt.filter(t=>t.status==='Delayed'||t.status==='Blocked').length,overdue:pt.filter(t=>isOverdue(t.dueDate,t.status)).length};
   }).sort((a,b)=>(b.delayed*5+b.overdue*3)-(a.delayed*5+a.overdue*3));
-  h+='<div class="dcc-section"><div class="dcc-section-hdr"><div class="dcc-section-title"><span class="ico">💥</span> Project Impact</div><span class="dcc-section-badge '+(riskProjects.length?'red':'green')+'">'+deptProjects.length+' projects</span></div><div class="dcc-section-body"><table class="dcc-table"><thead><tr><th>Project</th><th>Gate</th><th style="text-align:center">Open</th><th style="text-align:center">Overdue</th><th style="text-align:center">Delayed</th><th>Risk</th><th>Key Issue</th><th></th></tr></thead><tbody>';
+  
   projImpact.forEach(pi=>{
-    const p=pi.p;const gate=NPI_GATES[p.currentGate]?.short||'--';
-    h+='<tr><td><span class="pn" onclick="navigateTo(\'projects\',{projectId:\''+p.id+'\'})">'+p.sku+'</span></td><td style="font-size:10px">'+gate+'</td><td class="num">'+pi.open+'</td><td class="num" style="color:'+(pi.overdue?'#ef4444':'inherit')+'">'+pi.overdue+'</td><td class="num" style="color:'+(pi.delayed?'#ef4444':'inherit')+'">'+pi.delayed+'</td><td>'+(p.riskLevel==='High'?'<span class="badge br">High</span>':p.riskLevel==='Medium'?'<span class="badge ba">Med</span>':'<span class="badge bg">Low</span>')+'</td><td style="font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">'+(p.keyIssue||'--')+'</td><td><button class="dcc-action-btn primary" onclick="navigateTo(\'projects\',{projectId:\''+p.id+'\'})">Open</button></td></tr>';
+    const p=pi.p;
+    const gate=NPI_GATES[p.currentGate]?.short||p.currentGate||'--';
+    const ms=S.milestones?.filter(m=>m.projectId===p.id).sort((a,b)=>new Date(a.dueDate)-new Date(b.dueDate))[0];
+    h+='<tr><td><span class="pn" onclick="navigateTo(\'projects\',{projectId:\''+p.id+'\'})">'+(p.sku||p.name||'--')+'</span></td>';
+    h+='<td style="font-size:10px">'+gate+'</td>';
+    h+='<td style="font-size:10px">'+((ms&&(ms.name||''))||'--')+'</td>';
+    h+='<td class="num">'+pi.open+'</td>';
+    h+='<td class="num" style="color:'+(pi.overdue?'#ef4444':'inherit')+'">'+pi.overdue+'</td>';
+    h+='<td class="num" style="color:'+(pi.delayed?'#ef4444':'inherit')+'">'+pi.delayed+'</td>';
+    h+='<td>'+(p.riskLevel==='High'?'<span class="badge br">High</span>':p.riskLevel==='Medium'?'<span class="badge ba">Med</span>':'<span class="badge bg">Low</span>')+'</td>';
+    h+='<td style="font-size:10px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(p.keyIssue||'--')+'</td>';
+    h+='<td style="white-space:nowrap">';
+    h+='<button class="dcc-action-btn primary" onclick="navigateTo(\'projects\',{projectId:\''+p.id+'\'})">View</button> ';
+    h+='<button class="dcc-action-btn" onclick="dccShowAI(this,\'bottleneck\',\''+dept+'\')">Ask AI</button> ';
+    h+='<button class="dcc-action-btn" onclick="dccAddRecovery(\''+p.id+'\')">Recovery</button> ';
+    h+='<button class="dcc-action-btn danger" onclick="dccShowAI(this,\'escalation\',\''+dept+'\')">Escalate</button>';
+    h+='</td></tr>';
   });
-  if(!projImpact.length) h+='<tr><td colspan="8" style="text-align:center;padding:20px;color:var(--t3)">No projects involve '+dept+' department.</td></tr>';
+  if(!projImpact.length) h+='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--t3)">No projects involve '+deptName+' department.</td></tr>';
   h+='</tbody></table></div></div>';
-
-  // === 3. PEOPLE & CAPACITY ===
-  h+='<div class="dcc-section"><div class="dcc-section-hdr"><div class="dcc-section-title"><span class="ico">👥</span> People & Capacity</div><span class="dcc-section-badge '+(Object.values(ownerWL).filter(o=>o.capStatus==='overload').length?'red':Object.values(ownerWL).filter(o=>o.capStatus==='high').length?'orange':'green')+'">'+Object.values(ownerWL).filter(o=>o.capStatus!=='ok').length+' under pressure</span></div><div class="dcc-section-body"><div class="dcc-wl-grid">';
-  Object.entries(ownerWL).forEach(([name,data])=>{
-    const capLabel=data.capStatus==='overload'?'OVERLOAD':data.capStatus==='high'?'HIGH':'OK';
-    h+='<div class="dcc-wl-card '+data.capStatus+'"><div class="dcc-wl-name">'+name+'</div><div class="dcc-wl-role">'+data.user.role+'</div><div class="dcc-wl-stats"><div class="dcc-wl-stat"><div class="dcc-wl-stat-val">'+data.open+'</div><div class="dcc-wl-stat-lbl">Open</div></div><div class="dcc-wl-stat"><div class="dcc-wl-stat-val" style="color:'+(data.critical?'#ef4444':'inherit')+'">'+data.critical+'</div><div class="dcc-wl-stat-lbl">Critical</div></div><div class="dcc-wl-stat"><div class="dcc-wl-stat-val" style="color:'+(data.overdue?'#ef4444':'inherit')+'">'+data.overdue+'</div><div class="dcc-wl-stat-lbl">Overdue</div></div><div class="dcc-wl-stat"><div class="dcc-wl-stat-val">'+data.projects+'</div><div class="dcc-wl-stat-lbl">Projects</div></div></div><div class="dcc-wl-bar"><div class="dcc-wl-bar-fill" style="width:'+Math.min(100,data.capScore*6)+'%;background:'+(data.capStatus==='overload'?'#ef4444':data.capStatus==='high'?'#f59e0b':'#22c55e')+'"></div></div><div class="dcc-wl-cap '+data.capStatus+'">'+capLabel+'</div></div>';
-  });
-  deptUsers.filter(u=>!ownerWL[u.name]||ownerWL[u.name].total===0).forEach(u=>{
-    h+='<div class="dcc-wl-card ok"><div class="dcc-wl-name">'+u.name+'</div><div class="dcc-wl-role">'+u.role+'</div><div class="dcc-wl-cap ok">OK</div></div>';
-  });
-  h+='</div></div></div>';
-
-  // === 4. DEPARTMENT KNOWLEDGE HUB ===
-  h+='<div class="dcc-section"><div class="dcc-section-hdr"><div class="dcc-section-title"><span class="ico">📚</span> Knowledge Hub</div><span class="dcc-section-badge blue">'+deptKB.length+' items</span></div><div class="dcc-section-body">';
-  if(deptKB.length){
-    deptKB.forEach(k=>{
-      const ti=k.type==='Lesson Learned'?'💡':k.type==='Best Practice'?'✅':k.type==='Recovery Action'?'🔧':'📄';
-      h+='<div style="padding:10px 14px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;background:var(--surface)">';
-      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:14px">'+ti+'</span><span style="font-weight:600;font-size:12px;color:var(--t1)">'+k.title+'</span><span class="badge bb" style="margin-left:auto">'+k.type+'</span></div>';
-      h+='<div style="font-size:11px;color:var(--t2);margin-bottom:4px"><strong>Problem:</strong> '+k.problem+'</div>';
-      h+='<div style="font-size:11px;color:var(--green);margin-bottom:4px"><strong>Solution:</strong> '+k.solution+'</div>';
-      h+='<div style="font-size:10px;color:var(--t3)"><strong>Prevention:</strong> '+k.prevention+'</div>';
-      if(k.tags&&k.tags.length) h+='<div style="margin-top:6px">'+k.tags.map(t=>'<span style="font-size:9px;padding:2px 6px;background:rgba(59,130,246,0.1);color:#60a5fa;border-radius:3px;margin-right:4px">'+t+'</span>').join('')+'</div>';
-      h+='</div>';
+  
+  // ========================================
+  // MODULE 3: RISK / DELAY / BLOCKER / ACTION
+  // ========================================
+  const riskItems=deptTasks.filter(t=>t.status==='Delayed'||t.status==='Blocked'||t.riskFlag);
+  h+='<div class="dcc-section"><div class="dcc-section-hdr"><div class="dcc-section-title"><span class="ico">⚠️</span> Risks / Delays / Blockers</div><span class="dcc-section-badge '+(riskItems.length?'red':'green')+'">'+riskItems.length+' items</span></div>';
+  h+='<div class="dcc-section-body">';
+  if(riskItems.length){
+    h+='<table class="dcc-table"><thead><tr><th>Task / Issue</th><th>Project</th><th>Root Cause</th><th>Impact</th><th>Recovery Action</th><th>Owner</th><th>Target Date</th><th>Status</th><th></th></tr></thead><tbody>';
+    riskItems.forEach(t=>{
+      const p=getProject(t.projectId);
+      const impact=t.impact||t.impactedMs||t.blocker||t.keyIssue||'--';
+      const targetDate=t.targetRecoveryDate||t.dueDate;
+      const hasRecovery=!!t.recoveryAction;
+      h+='<tr'+(t.status==='Blocked'?' style="background:rgba(239,68,68,0.05)"':'')+'><td style="max-width:150px"><span class="pn" onclick="showEditTaskModal(\''+t.id+'\')">'+(t.name||'').slice(0,30)+'</span></td>';
+      h+='<td><span class="pn" onclick="navigateTo(\'projects\',{projectId:\''+(p?.id||'')+'\'})">'+(p?.sku||'--')+'</span></td>';
+      h+='<td style="font-size:10px;max-width:120px;overflow:hidden;text-overflow:ellipsis">'+(t.rootCause||'--')+'</td>';
+      h+='<td style="font-size:10px;max-width:100px;overflow:hidden;text-overflow:ellipsis">'+impact+'</td>';
+      if(hasRecovery){
+        h+='<td style="font-size:10px;max-width:120px;overflow:hidden;text-overflow:ellipsis">'+(t.recoveryAction||'').slice(0,50)+'</td>';
+      } else {
+        h+='<td><span class="dcc-no-recovery">NO RECOVERY PLAN</span></td>';
+      }
+      h+='<td>'+(t.owner||'--')+'</td>';
+      h+='<td>'+fmtShort(targetDate)+'</td>';
+      h+='<td><span class="badge '+(t.status==='Blocked'?'br':t.status==='Delayed'?'ba':'bb')+'">'+t.status+'</span></td>';
+      h+='<td style="white-space:nowrap">';
+      if(!hasRecovery){
+        h+='<button class="dcc-action-btn" onclick="dccAddRecovery(\''+t.projectId+'\')">Add Recovery</button> ';
+        h+='<button class="dcc-action-btn danger" onclick="dccShowAI(this,\'escalation\',\''+dept+'\')">Escalate</button> ';
+        h+='<button class="dcc-action-btn" onclick="dccShowAI(this,\'similar\',\''+dept+'\')">Find Case</button>';
+      } else {
+        h+='<button class="dcc-action-btn" onclick="showEditTaskModal(\''+t.id+'\')">Edit</button>';
+      }
+      h+='</td></tr>';
     });
+    h+='</tbody></table>';
   } else {
-    h+='<div style="padding:20px;text-align:center;color:var(--t3)"><div style="font-size:28px;margin-bottom:8px">📚</div><div style="font-size:12px;margin-bottom:8px">No knowledge items tagged for '+dept+' yet.</div><div style="font-size:11px">Add lessons learned, best practices, or SOPs in the <a href="#" onclick="navigateTo(\'knowledge\');return false" style="color:var(--blue)">Knowledge Center</a>.</div></div>';
+    h+='<div style="padding:20px;text-align:center;color:var(--t3)"><div style="font-size:28px;margin-bottom:8px">✅</div><div>No active risks or blockers.</div></div>';
   }
   h+='</div></div>';
-
-  // === 5. AI DEPARTMENT ASSISTANT ===
-  h+='<div class="dcc-ai-card"><div class="dcc-ai-title">🤖 AI Assistant — '+dept+'</div><div class="dcc-ai-text">';
-  h+='<div>'+dept+' has <strong>'+openT.length+' open tasks</strong>, <strong style="color:'+(overdueT.length?'#ef4444':'inherit')+'">'+overdueT.length+' overdue</strong>, <strong style="color:'+(delayedT.length?'#f59e0b':'inherit')+'">'+delayedT.length+' delayed</strong>. ';
+  
+  // ========================================
+  // MODULE 4: PEOPLE & WORKLOAD
+  // ========================================
+  h+='<div class="dcc-section"><div class="dcc-section-hdr"><div class="dcc-section-title"><span class="ico">👥</span> People & Workload</div><span class="dcc-section-badge '+(overloadedCount?'red':highLoadCount?'orange':'green')+'">'+pressureCount+' under pressure</span></div>';
+  h+='<div class="dcc-section-body">';
+  h+='<table class="dcc-table"><thead><tr><th>Owner</th><th>Role</th><th style="text-align:center">Open</th><th style="text-align:center">Critical</th><th style="text-align:center">Overdue</th><th style="text-align:center">Projects</th><th>Capacity</th></tr></thead><tbody>';
+  const sortedPeople=Object.entries(ownerWL).sort((a,b)=>{
+    const order={overload:0,high:1,ok:2};
+    return (order[a[1].capStatus]||2)-(order[b[1].capStatus]||2);
+  });
+  sortedPeople.forEach(([name,data])=>{
+    const capLabel=data.capStatus==='overload'?'OVERLOAD':data.capStatus==='high'?'HIGH':'OK';
+    h+='<tr'+(data.capStatus==='overload'?' style="background:rgba(239,68,68,0.05)"':'')+'><td><strong>'+name+'</strong></td>';
+    h+='<td style="font-size:10px;color:var(--t3)">'+(data.role||'--')+'</td>';
+    h+='<td class="num">'+data.open+'</td>';
+    h+='<td class="num" style="color:'+(data.critical?'#ef4444':'inherit')+'">'+data.critical+'</td>';
+    h+='<td class="num" style="color:'+(data.overdue?'#ef4444':'inherit')+'">'+data.overdue+'</td>';
+    h+='<td class="num">'+data.projects+'</td>';
+    h+='<td><span class="dcc-wl-cap '+data.capStatus+'">'+capLabel+'</span></td></tr>';
+  });
+  if(!sortedPeople.length) h+='<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--t3)">No team members assigned to '+deptName+'.</td></tr>';
+  h+='</tbody></table></div></div>';
+  
+  // ========================================
+  // MODULE 5: DEPARTMENT MANAGEMENT HUB
+  // ========================================
+  // Count items per folder from knowledge data
+  const deptKB=S.knowledge.filter(k=>k.relatedFunction===dept||k.relatedFunction===deptName||k.tags.some(tag=>tag.includes(dept)||tag.includes(deptName)));
+  
+  // Count knowledge items by type for each folder
+  const folderCounts={
+    onboarding:deptKB.filter(k=>k.type==='Onboarding').length,
+    rules:deptKB.filter(k=>k.type==='Policy'||k.type==='Rule').length,
+    sop:deptKB.filter(k=>k.type==='SOP'||k.type==='Work Instruction').length,
+    templates:deptKB.filter(k=>k.type==='Template').length,
+    lessons:deptKB.filter(k=>k.type==='Lesson Learned'||k.type==='Best Practice').length,
+    recovery:deptKB.filter(k=>k.type==='Recovery Action').length
+  };
+  // Add baseline counts if knowledge items are sparse
+  if(deptKB.length<=3){
+    folderCounts.lessons=deptKB.filter(k=>k.type==='Lesson Learned'||k.type==='Best Practice').length||1;
+    folderCounts.recovery=deptKB.filter(k=>k.type==='Recovery Action').length||1;
+    folderCounts.sop=1;
+    folderCounts.templates=1;
+  }
+  
+  h+='<div class="dcc-section"><div class="dcc-section-hdr"><div class="dcc-section-title"><span class="ico">📁</span> Department Management Hub</div><span class="dcc-section-badge blue">'+deptKB.length+' knowledge items</span></div>';
+  h+='<div class="dcc-section-body">';
+  h+='<div class="dcc-hub-grid">';
+  DEPT_HUB_FOLDERS.forEach(folder=>{
+    const count=folderCounts[folder.id]||0;
+    h+='<div class="dcc-hub-folder" onclick="dccOpenHubFolder(\''+folder.id+'\',\''+dept+'\')">';
+    h+='<div class="dcc-hub-folder-icon">'+folder.icon+'</div>';
+    h+='<div class="dcc-hub-folder-body">';
+    h+='<div class="dcc-hub-folder-name">'+folder.name+'</div>';
+    h+='<div class="dcc-hub-folder-desc">'+folder.desc+'</div>';
+    h+='<div class="dcc-hub-folder-meta"><span>'+count+' item'+(count!==1?'s':'')+'</span><span>Owner: '+folder.owner+'</span></div>';
+    h+='</div>';
+    h+='<button class="dcc-action-btn primary" style="align-self:center">Open</button>';
+    h+='</div>';
+  });
+  h+='</div>';
+  
+  // Recent knowledge items
+  if(deptKB.length){
+    h+='<div class="dcc-hub-recent">';
+    h+='<div class="dcc-hub-recent-title">Recent Items</div>';
+    deptKB.slice(0,3).forEach(k=>{
+      const ti=k.type==='Lesson Learned'?'💡':k.type==='Best Practice'?'✅':k.type==='Recovery Action'?'🔧':'📄';
+      h+='<div class="dcc-kh-item">';
+      h+='<div class="dcc-kh-header"><span class="dcc-kh-icon">'+ti+'</span><span class="dcc-kh-title">'+k.title+'</span><span class="badge bb" style="margin-left:8px">'+k.type+'</span></div>';
+      if(k.summary) h+='<div class="dcc-kh-summary">'+(k.summary||'').slice(0,120)+'</div>';
+      if(k.link) h+='<div class="dcc-kh-link"><a href="'+k.link+'" target="_blank" style="color:var(--blue);font-size:11px">🔗 Link</a></div>';
+      if(k.tags&&k.tags.length) h+='<div class="dcc-kh-tags">'+k.tags.map(t=>'<span class="dcc-kh-tag">'+t+'</span>').join('')+'</div>';
+      h+='</div>';
+    });
+    h+='</div>';
+  }
+  h+='</div></div>';
+  
+  // ========================================
+  // MODULE 6: AI DEPARTMENT WORKBENCH
+  // ========================================
+  h+='<div class="dcc-ai-card"><div class="dcc-ai-title">🤖 AI Department Workbench — '+deptName+'</div>';
+  h+='<div class="dcc-ai-text">';
+  h+=deptName+' has <strong>'+openT.length+' open tasks</strong>, <strong style="color:'+(overdueT.length?'#f87171':'inherit')+'">'+overdueT.length+' overdue</strong>, <strong style="color:'+(delayedT.length?'#fbbf24':'inherit')+'">'+delayedT.length+' delayed</strong>. ';
   h+=riskProjects.length?'<span class="hi-red">'+riskProjects.length+' project(s) need attention.</span>':'<span class="hi-green">All projects on track.</span>';
   h+='</div>';
-  h+=dccGenBottleneck(dept, deptTasks, deptProjects);
-  h+='</div><div class="dcc-ai-actions">';
-  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'summary\',\''+dept+'\')">Summary</button>';
-  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'bottleneck\',\''+dept+'\')">Bottlenecks</button>';
-  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'priority\',\''+dept+'\')">Top Priorities</button>';
-  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'resource\',\''+dept+'\')">Resource Rebalance</button>';
-  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'escalation\',\''+dept+'\')">Escalation Draft</button>';
-  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'forecast\',\''+dept+'\')">Forecast</button>';
+  h+='<div class="dcc-ai-actions">';
+  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'summary\',\''+dept+'\')">📋 Summarize Dept</button>';
+  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'bottleneck\',\''+dept+'\')">🔍 Explain Bottleneck</button>';
+  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'similar\',\''+dept+'\')">🔎 Find Similar Case</button>';
+  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'recovery\',\''+dept+'\')">🔧 Suggest Recovery</button>';
+  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'escalation\',\''+dept+'\')">📢 Draft Escalation</button>';
+  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'report\',\''+dept+'\')">📊 Weekly Report</button>';
+  h+='<button class="dcc-ai-btn" onclick="dccShowAI(this,\'priority\',\''+dept+'\')">🎯 Recommend Priority</button>';
   h+='</div><div class="dcc-ai-result" id="dcc-ai-dept"></div></div>';
+  
   h+='</div>';
   return h;
 }
 
+// Helper: Add Recovery Plan (navigates to project with task edit)
+function dccAddRecovery(projectId){
+  navigateTo('projects',{projectId:projectId});
+}
+
+// Helper: Open Hub Folder
+function dccOpenHubFolder(folderId, dept){
+  // Future: navigate to full folder view. For now, show inline toast
+  const cfg=getDeptConfig(dept);
+  const folder=DEPT_HUB_FOLDERS.find(f=>f.id===folderId);
+  if(!folder) return;
+  // For now, navigate to Knowledge Center filtered by dept
+  navigateTo('knowledge');
+}
+
+// ========================================
+// AI DEPARTMENT WORKBENCH — Structured Output
+// ========================================
 function dccShowAI(btn, type, dept){
   const resultEl=btn.closest('.dcc-ai-card').querySelector('.dcc-ai-result');
   if(resultEl.classList.contains('show')&&resultEl.dataset.type===type){resultEl.classList.remove('show');return;}
   let html='';
-  const dt=S.tasks.filter(t=>t.department===dept);
+  const cfg=getDeptConfig(dept);
+  const deptName=cfg?cfg.name:dept;
+  const dt=S.tasks.filter(t=>t.department===dept||t.department===deptName||(DEPT_ALIAS[t.department]===dept));
   const dp=S.projects.filter(p=>dt.some(t=>t.projectId===p.id));
-  if(type==='summary'){
-    html+='<strong>'+dept+' Department Summary</strong>';
-    html+='<div style="margin-top:4px">'+dept+' supports '+dp.length+' projects with '+dt.filter(t=>t.status!=='Done').length+' open tasks. '+dt.filter(t=>isOverdue(t.dueDate,t.status)).length+' overdue, '+dt.filter(t=>t.status==='Delayed'||t.status==='Blocked').length+' delayed. '+(dp.filter(p=>p.riskLevel==='High').length?'<span class="hi-red">'+dp.filter(p=>p.riskLevel==='High').length+' high-risk projects.</span>':'<span class="hi-green">No high-risk projects.</span>')+'</div>';
-  } else if(type==='bottleneck'){
-    html+='<strong>Bottleneck Detection — '+dept+'</strong>';
-    html+=dccGenBottleneck(dept, dt, dp);
-  } else if(type==='priority'){
-    html+='<strong>Top Priorities — '+dept+'</strong>';
-    html+=dccGenPriority(dept, dt);
-  } else if(type==='resource'){
-    html+='<strong>Resource Rebalance — '+dept+'</strong>';
-    html+=dccGenResource(dept, dt, S.users.filter(u=>u.dept===dept));
-  } else if(type==='escalation'){
-    html+='<strong>Escalation Draft — '+dept+'</strong>';
-    html+=dccGenEscalation(dept, dt, dp);
-  } else if(type==='forecast'){
-    html+='<strong>Forecast — '+dept+'</strong>';
-    html+=dccGenForecast(dept, dt, dp);
+  const deptUsers=S.users.filter(u=>u.dept===dept||u.dept===deptName);
+  const openT=dt.filter(t=>t.status!=='Done'&&t.status!=='Completed');
+  const overdueT=dt.filter(t=>isOverdue(t.dueDate,t.status));
+  const delayedT=dt.filter(t=>t.status==='Delayed'||t.status==='Blocked');
+  const riskProjects=dp.filter(p=>p.riskLevel==='High');
+  
+  // Recalculate workload
+  const ownerWL={};
+  deptUsers.forEach(u=>{
+    const ut=dt.filter(t=>t.owner===u.name);
+    const op=ut.filter(t=>t.status!=='Done'&&t.status!=='Completed');
+    const crit=op.filter(t=>t.pri==='high');
+    const od=op.filter(t=>isOverdue(t.dueDate,t.status));
+    const projs=[...new Set(op.map(t=>t.projectId))];
+    const capScore=op.length*1+crit.length*2+od.length*3+(projs.length>1?projs.length:0);
+    const capStatus=capScore>10?'overload':capScore>5?'high':'ok';
+    ownerWL[u.name]={open:op.length,critical:crit.length,overdue:od.length,total:ut.length,projects:projs.length,capScore,capStatus};
+  });
+  
+  // Structured output helper
+  function aiOutput(title,insight,action,owner,due,escalation){
+    let s='<div class="dcc-ai-output">';
+    s+='<div class="dcc-ai-output-title">'+title+'</div>';
+    s+='<div class="dcc-ai-output-section"><span class="dcc-ai-output-label">💡 Insight:</span><div class="dcc-ai-output-value">'+insight+'</div></div>';
+    s+='<div class="dcc-ai-output-section"><span class="dcc-ai-output-label">🎯 Recommended Next Action:</span><div class="dcc-ai-output-value">'+action+'</div></div>';
+    s+='<div class="dcc-ai-output-section"><span class="dcc-ai-output-label">👤 Owner:</span><div class="dcc-ai-output-value">'+owner+'</div></div>';
+    s+='<div class="dcc-ai-output-section"><span class="dcc-ai-output-label">📅 Due Date:</span><div class="dcc-ai-output-value">'+due+'</div></div>';
+    s+='<div class="dcc-ai-output-section"><span class="dcc-ai-output-label">'+(escalation==='Needed'||escalation.startsWith('Needed')?'🚨':'✅')+' Escalation:</span><div class="dcc-ai-output-value">'+escalation+'</div></div>';
+    s+='</div>';
+    return s;
   }
+  
+  if(type==='summary'){
+    const insight=deptName+' has '+openT.length+' open tasks across '+dp.length+' projects. '+(overdueT.length?overdueT.length+' overdue, ':'')+(delayedT.length?delayedT.length+' delayed/blocked. ':'')+(riskProjects.length?riskProjects.length+' high-risk project(s) require attention. ':'')+(Object.values(ownerWL).filter(o=>o.capStatus==='overload').length?Object.values(ownerWL).filter(o=>o.capStatus==='overload').length+' staff overloaded. ':'');
+    const action=overdueT.length?'Review and resolve '+overdueT.length+' overdue tasks first, then address delayed/blockers.':'Monitor task progress and ensure on-time delivery.';
+    const owner=cfg?cfg.leader:'Dept Lead';
+    const due='This week';
+    const esc=overdueT.length>3||riskProjects.length>1?'Needed — multiple overdue items and high-risk projects indicate systemic issue.':'Not needed at this time.';
+    html+=aiOutput('📋 Department Summary — '+deptName,insight,action,owner,due,esc);
+  } else if(type==='bottleneck'){
+    const overloaded=Object.entries(ownerWL).filter(([n,d])=>d.capStatus!=='ok');
+    let insight='';
+    if(overloaded.length){
+      insight+='<span class="hi-red">'+overloaded.length+' staff under pressure:</span> '+overloaded.map(([n,d])=>n+' ('+d.capStatus.toUpperCase()+', '+d.open+' open tasks, '+d.overdue+' overdue)').join('; ')+'. ';
+    }
+    if(delayedT.length){
+      insight+='<span class="hi-orange">'+delayedT.length+' delayed/blocked tasks:</span> '+delayedT.map(t=>(t.name||'').slice(0,35)).join('; ')+'. ';
+    }
+    if(riskProjects.length){
+      insight+='<span class="hi-red">'+riskProjects.length+' high-risk projects</span> ('+riskProjects.map(p=>p.sku||p.name).join(', ')+') may be impacted. ';
+    }
+    if(!insight) insight='No significant bottlenecks detected.';
+    const topOverloaded=overloaded.sort((a,b)=>b[1].capScore-a[1].capScore)[0];
+    const action=topOverloaded?'Redistribute workload from '+topOverloaded[0]+' (score: '+topOverloaded[1].capScore+') to available team members.':'Continue monitoring capacity.';
+    const owner=topOverloaded?topOverloaded[0]+' / '+cfg?.leader:cfg?cfg.leader:'Dept Lead';
+    const due='Within 48 hours';
+    const esc=topOverloaded&&topOverloaded[1].capStatus==='overload'?'Needed if no redistribution plan within 48 hours.':'Not needed.';
+    html+=aiOutput('🔍 Bottleneck Analysis — '+deptName,insight,action,owner,due,esc);
+  } else if(type==='similar'){
+    const kbs=S.knowledge.filter(k=>k.relatedFunction===dept||k.relatedFunction===deptName||k.tags.some(t=>t.includes(dept)||delayedT.some(dt=>dt.name&&dt.name.includes(t))));
+    let insight='';
+    if(kbs.length){
+      insight=kbs.map(k=>'💡 <strong>'+k.title+'</strong> ('+k.type+'): '+(k.solution||k.prevention||'').slice(0,100)).join('<br>');
+    } else {
+      insight='No directly similar cases found in '+deptName+' Knowledge Hub. Consider searching across all departments.';
+    }
+    const action=delayedT.length?'Apply lessons from similar past cases to current delayed tasks: '+delayedT.map(t=>(t.name||'').slice(0,25)).join(', ')+'.':'Review historical cases proactively for prevention.';
+    const owner=cfg?cfg.leader:'Dept Lead';
+    const due='This week';
+    const esc='Not needed — advisory insight only.';
+    html+=aiOutput('🔎 Similar Cases — '+deptName,insight,action,owner,due,esc);
+  } else if(type==='recovery'){
+    const needRecovery=delayedT.filter(t=>!t.recoveryAction);
+    let insight='';
+    if(needRecovery.length){
+      insight='<span class="hi-red">'+needRecovery.length+' tasks lack recovery actions:</span><br>'+needRecovery.map(t=>'• '+(t.name||'').slice(0,40)+' ('+t.status+', Owner: '+t.owner+')').join('<br>');
+    } else if(delayedT.length){
+      insight='All delayed tasks have recovery actions defined. Monitor execution.';
+    } else {
+      insight='<span class="hi-green">No delayed tasks requiring recovery action.</span>';
+    }
+    const action=needRecovery.length?'Define recovery actions for '+needRecovery.length+' tasks. Suggested approach: (1) Confirm root cause, (2) Identify alternative path, (3) Set target recovery date, (4) Assign clear owner.':'Review recovery action execution progress.';
+    const owner=needRecovery[0]?needRecovery[0].owner+' / '+cfg?.leader:cfg?cfg.leader:'Dept Lead';
+    const due=needRecovery.length?'Within 24 hours':'This week';
+    const esc=needRecovery.length>2?'Needed — multiple tasks without recovery plans indicate process gap.':'Not needed.';
+    html+=aiOutput('🔧 Recovery Suggestions — '+deptName,insight,action,owner,due,esc);
+  } else if(type==='escalation'){
+    const urgentTasks=dt.filter(t=>t.status==='Blocked'||(t.status==='Delayed'&&t.pri==='high'));
+    let insight='';
+    insight+='<div style="font-family:monospace;background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;font-size:10px;line-height:1.6">';
+    insight+='<strong>To:</strong> PMO / VP NPI<br>';
+    insight+='<strong>From:</strong> '+deptName+' Department ('+(cfg?cfg.leader:'Dept Lead')+')<br>';
+    insight+='<strong>Subject:</strong> ⚠️ '+deptName+' Department — '+urgentTasks.length+' Blocker'+(urgentTasks.length>1?'s':'')+' Requiring Support<br>';
+    insight+='<strong>Date:</strong> '+new Date().toLocaleDateString()+'<br><br>';
+    insight+='<strong>Issues Requiring Decision:</strong><br>';
+    if(urgentTasks.length){
+      urgentTasks.forEach(t=>{
+        const p=getProject(t.projectId);
+        insight+='• '+(t.name||'').slice(0,50)+' ('+(p?.sku||'--')+') — <span class="hi-red">'+t.status+'</span><br>';
+        insight+='&nbsp;&nbsp;Root Cause: '+(t.rootCause||'TBD')+' | Impact: '+(t.impact||t.impactedMs||t.blocker||'TBD')+'<br>';
+        insight+='&nbsp;&nbsp;Owner: '+t.owner+' | Due: '+fmtShort(t.dueDate)+'<br>';
+      });
+    } else {
+      insight+='No urgent blockers at this time.<br>';
+    }
+    insight+='<br><strong>Requested Action:</strong> Leadership review and resource allocation decision by end of week.';
+    insight+='</div>';
+    const action=urgentTasks.length?'Send escalation to PMO/VP for resource support and decision on '+urgentTasks.length+' blocker(s).':'No escalation needed at this time.';
+    const owner=cfg?cfg.leader:'Dept Lead';
+    const due='End of business today';
+    const esc=urgentTasks.length>0?'Needed — blockers require leadership intervention.':'Not needed.';
+    html+=aiOutput('📢 Escalation Draft — '+deptName,insight,action,owner,due,esc);
+  } else if(type==='report'){
+    const doneT=dt.filter(t=>t.status==='Done'||t.status==='Completed');
+    let insight='';
+    insight+='<strong>Week of:</strong> '+new Date().toLocaleDateString()+'<br>';
+    insight+='<strong>Department:</strong> '+deptName+' ('+( cfg?cfg.leader:'Dept Lead')+')<br><br>';
+    insight+='<strong>Summary:</strong> Supported '+dp.length+' projects with '+openT.length+' active tasks.<br>';
+    insight+='<strong>Achievements:</strong> <span class="hi-green">'+doneT.length+' tasks completed.</span><br>';
+    insight+='<strong>Challenges:</strong> '+(overdueT.length?'<span class="hi-red">'+overdueT.length+' overdue</span>, ':'')+(delayedT.length?'<span class="hi-orange">'+delayedT.length+' delayed/blocked</span>. ':'')+(overdueT.length+delayedT.length===0?'<span class="hi-green">No significant challenges.</span>':'')+'<br>';
+    insight+='<strong>Capacity:</strong> '+Object.values(ownerWL).filter(o=>o.capStatus==='overload').length+' overloaded, '+Object.values(ownerWL).filter(o=>o.capStatus==='high').length+' high load.<br>';
+    insight+='<strong>Next Week Focus:</strong> '+(overdueT.length?'Clear '+overdueT.length+' overdue tasks. ':'')+(riskProjects.length?'Support '+riskProjects.length+' high-risk projects. ':'')+'Maintain critical path delivery.';
+    const action='Review with team in weekly standup. Focus on overdue items and capacity rebalancing.';
+    const owner=cfg?cfg.leader:'Dept Lead';
+    const due='Next Monday';
+    const esc=overdueT.length>5?'Needed — overdue volume exceeds threshold for self-resolution.':'Not needed.';
+    html+=aiOutput('📊 Weekly Report — '+deptName,insight,action,owner,due,esc);
+  } else if(type==='priority'){
+    const priTasks=dt.filter(t=>t.pri==='high'||t.status==='Blocked'||isOverdue(t.dueDate,t.status)).sort((a,b)=>{
+      const scoreA=(a.status==='Blocked'?100:0)+(isOverdue(a.dueDate,a.status)?50:0)+(a.pri==='high'?30:0);
+      const scoreB=(b.status==='Blocked'?100:0)+(isOverdue(b.dueDate,b.status)?50:0)+(b.pri==='high'?30:0);
+      return scoreB-scoreA;
+    }).slice(0,5);
+    let insight='';
+    if(priTasks.length){
+      insight='Top '+priTasks.length+' priority items:<br>'+priTasks.map((t,i)=>{
+        const p=getProject(t.projectId);
+        return '<strong>'+(i+1)+'. '+(t.name||'').slice(0,40)+'</strong> — '+(t.status==='Blocked'?'<span class="hi-red">BLOCKED</span>':isOverdue(t.dueDate,t.status)?'<span class="hi-orange">OVERDUE</span>':t.pri==='high'?'<span class="hi-red">HIGH PRI</span>':t.status)+' | '+(p?.sku||'--')+' | Owner: '+t.owner;
+      }).join('<br>');
+    } else {
+      insight='<span class="hi-green">No high-priority items at this time.</span>';
+    }
+    const topTask=priTasks[0];
+    const action=topTask?'Focus on: '+(topTask.name||'').slice(0,50)+' ('+topTask.status+', '+topTask.owner+'). Resolve blocker or confirm recovery plan.':'Continue standard execution.';
+    const owner=topTask?topTask.owner:cfg?cfg.leader:'Dept Lead';
+    const due=topTask?fmtShort(topTask.dueDate):'This week';
+    const esc=topTask&&topTask.status==='Blocked'?'Needed — blocked task cannot proceed without decision.':'Not needed.';
+    html+=aiOutput('🎯 Priority Recommendations — '+deptName,insight,action,owner,due,esc);
+  }
+  
   resultEl.innerHTML=html;
   resultEl.classList.add('show');
   resultEl.dataset.type=type;
 }
 
-/* Helper for risk analysis */
 function deptTasksOfProject(pid){return S.tasks.filter(t=>t.projectId===pid);}
 
 /* ===== REAL PROJECT DATA (desensitized from All Projects Tracker V2) ===== */
@@ -4973,7 +5685,7 @@ const REAL_DEPT_STATS = {
 
 
 /* ===== APP INIT ===== */
-const APP_VERSION = '20.1';
+const APP_VERSION = '22.2';
 
 function seedData(){
   // Generate demo projects
@@ -5070,7 +5782,7 @@ function seedData(){
 
 function initApp(){
   if(!loadData()){
-    seedData();
+    initData();
   }
   render();
   // Update version display
@@ -5084,14 +5796,7 @@ function toggleAI(){
   if(p) p.classList.toggle('open');
 }
 
-function toggleSidebar(){
-  document.body.classList.toggle('sidebar-collapsed');
-}
-
-function toggleUserMenu(){
-  const d=document.getElementById('userDropdown');
-  if(d) d.classList.toggle('show');
-}
+/* toggleSidebar, toggleUserMenu, exportData, importData already defined above */
 
 function handleGlobalSearch(ev){
   if(ev.key==='Enter'){
@@ -5107,32 +5812,7 @@ function handleGlobalSearch(ev){
   }
 }
 
-function exportData(){
-  const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='autopm-data-v'+APP_VERSION+'.json';
-  a.click();
-  toast('Data exported successfully');
-}
-
-function importData(ev){
-  const file=ev.target.files[0];
-  if(!file) return;
-  const reader=new FileReader();
-  reader.onload=function(e){
-    try{
-      const data=JSON.parse(e.target.result);
-      Object.assign(S,data);
-      saveData();
-      render();
-      toast('Data imported successfully');
-    }catch(err){
-      toast('Import failed: invalid file format');
-    }
-  };
-  reader.readAsText(file);
-}
+/* exportData/importData already defined above */
 
 // Close dropdown on outside click
 document.addEventListener('click',function(e){
