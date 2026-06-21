@@ -428,7 +428,7 @@ textarea.form-input{resize:vertical;min-height:72px}
   display:grid;place-items:center;transition:background .15s;
 }
 .modal-close:hover{background:var(--bg);color:var(--t1)}
-.modal-body{padding:16px 20px 20px}
+.modal-body{padding:16px 20px 20px;background:#fff}
 .modal-footer{
   padding:12px 20px;border-top:1px solid var(--border);
   display:flex;justify-content:flex-end;gap:8px;
@@ -623,7 +623,7 @@ textarea.form-input{resize:vertical;min-height:72px}
   display:flex;align-items:center;gap:8px;
   width:calc(100% - 28px);margin:4px 14px 10px;
   padding:10px 14px;
-  background:transparent;
+  background:#fff;
   border:1px dashed var(--border);
   border-radius:var(--r8);
   color:var(--t3);
@@ -1419,7 +1419,7 @@ textarea.form-input{resize:vertical;min-height:72px}
     <div class="user-info" onclick="toggleUserMenu()">
       <div class="avatar">S</div>
       <div>
-        <div class="user-name">Sunny</div>
+        <div class="user-name">Sun Sun</div>
         <div class="user-role">NPI Project Manager</div>
       </div>
     </div>
@@ -1482,16 +1482,24 @@ textarea.form-input{resize:vertical;min-height:72px}
 <!-- ===== HIDDEN FILE INPUT ===== -->
 <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
 
+<script src="./autopm-v6-data.js"></script>
 <script>
 /* ===== CONSTANTS ===== */
 const NPI_GATES=[
-  {key:'ecn_open',name:'ECN OPEN',short:'ECN'},
-  {key:'ecn_dd',name:'ECN DD APPROVE',short:'DD'},
-  {key:'eb_build',name:'EB BUILD',short:'EB'},
-  {key:'sample_test',name:'SAMPLE & TEST',short:'S&T'},
-  {key:'ecn_imp',name:'ECN IMP REVIEW',short:'IMP'},
-  {key:'mp',name:'MP',short:'MP'}
-];
+  {key:'award',name:'Award',short:'Award'},
+  {key:'kickoff',name:'Kick Off',short:'KO'},
+  {key:'p1_build',name:'P1 Build',short:'P1'},
+  {key:'ecn_dd',name:'ECN DD Approval',short:'ECN DD'},
+  {key:'color',name:'Color Approval',short:'Color'},
+  {key:'sw_dev',name:'Software Development',short:'SW Dev'},
+  {key:'eb0',name:'EB0',short:'EB0'},
+  {key:'dqtp',name:'DQTP',short:'DQTP'},
+  {key:'compliance',name:'Compliance Complete',short:'Comp'},
+  {key:'mp_aw',name:'MP AW',short:'MP AW'},
+  {key:'fpo',name:'FPO / LLT Material PO',short:'FPO'},
+  {key:'ecn_imp',name:'ECN IMP',short:'ECN IMP'},
+  {key:'mp_start',name:'MP Start',short:'MP'}
+]
 const GATE_DELIVS={
   kickoff:['PIS','RKO','ID Spec','UI Spec','PSD','UI Flow','Sample Plan','Selection Factory'],
   ecn_open:['Project Plan','Change PPT','Compliance Comments','Tooling Cost','EE Change PPT','E-BOM','C-BOM','DQTP Comments','Package Matrix','Structure Design Review'],
@@ -1525,6 +1533,8 @@ let S={
   deptFilter:'All',
   filters:{status:'',type:'',dept:'',search:''},
   projects:[],tasks:[],deliverables:[],issues:[],milestones:[],knowledge:[],
+  people:[],projectMembers:[],documents:[],workflowTemplates:[],
+  referenceData:{},importStaging:[],activityLog:[],
   aiHistory:[],
   users:[
     {name:'Sunny',role:'NPI PM',dept:'PM'},
@@ -1538,7 +1548,7 @@ let S={
 };
 
 /* ===== PERSIST ===== */
-const DATA_VERSION=4;  // 递增此值可强制重置数据
+const DATA_VERSION=9;  // 递增此值可强制重置数据
 function saveData(){
   try{localStorage.setItem('autopm_v4_data',JSON.stringify({
     _v:DATA_VERSION,
@@ -1615,63 +1625,312 @@ function stColor(s){return{Done:'var(--green)','Not Started':'var(--t3)','In Pro
 function initData(){
   if(loadData())return;
   S.projects=[
-    {id:'P001',name:'AS101KRxx SmartKettle Pro',sku:'AS101KR-1500W',pm:'Sunny',status:'In Progress',currentGate:3,healthScore:62,type:'NPI',start:'2026-01-06',targetLaunch:'2026-11-15',riskLevel:'High',delayDays:12,nextMs:'EB BUILD',keyIssue:'FAI delayed +12d',recoveryAction:'Alt supplier evaluation by Jun 15',
-      factory:'Suzhou Plant 2',supplier:'Midea Appliances',oem:'Foxconn GM',toolingSummary:'4 cavities, 2 injection molds, lead time 45d',capacity:'120K units/month',forecast:'85K/mo (Q4 2026)',annualVolume:'1M units/year',npilead:'Sunny',npdlead:'Mike Chen',pmo:'Jen Marsden',productImage:'',
-      gates:[{status:'Done',completion:100,targetDate:'2026-01-15',actualDate:'2026-01-12'},{status:'Done',completion:100,targetDate:'2026-02-28',actualDate:'2026-02-25'},{status:'Done',completion:100,targetDate:'2026-04-15',actualDate:'2026-04-18'},{status:'In Progress',completion:55,targetDate:'2026-06-30',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-08-15',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-09-30',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-11-15',actualDate:null}],
-      team:{engineering:'Mike Chen',quality:'Lisa Wang',supplyChain:'Tom Zhang',manufacturing:'Amy Liu',packaging:'Jack Wu',supplier:'David He'}},
-    {id:'P002',name:'SB500xx SmartBlender Pro',sku:'SB500-1800W',pm:'Sunny',status:'In Progress',currentGate:2,healthScore:55,type:'NPI',start:'2026-02-01',targetLaunch:'2026-12-15',riskLevel:'High',delayDays:8,nextMs:'ECN DD',keyIssue:'Blade design delayed +8d',recoveryAction:'Std coating evaluation',
-      factory:'Dongguan Plant 1',supplier:'Bear Appliances',oem:'Segway N.V.',toolingSummary:'6 cavities, 3 molds (blade/body/base), lead time 60d',capacity:'90K units/month',forecast:'60K/mo (Q4 2026)',annualVolume:'720K units/year',npilead:'Sunny',npdlead:'Mike Chen',pmo:'Jen Marsden',productImage:'',
-      gates:[{status:'Done',completion:100,targetDate:'2026-02-07',actualDate:'2026-02-05'},{status:'Done',completion:100,targetDate:'2026-03-15',actualDate:'2026-03-18'},{status:'At Risk',completion:60,targetDate:'2026-05-30',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-07-31',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-09-15',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-10-30',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-12-15',actualDate:null}],
-      team:{engineering:'Mike Chen',quality:'Lisa Wang',supplyChain:'Tom Zhang',manufacturing:'Amy Liu',packaging:'Jack Wu',supplier:'David He'}},
-    {id:'P003',name:'AS80CR Color Refresh — Red',sku:'AS80CR-RED',pm:'Sunny',status:'In Progress',currentGate:4,healthScore:82,type:'Color Refresh',start:'2026-03-01',targetLaunch:'2026-08-31',riskLevel:'Low',delayDays:0,nextMs:'SAMPLE & TEST',keyIssue:'None',recoveryAction:'',
-      factory:'Suzhou Plant 2',supplier:'SunnyTek',oem:'Same as AS80',toolingSummary:'Existing molds, color change only, no new tooling',capacity:'N/A (existing line)',forecast:'25K/mo (Q3 2026)',annualVolume:'300K units/year',npilead:'Sunny',npdlead:'David He',pmo:'Jen Marsden',productImage:'',
-      gates:[{status:'Done',completion:100,targetDate:'2026-03-10',actualDate:'2026-03-08'},{status:'Done',completion:100,targetDate:'2026-04-01',actualDate:'2026-03-28'},{status:'Done',completion:100,targetDate:'2026-04-20',actualDate:'2026-04-18'},{status:'Done',completion:100,targetDate:'2026-05-15',actualDate:'2026-05-12'},{status:'In Progress',completion:70,targetDate:'2026-06-30',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-07-31',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-08-31',actualDate:null}],
-      team:{engineering:'David He',quality:'Lisa Wang',supplyChain:'Tom Zhang',manufacturing:'Amy Liu',packaging:'Jack Wu',supplier:'David He'}},
-    {id:'P004',name:'CM200 MPI — Cost Optimization',sku:'CM200-MPI',pm:'Sunny',status:'In Progress',currentGate:2,healthScore:68,type:'MPI',start:'2026-04-01',targetLaunch:'2026-11-01',riskLevel:'Medium',delayDays:3,nextMs:'ECN DD',keyIssue:'PCB cost >target',recoveryAction:'Alt PCB supplier quote',
-      factory:'Suzhou Plant 1',supplier:'Huaqiang PCB',oem:'Flextronics',toolingSummary:'N/A (existing product, cost optimization only)',capacity:'200K units/month',forecast:'150K/mo (Q4 2026)',annualVolume:'1.8M units/year',npilead:'Sunny',npdlead:'Mike Chen',pmo:'Jen Marsden',productImage:'',
-      gates:[{status:'Done',completion:100,targetDate:'2026-04-10',actualDate:'2026-04-10'},{status:'Done',completion:100,targetDate:'2026-05-01',actualDate:'2026-05-03'},{status:'In Progress',completion:50,targetDate:'2026-06-15',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-08-01',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-09-01',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-10-01',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-11-01',actualDate:null}],
-      team:{engineering:'Mike Chen',quality:'Lisa Wang',supplyChain:'Tom Zhang',manufacturing:'Amy Liu',packaging:'Jack Wu',supplier:'David He'}},
-    {id:'P005',name:'SF300 Supplier Change — Motor',sku:'SF300-SC',pm:'Sunny',status:'At Risk',currentGate:1,healthScore:42,type:'Supplier Change',start:'2026-02-15',targetLaunch:'2026-11-15',riskLevel:'High',delayDays:22,nextMs:'ECN DD',keyIssue:'New motor supplier qualification blocked',recoveryAction:'Escalate to VP for emergency approval',
-      factory:'Suzhou Plant 1',supplier:'Johnson Electric (new)',oem:'Segway N.V.',toolingSummary:'Existing molds, motor spec change only',capacity:'100K units/month',forecast:'70K/mo (Q4 2026)',annualVolume:'840K units/year',npilead:'Sunny',npdlead:'Mike Chen',pmo:'Jen Marsden',productImage:'',
-      gates:[{status:'Done',completion:100,targetDate:'2026-02-28',actualDate:'2026-02-28'},{status:'Delayed',completion:40,targetDate:'2026-04-15',actualDate:null},{status:'Blocked',completion:0,targetDate:'2026-06-01',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-07-15',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-08-30',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-10-01',actualDate:null},{status:'Not Started',completion:0,targetDate:'2026-11-15',actualDate:null}],
-      team:{engineering:'Mike Chen',quality:'Lisa Wang',supplyChain:'Tom Zhang',manufacturing:'Amy Liu',packaging:'Jack Wu',supplier:'David He'}}
-  ];
+  {id:'SL500EUUK',name:'SL500INTL',sku:'SL500EU / SL500UK',pm:'Sun',status:'At Risk',
+   brand:'Ninja',type:'Extension',riskLevel:'Medium',healthScore:68,
+   factory:'Yueda',supplier:'',oem:'',toolingSummary:'N/A',capacity:'N/A',
+   forecast:'2026-05-25',pmo:'Saskia Romero',npiLead:'Sun',npilead:'Sun',
+   start:'2026-03-02',targetLaunch:'2026-06-25',delayDays:0,
+   nextMs:'MP Workflow on 2026-06-20',
+   keyIssue:'Compliance sample ready to send; waiting for compliance address. DQTP planned to finish on 2026-05-25.',
+   recoveryAction:'Confirm compliance address, complete ECN IMP readiness, start MP workflow, and prepare MP materials.',
+   updatedAt:'2026-05-09T00:00:00.000Z',updatedBy:'Sunny',
+   currentGate:11,
+   gates:[
+     {name:'Award',status:'Done',completion:100,targetDate:'2026-03-01',actualDate:'2026-03-01'},
+     {name:'Kick Off',status:'Done',completion:100,targetDate:'2026-03-02',actualDate:'2026-03-02'},
+     {name:'P1 Build',status:'Done',completion:100,targetDate:'2026-03-25',actualDate:'2026-03-25'},
+     {name:'ECN DD Approval',status:'Done',completion:100,targetDate:'2026-04-10',actualDate:'2026-04-10'},
+     {name:'Color Approval',status:'Done',completion:100,targetDate:'2026-04-02',actualDate:'2026-04-02'},
+     {name:'Software Development',status:'Done',completion:100,targetDate:'2026-04-08',actualDate:'2026-04-08'},
+     {name:'EB0',status:'Done',completion:100,targetDate:'2026-04-22',actualDate:'2026-04-22'},
+     {name:'DQTP',status:'Done',completion:100,targetDate:'2026-05-25',actualDate:'2026-05-25'},
+     {name:'Compliance Complete',status:'Done',completion:100,targetDate:'2026-06-04',actualDate:'2026-06-04'},
+     {name:'MP AW',status:'Done',completion:100,targetDate:'2026-06-02',actualDate:'2026-06-02'},
+     {name:'Forecast',status:'Done',completion:100,targetDate:'2026-05-25',actualDate:'2026-05-25'},
+     {name:'ECN IMP',status:'At Risk',completion:20,targetDate:'2026-06-18'},
+     {name:'MP Start',status:'Not Started',completion:0,targetDate:'2026-06-25'}
+   ],
+   team:{engineering:'CN EE',quality:'CN Quality',supplyChain:'CN SC',manufacturing:'Yueda',packaging:'Factory'}}
+  ]
   S.tasks=[
-    // === P001 AS101KRxx — historical completed + active ===
-    {id:'T1-01',projectId:'P001',gate:0,name:'Project kickoff meeting',desc:'Schedule and conduct kickoff with all stakeholders',ws:'PM',department:'PM',owner:'Sunny',start:'2026-01-06',dueDate:'2026-01-10',status:'Done',pri:'high',prog:100,ms:'Kick-off',dep:null,riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T1-02',projectId:'P001',gate:0,name:'Define product requirements document',desc:'Create PRD with feature list, specs, target cost',ws:'PM',department:'PM',owner:'Sunny',start:'2026-01-10',dueDate:'2026-01-31',status:'Done',pri:'high',prog:100,ms:'Requirement Confirmed',dep:'T1-01',riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T1-03',projectId:'P001',gate:1,name:'Concept design review — heating module',desc:'Engineering concept review for heating module architecture',ws:'Engineering',department:'Engineering',owner:'Mike Chen',start:'2026-02-01',dueDate:'2026-02-15',status:'Done',pri:'high',prog:100,ms:'Concept Design',dep:'T1-02',riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T1-04',projectId:'P001',gate:1,name:'Supplier shortlist and RFQ release',desc:'Release RFQ to 3 shortlisted heating module suppliers',ws:'Supply Chain',department:'Supply Chain',owner:'Tom Zhang',start:'2026-02-10',dueDate:'2026-02-28',status:'Done',pri:'high',prog:100,ms:'Supplier Selection',dep:'T1-02',riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T1-05',projectId:'P001',gate:1,name:'Gate 1 review — concept sign-off',desc:'Present concept design and supplier selection to steering committee',ws:'PM',department:'PM',owner:'Sunny',start:'2026-02-25',dueDate:'2026-03-05',status:'Done',pri:'high',prog:100,ms:'Gate 1',dep:'T1-03',riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T1-06',projectId:'P001',gate:2,name:'Tooling DFM review with supplier',desc:'DFM review for heating module injection molding tool',ws:'Engineering',department:'Engineering',owner:'Mike Chen',start:'2026-03-10',dueDate:'2026-03-25',status:'Done',pri:'medium',prog:100,ms:'DFM',dep:'T1-05',riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T1-07',projectId:'P001',gate:2,name:'First article inspection — heating module',desc:'FAI for heating element from selected supplier',ws:'Quality',department:'Quality',owner:'Lisa Wang',start:'2026-03-10',dueDate:'2026-04-05',status:'Delayed',pri:'high',prog:60,ms:'EVT',dep:'T1-03',riskFlag:true,delayFlag:true,delayDays:12,blocker:'Supplier production line issue',recoveryAction:'Evaluate alternative supplier — decision by Jun 10',recoveryOwner:'Sunny',targetRecoveryDate:'2026-06-15',impactedMs:'EB BUILD',rootCause:'Primary supplier machine breakdown, reduced capacity',escalation:true,actionNote:'Critical path. Alt supplier quote requested.'},
-    {id:'T1-08',projectId:'P001',gate:3,name:'EVT build — 50 units',desc:'Build 50 EVT units for engineering validation testing',ws:'Manufacturing',department:'Manufacturing',owner:'Amy Liu',start:'2026-03-20',dueDate:'2026-04-30',status:'At Risk',pri:'high',prog:30,ms:'EVT',dep:'T1-07',riskFlag:true,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'Blocked by T1-07 FAI delay; expedite FAI',recoveryOwner:'Amy Liu',targetRecoveryDate:'2026-06-20',impactedMs:'EB BUILD',rootCause:'Upstream FAI delay',escalation:false,actionNote:'Cannot start until FAI cleared'},
-    {id:'T1-09',projectId:'P001',gate:3,name:'Approve alternative supplier qualification',desc:'Review and approve alternative heating module supplier',ws:'Supply Chain',department:'Supply Chain',owner:'Sunny',start:'2026-06-01',dueDate:'2026-06-10',status:'Not Started',pri:'high',prog:0,ms:'EB BUILD',dep:'T1-07',riskFlag:true,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'Awaiting alt supplier quote',recoveryOwner:'Sunny',targetRecoveryDate:'2026-06-12',impactedMs:'EB BUILD',rootCause:'',escalation:true,actionNote:'Needs PM decision and VP approval'},
-    {id:'T1-10',projectId:'P001',gate:3,name:'Packaging artwork approval',desc:'Approve final packaging artwork and labels for AS101KRxx',ws:'Packaging',department:'Packaging',owner:'Jack Wu',start:'2026-05-15',dueDate:'2026-06-20',status:'In Progress',pri:'medium',prog:45,ms:'Packaging',dep:null,riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-
-    // === P002 SB500xx — historical completed + active ===
-    {id:'T2-01',projectId:'P002',gate:0,name:'Project charter approval',desc:'Get charter signed by steering committee',ws:'PM',department:'PM',owner:'Sunny',start:'2026-02-01',dueDate:'2026-02-07',status:'Done',pri:'high',prog:100,ms:'Kick-off',dep:null,riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T2-02',projectId:'P002',gate:1,name:'Blade concept design — 3 options',desc:'Develop 3 blade design concepts with CFD analysis',ws:'Engineering',department:'Engineering',owner:'Mike Chen',start:'2026-02-10',dueDate:'2026-03-01',status:'Done',pri:'high',prog:100,ms:'Concept Design',dep:'T2-01',riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T2-03',projectId:'P002',gate:1,name:'Motor specification finalization',desc:'Finalize motor torque, RPM and efficiency specs',ws:'Engineering',department:'Engineering',owner:'Mike Chen',start:'2026-02-15',dueDate:'2026-03-10',status:'Done',pri:'high',prog:100,ms:'Spec Freeze',dep:'T2-01',riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T2-04',projectId:'P002',gate:2,name:'Blade assembly design',desc:'6-blade stainless steel with titanium coating',ws:'Engineering',department:'Engineering',owner:'Mike Chen',start:'2026-02-15',dueDate:'2026-03-30',status:'Delayed',pri:'high',prog:70,ms:'Design Freeze',dep:'T2-02',riskFlag:true,delayFlag:true,delayDays:8,blocker:'Titanium coating supplier delayed',recoveryAction:'Evaluate standard stainless coating as alternative',recoveryOwner:'Mike Chen',targetRecoveryDate:'2026-06-12',impactedMs:'EB BUILD',rootCause:'Titanium coating supplier production issue',escalation:false,actionNote:'8 days delayed. Std coating eval in progress.'},
-    {id:'T2-05',projectId:'P002',gate:2,name:'Motor speed controller ECN approval',desc:'Get ECN approved for new motor controller',ws:'Engineering',department:'Engineering',owner:'Sunny',start:'2026-05-15',dueDate:'2026-06-05',status:'In Progress',pri:'high',prog:40,ms:'ECN DD',dep:'T2-03',riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T2-06',projectId:'P002',gate:2,name:'Safety certification pre-assessment',desc:'Pre-assess UL/CE safety requirements for SB500xx',ws:'Quality',department:'Quality',owner:'Lisa Wang',start:'2026-05-01',dueDate:'2026-06-15',status:'In Progress',pri:'medium',prog:35,ms:'Cert Prep',dep:null,riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-
-    // === P003 AS80CR Color Refresh — mostly done, only active tasks ===
-    {id:'T3-01',projectId:'P003',gate:4,name:'Color sample final approval',desc:'Submit color samples for final Pantone approval',ws:'Engineering',department:'Engineering',owner:'David He',start:'2026-06-01',dueDate:'2026-06-15',status:'In Progress',pri:'medium',prog:65,ms:'Sample & Test',dep:null,riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T3-02',projectId:'P003',gate:4,name:'Color matching confirmation with supplier',desc:'Confirm Red color match tolerance with spray supplier',ws:'Quality',department:'Quality',owner:'Lisa Wang',start:'2026-05-20',dueDate:'2026-06-10',status:'Done',pri:'medium',prog:100,ms:'Sample & Test',dep:null,riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T3-03',projectId:'P003',gate:3,name:'Packaging color artwork update',desc:'Update packaging artwork with new Red color code',ws:'Packaging',department:'Packaging',owner:'Jack Wu',start:'2026-05-01',dueDate:'2026-05-20',status:'Done',pri:'low',prog:100,ms:'Packaging',dep:null,riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-
-    // === P004 CM200 MPI — active tasks ===
-    {id:'T4-01',projectId:'P004',gate:2,name:'PCB cost analysis — alt supplier comparison',desc:'Compare PCB costs from 3 suppliers',ws:'Supply Chain',department:'Supply Chain',owner:'Tom Zhang',start:'2026-06-01',dueDate:'2026-06-20',status:'In Progress',pri:'medium',prog:30,ms:'ECN DD',dep:null,riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T4-02',projectId:'P004',gate:1,name:'Current cost baseline documentation',desc:'Document current CM200 BOM and unit cost baseline',ws:'PM',department:'PM',owner:'Sunny',start:'2026-04-05',dueDate:'2026-04-15',status:'Done',pri:'high',prog:100,ms:'Cost Baseline',dep:null,riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T4-03',projectId:'P004',gate:1,name:'Gate 1 cost reduction target review',desc:'Review 8% cost reduction target with engineering and supply chain',ws:'PM',department:'PM',owner:'Sunny',start:'2026-04-10',dueDate:'2026-04-20',status:'Done',pri:'high',prog:100,ms:'Target Review',dep:'T4-02',riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-    {id:'T4-04',projectId:'P004',gate:2,name:'Mechanical part VAVE proposal',desc:'Value analysis for housing and base mechanical parts',ws:'Engineering',department:'Engineering',owner:'Mike Chen',start:'2026-05-15',dueDate:'2026-06-10',status:'Done',pri:'medium',prog:100,ms:'VAVE',dep:'T4-03',riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''},
-
-    // === P005 SF300 Supplier Change — high risk ===
-    {id:'T5-01',projectId:'P005',gate:1,name:'New motor supplier qualification visit',desc:'On-site qualification audit of new motor supplier',ws:'Quality',department:'Quality',owner:'Lisa Wang',start:'2026-04-01',dueDate:'2026-05-01',status:'Blocked',pri:'high',prog:15,ms:'Supplier Qual',dep:null,riskFlag:true,delayFlag:true,delayDays:22,blocker:'Travel approval pending, supplier factory not ready',recoveryAction:'Escalate to VP for emergency approval of supplier visit',recoveryOwner:'Sunny',targetRecoveryDate:'2026-06-20',impactedMs:'ECN DD',rootCause:'Internal travel approval bottleneck + supplier factory preparation delay',escalation:true,actionNote:'CRITICAL: 22 day delay, impacts Q3 launch'},
-    {id:'T5-02',projectId:'P005',gate:1,name:'Motor performance test protocol',desc:'Define test protocol for new motor performance validation',ws:'Engineering',department:'Engineering',owner:'Mike Chen',start:'2026-04-10',dueDate:'2026-05-15',status:'At Risk',pri:'medium',prog:50,ms:'Supplier Qual',dep:'T5-01',riskFlag:true,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'Draft protocol independently, pending supplier visit',recoveryOwner:'Mike Chen',targetRecoveryDate:'2026-06-01',impactedMs:'ECN DD',rootCause:'Dependent on supplier visit',escalation:false,actionNote:''},
-    {id:'T5-03',projectId:'P005',gate:0,name:'Supplier change business case approval',desc:'Present business case for motor supplier change to steering committee',ws:'PM',department:'PM',owner:'Sunny',start:'2026-02-15',dueDate:'2026-02-28',status:'Done',pri:'high',prog:100,ms:'Business Case',dep:null,riskFlag:false,delayFlag:false,delayDays:0,blocker:'',recoveryAction:'',recoveryOwner:'',targetRecoveryDate:'',impactedMs:'',rootCause:'',escalation:false,actionNote:''}
+    // === SL500EUUK — SL500INTL follow-up tasks (owner: Sunny) ===
+    {id:'SL5-T01',projectId:'SL500EUUK',name:'Confirm compliance address for SL500 sample shipment',
+     owner:'Sunny',originalOwner:'Sun / CN NPI',department:'PM',
+     start:'2026-05-05',dueDate:'2026-05-09',status:'At Risk',pri:'high',
+     ms:'Compliance Complete',progress:0,riskFlag:true,
+     desc:'Sample is ready to send for compliance test, waiting for compliance address.',
+     actionNote:'Follow up with compliance team and confirm shipping address.'},
+    {id:'SL5-T02',projectId:'SL500EUUK',name:'Complete DQTP test and confirm final result',
+     owner:'Sunny',originalOwner:'CN Testing',department:'Quality',
+     start:'2026-04-28',dueDate:'2026-05-25',status:'At Risk',pri:'high',
+     ms:'DQTP',progress:60,riskFlag:true,
+     desc:'DQTP test planned to finish on 2026-05-25.',
+     actionNote:'Confirm test completion and collect DQTP report readiness.'},
+    {id:'SL5-T03',projectId:'SL500EUUK',name:'Confirm compliance test completion and certificate update',
+     owner:'Sunny',originalOwner:'CN Compliance',department:'Quality',
+     start:'2026-05-11',dueDate:'2026-06-08',status:'At Risk',pri:'high',
+     ms:'Compliance Complete',progress:30,riskFlag:true,
+     desc:'Compliance test runs from 2026-05-11 to 2026-06-05, report and certificate update planned for 2026-06-08.',
+     actionNote:'Check UL lab status, compliance test result, and report/cert update.'},
+    {id:'SL5-T04',projectId:'SL500EUUK',name:'Upload ECN approval documents',
+     owner:'Sunny',originalOwner:'CN NPI',department:'PM',
+     start:'2026-06-09',dueDate:'2026-06-09',status:'At Risk',pri:'high',
+     ms:'ECN IMP',progress:0,riskFlag:true,
+     desc:'Upload documents for ECN approval after DQTP and compliance reports are ready.',
+     actionNote:'Confirm DQTP and compliance report availability before ECN approval package upload.'},
+    {id:'SL5-T05',projectId:'SL500EUUK',name:'Approve ECN for SL500 MP readiness',
+     owner:'Sunny',originalOwner:'US EE / US Engineering / US PD / US Quality',department:'Engineering',
+     start:'2026-06-10',dueDate:'2026-06-16',status:'At Risk',pri:'high',
+     ms:'ECN IMP',progress:0,riskFlag:true,
+     desc:'ECN approval planned from 2026-06-10 to 2026-06-16.',
+     actionNote:'Follow up with US EE, Engineering, PD and Quality to approve ECN.'},
+    {id:'SL5-T06',projectId:'SL500EUUK',name:'Release ECN to factory',
+     owner:'Sunny',originalOwner:'CN NPI',department:'PM',
+     start:'2026-06-17',dueDate:'2026-06-17',status:'Not Started',pri:'high',
+     ms:'ECN IMP',progress:0,
+     desc:'Release approved ECN to Yueda factory.',
+     actionNote:'Confirm ECN approval and release package to factory.'},
+    {id:'SL5-T07',projectId:'SL500EUUK',name:'Initiate MP workflow in PLM',
+     owner:'Sunny',originalOwner:'CN NPI',department:'PM',
+     start:'2026-06-17',dueDate:'2026-06-20',status:'Not Started',pri:'high',
+     ms:'MP Workflow',progress:0,
+     desc:'Next PLM: MP Workflow on 2026-06-20.',
+     actionNote:'Start MP workflow in PLM and confirm required approvals.'},
+    {id:'SL5-T08',projectId:'SL500EUUK',name:'Prepare MP materials',
+     owner:'Sunny',originalOwner:'Factory',department:'Manufacturing',
+     start:'2026-06-17',dueDate:'2026-06-24',status:'Not Started',pri:'medium',
+     ms:'MP Start',progress:0,
+     desc:'Prepare MP materials before golden sample sign-off and MP start.',
+     actionNote:'Confirm factory MP material readiness.'},
+    {id:'SL5-T09',projectId:'SL500EUUK',name:'Sign golden samples for MP',
+     owner:'Sunny',originalOwner:'CN NPI / CN Quality / CN NPD',department:'Quality',
+     start:'2026-06-25',dueDate:'2026-06-25',status:'Not Started',pri:'high',
+     ms:'MP Start',progress:0,
+     desc:'Sign golden samples for MP.',
+     actionNote:'Arrange sign-off with NPI, Quality and NPD.'},
+    {id:'SL5-T10',projectId:'SL500EUUK',name:'Start MP for SL500EUUK',
+     owner:'Sunny',originalOwner:'Factory',department:'Manufacturing',
+     start:'2026-06-26',dueDate:'2026-06-26',status:'Not Started',pri:'high',
+     ms:'MP Start',progress:0,
+     desc:'Start MP according to project plan.',
+     actionNote:'Confirm MP readiness and production start.'}
+  ,
+    {id:'SL5-G01',projectId:'SL500EUUK',name:'Kick Off',
+     owner:'Sunny',department:'PM',
+     start:'2026-03-03',dueDate:'2026-03-03',status:'Done',pri:'medium',
+     ms:'Kick Off',progress:100},
+    {id:'SL5-G02',projectId:'SL500EUUK',name:'Kick Off Phase',
+     owner:'Sunny',department:'PM',
+     start:'2026-03-03',dueDate:'2026-03-06',status:'Done',pri:'medium',
+     ms:'Kick Off',progress:100},
+    {id:'SL5-G03',projectId:'SL500EUUK',name:'Received PIS for EB1',
+     owner:'Sunny',department:'PM',
+     start:'2026-03-03',dueDate:'2026-03-03',status:'Done',pri:'medium',
+     ms:'Kick Off',progress:100},
+    {id:'SL5-G04',projectId:'SL500EUUK',name:'Received UI Spec for EB1',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-03-03',dueDate:'2026-03-06',status:'Done',pri:'medium',
+     ms:'Kick Off',progress:100},
+    {id:'SL5-G05',projectId:'SL500EUUK',name:'Received ID Spec EB1',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-03-03',dueDate:'2026-03-06',status:'Done',pri:'medium',
+     ms:'Kick Off',progress:100},
+    {id:'SL5-G06',projectId:'SL500EUUK',name:'EB0 Phase',
+     owner:'Sunny',department:'PM',
+     start:'2026-03-04',dueDate:'2026-06-08',status:'In Progress',pri:'medium',
+     ms:'EB0',progress:61},
+    {id:'SL5-G07',projectId:'SL500EUUK',name:'Prepare product change PPT and ECN documents',
+     owner:'Sunny',department:'PM',
+     start:'2026-03-04',dueDate:'2026-03-05',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G08',projectId:'SL500EUUK',name:'Finalize PSD / UI flow / critical component',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-03-04',dueDate:'2026-03-05',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G09',projectId:'SL500EUUK',name:'Finalize sample plan for EB1',
+     owner:'Sunny',department:'PM',
+     start:'2026-03-10',dueDate:'2026-03-19',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G10',projectId:'SL500EUUK',name:'Provide redline EBOM',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-03-10',dueDate:'2026-03-19',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G11',projectId:'SL500EUUK',name:'Finalize CBOM for EB1',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-03-20',dueDate:'2026-03-30',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G12',projectId:'SL500EUUK',name:'Approve ECN to DD',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-03-20',dueDate:'2026-04-10',status:'Done',pri:'medium',
+     ms:'ECN DD Approval',progress:100},
+    {id:'SL5-G13',projectId:'SL500EUUK',name:'PMO approve sample plan / release sample PO',
+     owner:'Sunny',department:'PM',
+     start:'2026-03-31',dueDate:'2026-04-03',status:'Not Started',pri:'medium',
+     ms:'EB0',progress:0},
+    {id:'SL5-G14',projectId:'SL500EUUK',name:'Prepare UI mylar sample',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-04-11',dueDate:'2026-04-18',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G15',projectId:'SL500EUUK',name:'PCBA development for EB1',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-03-16',dueDate:'2026-05-08',status:'In Progress',pri:'medium',
+     ms:'EB0',progress:64},
+    {id:'SL5-G16',projectId:'SL500EUUK',name:'Software development',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-03-16',dueDate:'2026-04-10',status:'Done',pri:'medium',
+     ms:'Software Development',progress:100},
+    {id:'SL5-G17',projectId:'SL500EUUK',name:'Delivery PCBA to factory',
+     owner:'Sunny',department:'Manufacturing',
+     start:'2026-03-20',dueDate:'2026-03-29',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G18',projectId:'SL500EUUK',name:'Performance test',
+     owner:'Sunny',department:'Quality',
+     start:'2026-04-11',dueDate:'2026-04-14',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G19',projectId:'SL500EUUK',name:'NTK test',
+     owner:'Sunny',department:'Quality',
+     start:'2026-04-15',dueDate:'2026-05-08',status:'Not Started',pri:'medium',
+     ms:'EB0',progress:0},
+    {id:'SL5-G20',projectId:'SL500EUUK',name:'Color development',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-03-09',dueDate:'2026-04-02',status:'Done',pri:'medium',
+     ms:'Color Approval',progress:100},
+    {id:'SL5-G21',projectId:'SL500EUUK',name:'EB1 assembly / EB Build',
+     owner:'Sunny',department:'Manufacturing',
+     start:'2026-04-16',dueDate:'2026-04-22',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G22',projectId:'SL500EUUK',name:'Verify temperature and KPI data for EB1 samples',
+     owner:'Sunny',department:'Quality',
+     start:'2026-04-23',dueDate:'2026-04-24',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G23',projectId:'SL500EUUK',name:'PSI + Calibration',
+     owner:'Sunny',department:'Quality',
+     start:'2026-04-25',dueDate:'2026-04-27',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G24',projectId:'SL500EUUK',name:'Ship samples to US and UK team',
+     owner:'Sunny',department:'PM',
+     start:'2026-04-28',dueDate:'2026-05-03',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G25',projectId:'SL500EUUK',name:'Provide feedback of EB1 samples',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-05-04',dueDate:'2026-05-08',status:'Done',pri:'medium',
+     ms:'EB0',progress:100},
+    {id:'SL5-G26',projectId:'SL500EUUK',name:'EB1 DQTP',
+     owner:'Sunny',department:'Quality',
+     start:'2026-03-28',dueDate:'2026-05-29',status:'In Progress',pri:'medium',
+     ms:'DQTP',progress:37},
+    {id:'SL5-G27',projectId:'SL500EUUK',name:'Dishwasher test',
+     owner:'Sunny',department:'Quality',
+     start:'2026-03-28',dueDate:'2026-05-08',status:'Done',pri:'medium',
+     ms:'DQTP',progress:100},
+    {id:'SL5-G28',projectId:'SL500EUUK',name:'NTT test',
+     owner:'Sunny',department:'Quality',
+     start:'2026-04-28',dueDate:'2026-05-06',status:'Not Started',pri:'medium',
+     ms:'DQTP',progress:0},
+    {id:'SL5-G29',projectId:'SL500EUUK',name:'Life test',
+     owner:'Sunny',department:'Quality',
+     start:'2026-04-28',dueDate:'2026-05-28',status:'Not Started',pri:'medium',
+     ms:'DQTP',progress:0},
+    {id:'SL5-G30',projectId:'SL500EUUK',name:'Release DQTP report',
+     owner:'Sunny',department:'Quality',
+     start:'2026-05-29',dueDate:'2026-05-29',status:'Not Started',pri:'medium',
+     ms:'DQTP',progress:0},
+    {id:'SL5-G31',projectId:'SL500EUUK',name:'Food performance testing',
+     owner:'Sunny',department:'Quality',
+     start:'2026-04-28',dueDate:'2026-05-22',status:'In Progress',pri:'medium',
+     ms:'DQTP',progress:13},
+    {id:'SL5-G32',projectId:'SL500EUUK',name:'KPI checkout',
+     owner:'Sunny',department:'Quality',
+     start:'2026-04-30',dueDate:'2026-05-22',status:'Not Started',pri:'medium',
+     ms:'DQTP',progress:0},
+    {id:'SL5-G33',projectId:'SL500EUUK',name:'B/W testing',
+     owner:'Sunny',department:'Quality',
+     start:'2026-04-28',dueDate:'2026-05-22',status:'In Progress',pri:'medium',
+     ms:'DQTP',progress:8},
+    {id:'SL5-G34',projectId:'SL500EUUK',name:'UI flow check',
+     owner:'Sunny',department:'Quality',
+     start:'2026-04-30',dueDate:'2026-05-18',status:'Not Started',pri:'medium',
+     ms:'DQTP',progress:0},
+    {id:'SL5-G35',projectId:'SL500EUUK',name:'Compliance testing',
+     owner:'Sunny',department:'Quality',
+     start:'2026-05-07',dueDate:'2026-06-08',status:'In Progress',pri:'medium',
+     ms:'Compliance Complete',progress:13},
+    {id:'SL5-G36',projectId:'SL500EUUK',name:'Sent compliance samples to UL lab',
+     owner:'Sunny',department:'Quality',
+     start:'2026-05-07',dueDate:'2026-05-09',status:'Done',pri:'medium',
+     ms:'Compliance Complete',progress:100},
+    {id:'SL5-G37',projectId:'SL500EUUK',name:'Conduct Compliance test',
+     owner:'Sunny',department:'Quality',
+     start:'2026-05-11',dueDate:'2026-06-05',status:'Not Started',pri:'medium',
+     ms:'Compliance Complete',progress:0},
+    {id:'SL5-G38',projectId:'SL500EUUK',name:'Update compliance report & cert',
+     owner:'Sunny',department:'Quality',
+     start:'2026-06-08',dueDate:'2026-06-08',status:'Not Started',pri:'medium',
+     ms:'Compliance Complete',progress:0},
+    {id:'SL5-G39',projectId:'SL500EUUK',name:'MP Phase',
+     owner:'Sunny',department:'PM',
+     start:'2026-04-28',dueDate:'2026-06-26',status:'In Progress',pri:'medium',
+     ms:'MP Start',progress:2},
+    {id:'SL5-G40',projectId:'SL500EUUK',name:'Release LOA / PO for LLT material',
+     owner:'Sunny',department:'PM',
+     start:'2026-04-28',dueDate:'2026-04-28',status:'Done',pri:'medium',
+     ms:'MP Start',progress:100},
+    {id:'SL5-G41',projectId:'SL500EUUK',name:'Update ID & UI spec for MP',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-05-19',dueDate:'2026-05-26',status:'Not Started',pri:'medium',
+     ms:'MP Start',progress:0},
+    {id:'SL5-G42',projectId:'SL500EUUK',name:'Upload artwork for MP',
+     owner:'Sunny',department:'PM',
+     start:'2026-05-22',dueDate:'2026-05-29',status:'Not Started',pri:'medium',
+     ms:'MP AW',progress:0},
+    {id:'SL5-G43',projectId:'SL500EUUK',name:'Approve digital proofs of AW',
+     owner:'Sunny',department:'PM',
+     start:'2026-06-01',dueDate:'2026-06-02',status:'Not Started',pri:'medium',
+     ms:'MP AW',progress:0},
+    {id:'SL5-G44',projectId:'SL500EUUK',name:'Update EBOM for MP',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-06-01',dueDate:'2026-06-03',status:'Not Started',pri:'medium',
+     ms:'MP Start',progress:0},
+    {id:'SL5-G45',projectId:'SL500EUUK',name:'Update PCBA approval sheets',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-06-03',dueDate:'2026-06-09',status:'Not Started',pri:'medium',
+     ms:'MP Start',progress:0},
+    {id:'SL5-G46',projectId:'SL500EUUK',name:'Update CBOM for MP',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-06-04',dueDate:'2026-06-10',status:'Not Started',pri:'medium',
+     ms:'MP Start',progress:0},
+    {id:'SL5-G47',projectId:'SL500EUUK',name:'Prepare PKG for MP',
+     owner:'Sunny',department:'Manufacturing',
+     start:'2026-06-04',dueDate:'2026-06-15',status:'Not Started',pri:'medium',
+     ms:'MP Start',progress:0},
+    {id:'SL5-G48',projectId:'SL500EUUK',name:'Upload documents for ECN approval',
+     owner:'Sunny',department:'PM',
+     start:'2026-06-09',dueDate:'2026-06-09',status:'Not Started',pri:'medium',
+     ms:'ECN IMP',progress:0},
+    {id:'SL5-G49',projectId:'SL500EUUK',name:'Approve ECN',
+     owner:'Sunny',department:'Engineering',
+     start:'2026-06-10',dueDate:'2026-06-16',status:'Not Started',pri:'medium',
+     ms:'ECN IMP',progress:0},
+    {id:'SL5-G50',projectId:'SL500EUUK',name:'Release ECN to factory',
+     owner:'Sunny',department:'PM',
+     start:'2026-06-17',dueDate:'2026-06-17',status:'Not Started',pri:'medium',
+     ms:'ECN IMP',progress:0},
+    {id:'SL5-G51',projectId:'SL500EUUK',name:'Initiate MP Work Flow in PLM',
+     owner:'Sunny',department:'PM',
+     start:'2026-06-17',dueDate:'2026-06-24',status:'Not Started',pri:'medium',
+     ms:'MP Start',progress:0},
+    {id:'SL5-G52',projectId:'SL500EUUK',name:'Prepare MP materials',
+     owner:'Sunny',department:'Manufacturing',
+     start:'2026-06-17',dueDate:'2026-06-24',status:'Not Started',pri:'medium',
+     ms:'MP Start',progress:0},
+    {id:'SL5-G53',projectId:'SL500EUUK',name:'Sign golden samples for MP',
+     owner:'Sunny',department:'Quality',
+     start:'2026-06-25',dueDate:'2026-06-25',status:'Not Started',pri:'medium',
+     ms:'MP Start',progress:0},
+    {id:'SL5-G54',projectId:'SL500EUUK',name:'Start MP',
+     owner:'Sunny',department:'Manufacturing',
+     start:'2026-06-26',dueDate:'2026-06-26',status:'Not Started',pri:'medium',
+     ms:'MP Start',progress:0}
   ];
   let did=1;
   S.projects.forEach(p=>{
@@ -1692,10 +1951,31 @@ function initData(){
     });
   });
   S.issues=[
-    {id:'I-001',projectId:'P001',type:'Delay',title:'Heating module FAI delayed +12d',owner:'Lisa Wang',status:'Open',priority:'high',delayDays:12,rootCause:'Primary supplier machine breakdown',impactedMs:'EB BUILD',recoveryAction:'Evaluate alternative supplier',recoveryOwner:'Sunny',targetDate:'2026-06-15',escalation:true,department:'Quality',gate:'ECN DD APPROVE',taskId:'T1-07'},
-    {id:'I-002',projectId:'P002',type:'Delay',title:'Blade assembly design delayed +8d',owner:'Mike Chen',status:'Open',priority:'high',delayDays:8,rootCause:'Titanium coating supplier issue',impactedMs:'EB BUILD',recoveryAction:'Evaluate standard coating',recoveryOwner:'Mike Chen',targetDate:'2026-06-12',escalation:false,department:'Engineering',gate:'ECN DD APPROVE',taskId:'T2-04'},
-    {id:'I-003',projectId:'P001',type:'Decision Needed',title:'Alt supplier approval for heating module',owner:'Sunny',status:'Open',priority:'high',delayDays:0,rootCause:'Primary supplier capacity issue',impactedMs:'EB BUILD',recoveryAction:'Approve alt supplier by Jun 10',recoveryOwner:'Sunny',targetDate:'2026-06-10',escalation:true,department:'Supply Chain',gate:'ECN DD APPROVE',taskId:'T1-07'},
-    {id:'I-004',projectId:'P005',type:'Blocker',title:'New motor supplier visit blocked — 22d delay',owner:'Sunny',status:'Open',priority:'high',delayDays:22,rootCause:'Travel approval bottleneck + supplier factory not ready',impactedMs:'ECN DD',recoveryAction:'Escalate to VP for emergency approval',recoveryOwner:'Sunny',targetDate:'2026-06-20',escalation:true,department:'Quality',gate:'ECN OPEN',taskId:'T5-01'}
+    // === SL500EUUK — SL500INTL risks and decisions ===
+    {id:'SL5-I01',projectId:'SL500EUUK',type:'Risk',
+     title:'Compliance sample shipment depends on compliance address confirmation',
+     owner:'Sunny',department:'Quality',status:'Open',priority:'high',
+     targetDate:'2026-05-09',
+     rootCause:'Sample is ready but compliance address is not confirmed.',
+     impactedMs:'Compliance Complete',
+     recoveryAction:'Confirm compliance address and ship samples immediately.',
+     recoveryOwner:'Sun / CN Compliance',escalation:true},
+    {id:'SL5-I02',projectId:'SL500EUUK',type:'Risk',
+     title:'DQTP and compliance reports are critical path for ECN approval',
+     owner:'Sunny',department:'PM',status:'Open',priority:'high',
+     targetDate:'2026-06-09',
+     rootCause:'ECN approval package depends on DQTP report and compliance certificate readiness.',
+     impactedMs:'ECN IMP',
+     recoveryAction:'Confirm DQTP report and compliance certificate before ECN document upload.',
+     recoveryOwner:'Sun',escalation:true},
+    {id:'SL5-I03',projectId:'SL500EUUK',type:'Decision Needed',
+     title:'Confirm whether MP Start remains on 2026-06-25 or 2026-06-26',
+     owner:'Sunny',department:'PM',status:'Open',priority:'medium',
+     targetDate:'2026-06-20',
+     rootCause:'Screenshot shows MP Start 2026-06-25, PDF shows Start MP 2026-06-26.',
+     impactedMs:'MP Start',
+     recoveryAction:'Align PMO, factory and NPI on final MP start date.',
+     recoveryOwner:'Saskia Romero / Sun',escalation:false}
   ];
   S.knowledge=[
     {id:'K001',type:'Lesson Learned',title:'Supplier FAI delay recovery plan template',problem:'Primary supplier experienced machine breakdown causing FAI delay',rootCause:'Single-source supplier dependency without backup',solution:'Qualified alternative supplier; established dual-source policy',prevention:'Always qualify 2 suppliers before EB BUILD gate',relatedProject:'AS101KRxx',relatedFunction:'Quality',relatedSupplier:'Heating module supplier',tags:['FAI','Supplier','Recovery','Single Source'],author:'Sunny',date:'2026-05-20'},
@@ -1828,11 +2108,11 @@ function renderDaily(c){
   /* -- 把 content-area 切换到 daily-mode -- */
   c.classList.add('daily-mode');
 
-  const myAll=S.tasks.filter(t=>t.owner==='Sunny');
+  const myAll=S.tasks.filter(t=>t.owner==='Sunny'||t.owner==='Sun Sun');
   const myOpen=myAll.filter(t=>t.status!=='Done'&&t.status!=='Completed');
   const overdue=myAll.filter(t=>isOverdue(t.dueDate,t.status));
   const riskActs=myAll.filter(t=>t.status==='Delayed'||t.status==='Blocked'||t.riskFlag);
-  const decisions=S.issues.filter(i=>i.type==='Decision Needed'&&i.owner==='Sunny'&&i.status==='Open');
+  const decisions=S.issues.filter(i=>i.type==='Decision Needed'&&(i.owner==='Sunny'||i.owner==='Sun Sun')&&i.status==='Open');
   const myProjects=[...new Set(myOpen.map(t=>t.projectId))].map(id=>getProject(id)).filter(Boolean);
   const allProjects=S.projects;
 
@@ -1877,7 +2157,7 @@ function renderDaily(c){
           <div class="dw-proj-item ${!DW_PROJ_FILTER?'active':''}" onclick="dwFilterProj(null)">
             <span class="dw-pi-dot" style="background:#6b7280"></span>
             <span class="dw-pi-name">All Projects</span>
-            <span class="dw-pi-count ${myOpen.length>0?'blue':''}">${myOpen.length}</span>
+            <span class="dw-pi-count ${allProjects.length>0?'blue':''}">${allProjects.length}</span>
           </div>
           ${allProjects.map(p=>{
             const pOpen=myOpen.filter(t=>t.projectId===p.id);
@@ -1891,7 +2171,7 @@ function renderDaily(c){
           }).join('')}
         </div>
 
-        <!-- Open Issues -->
+        <!-- Pending Decisions -->
         ${decisions.length?`
         <div class="dw-group">
           <div class="dw-group-title">Pending Decisions</div>
@@ -1901,15 +2181,7 @@ function renderDaily(c){
           </div>`}).join('')}
         </div>`:''}
 
-        <!-- Overdue Issues -->
-        ${S.issues.filter(i=>i.owner==='Sunny'&&i.status==='Open'&&i.type!=='Decision Needed').length?`
-        <div class="dw-group">
-          <div class="dw-group-title">Open Issues</div>
-          ${S.issues.filter(i=>i.owner==='Sunny'&&i.status==='Open'&&i.type!=='Decision Needed').slice(0,5).map(i=>{const p=getProject(i.projectId);return`<div class="dw-issue-item" onclick="showEditIssueModal('${i.id}')">
-            <div class="dw-issue-title">${i.type==='Blocker'?'🔴':i.type==='Delay'?'⚠️':'📋'} ${(i.title||'').slice(0,50)}</div>
-            <div class="dw-issue-meta">${p?.name||''} · ${i.priority}</div>
-          </div>`}).join('')}
-        </div>`:''}
+
 
         <!-- Recently Updated -->
         <div class="dw-group">
@@ -1957,7 +2229,7 @@ function renderDaily(c){
       </div>
       <button class="dw-quick-add-btn" onclick="showQuickAddTaskModal()" title="Quick add a new task">
         <span class="dw-qab-icon">+</span>
-        <span class="dw-qab-text">添加任务</span>
+        <span class="dw-qab-text">New Task</span>
       </button>
 
       <!-- 底部 AI Chat Bar -->
@@ -2338,7 +2610,7 @@ function dwFilterProj(pid){
     }
   });
   // 过滤中间列表 (包含已完成任务)
-  const myAll=S.tasks.filter(t=>t.owner==='Sunny');
+  const myAll=S.tasks.filter(t=>t.owner==='Sunny'||t.owner==='Sun Sun');
   let filtered=pid?myAll.filter(t=>t.projectId===pid):myAll;
   const srch=(document.getElementById('dwSearch')?.value||'').toLowerCase();
   const stFilter=document.getElementById('dwFilterStatus')?.value||'';
@@ -2356,7 +2628,7 @@ function dwRefilter(){
   const sortBy=document.getElementById('dwSortBy')?.value||'priority';
   const stFilter=document.getElementById('dwFilterStatus')?.value||'';
   const priOrder={'high':0,'medium':1,'low':2};
-  const myAll=S.tasks.filter(t=>t.owner==='Sunny');
+  const myAll=S.tasks.filter(t=>t.owner==='Sunny'||t.owner==='Sun Sun');
   let filtered=DW_PROJ_FILTER?myAll.filter(t=>t.projectId===DW_PROJ_FILTER):myAll;
   if(srch)filtered=filtered.filter(t=>(t.name+t.owner+(getProject(t.projectId)?.sku||'')+(getProject(t.projectId)?.name||'')+t.ms).toLowerCase().includes(srch));
   if(stFilter)filtered=filtered.filter(t=>t.status===stFilter);
@@ -2388,12 +2660,12 @@ function dwAsk(q){
   let ans='';
   const lq=q.toLowerCase();
   if(lq.includes('summarize my day')||lq.includes('summary')){
-    const myAll=S.tasks.filter(t=>t.status!=='Done'&&t.owner==='Sunny');
+    const myAll=S.tasks.filter(t=>t.status!=='Done'&&(t.owner==='Sunny'||t.owner==='Sun Sun'));
     const ov=myAll.filter(t=>isOverdue(t.dueDate,t.status));
     const bl=myAll.filter(t=>t.status==='Blocked');
     ans=`🤖 <b>Today's Summary:</b><br>You have <b>${myAll.length} open tasks</b> across ${[...new Set(myAll.map(t=>t.projectId))].length} projects.<br>${ov.length?`⚠️ <b>${ov.length} overdue</b>: ${ov.map(x=>x.name.slice(0,30)).join(', ')}.<br>`:''}${bl.length?`🔴 <b>${bl.length} blocked</b>: ${bl.map(x=>x.name.slice(0,30)).join(', ')}.<br>`:''}Prioritize recovery actions for delayed/blocked tasks today.`;
   }else if(lq.includes('focus')){
-    const myAll=S.tasks.filter(t=>t.status!=='Done'&&t.owner==='Sunny');
+    const myAll=S.tasks.filter(t=>t.status!=='Done'&&(t.owner==='Sunny'||t.owner==='Sun Sun'));
     const pri=myAll.filter(t=>t.pri==='high'||t.status==='Blocked'||isOverdue(t.dueDate,t.status)).slice(0,3);
     ans=`🤖 <b>Top 3 Focus Items:</b><br>${pri.map((t,i)=>`${i+1}. <b>${t.name}</b> — ${t.status}${t.delayDays>0?' (+'+t.delayDays+'d)':''}`).join('<br>')||'All tasks are on track!'}`;
   }else if(lq.includes('explain')&&t){
@@ -2405,7 +2677,7 @@ function dwAsk(q){
     const kbs=S.knowledge.slice(0,2);
     ans=`🤖 <b>Similar Issues in Knowledge Base:</b><br>${kbs.map(k=>`• <b>${k.title}</b> (${k.type}): ${k.solution?.slice(0,80)||'—'}`).join('<br>')||'No similar cases found.'}`;
   }else if(lq.includes('update')||lq.includes('report')){
-    const myAll=S.tasks.filter(t=>t.owner==='Sunny'&&t.status!=='Done');
+    const myAll=S.tasks.filter(t=>(t.owner==='Sunny'||t.owner==='Sun Sun')&&t.status!=='Done');
     ans=`🤖 <b>Task Update Summary:</b><br>${myAll.slice(0,5).map(t=>`• <b>${t.name}</b> — ${t.status}${t.delayDays>0?' +'+t.delayDays+'d':''} | Due ${fmtShort(t.dueDate)}`).join('<br>')}`;
   }else if(t){
     ans=`🤖 <b>About "${(t.name||'').slice(0,40)}":</b><br>Project: ${p?.name||'—'} | Status: <b>${t.status}</b> | Owner: ${t.owner}<br>Due: ${fmtShort(t.dueDate)}${t.delayDays>0?' (+'+t.delayDays+'d)':''} | MS: ${t.ms||'—'}<br>${t.rootCause?`Root Cause: ${t.rootCause}<br>`:''}${t.recoveryAction?`Recovery: ${t.recoveryAction}`:''}`;
@@ -2498,7 +2770,7 @@ function renderProjects(c){
         <tbody id="projTableBody">`;
 
   projects.forEach(p=>{
-    const gateProgress=Math.round(p.gates.filter(g=>g.status==='Done').length/NPI_GATES.length*100);
+    const gateProgress=Number.isFinite(p.progress)?p.progress:Math.round(p.gates.filter(g=>g.status==='Done').length/NPI_GATES.length*100);
     const curGate=NPI_GATES[p.currentGate]||NPI_GATES[0];
     h+=`<tr class="row-link" onclick="navigateTo('projects',{projectId:'${p.id}'})">
       <td>
@@ -2559,7 +2831,7 @@ function filterProjects(){
   if(!tbody){render();return;}
   let ps=getFilteredProjects();
   tbody.innerHTML=ps.map(p=>{
-    const gp=Math.round(p.gates.filter(g=>g.status==='Done').length/NPI_GATES.length*100);
+    const gp=Number.isFinite(p.progress)?p.progress:Math.round(p.gates.filter(g=>g.status==='Done').length/NPI_GATES.length*100);
     const cg=NPI_GATES[p.currentGate]||NPI_GATES[0];
     return`<tr class="row-link" onclick="navigateTo('projects',{projectId:'${p.id}'})">
       <td><div class="fw6">${p.name}</div><div class="text-xs text-muted">${p.sku}</div></td>
@@ -3108,7 +3380,7 @@ function renderAdmin(c){
     <div class="card-body">
       <div class="flex items-center gap12 mb16">
         <div style="width:48px;height:48px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:50%;display:grid;place-items:center;font-size:18px;font-weight:700;color:#fff">S</div>
-        <div><div class="fw7" style="font-size:15px">Sunny</div><div class="text-sm text-muted">NPI Project Manager</div></div>
+        <div><div class="fw7" style="font-size:15px">Sun Sun</div><div class="text-sm text-muted">NPI Project Manager</div></div>
       </div>
       <div class="form-grid"><div><label class="form-label">Name</label><input class="form-input" value="Sunny" readonly></div>
       <div><label class="form-label">Role</label><input class="form-input" value="NPI Project Manager" readonly></div>
@@ -3149,7 +3421,7 @@ function renderAdmin(c){
   <div class="card mt16"><div class="card-hdr"><div class="card-title">ℹ️ About AutoPM</div></div>
   <div class="card-body">
     <div class="grid-3">
-      <div><div class="text-xs fw6 text-muted mb2">VERSION</div><div class="fw6">AutoPM V4.0</div></div>
+      <div><div class="text-xs fw6 text-muted mb2">VERSION</div><div class="fw6">AutoPM V6.0</div></div>
       <div><div class="text-xs fw6 text-muted mb2">ARCHITECTURE</div><div class="fw6">5-Layer Project OS</div></div>
       <div><div class="text-xs fw6 text-muted mb2">POWERED BY</div><div class="fw6">WorkBuddy AI</div></div>
     </div>
@@ -3577,7 +3849,7 @@ function generateReport(pid){
 /* ===== PROJECT DETAIL REDESIGN — Override ===== */
 
 function pdHeader(p){
-  const lastUpd=fmtDate(new Date().toISOString().slice(0,10));
+  const lastUpd=fmtDate(p.lastUpdated||p.planSnapshotDate||new Date().toISOString().slice(0,10));
   return `<div class="pd-header">
     <div class="pd-photo"><div class="pd-photo-placeholder">📦</div></div>
     <div class="pd-header-info">
@@ -3609,8 +3881,8 @@ function pdHeader(p){
 }
 
 function pdWorkflow(p){
-  const wfNames=['Award','Kick Off','ECN Open','ECN DD','EB Build','Sample & Test','ECN IMP','MP'];
-  let h=`<div class="pd-workflow"><div class="pd-wf-title">PROJECT WORKFLOW</div><div class="pd-wf-bar">`;
+  const wfNames=['Award','Kick Off','P1 Build','ECN DD','Color','SW Dev','EB0','DQTP','Compliance','MP AW','FPO','ECN IMP','MP Start'];
+  let h=`<div class="pd-workflow"><div class="pd-wf-title">PROJECT MILESTONE</div><div class="pd-wf-bar">`;
   NPI_GATES.forEach((g,i)=>{
     const gs=p.gates[i]||{};const st=gs.status||'Not Started';
     const cls={'Done':'wf-done','In Progress':'wf-ip','At Risk':'wf-risk','Delayed':'wf-delay','Blocked':'wf-blocked','Not Started':'wf-ns'}[st]||'wf-ns';
@@ -3633,7 +3905,7 @@ function pdSummaryCards(p,tasks,issues,delivs){
   const openI=issues.filter(i=>i.status==='Open');
   const delayedD=delivs.filter(d=>d.status==='Delayed'||d.status==='At Risk');
   const curGate=NPI_GATES[p.currentGate]?.name||'—';
-  const nextMS=tasks.filter(t=>t.status!=='Done').sort((a,b)=>(a.dueDate||'9999')>(b.dueDate||'9999')?1:-1)[0];
+  const nextMS=(S.milestones||[]).filter(m=>m.projectId===p.id&&m.status!=='Done'&&m.dueDate&&m.dueDate>=(p.planSnapshotDate||'')).sort((a,b)=>a.dueDate.localeCompare(b.dueDate))[0];
   const capOK=!(p.forecast&&p.capacity&&p.forecast.replace(/\D/g,'')>p.capacity.replace(/\D/g,''));
   return `<div class="pd-cards">
     <div class="pd-card"><div class="pd-card-label">Current Phase</div><div class="pd-card-val blue">${curGate}</div><div class="pd-card-sub">Gate ${p.currentGate+1}/${NPI_GATES.length}</div></div>
@@ -5685,7 +5957,7 @@ const REAL_DEPT_STATS = {
 
 
 /* ===== APP INIT ===== */
-const APP_VERSION = '22.2';
+const APP_VERSION = '24.0';
 
 function seedData(){
   // Generate demo projects
@@ -5780,7 +6052,72 @@ function seedData(){
   saveData();
 }
 
+/* ===== LOGIN GATE ===== */
+function showLoginGate(){
+  document.body.style.cssText='margin:0;padding:0;background:#f3f4f6;font-family:Inter,Arial,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:auto';
+  document.body.innerHTML=`
+    <div style="background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:40px 36px;width:100%;max-width:400px;margin:20px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px">
+        <div style="width:36px;height:36px;background:#2563eb;border-radius:8px;display:grid;place-items:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0">A</div>
+        <div>
+          <div style="font-size:16px;font-weight:700;color:#111827">AutoPM</div>
+          <div style="font-size:11px;color:#6b7280">Project Operating System</div>
+        </div>
+      </div>
+      <h2 style="font-size:20px;font-weight:700;color:#111827;margin:0 0 6px">Welcome back</h2>
+      <p style="font-size:13px;color:#6b7280;margin:0 0 24px">Sign in to your workspace</p>
+      <div style="margin-bottom:16px">
+        <label style="display:block;font-size:11px;font-weight:600;color:#374151;margin-bottom:4px">Username</label>
+        <input id="login_user" type="text" placeholder="Enter username" autocomplete="username"
+          style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;transition:border .15s"
+          onfocus="this.style.borderColor='#2563eb';this.style.boxShadow='0 0 0 3px rgba(37,99,235,.1)'"
+          onblur="this.style.borderColor='#d1d5db';this.style.boxShadow='none'"
+          onkeydown="if(event.key==='Enter')document.getElementById('login_pass').focus()">
+      </div>
+      <div style="margin-bottom:24px">
+        <label style="display:block;font-size:11px;font-weight:600;color:#374151;margin-bottom:4px">Password</label>
+        <input id="login_pass" type="password" placeholder="Enter password" autocomplete="current-password"
+          style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;transition:border .15s"
+          onfocus="this.style.borderColor='#2563eb';this.style.boxShadow='0 0 0 3px rgba(37,99,235,.1)'"
+          onblur="this.style.borderColor='#d1d5db';this.style.boxShadow='none'"
+          onkeydown="if(event.key==='Enter')handleLogin()">
+      </div>
+      <div id="login_err" style="display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;padding:8px 12px;font-size:12px;color:#dc2626;margin-bottom:16px"></div>
+      <button onclick="handleLogin()"
+        style="width:100%;padding:10px;background:#2563eb;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .15s"
+        onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">
+        Sign In
+      </button>
+      <p style="text-align:center;font-size:11px;color:#9ca3af;margin:20px 0 0">AutoPM v${typeof APP_VERSION!=='undefined'?APP_VERSION:'—'} · Demo Mode</p>
+    </div>`;
+  setTimeout(()=>document.getElementById('login_user')?.focus(),50);
+}
+
+function handleLogin(){
+  const user=(document.getElementById('login_user')?.value||'').trim();
+  const pass=document.getElementById('login_pass')?.value||'';
+  if(user==='sunny'&&pass==='autopm2026'){
+    sessionStorage.setItem('autopm_auth','true');
+    location.reload();
+  }else{
+    const err=document.getElementById('login_err');
+    if(err){err.textContent='Invalid username or password';err.style.display='block';}
+    const passEl=document.getElementById('login_pass');
+    if(passEl){passEl.value='';passEl.focus();}
+  }
+}
+
+function logoutAutoPM(){
+  sessionStorage.removeItem('autopm_auth');
+  location.reload();
+}
+/* ===== END LOGIN GATE ===== */
+
 function initApp(){
+  if(sessionStorage.getItem('autopm_auth')!=='true'){
+    showLoginGate();
+    return;
+  }
   if(!loadData()){
     initData();
   }
@@ -5830,12 +6167,14 @@ window.onerror=function(msg,url,line,col,err){
   console.error('Global error:',msg,line,err);
 };
 try{
-  initApp();
+  window.__AUTOPM_DEFERRED_INIT__=initApp;
 }catch(e){
   document.getElementById('content').innerHTML='<div style="padding:40px;color:#ef4444;font-family:monospace;background:#1e1e1e;margin:20px;border-radius:8px"><h2>Init Error</h2><pre>'+e.message+'\n\n'+e.stack+'</pre></div>';
 }
 
 </script>
+<script src="./autopm-v6-overrides.js"></script>
+<script src="./autopm-v7-sync.js"></script>
 
 </body>
 </html>
