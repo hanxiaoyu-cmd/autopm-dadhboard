@@ -1401,6 +1401,17 @@ textarea.form-input{resize:vertical;min-height:72px}
   .emc-pattern-grid{grid-template-columns:1fr 1fr}
 }
 
+
+/* -- Inline editable biz fields -- */
+.pd-biz-val[data-editable]{cursor:pointer;border-bottom:1px dashed transparent;transition:border-color .15s}
+.pd-biz-val[data-editable]:hover{border-bottom-color:var(--blue);color:var(--blue)}
+.pd-biz-val[data-editable]:hover::after{content:' ✎';font-size:9px;opacity:.6}
+.pd-biz-edit-input{
+  font-size:11px;font-weight:500;color:var(--t1);
+  background:var(--surface2);border:1px solid var(--blue);
+  border-radius:3px;padding:1px 4px;outline:none;
+  min-width:60px;max-width:160px;
+}
 </style>
 
 </head>
@@ -3850,7 +3861,7 @@ function generateReport(pid){
 
 function pdHeader(p){
   const lastUpd=fmtDate(p.lastUpdated||p.planSnapshotDate||new Date().toISOString().slice(0,10));
-  return `<div class="pd-header">
+  return `<div class="pd-header" id="pdHeader">
     <div class="pd-photo"><div class="pd-photo-placeholder">📦</div></div>
     <div class="pd-header-info">
       <div class="pd-header-top"><h2>${p.name}</h2>${sBadge(p.status)}<span class="badge ${riskCls(p.riskLevel)}">${p.riskLevel} Risk</span></div>
@@ -3861,14 +3872,14 @@ function pdHeader(p){
         ${p.delayDays>0?`<span class="pd-meta-item" style="color:var(--red);font-weight:600">+${p.delayDays}d delay</span>`:''}
       </div>
       <div class="pd-header-biz">
-        <span class="pd-biz-item"><span class="pd-biz-label">Factory:</span><span class="pd-biz-val">${p.factory||'—'}</span></span>
-        <span class="pd-biz-item"><span class="pd-biz-label">Supplier:</span><span class="pd-biz-val">${p.supplier||'—'}</span></span>
-        <span class="pd-biz-item"><span class="pd-biz-label">OEM:</span><span class="pd-biz-val">${p.oem||'—'}</span></span>
-        <span class="pd-biz-item"><span class="pd-biz-label">Tooling:</span><span class="pd-biz-val" style="font-size:10px">${p.toolingSummary||'—'}</span></span>
-        <span class="pd-biz-item"><span class="pd-biz-label">Capacity:</span><span class="pd-biz-val">${p.capacity||'—'}</span></span>
-        <span class="pd-biz-item"><span class="pd-biz-label">Forecast:</span><span class="pd-biz-val">${p.forecast||'—'}</span></span>
-        <span class="pd-biz-item"><span class="pd-biz-label">PM:</span><span class="pd-biz-val">${p.pm||'—'}</span></span>
-        <span class="pd-biz-item"><span class="pd-biz-label">PMO:</span><span class="pd-biz-val">${p.pmo||'—'}</span></span>
+        <span class="pd-biz-item"><span class="pd-biz-label">Factory:</span><span class="pd-biz-val" data-editable ondblclick="pdEditField(event,p.id,'factory')">${p.factory||'—'}</span></span>
+        <span class="pd-biz-item"><span class="pd-biz-label">Supplier:</span><span class="pd-biz-val" data-editable ondblclick="pdEditField(event,p.id,'supplier')">${p.supplier||'—'}</span></span>
+        <span class="pd-biz-item"><span class="pd-biz-label">OEM:</span><span class="pd-biz-val" data-editable ondblclick="pdEditField(event,p.id,'oem')">${p.oem||'—'}</span></span>
+        <span class="pd-biz-item"><span class="pd-biz-label">Tooling:</span><span class="pd-biz-val" style="font-size:10px" data-editable ondblclick="pdEditField(event,p.id,'toolingSummary')">${p.toolingSummary||'—'}</span></span>
+        <span class="pd-biz-item"><span class="pd-biz-label">Capacity:</span><span class="pd-biz-val" data-editable ondblclick="pdEditField(event,p.id,'capacity')">${p.capacity||'—'}</span></span>
+        <span class="pd-biz-item"><span class="pd-biz-label">Forecast:</span><span class="pd-biz-val" data-editable ondblclick="pdEditField(event,p.id,'forecast')">${p.forecast||'—'}</span></span>
+        <span class="pd-biz-item"><span class="pd-biz-label">PM:</span><span class="pd-biz-val" data-editable ondblclick="pdEditField(event,p.id,'pm')">${p.pm||'—'}</span></span>
+        <span class="pd-biz-item"><span class="pd-biz-label">PMO:</span><span class="pd-biz-val" data-editable ondblclick="pdEditField(event,p.id,'pmo')">${p.pmo||'—'}</span></span>
       </div>
     </div>
     <div class="pd-health">
@@ -6174,7 +6185,44 @@ try{
 
 </script>
 <script src="./autopm-v6-overrides.js"></script>
-<script src="./autopm-v7-sync.js"></script>
+<script src="./autopm-v7-sync.js">
+// ===== INLINE EDIT: Project biz fields =====
+function pdEditField(e, pid, field){
+  e.stopPropagation();
+  const span = e.currentTarget;
+  const curVal = span.textContent === '—' ? '' : span.textContent;
+  const input = document.createElement('input');
+  input.className = 'pd-biz-edit-input';
+  input.value = curVal;
+  input.style.width = Math.max(60, span.offsetWidth) + 'px';
+  span.replaceWith(input);
+  input.focus();
+  input.select();
+  
+  function save(){
+    const p = getProject(pid);
+    if(!p) return;
+    const newVal = input.value.trim();
+    p[field] = newVal || '';
+    saveData();
+    // Re-render project detail header only
+    const hdrEl = document.getElementById('pdHeader');
+    if(hdrEl){
+      hdrEl.outerHTML = pdHeader(p);
+    } else {
+      render();
+    }
+    toast('Saved: ' + (newVal||'(cleared)'));
+  }
+  
+  input.addEventListener('blur', save);
+  input.addEventListener('keydown', function(ev){
+    if(ev.key === 'Enter'){ ev.preventDefault(); input.blur(); }
+    if(ev.key === 'Escape'){ input.removeEventListener('blur', save); render(); }
+  });
+}
+
+</script>
 
 </body>
 </html>
