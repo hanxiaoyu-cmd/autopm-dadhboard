@@ -1,0 +1,20 @@
+{
+  "observedOn": "2026-09-13",
+  "purpose": "Illustrative samples, not full-data defect counts",
+  "Projects": [
+    {
+      "recordId": "rec01C0Kv0c24LZiw",
+      "projectId": "NXA0111",
+      "description": "US team updated ID Spec 5-Aug but still need to confirm the color of Jar"
+    }
+  ],
+  "Issues": [
+    {
+      "recordId": "rec0077JiarW9Mgkb",
+      "issueId": "NXA0028-ISS-005",
+      "description": "Collect data for ECN IMP submission",
+      "recoveryAction": "1. CBOM - to be provided by Spe 15\n2. EE approval sheet to be provided by Sep 15",
+      "plannedCloseDate": "2026-09-15"
+    }
+  ]
+}

@@ -1,0 +1,1931 @@
+{
+  "schema_version": "1.0",
+  "version": "1.2",
+  "as_of": "2026-09-11",
+  "purpose": "Planning and coordinator review only; no execution dispatched",
+  "execution_preferences": {
+    "airtable_browser_work": "Prefer DuMate for bounded browser configuration and design tasks",
+    "basis": "User reports DuMate can now control their browser; this session has not independently retested it",
+    "coordinator_scope": "Planning, business rules, task boundaries and acceptance review",
+    "assignment_status": "Preference only; no task dispatched",
+    "next_steps_file": "05_AIRTABLE_NEXT_STEPS.md"
+  },
+  "design_work_orders": [
+    {
+      "id": "UX-MS-01",
+      "title": "Power Apps 项目详情面板设计与实现",
+      "file": "dispatch/DESIGN_POWERAPPS_UX01.md",
+      "relates_to": [
+        "MS-04"
+      ],
+      "baseline": "Existing SharePoint MVP; live verification required at handoff",
+      "definition_status": "Defined",
+      "execution_status": "Unassigned",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "boundary": "Design copy only; no Dataverse deployment or original app publishing"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "AT-00",
+      "title": "隔离基线与字段消费者清单",
+      "priority": "P0",
+      "requirements": [
+        "REQ-001",
+        "REQ-004",
+        "REQ-026",
+        "REQ-027"
+      ],
+      "dependencies": [],
+      "test_ids": [
+        "TC-31",
+        "TC-30"
+      ],
+      "business_result": "明确正式系统与测试副本的差异，让第一批修复有可靠恢复点。",
+      "objects": [
+        "生产Base appOMWiK4CTOH7iQu只读",
+        "测试候选 appoEgvIhUvLWfT94",
+        "18表字段／32自动化／13页面目录",
+        "通知与外部写回入口"
+      ],
+      "steps": [
+        "核对目标Base ID、实际表和自动化目录，与R2证据逐项标记漂移",
+        "整理第一批统计/身份/关联修复的字段→公式→脚本→页面消费者",
+        "评估已有11表合成测试Base的覆盖缺口，提交是否需要完整隔离副本的具体范围",
+        "在获准测试范围固定样本、禁用真实发送/外部写回并记录原值及恢复步骤"
+      ],
+      "deliverables": [
+        "baseline.md（对象ID、版本、差异）",
+        "consumer-map.csv",
+        "fixture-index.md",
+        "isolation-and-restore.md"
+      ],
+      "exclusions": "不修改生产、不重跑生产自动化、不发送邮件、不删除字段；没有复制全量数据授权时只用合成样本。",
+      "candidate_assets": "既有11表合成Base和4个未发布页面是候选；不能标为完整生产克隆。",
+      "definition_status": "Defined",
+      "execution_status": "Unassigned",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-01",
+      "title": "统一任务完成和统计口径",
+      "priority": "P0",
+      "requirements": [
+        "REQ-006",
+        "REQ-008",
+        "REQ-011",
+        "REQ-023"
+      ],
+      "dependencies": [
+        "AT-00",
+        "GOV-01"
+      ],
+      "test_ids": [
+        "TC-01",
+        "TC-02",
+        "TC-03"
+      ],
+      "business_result": "项目进度、Open、个人工作和周报使用同一事实。",
+      "objects": [
+        "Projects.Total Task Count (Auto) fldpsk19XsAlZm1TG",
+        "Open Task Count fldU0VTgs8HXSN0eQ",
+        "Tasks Helper fldiwXNuaBZaqGsNd",
+        "完成公式",
+        "Automation 17及页面消费者"
+      ],
+      "steps": [
+        "确认旧Total使用SUM(1)及Open错误条件仍存在",
+        "在测试环境用关联Helper求和修复Total，按BR-13独立定义Open/Eligible/Cancelled",
+        "按身份核对Owner确认并连接结果/核验条件，17不再维护另一完成算法",
+        "按BR-11/12计算可下钻的健康候选与Next Milestone，PM发布正式健康并记录覆盖理由，不用完成率代替健康",
+        "逐项比较7/6/6/0与取消/零Owner/身份不一致样本，列历史新旧口径差异",
+        "遵守FD-14修订（design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md）：计划与问题措施分开，纳入计划后只维护Task执行事实，问题经验保留来源"
+      ],
+      "deliverables": [
+        "field-and-formula-diff.md",
+        "completion-contract.md",
+        "原生计算读回及用例结果",
+        "历史进度差异表"
+      ],
+      "exclusions": "不批量重写历史完成与核验；不以手工数字替代原生Rollup。",
+      "candidate_assets": "隔离Base7/6/6/0是数字读写测试，原生公式尚未验证；domain.py只作逻辑参考。",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-02",
+      "title": "My Work与人员责任维护",
+      "priority": "P0",
+      "requirements": [
+        "REQ-008",
+        "REQ-010",
+        "REQ-026",
+        "REQ-028"
+      ],
+      "dependencies": [
+        "AT-00",
+        "GOV-01",
+        "GOV-02"
+      ],
+      "test_ids": [
+        "TC-12",
+        "TC-14",
+        "TC-23"
+      ],
+      "business_result": "用户能准确找到本人责任、逾期和待核验，换人后队列及时更新。",
+      "objects": [
+        "My daily work Tasks/Issues筛选",
+        "People身份映射",
+        "06/07c/07d/10–12/14",
+        "Project参与者与Owner字段"
+      ],
+      "steps": [
+        "区分Owner、参与者、创建者与有权用户并建立身份匹配表",
+        "将Issue到期判断从Closed Date转为Target Date并补本周上下界",
+        "统一协作者增加/移除/换项目处理，不默认加入全部NPI",
+        "用实际测试角色核查队列及权限变化，保留异常身份清单",
+        "遵守FD-14修订（design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md）：计划与问题措施分开，纳入计划后只维护Task执行事实，问题经验保留来源"
+      ],
+      "deliverables": [
+        "my-work-filter-spec.md",
+        "identity-consumer-map.csv",
+        "自动化差异与角色测试证据",
+        "使用说明"
+      ],
+      "exclusions": "不推测同名人员身份，不把前端筛选称为数据层安全，不发真实催办。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-03",
+      "title": "Program、Project与SKU关系生命周期",
+      "priority": "P0",
+      "requirements": [
+        "REQ-001",
+        "REQ-002",
+        "REQ-004",
+        "REQ-007"
+      ],
+      "dependencies": [
+        "AT-00",
+        "GOV-01"
+      ],
+      "test_ids": [
+        "TC-07",
+        "TC-08",
+        "TC-09",
+        "TC-10",
+        "TC-11"
+      ],
+      "business_result": "关联完整、SKU执行互不覆盖，大项目不会只处理前一部分。",
+      "objects": [
+        "19a/b、20a/b、21a/b、22两入口",
+        "Project SKUs",
+        "SKU Milestone Plans",
+        "PMO同步删除配置",
+        "Execution History"
+      ],
+      "steps": [
+        "修正19b监听的SKU来源输入并核对消费者，歧义进入异常队列",
+        "ProjectSKU使用稳定组合身份，加入/移出/重新加入保存事件",
+        "22集合读取建索引分批写入，明确剩余量/检查点/续跑，保护例外",
+        "保留上游消失的主数据和执行历史，Program按有效SKU去重汇总，Unassigned保留"
+      ],
+      "deliverables": [
+        "relation-contract-and-diff.md",
+        "scope-history-spec.md",
+        "22版本/检查点与对账",
+        "关系/来源缺失异常表"
+      ],
+      "exclusions": "不按名称猜Program、不用源视图隐藏删除执行历史、不回填整库直到差异验收。",
+      "candidate_assets": "22候选脚本5个离线测试曾通过；未安装，200写入后续跑和最终读回不能视为完成。",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-04",
+      "title": "模板与统一排期处理",
+      "priority": "P0",
+      "requirements": [
+        "REQ-009",
+        "REQ-018"
+      ],
+      "dependencies": [
+        "AT-01",
+        "AT-03",
+        "GOV-01"
+      ],
+      "test_ids": [
+        "TC-04",
+        "TC-05",
+        "TC-06",
+        "TC-09"
+      ],
+      "business_result": "建项目计划可预览、可补缺，日期与原始承诺一致可追。",
+      "objects": [
+        "CPM Analysis",
+        "Task Template",
+        "01",
+        "02/03 mode输入",
+        "Tasks原生依赖机制",
+        "模板版本和日历配置"
+      ],
+      "steps": [
+        "盘点当前CPM模板56项与Task Template111项的实际用途并建立发布版本",
+        "锁定Start/Due/Duration/Baseline/Target/Forecast/Actual含义及唯一排期写入者",
+        "02/03改为请求统一处理，切换时处理原生自动重排及旧脚本",
+        "建案先预览再生成，循环/缺模板拒绝，Owner缺失待分配，中断重试补缺"
+      ],
+      "deliverables": [
+        "template-version-map.csv",
+        "schedule-writer-map.md",
+        "生成器/日期规则差异",
+        "预览与实际对账"
+      ],
+      "exclusions": "不统一套默认工期、不自动改运行模板、不回写Baseline。",
+      "candidate_assets": "本地域函数可参考；不是已部署排期引擎。",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-05",
+      "title": "Issue结果、验证关闭与重开",
+      "priority": "P0",
+      "requirements": [
+        "REQ-008",
+        "REQ-011",
+        "REQ-012",
+        "REQ-013",
+        "REQ-015"
+      ],
+      "dependencies": [
+        "AT-01",
+        "AT-02",
+        "GOV-01"
+      ],
+      "test_ids": [
+        "TC-02",
+        "TC-13",
+        "TC-23"
+      ],
+      "business_result": "问题解决有行动、有结果、有独立验证，经验可以复用。",
+      "objects": [
+        "Issues与Project直接关联",
+        "Issue Actions / PM明确纳入计划关联",
+        "Execution History",
+        "问题处理/验证/拒绝/重开Interface操作"
+      ],
+      "steps": [
+        "先读design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md；保留现有问题事实，补影响、单一问题Owner、原因确认状态、结果和发生背景",
+        "Issue Actions承载逐条问题措施；不新增Tasks.Work Type用于混装措施，My Tasks与My Issues/My Issue Actions分开",
+        "实现PM明确纳入计划：选择已有或创建同项目Task，幂等关联；此后措施页面只读引用Task执行字段",
+        "实现Open→In Recovery→Pending Verification→Closed及拒绝/重开；行动完成不自动关闭，旧历史不伪造验证",
+        "执行TC-13及PIT-01～13：独立计划/问题、多措施不影响计划、纳入计划只维护一次、跨项目/权限/导入/提醒边界"
+      ],
+      "deliverables": [
+        "issue-state-contract.md",
+        "表/流程/页面差异",
+        "验证与重开事件样本",
+        "角色拒绝证据",
+        "PIT场景结果与措施纳入计划的防重复证据"
+      ],
+      "exclusions": "不让AI自动确认根因或关闭；不将措施默认转Tasks；不伪造历史验证；不双写同一项执行事实。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-06",
+      "title": "计划导入与Bridge可靠写入",
+      "priority": "P0",
+      "requirements": [
+        "REQ-003",
+        "REQ-004",
+        "REQ-011"
+      ],
+      "dependencies": [
+        "AT-01",
+        "AT-03",
+        "GOV-01"
+      ],
+      "test_ids": [
+        "TC-15",
+        "TC-16",
+        "TC-17",
+        "TC-18",
+        "TC-30"
+      ],
+      "business_result": "导入不会重复、覆盖较新事实或把来源完成声称变成正式核验。",
+      "objects": [
+        "16 Inline Task Importer",
+        "Bridge解析/映射/写入",
+        "Data Jobs与Operation Items",
+        "SourceRecordMap或等效映射"
+      ],
+      "steps": [
+        "盘点Shark/Ninja、计划附件样例与字段消费者，移除失效完成字段映射",
+        "拆出来源解析、目标无关变更计划与Airtable适配器，取消未知日期加7天和绿色代确认",
+        "稳定Project/Task/Issue身份，保留原始来源和匹配决策",
+        "新增/更新逐条读回、冲突/限流/未知结果先对账，提交机器可复现的故障注入测试"
+      ],
+      "deliverables": [
+        "输入格式与映射版本",
+        "target-neutral-change-plan.json示例",
+        "Bridge差异与逐条结果",
+        "重试/读回测试报告"
+      ],
+      "exclusions": "不得读取/复制个人sync_config.json凭据，不直接批量运行生产数据；不声称本地锁等同跨主机事务。",
+      "candidate_assets": "Bridge24项离线测试曾通过，仍需复现、限流/多写入者/平台失败验证；原EXE继续作为旧版本参考。",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-07",
+      "title": "团队Data Center与托管处理",
+      "priority": "P0",
+      "requirements": [
+        "REQ-003",
+        "REQ-027",
+        "REQ-028"
+      ],
+      "dependencies": [
+        "AT-06",
+        "GOV-02"
+      ],
+      "test_ids": [
+        "TC-15",
+        "TC-17",
+        "TC-24",
+        "TC-25"
+      ],
+      "business_result": "普通用户在Interface上传、预览、修正、提交和下载，无需找开发者运行桌面脚本。",
+      "objects": [
+        "Schedule Import→Data Jobs",
+        "Operation Items",
+        "Interface Data Center",
+        "公司批准托管服务",
+        "文件访问与服务身份"
+      ],
+      "steps": [
+        "确定已批准处理服务及凭据托管，缺服务记录环境阻塞",
+        "新增Uploaded/Validating/Ready/Processing/Partial/Success/Failed状态及逐条预览",
+        "用户确认锁定预览版本，后台按批次执行并回传逐条结果/文件",
+        "用非开发者完成失败修正与安全重试，交接运行和恢复入口"
+      ],
+      "deliverables": [
+        "Data Center页面与后台任务定义",
+        "部署/连接说明",
+        "业务用户全程操作证据",
+        "runbook.md"
+      ],
+      "exclusions": "旧13系列保持停用；无批准服务只能接收离线成果，不能交付团队闭环。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-08",
+      "title": "统一Project Hub与组合界面",
+      "priority": "P0",
+      "requirements": [
+        "REQ-005",
+        "REQ-006",
+        "REQ-007",
+        "REQ-028"
+      ],
+      "dependencies": [
+        "AT-01",
+        "AT-03",
+        "AT-04",
+        "AT-05"
+      ],
+      "test_ids": [
+        "TC-10",
+        "TC-22",
+        "TC-23"
+      ],
+      "business_result": "用户在一个英文Interface看清项目状态、原因、责任和下一步。",
+      "objects": [
+        "Programs/Projects导航",
+        "pagRChzyUg9wthYhB与pag13iJZweBRoXJTB详情",
+        "Plan/SKUs/Issues/Weekly Updates/History组件"
+      ],
+      "steps": [
+        "统一Lifecycle/Stage/Health及Owner/Factory筛选，增加Unassigned和去重数量说明",
+        "按蓝图固定头部和六个详情区域，两个入口复用规范并确认绑定当前项目",
+        "按钮/状态配色与英文说明，空值/冲突/保存失败给明确反馈",
+        "实际浏览编辑后重开读回，验证完整范围末端记录和角色访问",
+        "遵守FD-14修订（design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md）：计划与问题措施分开，纳入计划后只维护Task执行事实，问题经验保留来源"
+      ],
+      "deliverables": [
+        "interface-component-spec.md",
+        "页面版本/组件绑定差异",
+        "完整范围统计对账",
+        "真实操作截图/记录"
+      ],
+      "exclusions": "不把配置JSON或静态UI当成可用验收；不因两个详情功能不一致就声称泄露全部项目。",
+      "candidate_assets": "测试Base4页未发布且未视觉检查，不是本包已完成页面。",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-09",
+      "title": "周报、提醒与Tracker结果",
+      "priority": "P0",
+      "requirements": [
+        "REQ-010",
+        "REQ-019",
+        "REQ-021"
+      ],
+      "dependencies": [
+        "AT-01",
+        "AT-02",
+        "AT-06",
+        "AT-07",
+        "AT-08"
+      ],
+      "test_ids": [
+        "TC-19",
+        "TC-20",
+        "TC-21"
+      ],
+      "business_result": "报告可追溯，提醒准确停止，Tracker输出保留公式与Baseline。",
+      "objects": [
+        "08/8b/09/09b/15",
+        "AutoPM Controls通知队列",
+        "Report快照",
+        "Bridge Tracker输出"
+      ],
+      "steps": [
+        "清理08旧字段、8b失效链接，统一统计口径和报告时间",
+        "确认后保存报告快照，Tracker从同一确认事实生成新文件",
+        "建立逐收件人队列/提供商接受/送达/处理状态及安全重试",
+        "按获准测试收件范围验证到期/停止/Owner变化，核对Tracker公式/格式/原文件哈希",
+        "遵守FD-14修订（design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md）：计划与问题措施分开，纳入计划后只维护Task执行事实，问题经验保留来源"
+      ],
+      "deliverables": [
+        "report-and-notification-spec.md",
+        "通知逐项证据",
+        "Tracker回归包",
+        "错误及恢复手册"
+      ],
+      "exclusions": "生成不等于发信；本包不授权真实发送或自动扩大收件人，不覆盖原Tracker文件。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-10",
+      "title": "最小案例复用与运行维护",
+      "priority": "P0",
+      "requirements": [
+        "REQ-016",
+        "REQ-017",
+        "REQ-027",
+        "REQ-028"
+      ],
+      "dependencies": [
+        "AT-05",
+        "AT-07",
+        "GOV-02"
+      ],
+      "test_ids": [
+        "TC-25",
+        "TC-28"
+      ],
+      "business_result": "已验证经验能找到，另一维护者可解释并恢复后台失败。",
+      "objects": [
+        "Lesson入口／已验证Issues",
+        "Rule Config",
+        "运行日志、质量异常、支持入口",
+        "System Knowledge & Progress"
+      ],
+      "steps": [
+        "从已验证Issue生成结构化Lesson草稿并保留证据/引用",
+        "增加按类别、发生阶段、发生时工厂/供应商背景、确认原因和措施效果检索；Unknown单列，按唯一Issue统计",
+        "集中规则与映射版本，配置支持责任/异常队列/恢复步骤",
+        "让另一维护者按说明定位一次失败并恢复，保留后续新数据",
+        "补充PIT-11/14；预防建议采纳后产生新模板版本，不自动改变运行项目"
+      ],
+      "deliverables": [
+        "lesson-schema-and-search.md",
+        "配置目录",
+        "runbook与交接记录",
+        "检索及恢复证据"
+      ],
+      "exclusions": "不把产品反馈Issue Summary当业务Issue，不要求P0新增自动AI案例推荐。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-11",
+      "title": "角色、完整链路与生产发布验收",
+      "priority": "P0",
+      "requirements": [
+        "REQ-026",
+        "REQ-027",
+        "REQ-028",
+        "REQ-029"
+      ],
+      "dependencies": [
+        "AT-00",
+        "AT-01",
+        "AT-02",
+        "AT-03",
+        "AT-04",
+        "AT-05",
+        "AT-06",
+        "AT-07",
+        "AT-08",
+        "AT-09",
+        "AT-10",
+        "GOV-02",
+        "GOV-03"
+      ],
+      "test_ids": [
+        "TC-22",
+        "TC-23",
+        "TC-24",
+        "TC-25",
+        "TC-26",
+        "TC-27"
+      ],
+      "business_result": "正式业务按批次接受，团队能独立使用且可恢复。",
+      "objects": [
+        "测试/正式Base配置差异",
+        "角色账号与文件权限",
+        "发布包",
+        "试用项目和两个周周期"
+      ],
+      "steps": [
+        "按依赖和数据影响组织发布候选，不将单个组件通过扩展为全系统",
+        "完成建案→执行→SKU例外→Issue验证→周报/Tracker及真实角色并发测试",
+        "形成具体发布对象/版本/影响/回退和必要授权，获准后发布对应批次",
+        "约20项目覆盖主要场景运行两个周期并完成支持交接"
+      ],
+      "deliverables": [
+        "release-candidate.md",
+        "全链路/角色结果",
+        "完整范围对账",
+        "试用与恢复报告"
+      ],
+      "exclusions": "没有发布授权不改生产；不以合成19任务或自测替代真实两周期。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-12",
+      "title": "计划交互与模板升级增强",
+      "priority": "P1",
+      "requirements": [
+        "REQ-009",
+        "REQ-018"
+      ],
+      "dependencies": [
+        "AT-04",
+        "AT-11"
+      ],
+      "test_ids": [
+        "TC-06",
+        "TC-29"
+      ],
+      "business_result": "批量排期和模板升级提高效率，同时保留可解释影响。",
+      "objects": [
+        "计划界面",
+        "模板版本比较",
+        "批量排期预览"
+      ],
+      "steps": [
+        "记录P0真实操作瓶颈并选择高频动作",
+        "设计新增/删除/日期影响比较及撤销路径",
+        "先预览后采用运行项目变更",
+        "验证依赖/日历/历史和实际操作耗时"
+      ],
+      "deliverables": [
+        "增强流程规范",
+        "实现差异",
+        "影响比较与回归结果"
+      ],
+      "exclusions": "不以高级甘特替代P0可靠编辑；未经采用不改运行模板。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Deferred",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-13",
+      "title": "管理Review与轻量待决事项",
+      "priority": "P1",
+      "requirements": [
+        "REQ-014",
+        "REQ-020"
+      ],
+      "dependencies": [
+        "AT-05",
+        "AT-09",
+        "AT-11"
+      ],
+      "test_ids": [
+        "TC-20",
+        "TC-29"
+      ],
+      "business_result": "管理讨论形成明确决定与行动，减少重复记录。",
+      "objects": [
+        "Management Review",
+        "Issues待决字段",
+        "Tasks后续行动"
+      ],
+      "steps": [
+        "从已确认周报/Issue形成Review范围",
+        "为待决事项记录背景/决策人/期限/结论",
+        "把决定转为PM批准的正式计划变更或Issue内处理措施，分别维护",
+        "核查是否确需独立Decision对象再提出变更，默认不新增"
+      ],
+      "deliverables": [
+        "review-workflow.md",
+        "决策与行动映射",
+        "用户结果证据"
+      ],
+      "exclusions": "原矩阵对Decision/Review有TBD意见；本包是P1，不能暗中塞进P0。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Deferred",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "AT-14",
+      "title": "有来源的AI摘要与案例推荐",
+      "priority": "P1",
+      "requirements": [
+        "REQ-017",
+        "REQ-022",
+        "REQ-023"
+      ],
+      "dependencies": [
+        "AT-09",
+        "AT-10",
+        "AT-11",
+        "GOV-02"
+      ],
+      "test_ids": [
+        "TC-20",
+        "TC-28"
+      ],
+      "business_result": "减少摘要与检索时间，用户能核对建议的依据。",
+      "objects": [
+        "批准模型服务",
+        "摘要/案例建议入口",
+        "Rule Config AI版本与审计"
+      ],
+      "steps": [
+        "确认批准服务与可处理数据范围",
+        "只读授权事实生成有来源建议和缺失提示",
+        "采用建议走既有业务操作并记录操作者",
+        "测试幻觉/越权/失败降级与收益"
+      ],
+      "deliverables": [
+        "AI输入输出契约",
+        "引用与采用记录",
+        "权限/错误用例",
+        "收益观察"
+      ],
+      "exclusions": "不自动写Actual、正式健康或验证关闭；自主Agent不在范围。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Deferred",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "role": "Airtable开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-00",
+      "title": "微软环境、许可和运行身份",
+      "priority": "P0",
+      "requirements": [
+        "REQ-026",
+        "REQ-027",
+        "REQ-029"
+      ],
+      "dependencies": [],
+      "test_ids": [
+        "TC-25",
+        "TC-32"
+      ],
+      "business_result": "形成可部署、可运行、可交接的公司环境，明确离线与部署的边界。",
+      "objects": [
+        "Dev/Test/Prod",
+        "Dataverse",
+        "开发自定义/解决方案/插件权限",
+        "用户许可",
+        "服务身份",
+        "SharePoint/Power Automate/Azure Functions连接"
+      ],
+      "steps": [
+        "核对IT申请实际答复，逐项记录可用/未批准/受限及环境ID",
+        "验证创建表/解决方案/插件发布和最小运行角色，运行许可与开发权限分开",
+        "记录批准的后台服务身份、连接引用、环境变量及凭据托管方式",
+        "形成可部署条件报告，缺口保留Blocked，不自动申请大范围租户权限"
+      ],
+      "deliverables": [
+        "environment-readiness.csv",
+        "许可与角色证据",
+        "deployment-prerequisites.md",
+        "运行责任交接"
+      ],
+      "exclusions": "Dataverse用户最后反馈仍未批准；不索取密码/令牌，不以SharePoint扩建替代正式Dataverse部署。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Blocked Environment",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-01",
+      "title": "复用Bridge并分离公共规则",
+      "priority": "P0",
+      "requirements": [
+        "REQ-003",
+        "REQ-004",
+        "REQ-011",
+        "REQ-019"
+      ],
+      "dependencies": [],
+      "test_ids": [
+        "TC-04",
+        "TC-15",
+        "TC-16",
+        "TC-17",
+        "TC-18",
+        "TC-19",
+        "TC-30"
+      ],
+      "business_result": "在无Dataverse时也能准备稳定的数据处理工程，两端不重复实现业务规则。",
+      "objects": [
+        "Bridge解析/映射/Excel输出",
+        "target-neutral change plan",
+        "Airtable/Dataverse适配器边界",
+        "离线样例"
+      ],
+      "steps": [
+        "读取源码和版本，不读取个人凭据，锁定Shark/Ninja/Tracker样例",
+        "将解析与业务变更计划从目标写入拆开，明确identity/sourceversion/clear/conflict/receipt字段",
+        "复现已有离线测试，覆盖源绿色/未知日期/Issue改名/创建超时和Tracker保护",
+        "输出Dataverse适配器契约及未验证环境项，不调用生产接口"
+      ],
+      "deliverables": [
+        "bridge-module-map.md",
+        "公共规则和变更计划契约",
+        "离线回归日志及样例哈希",
+        "适配器接口与部署待办"
+      ],
+      "exclusions": "此包可离线执行，不运行生产导入、不改现有MVP、不自建未批准后台服务。",
+      "candidate_assets": "现有Bridge修改、24项测试和domain16项测试为候选；原运行日志未完整打包，接手需复现。",
+      "definition_status": "Defined",
+      "execution_status": "Unassigned",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-02",
+      "title": "Dataverse模型、身份和权限",
+      "priority": "P0",
+      "requirements": [
+        "REQ-001",
+        "REQ-002",
+        "REQ-004",
+        "REQ-026"
+      ],
+      "dependencies": [
+        "MS-00",
+        "GOV-01",
+        "GOV-02"
+      ],
+      "test_ids": [
+        "TC-07",
+        "TC-08",
+        "TC-23",
+        "TC-32"
+      ],
+      "business_result": "用正式关系和权限承载业务事实，避免迁移后关系和数据归属混乱。",
+      "objects": [
+        "Program/SKU/Person/Factory",
+        "Project/ProjectSKU/ScopeEvent",
+        "Task/Dependency/Assignment",
+        "Template/Override",
+        "Issue/IssueAction/Verification",
+        "DataJob/OperationItem/SourceRecordMap",
+        "RuleConfig/Receipt/Report/Lesson"
+      ],
+      "steps": [
+        "按蓝图建立字段字典和实体粒度，系统用户与Person业务身份分开；按FD-14修订实现Task与Issue直接属于Project，IssueAction默认独立于Tasks",
+        "定义Project+SKU唯一键、业务ID/来源ID、停用与历史保留，修复SourceRecordMap重复sourceid",
+        "生成可重复元数据并在获准开发环境部署关系、索引/唯一键与角色",
+        "验证项目团队对子记录/文件的访问及直接写入限制"
+      ],
+      "deliverables": [
+        "dataverse-schema.md/json",
+        "来源字段映射与键定义",
+        "Solution版本",
+        "元数据/权限部署测试"
+      ],
+      "exclusions": "无环境仅交离线子成果；不为上游不存在的产品层级凭空造记录，不称元数据JSON为完整Solution。",
+      "candidate_assets": "现有元数据生成候选6项测试中4失败，SourceRecordMap重复sourceid；尚未部署。",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-03",
+      "title": "公共API与服务端规则",
+      "priority": "P0",
+      "requirements": [
+        "REQ-004",
+        "REQ-008",
+        "REQ-011",
+        "REQ-015",
+        "REQ-026"
+      ],
+      "dependencies": [
+        "MS-01",
+        "MS-02"
+      ],
+      "test_ids": [
+        "TC-02",
+        "TC-13",
+        "TC-16",
+        "TC-17",
+        "TC-23",
+        "TC-32"
+      ],
+      "business_result": "Canvas、导入及直接表写入都遵守关键规则，重复与并发有明确结果。",
+      "objects": [
+        "Custom API Preview/CreateProject、UpdateExecution、ChangeScope/Date、SubmitCompletion/VerifyIssue、Preview/CommitImport",
+        "同步表插件",
+        "OperationReceipt"
+      ],
+      "steps": [
+        "把BR规则映射到表级守卫或复合API，明确事务粒度和服务身份上下文",
+        "定义请求ID、预期版本、验证错误、冲突和结果未知回执，接入稳定幂等",
+        "实现身份/关联/完成/关闭/历史约束并覆盖直接表写入路径",
+        "在测试环境验证并发/越权/部分成功和恢复",
+        "遵守FD-14修订（design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md）：计划与问题措施分开，纳入计划后只维护Task执行事实，问题经验保留来源"
+      ],
+      "deliverables": [
+        "API契约与错误目录",
+        "同步插件/注册配置",
+        "事务和权限说明",
+        "原生环境测试证据"
+      ],
+      "exclusions": "Custom API不是所有入口的自动护栏；不可把整文件当长事务；缺.NET SDK/环境属于前置缺口。",
+      "candidate_assets": "domain.py纯函数不是已部署安全规则；未有正式插件/API。",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-04",
+      "title": "Canvas统一Program与Project Hub",
+      "priority": "P0",
+      "requirements": [
+        "REQ-005",
+        "REQ-006",
+        "REQ-007",
+        "REQ-023"
+      ],
+      "dependencies": [
+        "MS-02",
+        "MS-03"
+      ],
+      "test_ids": [
+        "TC-03",
+        "TC-10",
+        "TC-22",
+        "TC-23"
+      ],
+      "business_result": "完整范围英文应用中可搜索、分类、下钻和真实保存。",
+      "objects": [
+        "现有Canvas开发副本",
+        "Programs/Projects/Project Hub",
+        "Dataverse数据源",
+        "只读管理汇总"
+      ],
+      "steps": [
+        "保留既有MVP交互并清点SharePoint用户修改来源",
+        "替换查询/字段类型/保存为正式Dataverse及业务接口",
+        "实现全英文导航、状态配色、Unassigned和六个详情区域，服务端查询/分页",
+        "通过服务端规则计算Next Milestone与BR-12风险候选，显示事实依据、规则版本、PM正式状态及覆盖理由",
+        "保存重开读回并覆盖两条入口、完整范围末端和角色权限",
+        "遵守FD-14修订（design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md）：计划与问题措施分开，纳入计划后只维护Task执行事实，问题经验保留来源"
+      ],
+      "deliverables": [
+        "Canvas版本与数据绑定说明",
+        "页面/接口映射",
+        "查询/聚合验证",
+        "用户操作证据"
+      ],
+      "exclusions": "不改生产MVP、不使用仅本地集合的假保存，不以2000上限代替委派设计。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-05",
+      "title": "建案模板与计划维护",
+      "priority": "P0",
+      "requirements": [
+        "REQ-008",
+        "REQ-009",
+        "REQ-018"
+      ],
+      "dependencies": [
+        "MS-03",
+        "MS-04"
+      ],
+      "test_ids": [
+        "TC-04",
+        "TC-05",
+        "TC-06"
+      ],
+      "business_result": "创建项目时预览后生成计划，维护日期不会覆盖Baseline。",
+      "objects": [
+        "TemplateVersion/Task/Dependency",
+        "Project/Task/WorkAssignment",
+        "PreviewProjectPlan/CreateProjectFromPlan",
+        "Plan界面"
+      ],
+      "steps": [
+        "导入已核对的CPM模板为不可原地修改的发布版本并绑定日历",
+        "建案输入Factory/类型/SKU/模板，查重和生成预览",
+        "确认创建记录预览版本/请求回执，缺Owner待分配，中断可补缺",
+        "编辑Forecast/依赖/结果时执行统一日期和完成规则",
+        "遵守FD-14修订（design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md）：计划与问题措施分开，纳入计划后只维护Task执行事实，问题经验保留来源"
+      ],
+      "deliverables": [
+        "模板及迁移映射",
+        "Plan界面/业务操作",
+        "预览生成对账",
+        "异常/幂等测试"
+      ],
+      "exclusions": "不假设所有项目同工期，不因模板更新批量修改运行项目。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-06",
+      "title": "ProjectSKU范围与里程碑例外",
+      "priority": "P0",
+      "requirements": [
+        "REQ-001",
+        "REQ-009"
+      ],
+      "dependencies": [
+        "MS-03",
+        "MS-05"
+      ],
+      "test_ids": [
+        "TC-07",
+        "TC-08",
+        "TC-09"
+      ],
+      "business_result": "同SKU跨项目互不影响，范围和日期变化有可靠历史。",
+      "objects": [
+        "ProjectSKU/ScopeEvent/SKUMilestoneOverride",
+        "Task主里程碑",
+        "ChangeProjectScope/ChangeMilestoneDate",
+        "SKUs界面"
+      ],
+      "steps": [
+        "Project+SKU关系唯一、ScopeEvent独立，移出/重加入不删历史",
+        "明确当前Start取主日期的历史语义，按映射迁移主节点引用",
+        "无覆盖时读取主计划，有覆盖时显示原因/确认与复核状态",
+        "主日期变化触发复核但不覆盖例外，独立测试同SKU两个项目"
+      ],
+      "deliverables": [
+        "scope-and-date-contract.md",
+        "接口/表/界面差异",
+        "继承和例外读回",
+        "迁移异常表"
+      ],
+      "exclusions": "不复制每SKU整套任务，不把全局SKUStatus覆盖到所有项目。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-07",
+      "title": "My Work与Issue验证闭环",
+      "priority": "P0",
+      "requirements": [
+        "REQ-008",
+        "REQ-010",
+        "REQ-011",
+        "REQ-012",
+        "REQ-013",
+        "REQ-015"
+      ],
+      "dependencies": [
+        "MS-03",
+        "MS-04"
+      ],
+      "test_ids": [
+        "TC-02",
+        "TC-12",
+        "TC-13",
+        "TC-14",
+        "TC-23"
+      ],
+      "business_result": "团队在同一应用完成责任工作、恢复行动和验证关闭。",
+      "objects": [
+        "Task/WorkAssignment",
+        "Issue/IssueAction/VerificationEvent",
+        "My Tasks/My Issues/My Issue Actions与共用详情"
+      ],
+      "steps": [
+        "先读design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md；Project下Task与Issue独立，IssueAction归属Issue",
+        "My Work分别读取计划任务、负责问题和处理措施；PM明确纳入计划后引用Task执行事实，避免重复提醒",
+        "增加问题影响、原因确认状态、结果、发生背景和验证事件，按BR-09/10执行关闭与重开",
+        "服务端校验同项目、PM纳入计划、请求幂等、角色和并发；执行TC-13及PIT-01～13，不把文档样例当平台通过"
+      ],
+      "deliverables": [
+        "My Work/Issue流程",
+        "安全与身份配置",
+        "状态转换测试",
+        "角色实际操作证据"
+      ],
+      "exclusions": "不能让完成Action直接Closed Issue；无核验人时不默认自核验。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-08",
+      "title": "应用内导入、预览与批量维护",
+      "priority": "P0",
+      "requirements": [
+        "REQ-003",
+        "REQ-004",
+        "REQ-027",
+        "REQ-028"
+      ],
+      "dependencies": [
+        "MS-01",
+        "MS-03",
+        "MS-04",
+        "GOV-02"
+      ],
+      "test_ids": [
+        "TC-15",
+        "TC-16",
+        "TC-17",
+        "TC-18",
+        "TC-24",
+        "TC-25"
+      ],
+      "business_result": "团队自主上传和更新，后台逐条可见、可恢复。",
+      "objects": [
+        "DataJob/OperationItem/SourceRecordMap",
+        "SharePoint文件库",
+        "Power Automate解析/提交Flow",
+        "Azure Functions",
+        "Canvas Data Center"
+      ],
+      "steps": [
+        "配置批准文件服务、连接引用及解析作业状态",
+        "把公共解析器输出存为不可悄改的预览版本并支持修正匹配",
+        "用户确认后分批调用业务API，读回与回执更新逐条结果",
+        "处理旧版本/并发/未知响应/限流，业务用户独立完成失败修复",
+        "遵守FD-14修订（design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md）：计划与问题措施分开，纳入计划后只维护Task执行事实，问题经验保留来源"
+      ],
+      "deliverables": [
+        "Solution中Flow/连接配置",
+        "Functions版本/接口",
+        "Data Center界面",
+        "逐条结果和非开发者操作记录"
+      ],
+      "exclusions": "不把长文件解析放Canvas同步按钮，不将个人桌面服务当团队部署完成。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-09",
+      "title": "周报、提醒、Tracker与Lesson",
+      "priority": "P0",
+      "requirements": [
+        "REQ-010",
+        "REQ-016",
+        "REQ-017",
+        "REQ-019",
+        "REQ-021"
+      ],
+      "dependencies": [
+        "MS-05",
+        "MS-06",
+        "MS-07",
+        "MS-08"
+      ],
+      "test_ids": [
+        "TC-19",
+        "TC-20",
+        "TC-21",
+        "TC-28"
+      ],
+      "business_result": "项目事实生成可追溯材料，提醒与经验复用形成持续管理。",
+      "objects": [
+        "ReportSnapshot/Lesson/Notification",
+        "GenerateReport/ExportTracker",
+        "Solution Flows",
+        "Canvas Weekly Updates"
+      ],
+      "steps": [
+        "固定报告周期/来源范围，确认后保存快照和引用",
+        "复用同一Excel输出器，保护原文件/公式/Baseline",
+        "按未完成责任事项合并提醒并记录每层结果和停止条件",
+        "已验证Issue生成可检索Lesson，AI增强仍在P1",
+        "遵守FD-14修订（design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md）：计划与问题措施分开，纳入计划后只维护Task执行事实，问题经验保留来源"
+      ],
+      "deliverables": [
+        "报告/输出/通知流程",
+        "Excel回归证据",
+        "案例检索入口",
+        "错误处理与结果说明"
+      ],
+      "exclusions": "本包生成不自动授权发送；不让AI修改权威状态。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-10",
+      "title": "迁移、发布与运行交接",
+      "priority": "P0",
+      "requirements": [
+        "REQ-002",
+        "REQ-026",
+        "REQ-027",
+        "REQ-028",
+        "REQ-029"
+      ],
+      "dependencies": [
+        "MS-00",
+        "MS-01",
+        "MS-02",
+        "MS-03",
+        "MS-04",
+        "MS-05",
+        "MS-06",
+        "MS-07",
+        "MS-08",
+        "MS-09",
+        "GOV-02",
+        "GOV-03"
+      ],
+      "test_ids": [
+        "TC-23",
+        "TC-24",
+        "TC-25",
+        "TC-26",
+        "TC-27"
+      ],
+      "business_result": "承接指定正式范围并保留新旧平台合法修改，团队独立使用。",
+      "objects": [
+        "来源ID映射",
+        "Dataverse数据",
+        "SharePoint MVP差异",
+        "Solution部署包",
+        "试用/切换/回退清单"
+      ],
+      "steps": [
+        "按主数据→项目范围→任务/依赖/例外→问题/历史→报告/引用迁移到隔离环境",
+        "合并MVP较新修改，逐实体数量/键/关联及差异对账",
+        "完成角色、恢复、E2E和部署演练，记录Project负责平台与具体切换范围",
+        "获准后正式切换对应范围并运行两个周度周期，交接支持"
+      ],
+      "deliverables": [
+        "migration-reconciliation.md/csv",
+        "部署/回退包",
+        "角色/全链路结果",
+        "试用和支持报告"
+      ],
+      "exclusions": "不全库盲覆盖、不自动停用Airtable、不回滚丢失切换后数据；无Dataverse不得标部署完成。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Waiting Dependencies",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-11",
+      "title": "计划与管理效率增强",
+      "priority": "P1",
+      "requirements": [
+        "REQ-009",
+        "REQ-018"
+      ],
+      "dependencies": [
+        "MS-05",
+        "MS-06",
+        "MS-10"
+      ],
+      "test_ids": [
+        "TC-06",
+        "TC-29"
+      ],
+      "business_result": "对已跑通流程增加批量调度、模板比较和计划交互。",
+      "objects": [
+        "Plan交互",
+        "模板版本影响",
+        "批量操作与团队负荷视图"
+      ],
+      "steps": [
+        "根据试用记录选高频低效动作",
+        "设计批量预览、资源/角色约束提示及可撤销变更",
+        "实现高级交互并沿用API/并发规则",
+        "比较操作效率且重跑计划日期回归"
+      ],
+      "deliverables": [
+        "增强界面/API差异",
+        "效率基线与结果",
+        "模板影响对账"
+      ],
+      "exclusions": "不把P1交互包塞进首版核心链路门槛。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Deferred",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-12",
+      "title": "Review、知识与有来源AI",
+      "priority": "P1",
+      "requirements": [
+        "REQ-014",
+        "REQ-017",
+        "REQ-020",
+        "REQ-022",
+        "REQ-023"
+      ],
+      "dependencies": [
+        "MS-09",
+        "MS-10",
+        "GOV-02"
+      ],
+      "test_ids": [
+        "TC-20",
+        "TC-28",
+        "TC-29"
+      ],
+      "business_result": "在事实和已验证经验上提升管理Review、检索和摘要效率。",
+      "objects": [
+        "管理Review",
+        "Lesson检索",
+        "批准AI服务",
+        "模型/提示版本与采用审计"
+      ],
+      "steps": [
+        "以已确认报告和问题生成Review，待决事项沿用Issue/Task",
+        "确定授权检索范围和证据引用，明确缺失/冲突",
+        "AI建议经用户采用并走既有API，服务失败保留人工路径",
+        "验证越权、错误建议、引用可靠性及用户价值"
+      ],
+      "deliverables": [
+        "Review与AI契约",
+        "引用/采用/反馈记录",
+        "权限与失败测试",
+        "收益观察"
+      ],
+      "exclusions": "不建设自主Agent，不自动决定Actual、健康或关闭，不因有模型就默认扩大数据范围。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Deferred",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "MS-13",
+      "title": "更多正式系统接入",
+      "priority": "P1",
+      "requirements": [
+        "REQ-003",
+        "REQ-029"
+      ],
+      "dependencies": [
+        "MS-10",
+        "GOV-01",
+        "GOV-02"
+      ],
+      "test_ids": [
+        "TC-15",
+        "TC-16",
+        "TC-17",
+        "TC-26"
+      ],
+      "business_result": "在明确主数据责任和同步方向后接入PLM/Jira等来源。",
+      "objects": [
+        "新增系统适配器",
+        "SourceRecordMap",
+        "DataJobs",
+        "字段来源/负责平台"
+      ],
+      "steps": [
+        "选定有实际业务价值的来源及批准API",
+        "定义身份、粒度、方向、增量、空值/删除与冲突规则",
+        "实现受控预览/写入/读回及权限校验",
+        "用同一事实单写入原则对账并演练撤销接入"
+      ],
+      "deliverables": [
+        "source-contract.md",
+        "适配器与映射",
+        "增量/冲突/恢复结果"
+      ],
+      "exclusions": "不预设所有公司API可用，不建无限双向自由编辑同步。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Deferred",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "role": "Power Platform开发（集成包由集成开发协作）"
+    },
+    {
+      "id": "GOV-01",
+      "title": "业务字典、归属和规则决策",
+      "priority": "P0",
+      "requirements": [
+        "REQ-001",
+        "REQ-002",
+        "REQ-004",
+        "REQ-006",
+        "REQ-009",
+        "REQ-018",
+        "REQ-029"
+      ],
+      "dependencies": [],
+      "test_ids": [
+        "TC-03",
+        "TC-04",
+        "TC-30"
+      ],
+      "business_result": "让执行者不用猜字段含义，业务变化有唯一依据。",
+      "objects": [
+        "BR-01～17",
+        "实体/字段字典",
+        "上游来源",
+        "29REQ与135Action映射",
+        "日历/完成/日期语义"
+      ],
+      "steps": [
+        "整理当前来源与目标实体粒度，指定正式维护角色而非虚构已接受任务的人",
+        "确认/记录工程默认值与尚有歧义字段，区分旧完成与新证据覆盖",
+        "为状态/身份/别名/日期映射配置建立版本和变更流程",
+        "输出两个平台共用的字段与规则合同，缺证据事项进入有主人的决策记录"
+      ],
+      "deliverables": [
+        "business-dictionary.csv",
+        "field-ownership.csv",
+        "规则版本/变更记录",
+        "映射与歧义清单"
+      ],
+      "exclusions": "开发默认不冒充公司制度；不要求所有历史问题先确认完才允许已明确的离线工作开始。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Unassigned",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05"
+      ],
+      "role": "产品／架构／测试协调角色"
+    },
+    {
+      "id": "GOV-02",
+      "title": "权限、发布与运行责任",
+      "priority": "P0",
+      "requirements": [
+        "REQ-026",
+        "REQ-027",
+        "REQ-028",
+        "REQ-029"
+      ],
+      "dependencies": [],
+      "test_ids": [
+        "TC-23",
+        "TC-25",
+        "TC-31"
+      ],
+      "business_result": "每类用户和后台服务有明确权限与持续运行责任。",
+      "objects": [
+        "PM/Owner/验证人/只读/管理员",
+        "Interface/Base与Dataverse/文件权限",
+        "测试/生产边界",
+        "支持与发布"
+      ],
+      "steps": [
+        "定义角色对实体/字段/业务操作的读写矩阵与独立核验责任",
+        "核对申请状态/运行许可/服务身份，未批准逐项记录",
+        "规定测试发送/外部写回隔离及生产发布证据要求",
+        "安排真实责任承接和恢复联系路径，未安排保留角色占位"
+      ],
+      "deliverables": [
+        "role-permission-matrix.csv",
+        "environment-gap.md",
+        "release-policy.md",
+        "support-responsibility.md"
+      ],
+      "exclusions": "不索取广泛租户管理员权限、不自动发邮件或替人接受职责；当前无真实人员分派。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Unassigned",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05"
+      ],
+      "role": "产品／架构／测试协调角色"
+    },
+    {
+      "id": "GOV-03",
+      "title": "试用、采纳和价值基线",
+      "priority": "P0",
+      "requirements": [
+        "REQ-028",
+        "REQ-029"
+      ],
+      "dependencies": [],
+      "test_ids": [
+        "TC-22",
+        "TC-24",
+        "TC-27"
+      ],
+      "business_result": "证明团队会用、能独立维护且节约实际工作，而非只完成页面。",
+      "objects": [
+        "约20个XPT项目试用矩阵",
+        "业务角色",
+        "两个周周期",
+        "支持/培训",
+        "采纳和价值口径"
+      ],
+      "steps": [
+        "按场景覆盖选试用范围并记录真实可用项目，不编造名单和问题",
+        "定义基线：独立维护成功数/尝试数、关键数据完整度、闭环证据覆盖、操作耗时与支持次数",
+        "安排角色培训/操作指南与每周异常回顾",
+        "分别记录技术通过与两周期真实运行，汇总扩展/整改/停止建议"
+      ],
+      "deliverables": [
+        "pilot-charter.md",
+        "scenario-role-matrix.csv",
+        "baseline-and-measures.csv",
+        "weekly-review-template.md"
+      ],
+      "exclusions": "没有真实数据不能报告改善百分比；两个业务周期不可由模拟用例代替。",
+      "candidate_assets": "",
+      "definition_status": "Defined",
+      "execution_status": "Unassigned",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05"
+      ],
+      "role": "产品／架构／测试协调角色"
+    },
+    {
+      "id": "GOV-04",
+      "title": "成果审核、变更与双平台Gate",
+      "priority": "P0",
+      "requirements": [
+        "REQ-004",
+        "REQ-026",
+        "REQ-027",
+        "REQ-028",
+        "REQ-029"
+      ],
+      "dependencies": [],
+      "test_ids": [
+        "TC-25",
+        "TC-26",
+        "TC-27",
+        "TC-30"
+      ],
+      "business_result": "开发结果逐项匹配目标，下一步和剩余差距始终清楚。",
+      "objects": [
+        "task-register.json",
+        "submissions/reviews",
+        "Change记录",
+        "REQ/Action/平台任务/用例映射"
+      ],
+      "steps": [
+        "审核单包提交的对象/版本/测试与未验证边界",
+        "按证据层级给Accepted/Needs Rework并返回具体返工要求",
+        "更新台账与受影响后继任务，保持历史Action原编号",
+        "在发布和试用节点评估交付/责任/资源/回退，记录范围扩展或暂停决策"
+      ],
+      "deliverables": [
+        "审核记录",
+        "任务状态和变更记录",
+        "受影响用例清单",
+        "发布/试用Gate结论"
+      ],
+      "exclusions": "本轮只建立机制并审查既有候选；不自动派发、监控或合并其他AI代码。",
+      "candidate_assets": "已有首次审查RV-20260911-001，结论为候选未达到工作包/发布验收。",
+      "definition_status": "Defined",
+      "execution_status": "Unassigned",
+      "acceptance_status": "Not Submitted",
+      "assignee": null,
+      "review_id": null,
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05"
+      ],
+      "role": "产品／架构／测试协调角色"
+    }
+  ],
+  "field_governance_gate": {
+    "id": "DG-01",
+    "title": "AutoPM全表字段治理与数据使用蓝图",
+    "priority": "P0-first",
+    "authorized_scope": "Read-only Airtable inspection, all-field analysis, Markdown and Git documentation; no production modification",
+    "catalog": "C:/Users/40734/Documents/Codex/autopm-review-draft-20260911/docs/autopm-review/03-data-model/field-governance/README.md",
+    "current_schema": {
+      "tables": 18,
+      "fields": 499,
+      "observed_date": "2026-09-11"
+    },
+    "documentation_status": "499 field review draft delivered",
+    "acceptance_status": "Partial - current automation/filter/upstream settings and business signoff outstanding",
+    "gate_rule": "Existing AT/MS IDs retained. A field-changing task proceeds only after its identity, dates, completion, overwrite rules and consumer impact are resolved.",
+    "dumate_status": "Read-only follow-up work order prepared; not triggered from this session"
+  },
+  "business_decisions": [
+    {
+      "id": "FD-14-revision-20260911",
+      "title": "Project计划与Issue异常并行",
+      "business_status": "Confirmed by user",
+      "implementation_status": "Not implemented",
+      "file": "design/PROJECT-TASK-ISSUE.md",
+      "implementation_file": "design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md",
+      "supersedes": "Recovery actions stored automatically as Tasks.Work Type",
+      "rule": "Tasks are formal project plan work; Issue Actions are independent issue measures; only PM explicitly adds a measure to the project plan."
+    }
+  ]
+}

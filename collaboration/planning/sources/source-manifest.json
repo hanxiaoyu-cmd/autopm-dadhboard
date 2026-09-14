@@ -1,0 +1,74 @@
+[
+  {
+    "source_id": "S01",
+    "original_path": "D:\\个人资料\\AI学习圈\\SN Auto PM\\09-AutoPM Audit by Chatgpt\\AutoPM_Traceable_Blueprint_2026-09-11.md",
+    "package_path": "sources/round2-blueprint.md",
+    "sha256": "485452c43cd88c86a14f4ffccac8fc1bfff4a970a82c9f3bf97f16eaa513bde9"
+  },
+  {
+    "source_id": "S02",
+    "original_path": "D:\\个人资料\\AI学习圈\\SN Auto PM\\09-AutoPM Audit by Chatgpt\\AutoPM_Round2_Supplement_2026-09-11.md",
+    "package_path": "sources/round2-supplement.md",
+    "sha256": "5438b3c3cb0e21f9e6865b6202021abea5411a229fe945862a7ee53215dd5145"
+  },
+  {
+    "source_id": "S03",
+    "original_path": "D:\\个人资料\\AI学习圈\\SN Auto PM\\09-AutoPM Audit by Chatgpt\\design\\PRD_extracted_text.txt",
+    "package_path": "sources/prd-text.md",
+    "sha256": "ef49201b12a78650ed6df0f2af060bca83d0e8f3cf6a871e25620d4c6350e255"
+  },
+  {
+    "source_id": "S04",
+    "original_path": "C:\\Users\\40734\\Documents\\Codex\\autopm-review-draft-20260911\\docs\\autopm-review\\01-product\\capability-matrix-source.md",
+    "package_path": "sources/capability-matrix-source.md",
+    "sha256": "05da40a8e85bb03e100d01a7300775d1b6481792f47d0f54755d4efcd856759f"
+  },
+  {
+    "source_id": "S05",
+    "original_path": "C:\\Users\\40734\\Documents\\Codex\\autopm-review-draft-20260911\\docs\\autopm-review\\01-product\\phase1-closure-source.md",
+    "package_path": "sources/phase1-closure-source.md",
+    "sha256": "e32c6b257472cfab8cae99c27fa1536fbca29b2bbdae61a2bff9ed82daa7f423"
+  },
+  {
+    "source_id": "S06",
+    "original_path": "D:\\个人资料\\AI学习圈\\SN Auto PM\\07-脚本与数据治理 Scripts & data ops\\sync_bridge\\AutoPM_Bridge_Maintenance_Handover_2026-09-07.md",
+    "package_path": "sources/bridge-handover.md",
+    "sha256": "75da4c6a2ea7908a154dc84ae739ec6606b365146f9ee00399b63c6e4c5fa319"
+  },
+  {
+    "source_id": "S07",
+    "original_path": "D:\\个人资料\\AI学习圈\\SN Auto PM\\03-开发计划 Development plan\\Data Architecture\\Projects_Field_Architecture_Plan.md",
+    "package_path": "sources/projects-fields.md",
+    "sha256": "804e3a1b1c21859c9dcc6868ca90752ef367891a47d23ce5e08bde3a56f1b52a"
+  },
+  {
+    "source_id": "S07",
+    "original_path": "D:\\个人资料\\AI学习圈\\SN Auto PM\\03-开发计划 Development plan\\Data Architecture\\Other_Core_Tables_Field_Architecture_Plan.md",
+    "package_path": "sources/other-core-fields.md",
+    "sha256": "7c23bf1ec21d2652eea3b7014acd40a1e66db045f3cbc0dfd6a3e3aab5146592"
+  },
+  {
+    "source_id": "S08",
+    "original_path": "D:\\个人资料\\AI学习圈\\SN Auto PM\\10-AutoPM Microsoft\\README.md",
+    "package_path": "sources/microsoft-preparation.md",
+    "sha256": "010cbfdbe93623e2244acb06eaf3bacff55540e4caba0f61bfe4d47a029fcaa6"
+  },
+  {
+    "source_id": "S09",
+    "original_path": "D:\\个人资料\\AI学习圈\\SN Auto PM\\09-AutoPM Audit by Chatgpt\\AutoPM_System_Audit_2026-09-10.md",
+    "package_path": "sources/round1-audit.md",
+    "sha256": "d18c4bb78c9b6d738955fa7f070ddbb691a5f1fd93eb260c37ff7917a1e936fb"
+  },
+  {
+    "source_id": "S10",
+    "original_path": "D:\\个人资料\\AI学习圈\\SN Auto PM\\03-开发计划 Development plan\\AutoPM_双路线功能与开发任务基线_2026-09-10.md",
+    "package_path": "sources/dual-route-baseline.md",
+    "sha256": "c5aaddac0daad21dedffb81c0e512da4e5efae32928b688019eb7213ab42c965"
+  },
+  {
+    "source_id": "S12",
+    "original_path": "D:\\个人资料\\AI学习圈\\SN Auto PM\\outputs\\program-mvp\\implementation-status-2026-09-10.md",
+    "package_path": "sources/powerapps-mvp-status-2026-09-10.md",
+    "sha256": "7ebc11c5bba34c9f4ae11dc6c94b9266267e722d0b50cbc38302c92994f622d2"
+  }
+]

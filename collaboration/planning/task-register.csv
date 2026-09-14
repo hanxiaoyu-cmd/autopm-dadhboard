@@ -1,0 +1,34 @@
+﻿id,title,priority,requirements,dependencies,test_ids,role,assignee,definition_status,execution_status,acceptance_status,review_id,business_result
+AT-00,隔离基线与字段消费者清单,P0,REQ-001 ; REQ-004 ; REQ-026 ; REQ-027,,TC-31 ; TC-30,Airtable开发（集成包由集成开发协作）,,Defined,Unassigned,Not Submitted,,明确正式系统与测试副本的差异，让第一批修复有可靠恢复点。
+AT-01,统一任务完成和统计口径,P0,REQ-006 ; REQ-008 ; REQ-011 ; REQ-023,AT-00 ; GOV-01,TC-01 ; TC-02 ; TC-03,Airtable开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,项目进度、Open、个人工作和周报使用同一事实。
+AT-02,My Work与人员责任维护,P0,REQ-008 ; REQ-010 ; REQ-026 ; REQ-028,AT-00 ; GOV-01 ; GOV-02,TC-12 ; TC-14 ; TC-23,Airtable开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,用户能准确找到本人责任、逾期和待核验，换人后队列及时更新。
+AT-03,Program、Project与SKU关系生命周期,P0,REQ-001 ; REQ-002 ; REQ-004 ; REQ-007,AT-00 ; GOV-01,TC-07 ; TC-08 ; TC-09 ; TC-10 ; TC-11,Airtable开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,关联完整、SKU执行互不覆盖，大项目不会只处理前一部分。
+AT-04,模板与统一排期处理,P0,REQ-009 ; REQ-018,AT-01 ; AT-03 ; GOV-01,TC-04 ; TC-05 ; TC-06 ; TC-09,Airtable开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,建项目计划可预览、可补缺，日期与原始承诺一致可追。
+AT-05,Issue结果、验证关闭与重开,P0,REQ-008 ; REQ-011 ; REQ-012 ; REQ-013 ; REQ-015,AT-01 ; AT-02 ; GOV-01,TC-02 ; TC-13 ; TC-23,Airtable开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,问题解决有行动、有结果、有独立验证，经验可以复用。
+AT-06,计划导入与Bridge可靠写入,P0,REQ-003 ; REQ-004 ; REQ-011,AT-01 ; AT-03 ; GOV-01,TC-15 ; TC-16 ; TC-17 ; TC-18 ; TC-30,Airtable开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,导入不会重复、覆盖较新事实或把来源完成声称变成正式核验。
+AT-07,团队Data Center与托管处理,P0,REQ-003 ; REQ-027 ; REQ-028,AT-06 ; GOV-02,TC-15 ; TC-17 ; TC-24 ; TC-25,Airtable开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,普通用户在Interface上传、预览、修正、提交和下载，无需找开发者运行桌面脚本。
+AT-08,统一Project Hub与组合界面,P0,REQ-005 ; REQ-006 ; REQ-007 ; REQ-028,AT-01 ; AT-03 ; AT-04 ; AT-05,TC-10 ; TC-22 ; TC-23,Airtable开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,用户在一个英文Interface看清项目状态、原因、责任和下一步。
+AT-09,周报、提醒与Tracker结果,P0,REQ-010 ; REQ-019 ; REQ-021,AT-01 ; AT-02 ; AT-06 ; AT-07 ; AT-08,TC-19 ; TC-20 ; TC-21,Airtable开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,报告可追溯，提醒准确停止，Tracker输出保留公式与Baseline。
+AT-10,最小案例复用与运行维护,P0,REQ-016 ; REQ-017 ; REQ-027 ; REQ-028,AT-05 ; AT-07 ; GOV-02,TC-25 ; TC-28,Airtable开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,已验证经验能找到，另一维护者可解释并恢复后台失败。
+AT-11,角色、完整链路与生产发布验收,P0,REQ-026 ; REQ-027 ; REQ-028 ; REQ-029,AT-00 ; AT-01 ; AT-02 ; AT-03 ; AT-04 ; AT-05 ; AT-06 ; AT-07 ; AT-08 ; AT-09 ; AT-10 ; GOV-02 ; GOV-03,TC-22 ; TC-23 ; TC-24 ; TC-25 ; TC-26 ; TC-27,Airtable开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,正式业务按批次接受，团队能独立使用且可恢复。
+AT-12,计划交互与模板升级增强,P1,REQ-009 ; REQ-018,AT-04 ; AT-11,TC-06 ; TC-29,Airtable开发（集成包由集成开发协作）,,Defined,Deferred,Not Submitted,,批量排期和模板升级提高效率，同时保留可解释影响。
+AT-13,管理Review与轻量待决事项,P1,REQ-014 ; REQ-020,AT-05 ; AT-09 ; AT-11,TC-20 ; TC-29,Airtable开发（集成包由集成开发协作）,,Defined,Deferred,Not Submitted,,管理讨论形成明确决定与行动，减少重复记录。
+AT-14,有来源的AI摘要与案例推荐,P1,REQ-017 ; REQ-022 ; REQ-023,AT-09 ; AT-10 ; AT-11 ; GOV-02,TC-20 ; TC-28,Airtable开发（集成包由集成开发协作）,,Defined,Deferred,Not Submitted,,减少摘要与检索时间，用户能核对建议的依据。
+MS-00,微软环境、许可和运行身份,P0,REQ-026 ; REQ-027 ; REQ-029,,TC-25 ; TC-32,Power Platform开发（集成包由集成开发协作）,,Defined,Blocked Environment,Not Submitted,,形成可部署、可运行、可交接的公司环境，明确离线与部署的边界。
+MS-01,复用Bridge并分离公共规则,P0,REQ-003 ; REQ-004 ; REQ-011 ; REQ-019,,TC-04 ; TC-15 ; TC-16 ; TC-17 ; TC-18 ; TC-19 ; TC-30,Power Platform开发（集成包由集成开发协作）,,Defined,Unassigned,Not Submitted,,在无Dataverse时也能准备稳定的数据处理工程，两端不重复实现业务规则。
+MS-02,Dataverse模型、身份和权限,P0,REQ-001 ; REQ-002 ; REQ-004 ; REQ-026,MS-00 ; GOV-01 ; GOV-02,TC-07 ; TC-08 ; TC-23 ; TC-32,Power Platform开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,用正式关系和权限承载业务事实，避免迁移后关系和数据归属混乱。
+MS-03,公共API与服务端规则,P0,REQ-004 ; REQ-008 ; REQ-011 ; REQ-015 ; REQ-026,MS-01 ; MS-02,TC-02 ; TC-13 ; TC-16 ; TC-17 ; TC-23 ; TC-32,Power Platform开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,Canvas、导入及直接表写入都遵守关键规则，重复与并发有明确结果。
+MS-04,Canvas统一Program与Project Hub,P0,REQ-005 ; REQ-006 ; REQ-007 ; REQ-023,MS-02 ; MS-03,TC-03 ; TC-10 ; TC-22 ; TC-23,Power Platform开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,完整范围英文应用中可搜索、分类、下钻和真实保存。
+MS-05,建案模板与计划维护,P0,REQ-008 ; REQ-009 ; REQ-018,MS-03 ; MS-04,TC-04 ; TC-05 ; TC-06,Power Platform开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,创建项目时预览后生成计划，维护日期不会覆盖Baseline。
+MS-06,ProjectSKU范围与里程碑例外,P0,REQ-001 ; REQ-009,MS-03 ; MS-05,TC-07 ; TC-08 ; TC-09,Power Platform开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,同SKU跨项目互不影响，范围和日期变化有可靠历史。
+MS-07,My Work与Issue验证闭环,P0,REQ-008 ; REQ-010 ; REQ-011 ; REQ-012 ; REQ-013 ; REQ-015,MS-03 ; MS-04,TC-02 ; TC-12 ; TC-13 ; TC-14 ; TC-23,Power Platform开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,团队在同一应用完成责任工作、恢复行动和验证关闭。
+MS-08,应用内导入、预览与批量维护,P0,REQ-003 ; REQ-004 ; REQ-027 ; REQ-028,MS-01 ; MS-03 ; MS-04 ; GOV-02,TC-15 ; TC-16 ; TC-17 ; TC-18 ; TC-24 ; TC-25,Power Platform开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,团队自主上传和更新，后台逐条可见、可恢复。
+MS-09,周报、提醒、Tracker与Lesson,P0,REQ-010 ; REQ-016 ; REQ-017 ; REQ-019 ; REQ-021,MS-05 ; MS-06 ; MS-07 ; MS-08,TC-19 ; TC-20 ; TC-21 ; TC-28,Power Platform开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,项目事实生成可追溯材料，提醒与经验复用形成持续管理。
+MS-10,迁移、发布与运行交接,P0,REQ-002 ; REQ-026 ; REQ-027 ; REQ-028 ; REQ-029,MS-00 ; MS-01 ; MS-02 ; MS-03 ; MS-04 ; MS-05 ; MS-06 ; MS-07 ; MS-08 ; MS-09 ; GOV-02 ; GOV-03,TC-23 ; TC-24 ; TC-25 ; TC-26 ; TC-27,Power Platform开发（集成包由集成开发协作）,,Defined,Waiting Dependencies,Not Submitted,,承接指定正式范围并保留新旧平台合法修改，团队独立使用。
+MS-11,计划与管理效率增强,P1,REQ-009 ; REQ-018,MS-05 ; MS-06 ; MS-10,TC-06 ; TC-29,Power Platform开发（集成包由集成开发协作）,,Defined,Deferred,Not Submitted,,对已跑通流程增加批量调度、模板比较和计划交互。
+MS-12,Review、知识与有来源AI,P1,REQ-014 ; REQ-017 ; REQ-020 ; REQ-022 ; REQ-023,MS-09 ; MS-10 ; GOV-02,TC-20 ; TC-28 ; TC-29,Power Platform开发（集成包由集成开发协作）,,Defined,Deferred,Not Submitted,,在事实和已验证经验上提升管理Review、检索和摘要效率。
+MS-13,更多正式系统接入,P1,REQ-003 ; REQ-029,MS-10 ; GOV-01 ; GOV-02,TC-15 ; TC-16 ; TC-17 ; TC-26,Power Platform开发（集成包由集成开发协作）,,Defined,Deferred,Not Submitted,,在明确主数据责任和同步方向后接入PLM/Jira等来源。
+GOV-01,业务字典、归属和规则决策,P0,REQ-001 ; REQ-002 ; REQ-004 ; REQ-006 ; REQ-009 ; REQ-018 ; REQ-029,,TC-03 ; TC-04 ; TC-30,产品／架构／测试协调角色,,Defined,Unassigned,Not Submitted,,让执行者不用猜字段含义，业务变化有唯一依据。
+GOV-02,权限、发布与运行责任,P0,REQ-026 ; REQ-027 ; REQ-028 ; REQ-029,,TC-23 ; TC-25 ; TC-31,产品／架构／测试协调角色,,Defined,Unassigned,Not Submitted,,每类用户和后台服务有明确权限与持续运行责任。
+GOV-03,试用、采纳和价值基线,P0,REQ-028 ; REQ-029,,TC-22 ; TC-24 ; TC-27,产品／架构／测试协调角色,,Defined,Unassigned,Not Submitted,,证明团队会用、能独立维护且节约实际工作，而非只完成页面。
+GOV-04,成果审核、变更与双平台Gate,P0,REQ-004 ; REQ-026 ; REQ-027 ; REQ-028 ; REQ-029,,TC-25 ; TC-26 ; TC-27 ; TC-30,产品／架构／测试协调角色,,Defined,Unassigned,Not Submitted,,开发结果逐项匹配目标，下一步和剩余差距始终清楚。

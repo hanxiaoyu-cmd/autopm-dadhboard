@@ -1,3 +1,11 @@
+## 项目管理 / Collaboration
+
+[多 AI 使用分工指南](collaboration/使用分工指南.md) · [当前管理入口](collaboration/README.md) · [协作总任务 #1](https://github.com/sunny-06064710-3/autopm-dadhboard/issues/1)
+
+开发任务由 Codex 统一协调，其他 AI 按 Issue 在独立分支交付。以下为历史应用部署资料。
+
+---
+
 # AutoPM 部署指南 / Deployment Guide
 
 ---
@@ -167,3 +175,4 @@ git push -u origin main
 - On the free tier, the SQLite database resets on each deployment. For persistent data, consider upgrading Render or using an external database.
 - Free tier includes 750 hours/month of runtime.
 - If the page loads slowly, the backend is waking up from sleep (~30 seconds).
+

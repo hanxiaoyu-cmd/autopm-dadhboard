@@ -1,0 +1,22 @@
+{
+  "baseId": "appOMWiK4CTOH7iQu",
+  "baseName": "AutoPM V2（Pilot）",
+  "retrievedAt": "2026-09-13T08:20:46+08:00",
+  "readOnly": true,
+  "tableCount": 16,
+  "fieldCount": 424,
+  "sampleMethod": "First available records, not random; samples cannot establish prevalence",
+  "samples": {
+    "Projects": 5,
+    "Tasks": 40,
+    "Issues": 20,
+    "Task Template": 12
+  },
+  "unverified": [
+    "Current Interface configuration",
+    "Automations and all script consumers",
+    "Full data quality or record population",
+    "External ECN and document contents",
+    "End-to-end user operation"
+  ]
+}

@@ -1,0 +1,371 @@
+{
+  "version": "1.2",
+  "files": [
+    {
+      "path": "01_BLUEPRINT.md",
+      "bytes": 18470,
+      "sha256": "49b2f04e700676a039196df560c657392e88e74614b730200f97bf66443c8309"
+    },
+    {
+      "path": "02_ROADMAP.md",
+      "bytes": 6818,
+      "sha256": "0e582b1bcd18221eba34d2c126fc161d6f5974430a54251c93de27a937c61a6f"
+    },
+    {
+      "path": "03_ACCEPTANCE.md",
+      "bytes": 5323,
+      "sha256": "203ea5bd111262b33ebc77eb98fbb994cd978c3135195c8f29a53a7de9b02b6c"
+    },
+    {
+      "path": "04_SOURCES_AND_DECISIONS.md",
+      "bytes": 7058,
+      "sha256": "77dc29282d4e34634d2c1bd92c2e7acd53af662de50db5dc6c2532d1395529fd"
+    },
+    {
+      "path": "05_AIRTABLE_NEXT_STEPS.md",
+      "bytes": 9021,
+      "sha256": "22ac35e210cd62dcc85fd96a31fb55bcd7032f175fe6dd721228259d6255add8"
+    },
+    {
+      "path": "acceptance/TEST_CATALOG.md",
+      "bytes": 20701,
+      "sha256": "5b0dee29c6bb92a56ed2ff93173ff2f2e11e2183928fac9d8711f85ee1fee155"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 2844,
+      "sha256": "925af7f30a6e190be1e69b1cabc6500cb063f7dcdc5bcdc38edeb75054da9a5f"
+    },
+    {
+      "path": "design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md",
+      "bytes": 13602,
+      "sha256": "e203c45e2c95fa0a10ae1544e5a6297f0ab46643074c99feebc1cdda7dfe092c"
+    },
+    {
+      "path": "design/PROJECT-TASK-ISSUE.md",
+      "bytes": 3874,
+      "sha256": "066fa2618b686e5f9c2afd5e25a5b3f6e44f15928440911599b0cc2c862b7a71"
+    },
+    {
+      "path": "dispatch/DESIGN_POWERAPPS_UX01.md",
+      "bytes": 13585,
+      "sha256": "01901dd3458a09d73981d797a03b31d0411c507c73cb8f04deb3a3a0fcabfadd"
+    },
+    {
+      "path": "dispatch/START_AIRTABLE.md",
+      "bytes": 2707,
+      "sha256": "1241d87331f1bea7f1bb7f6c8aaed93b7a6bbdd3d161245809a595a850ca4e18"
+    },
+    {
+      "path": "dispatch/START_MICROSOFT.md",
+      "bytes": 3079,
+      "sha256": "a810281993b386ecd4b9e06a1ffcff564365466cca90daeb8c4b0d311432b51d"
+    },
+    {
+      "path": "maintenance/build_planning_pack.py",
+      "bytes": 25687,
+      "sha256": "c4c69dc36407d9a9419c98652968ddeff11e43d42b637584995623f5233bfd40"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6237,
+      "sha256": "9cb2fdffe89c321c3407330e527a54765dfa5629872f3f252f651ff1ad1e9b34"
+    },
+    {
+      "path": "reviews/RV-20260911-001.md",
+      "bytes": 4877,
+      "sha256": "694231490b0b7d51f47f8259a23ae2a2c9bc94aef12345407e420470db186847"
+    },
+    {
+      "path": "sources/bridge-handover.md",
+      "bytes": 13453,
+      "sha256": "75da4c6a2ea7908a154dc84ae739ec6606b365146f9ee00399b63c6e4c5fa319"
+    },
+    {
+      "path": "sources/capability-matrix-source.md",
+      "bytes": 48821,
+      "sha256": "05da40a8e85bb03e100d01a7300775d1b6481792f47d0f54755d4efcd856759f"
+    },
+    {
+      "path": "sources/dual-route-baseline.md",
+      "bytes": 6352,
+      "sha256": "c5aaddac0daad21dedffb81c0e512da4e5efae32928b688019eb7213ab42c965"
+    },
+    {
+      "path": "sources/microsoft-preparation.md",
+      "bytes": 5232,
+      "sha256": "010cbfdbe93623e2244acb06eaf3bacff55540e4caba0f61bfe4d47a029fcaa6"
+    },
+    {
+      "path": "sources/other-core-fields.md",
+      "bytes": 29292,
+      "sha256": "7c23bf1ec21d2652eea3b7014acd40a1e66db045f3cbc0dfd6a3e3aab5146592"
+    },
+    {
+      "path": "sources/phase1-closure-source.md",
+      "bytes": 463178,
+      "sha256": "e32c6b257472cfab8cae99c27fa1536fbca29b2bbdae61a2bff9ed82daa7f423"
+    },
+    {
+      "path": "sources/powerapps-mvp-status-2026-09-10.md",
+      "bytes": 6472,
+      "sha256": "7ebc11c5bba34c9f4ae11dc6c94b9266267e722d0b50cbc38302c92994f622d2"
+    },
+    {
+      "path": "sources/prd-text.md",
+      "bytes": 49310,
+      "sha256": "ef49201b12a78650ed6df0f2af060bca83d0e8f3cf6a871e25620d4c6350e255"
+    },
+    {
+      "path": "sources/projects-fields.md",
+      "bytes": 15072,
+      "sha256": "804e3a1b1c21859c9dcc6868ca90752ef367891a47d23ce5e08bde3a56f1b52a"
+    },
+    {
+      "path": "sources/round1-audit.md",
+      "bytes": 64914,
+      "sha256": "d18c4bb78c9b6d738955fa7f070ddbb691a5f1fd93eb260c37ff7917a1e936fb"
+    },
+    {
+      "path": "sources/round2-blueprint.md",
+      "bytes": 134345,
+      "sha256": "485452c43cd88c86a14f4ffccac8fc1bfff4a970a82c9f3bf97f16eaa513bde9"
+    },
+    {
+      "path": "sources/round2-supplement.md",
+      "bytes": 11653,
+      "sha256": "5438b3c3cb0e21f9e6865b6202021abea5411a229fe945862a7ee53215dd5145"
+    },
+    {
+      "path": "sources/source-manifest.json",
+      "bytes": 3708,
+      "sha256": "c07d4d6e1f73f079a49c9ddb71d66e36e461137e58187d1a0c95f9e8ccbc45aa"
+    },
+    {
+      "path": "submissions/README.md",
+      "bytes": 431,
+      "sha256": "c00c8ffda886b7e33e17857296454a83964416b2e1ff8e9febba4d12f2bed0e6"
+    },
+    {
+      "path": "task-register.csv",
+      "bytes": 9996,
+      "sha256": "41804510bf27806601a061c6d67c20efed7e76ca68e1fd6f5c4740d24cf68f9a"
+    },
+    {
+      "path": "task-register.json",
+      "bytes": 65322,
+      "sha256": "8f5e835417a238808af5107f765f47e205a60395fc9b6dca4e3feace7405629b"
+    },
+    {
+      "path": "tasks/AT-00.md",
+      "bytes": 3635,
+      "sha256": "7acc29bbfce01ddc5939a206ee1c22cd63f1c5caa891aa9d1cb42a503e0e0eef"
+    },
+    {
+      "path": "tasks/AT-01.md",
+      "bytes": 3913,
+      "sha256": "5870c7816fd0ff039676b9d25df21ee16dffe4981bdc37fdf68889887c9cd4d8"
+    },
+    {
+      "path": "tasks/AT-02.md",
+      "bytes": 3718,
+      "sha256": "650b83e19a6fc23d26d7a7dd34e71b81269c4ac2bb3fb59b1b5d32764da01ea1"
+    },
+    {
+      "path": "tasks/AT-03.md",
+      "bytes": 3819,
+      "sha256": "c6aa545afec5306ef7d3c51e70d264e5daad704f8ae89977a8aae6f5c6fae5b4"
+    },
+    {
+      "path": "tasks/AT-04.md",
+      "bytes": 3611,
+      "sha256": "89e465aa2b811835f2d7f7a7c7317d2efac05fb3f675f4d4633d166f44a1cbcd"
+    },
+    {
+      "path": "tasks/AT-05.md",
+      "bytes": 4211,
+      "sha256": "21fb372cc1b40285786c1ed6762e4e6bc12de774766b14df968947ed7260502e"
+    },
+    {
+      "path": "tasks/AT-06.md",
+      "bytes": 3978,
+      "sha256": "187f2e70fc5845fd001d294c429c118580e0bb911d632229e452a16fe3705ad2"
+    },
+    {
+      "path": "tasks/AT-07.md",
+      "bytes": 3654,
+      "sha256": "a54cfb1d5d7b9138be2fdeae98fbf41827d940f21972a2abfa7c2537b15a9a91"
+    },
+    {
+      "path": "tasks/AT-08.md",
+      "bytes": 3883,
+      "sha256": "44a3627f81cbb81c697872eb278d7cffd9925258654c1b87d93d44cce637b272"
+    },
+    {
+      "path": "tasks/AT-09.md",
+      "bytes": 3752,
+      "sha256": "0b7a0f61325c4f2216bd4078428e563b1f80f9e693f5890289b97035f982e3ee"
+    },
+    {
+      "path": "tasks/AT-10.md",
+      "bytes": 3673,
+      "sha256": "d1c0eca46022187b836c97d178b23f7fa9df71ef716e0bb5a2e9476c7f1c3f43"
+    },
+    {
+      "path": "tasks/AT-11.md",
+      "bytes": 3946,
+      "sha256": "df6af252b1c2ca803941fd7160b100aedc0dc18acac31474b4c7b234a9120bdb"
+    },
+    {
+      "path": "tasks/AT-12.md",
+      "bytes": 3204,
+      "sha256": "054c2efaeabfb29e5a2b491f13da716e95ef3d12e3690c91d158648f51f5b3dd"
+    },
+    {
+      "path": "tasks/AT-13.md",
+      "bytes": 3304,
+      "sha256": "82f32ea02ca14e0302d8ed29b39ebd13309a2be53b7e8ed0a1b97d900c9c0bbd"
+    },
+    {
+      "path": "tasks/AT-14.md",
+      "bytes": 3297,
+      "sha256": "1e179a62e6992f5004663bd2d0a693e6705eb77ddb2e94487956d0b535502b25"
+    },
+    {
+      "path": "tasks/GOV-01.md",
+      "bytes": 3785,
+      "sha256": "25e58c7d46fb4a3e775aa5a48e6207a3276b5addbf1728b280ac4701b672f8da"
+    },
+    {
+      "path": "tasks/GOV-02.md",
+      "bytes": 3441,
+      "sha256": "685252e8b238a465986fd6df800af94c7f2c3b3f7a59180c2f9adbde0f811faa"
+    },
+    {
+      "path": "tasks/GOV-03.md",
+      "bytes": 3649,
+      "sha256": "6ff57d250cd275726bbc5c8821cda4f21d5f32db465cdd4525efa9595c66ab3f"
+    },
+    {
+      "path": "tasks/GOV-04.md",
+      "bytes": 3421,
+      "sha256": "7a11f521dc5d9087e55978f3139e3f3b29bb0bb2c6ac5857b2f1baaa859329a3"
+    },
+    {
+      "path": "tasks/MS-00.md",
+      "bytes": 3750,
+      "sha256": "6f61b30274ab437594f57e3186cee5616e9b7c67462a3768bdd14414e1943ac9"
+    },
+    {
+      "path": "tasks/MS-01.md",
+      "bytes": 3998,
+      "sha256": "67fc17868c588638f2b0d21cb89cdf1bf8e6964bb862581223e708012a1f1f93"
+    },
+    {
+      "path": "tasks/MS-02.md",
+      "bytes": 4121,
+      "sha256": "8268b689a40ca11905b743a716f3748c7c8119d0ce7414689106b75bb84237f2"
+    },
+    {
+      "path": "tasks/MS-03.md",
+      "bytes": 4096,
+      "sha256": "c3c069612d591b80cfedc1a071d29f659533f3af281237b651ba042a7a12a1ac"
+    },
+    {
+      "path": "tasks/MS-04.md",
+      "bytes": 4040,
+      "sha256": "02a44b837073a783e80e6e977cebc107afaef9c0b027f348d5ef03b2ce4f71cf"
+    },
+    {
+      "path": "tasks/MS-05.md",
+      "bytes": 3843,
+      "sha256": "088463f161316a39ff3362ef175dbf24cb6aedd4259297757b2d32ae0b50df91"
+    },
+    {
+      "path": "tasks/MS-06.md",
+      "bytes": 3574,
+      "sha256": "4dce73cba2f1aa5342ad6d430d0e2bcae27fe9029715b568d55eff3de05b151d"
+    },
+    {
+      "path": "tasks/MS-07.md",
+      "bytes": 4139,
+      "sha256": "1f914f98eb4402322780a168174ba9b1579ec41badf3c4747ee14cda491afe6b"
+    },
+    {
+      "path": "tasks/MS-08.md",
+      "bytes": 4214,
+      "sha256": "c5d816e6a150e3d227736968509b892eb77e2d0c9f9fb6d9eac294533d7d467a"
+    },
+    {
+      "path": "tasks/MS-09.md",
+      "bytes": 3857,
+      "sha256": "8caf853022ccc4a79de0c86bdebed49eb210d1f7659b82f45be9c368e329e68e"
+    },
+    {
+      "path": "tasks/MS-10.md",
+      "bytes": 4173,
+      "sha256": "6f6b6936c136554072ef9079f5ca758289498efd86be12481cbee5c485eb545c"
+    },
+    {
+      "path": "tasks/MS-11.md",
+      "bytes": 3347,
+      "sha256": "269bf9ad841f9c0e5aadceda3fc114e7c2d42f36b5e8283dc3762e7c5ddfeb0a"
+    },
+    {
+      "path": "tasks/MS-12.md",
+      "bytes": 3614,
+      "sha256": "8a6580779f0eab8774464ed6c459288c7443b95a13c6ed0fe565f148a09edaa1"
+    },
+    {
+      "path": "tasks/MS-13.md",
+      "bytes": 3504,
+      "sha256": "e8075509ded1465cc9774a8c43075d14f57b36075795023b208a95766ddacef7"
+    },
+    {
+      "path": "templates/CHANGE_REQUEST.md",
+      "bytes": 582,
+      "sha256": "f440e5b5b7e349fcbbb7dd6d57109ba2d5c791965f6753d96a8f7e4dbdf48b0c"
+    },
+    {
+      "path": "templates/DELIVERY.md",
+      "bytes": 1286,
+      "sha256": "2cb8f8f19e0c08a35a327a9ff4b9361b1da893cebee4303017a940d820fefe8f"
+    },
+    {
+      "path": "templates/REVIEW.md",
+      "bytes": 810,
+      "sha256": "cc6826db16b4628675c416f0886a972cc7f40052e843c05f6d2e19ba27539441"
+    },
+    {
+      "path": "traceability/action-crosswalk.json",
+      "bytes": 150175,
+      "sha256": "04d624dbd6c5bfdd295cd1bd1539093551021a5f2522021a550cc9a193a91f0e"
+    },
+    {
+      "path": "traceability/ACTION_CROSSWALK.csv",
+      "bytes": 73169,
+      "sha256": "83e58ba6abaae48e3be4ee9e7fbba468dc95e5872a130d616c5591a4e490fb04"
+    },
+    {
+      "path": "traceability/ACTION_CROSSWALK.md",
+      "bytes": 66063,
+      "sha256": "093ca5cac339b0a12ff12b45dffed3714622cca357ad2ce5d719d3e596f1fa33"
+    },
+    {
+      "path": "traceability/requirements.json",
+      "bytes": 33957,
+      "sha256": "46e43af0c928bfe76b26e1670672bdd065ec9139167d3a79778f9e8531416365"
+    },
+    {
+      "path": "traceability/REQUIREMENTS.md",
+      "bytes": 30625,
+      "sha256": "03668775a892f3eba918dccc3df2bac3f59aa3565e32ecff711e8c1d4bc14b16"
+    },
+    {
+      "path": "validation-report.json",
+      "bytes": 669,
+      "sha256": "55cfa92063ab59df372d1df630666105878e09c52f08974ff74adf75bae401cc"
+    }
+  ],
+  "meaning": "Integrity of this local planning package, not authenticity of historical business results."
+}

@@ -1,0 +1,3932 @@
+[
+  {
+    "action_id": "M1.1-A01",
+    "source_row": 8,
+    "capability_id": "M1.1",
+    "module": "执行数据基础",
+    "capability": "业务对象定义",
+    "original_action": "定义项目结构对象",
+    "original_explanation": "明确Programme、Project、SKU等层级分别代表什么，以及一个Project如何包含多个SKU。",
+    "original_output": "对象清单、定义及系统归属表",
+    "original_acceptance": "对象定义唯一清晰，边界和系统归属明确",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-001",
+      "REQ-002"
+    ],
+    "tasks": [
+      "AT-00",
+      "AT-03",
+      "MS-02",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.1-A02",
+    "source_row": 9,
+    "capability_id": "M1.1",
+    "module": "执行数据基础",
+    "capability": "业务对象定义",
+    "original_action": "定义计划执行对象",
+    "original_explanation": "明确阶段、里程碑、任务和交付物分别表达什么，避免日期和状态混用。",
+    "original_output": "对象清单、定义及系统归属表",
+    "original_acceptance": "对象定义唯一清晰，边界和系统归属明确",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-001",
+      "REQ-008",
+      "REQ-009"
+    ],
+    "tasks": [
+      "AT-04",
+      "MS-02",
+      "MS-05",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.1-A03",
+    "source_row": 10,
+    "capability_id": "M1.1",
+    "module": "执行数据基础",
+    "capability": "业务对象定义",
+    "original_action": "定义异常对象",
+    "original_explanation": "明确Risk、Issue、Delay和Blocker如何区分，以及异常应该关联到哪个业务对象。",
+    "original_output": "对象清单、定义及系统归属表",
+    "original_acceptance": "对象定义唯一清晰，边界和系统归属明确",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-001",
+      "REQ-012",
+      "REQ-013"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-02",
+      "MS-07",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.1-A04",
+    "source_row": 11,
+    "capability_id": "M1.1",
+    "module": "执行数据基础",
+    "capability": "业务对象定义",
+    "original_action": "定义恢复与决策对象",
+    "original_explanation": "明确问题发生后如何记录恢复行动、责任人、管理决定、实际结果和验证关闭。",
+    "original_output": "对象清单、定义及系统归属表",
+    "original_acceptance": "对象定义唯一清晰，边界和系统归属明确",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-001",
+      "REQ-013",
+      "REQ-014"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07",
+      "AT-13",
+      "MS-12",
+      "GOV-01"
+    ],
+    "current_scope": "P0/P1分层",
+    "disposition": "恢复对象P0由Tasks类型承载；独立Decision模型P1评估，不据本Action创建重复行动库。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.1-A05",
+    "source_row": 12,
+    "capability_id": "M1.1",
+    "module": "执行数据基础",
+    "capability": "业务对象定义",
+    "original_action": "定义组织责任对象",
+    "original_explanation": "明确人员、团队、角色、执行责任、确认责任和决策责任如何区分。",
+    "original_output": "对象清单、定义及系统归属表",
+    "original_acceptance": "对象定义唯一清晰，边界和系统归属明确",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-001",
+      "REQ-002",
+      "REQ-026"
+    ],
+    "tasks": [
+      "AT-02",
+      "MS-02",
+      "MS-07",
+      "GOV-01",
+      "GOV-02"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.1-A06",
+    "source_row": 13,
+    "capability_id": "M1.1",
+    "module": "执行数据基础",
+    "capability": "业务对象定义",
+    "original_action": "确认对象系统归属",
+    "original_explanation": "明确每类数据在哪里创建、在哪里维护、谁负责，以及AutoPM是读取、引用、计算还是写入。",
+    "original_output": "对象清单、定义及系统归属表",
+    "original_acceptance": "对象定义唯一清晰，边界和系统归属明确",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002",
+      "REQ-003",
+      "REQ-029"
+    ],
+    "tasks": [
+      "AT-03",
+      "MS-02",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.2-A01",
+    "source_row": 14,
+    "capability_id": "M1.2",
+    "module": "执行数据基础",
+    "capability": "对象关系模型",
+    "original_action": "建立项目层级、计划、责任、异常和恢复结果关系",
+    "original_explanation": "完成“建立项目层级、计划、责任、异常和恢复结果关系”，使“对象关系模型”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "业务对象关系图及关系规则",
+    "original_acceptance": "任务、异常和行动可追溯，汇总可下钻，无孤立核心记录",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-001",
+      "REQ-008",
+      "REQ-013",
+      "REQ-015"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-04",
+      "AT-05",
+      "MS-02",
+      "MS-05",
+      "MS-07",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.2-A02",
+    "source_row": 15,
+    "capability_id": "M1.2",
+    "module": "执行数据基础",
+    "capability": "对象关系模型",
+    "original_action": "建立汇总下钻规则",
+    "original_explanation": "完成“建立汇总下钻规则”，使“对象关系模型”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "业务对象关系图及关系规则",
+    "original_acceptance": "任务、异常和行动可追溯，汇总可下钻，无孤立核心记录",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-005",
+      "REQ-007"
+    ],
+    "tasks": [
+      "AT-01",
+      "AT-08",
+      "MS-04",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.2-A03",
+    "source_row": 16,
+    "capability_id": "M1.2",
+    "module": "执行数据基础",
+    "capability": "对象关系模型",
+    "original_action": "处理跨项目和多SKU关系",
+    "original_explanation": "完成“处理跨项目和多SKU关系”，使“对象关系模型”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "业务对象关系图及关系规则",
+    "original_acceptance": "任务、异常和行动可追溯，汇总可下钻，无孤立核心记录",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-001"
+    ],
+    "tasks": [
+      "AT-03",
+      "MS-02",
+      "MS-06",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.3-A01",
+    "source_row": 17,
+    "capability_id": "M1.3",
+    "module": "执行数据基础",
+    "capability": "唯一标识与映射",
+    "original_action": "定义Project、SKU、Milestone、Task、Issue、Action和Decision标识",
+    "original_explanation": "完成“定义Project、SKU、Milestone、Task、Issue、Action和Decision标识”，使“唯一标识与映射”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "唯一标识、映射和去重规则",
+    "original_acceptance": "同一对象不重复，上下游稳定匹配，历史记录可处理",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-06",
+      "MS-02",
+      "MS-08",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "项目/任务/问题等身份P0；Decision ID预留设计，不代表P0建立Decision平台。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.3-A02",
+    "source_row": 18,
+    "capability_id": "M1.3",
+    "module": "执行数据基础",
+    "capability": "唯一标识与映射",
+    "original_action": "建立上游映射、去重和历史无ID处理规则",
+    "original_explanation": "完成“建立上游映射、去重和历史无ID处理规则”，使“唯一标识与映射”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "唯一标识、映射和去重规则",
+    "original_acceptance": "同一对象不重复，上下游稳定匹配，历史记录可处理",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-06",
+      "MS-02",
+      "MS-08",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.4-A01",
+    "source_row": 19,
+    "capability_id": "M1.4",
+    "module": "执行数据基础",
+    "capability": "字段与状态标准",
+    "original_action": "定义身份、责任、日期、生命周期、健康、执行和数据确认字段",
+    "original_explanation": "完成“定义身份、责任、日期、生命周期、健康、执行和数据确认字段”，使“字段与状态标准”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "字段字典、状态字典和转换规则",
+    "original_acceptance": "日期和状态不混用，状态条件明确，自动结果可解释",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-004",
+      "REQ-006",
+      "REQ-008"
+    ],
+    "tasks": [
+      "AT-01",
+      "AT-02",
+      "AT-04",
+      "MS-02",
+      "MS-03",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.4-A02",
+    "source_row": 20,
+    "capability_id": "M1.4",
+    "module": "执行数据基础",
+    "capability": "字段与状态标准",
+    "original_action": "定义状态转换、重开和关闭规则",
+    "original_explanation": "完成“定义状态转换、重开和关闭规则”，使“字段与状态标准”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "字段字典、状态字典和转换规则",
+    "original_acceptance": "日期和状态不混用，状态条件明确，自动结果可解释",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-011",
+      "REQ-015"
+    ],
+    "tasks": [
+      "AT-01",
+      "AT-05",
+      "MS-03",
+      "MS-07",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.5-A01",
+    "source_row": 21,
+    "capability_id": "M1.5",
+    "module": "执行数据基础",
+    "capability": "数据来源与责任",
+    "original_action": "确认关键字段正式来源",
+    "original_explanation": "完成“确认关键字段正式来源”，使“数据来源与责任”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "数据来源矩阵、责任矩阵和读写规则",
+    "original_acceptance": "关键字段有来源和责任，无规则双维护被消除，冲突可处理",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002",
+      "REQ-003",
+      "REQ-029"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-06",
+      "MS-01",
+      "MS-02",
+      "MS-08",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.5-A02",
+    "source_row": 22,
+    "capability_id": "M1.5",
+    "module": "执行数据基础",
+    "capability": "数据来源与责任",
+    "original_action": "明确读写计算引用边界",
+    "original_explanation": "完成“明确读写计算引用边界”，使“数据来源与责任”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "数据来源矩阵、责任矩阵和读写规则",
+    "original_acceptance": "关键字段有来源和责任，无规则双维护被消除，冲突可处理",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002",
+      "REQ-003",
+      "REQ-029"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-06",
+      "MS-01",
+      "MS-02",
+      "MS-08",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.5-A03",
+    "source_row": 23,
+    "capability_id": "M1.5",
+    "module": "执行数据基础",
+    "capability": "数据来源与责任",
+    "original_action": "指定业务与数据Owner",
+    "original_explanation": "完成“指定业务与数据Owner”，使“数据来源与责任”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "数据来源矩阵、责任矩阵和读写规则",
+    "original_acceptance": "关键字段有来源和责任，无规则双维护被消除，冲突可处理",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002",
+      "REQ-026",
+      "REQ-028"
+    ],
+    "tasks": [
+      "GOV-01",
+      "GOV-02"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.5-A04",
+    "source_row": 24,
+    "capability_id": "M1.5",
+    "module": "执行数据基础",
+    "capability": "数据来源与责任",
+    "original_action": "定义冲突、失败和双系统维护规则",
+    "original_explanation": "完成“定义冲突、失败和双系统维护规则”，使“数据来源与责任”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "数据来源矩阵、责任矩阵和读写规则",
+    "original_acceptance": "关键字段有来源和责任，无规则双维护被消除，冲突可处理",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-003",
+      "REQ-004",
+      "REQ-029"
+    ],
+    "tasks": [
+      "AT-06",
+      "MS-08",
+      "MS-10",
+      "GOV-01",
+      "GOV-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.6-A01",
+    "source_row": 25,
+    "capability_id": "M1.6",
+    "module": "执行数据基础",
+    "capability": "真实项目数据初始化",
+    "original_action": "确认试点项目",
+    "original_explanation": "完成“确认试点项目”，使“真实项目数据初始化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可运行试点数据及修复清单",
+    "original_acceptance": "项目具有真实结构和执行数据，关系完整，业务抽样一致",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-028"
+    ],
+    "tasks": [
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.6-A02",
+    "source_row": 26,
+    "capability_id": "M1.6",
+    "module": "执行数据基础",
+    "capability": "真实项目数据初始化",
+    "original_action": "清理记录",
+    "original_explanation": "完成“清理记录”，使“真实项目数据初始化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可运行试点数据及修复清单",
+    "original_acceptance": "项目具有真实结构和执行数据，关系完整，业务抽样一致",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002",
+      "REQ-004"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-06",
+      "MS-10",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.6-A03",
+    "source_row": 27,
+    "capability_id": "M1.6",
+    "module": "执行数据基础",
+    "capability": "真实项目数据初始化",
+    "original_action": "建立Project与SKU关系",
+    "original_explanation": "完成“建立Project与SKU关系”，使“真实项目数据初始化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可运行试点数据及修复清单",
+    "original_acceptance": "项目具有真实结构和执行数据，关系完整，业务抽样一致",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-001",
+      "REQ-002"
+    ],
+    "tasks": [
+      "AT-03",
+      "MS-02",
+      "MS-06",
+      "MS-10"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.6-A04",
+    "source_row": 28,
+    "capability_id": "M1.6",
+    "module": "执行数据基础",
+    "capability": "真实项目数据初始化",
+    "original_action": "导入Milestone、Task、成员、异常和Action",
+    "original_explanation": "完成“导入Milestone、Task、成员、异常和Action”，使“真实项目数据初始化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可运行试点数据及修复清单",
+    "original_acceptance": "项目具有真实结构和执行数据，关系完整，业务抽样一致",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002",
+      "REQ-004"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-06",
+      "MS-10",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.6-A05",
+    "source_row": 29,
+    "capability_id": "M1.6",
+    "module": "执行数据基础",
+    "capability": "真实项目数据初始化",
+    "original_action": "完成业务抽样",
+    "original_explanation": "完成“完成业务抽样”，使“真实项目数据初始化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可运行试点数据及修复清单",
+    "original_acceptance": "项目具有真实结构和执行数据，关系完整，业务抽样一致",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-004",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.7-A01",
+    "source_row": 30,
+    "capability_id": "M1.7",
+    "module": "执行数据基础",
+    "capability": "数据质量与审计",
+    "original_action": "建立必填、关系、重复、冲突、未更新和业务逻辑检查",
+    "original_explanation": "完成“建立必填、关系、重复、冲突、未更新和业务逻辑检查”，使“数据质量与审计”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "质量规则、问题清单和审计记录",
+    "original_acceptance": "问题可识别、分配和关闭，关键变化可追溯",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-004"
+    ],
+    "tasks": [
+      "AT-01",
+      "AT-03",
+      "AT-06",
+      "MS-03",
+      "MS-08",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.7-A02",
+    "source_row": 31,
+    "capability_id": "M1.7",
+    "module": "执行数据基础",
+    "capability": "数据质量与审计",
+    "original_action": "记录关键变更和数据产生方式",
+    "original_explanation": "完成“记录关键变更和数据产生方式”，使“数据质量与审计”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "质量规则、问题清单和审计记录",
+    "original_acceptance": "问题可识别、分配和关闭，关键变化可追溯",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-004",
+      "REQ-011"
+    ],
+    "tasks": [
+      "AT-05",
+      "AT-06",
+      "MS-03",
+      "MS-08"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M1.7-A03",
+    "source_row": 32,
+    "capability_id": "M1.7",
+    "module": "执行数据基础",
+    "capability": "数据质量与审计",
+    "original_action": "关闭质量问题",
+    "original_explanation": "完成“关闭质量问题”，使“数据质量与审计”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "质量规则、问题清单和审计记录",
+    "original_acceptance": "问题可识别、分配和关闭，关键变化可追溯",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-004"
+    ],
+    "tasks": [
+      "AT-06",
+      "MS-08",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.1-A01",
+    "source_row": 33,
+    "capability_id": "M2.1",
+    "module": "项目执行与问题闭环",
+    "capability": "项目进入与初始化",
+    "original_action": "识别新增与重复项目",
+    "original_explanation": "完成“识别新增与重复项目”，使“项目进入与初始化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "已初始化项目及范围责任记录",
+    "original_acceptance": "项目身份唯一，结构、责任和模板明确",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-001",
+      "REQ-009"
+    ],
+    "tasks": [
+      "AT-04",
+      "MS-05",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.1-A02",
+    "source_row": 34,
+    "capability_id": "M2.1",
+    "module": "项目执行与问题闭环",
+    "capability": "项目进入与初始化",
+    "original_action": "确认Programme、Project Group、SKU、类型、阶段、范围、负责人、成员和模板",
+    "original_explanation": "完成“确认Programme、Project Group、SKU、类型、阶段、范围、负责人、成员和模板”，使“项目进入与初始化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "已初始化项目及范围责任记录",
+    "original_acceptance": "项目身份唯一，结构、责任和模板明确",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-001",
+      "REQ-009"
+    ],
+    "tasks": [
+      "AT-04",
+      "MS-05",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "旧文Project Group与PRD冲突；保留原动作，按Program/Project/SKU正式对象和关系映射，不新增Project Group层级。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.2-A01",
+    "source_row": 35,
+    "capability_id": "M2.2",
+    "module": "项目执行与问题闭环",
+    "capability": "计划与任务建立",
+    "original_action": "建立阶段和Milestone",
+    "original_explanation": "完成“建立阶段和Milestone”，使“计划与任务建立”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "项目基线计划及任务责任清单",
+    "original_acceptance": "关键里程碑和任务有日期、责任、依赖并可执行",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-009",
+      "REQ-018"
+    ],
+    "tasks": [
+      "AT-04",
+      "MS-05"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.2-A02",
+    "source_row": 36,
+    "capability_id": "M2.2",
+    "module": "项目执行与问题闭环",
+    "capability": "计划与任务建立",
+    "original_action": "导入或生成Task",
+    "original_explanation": "完成“导入或生成Task”，使“计划与任务建立”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "项目基线计划及任务责任清单",
+    "original_acceptance": "关键里程碑和任务有日期、责任、依赖并可执行",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-003",
+      "REQ-008",
+      "REQ-009"
+    ],
+    "tasks": [
+      "AT-04",
+      "AT-06",
+      "MS-05",
+      "MS-08"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.2-A03",
+    "source_row": 37,
+    "capability_id": "M2.2",
+    "module": "项目执行与问题闭环",
+    "capability": "计划与任务建立",
+    "original_action": "明确交付物和依赖",
+    "original_explanation": "完成“明确交付物和依赖”，使“计划与任务建立”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "项目基线计划及任务责任清单",
+    "original_acceptance": "关键里程碑和任务有日期、责任、依赖并可执行",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-009",
+      "REQ-018"
+    ],
+    "tasks": [
+      "AT-04",
+      "MS-05"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.2-A04",
+    "source_row": 38,
+    "capability_id": "M2.2",
+    "module": "项目执行与问题闭环",
+    "capability": "计划与任务建立",
+    "original_action": "分配Owner",
+    "original_explanation": "完成“分配Owner”，使“计划与任务建立”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "项目基线计划及任务责任清单",
+    "original_acceptance": "关键里程碑和任务有日期、责任、依赖并可执行",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-009",
+      "REQ-018"
+    ],
+    "tasks": [
+      "AT-04",
+      "MS-05"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.2-A05",
+    "source_row": 39,
+    "capability_id": "M2.2",
+    "module": "项目执行与问题闭环",
+    "capability": "计划与任务建立",
+    "original_action": "设置Baseline与Due",
+    "original_explanation": "完成“设置Baseline与Due”，使“计划与任务建立”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "项目基线计划及任务责任清单",
+    "original_acceptance": "关键里程碑和任务有日期、责任、依赖并可执行",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-009",
+      "REQ-018"
+    ],
+    "tasks": [
+      "AT-04",
+      "MS-05"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.2-A06",
+    "source_row": 40,
+    "capability_id": "M2.2",
+    "module": "项目执行与问题闭环",
+    "capability": "计划与任务建立",
+    "original_action": "确认计划并记录变更",
+    "original_explanation": "完成“确认计划并记录变更”，使“计划与任务建立”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "项目基线计划及任务责任清单",
+    "original_acceptance": "关键里程碑和任务有日期、责任、依赖并可执行",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-009",
+      "REQ-018"
+    ],
+    "tasks": [
+      "AT-04",
+      "MS-05"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.3-A01",
+    "source_row": 41,
+    "capability_id": "M2.3",
+    "module": "项目执行与问题闭环",
+    "capability": "日常执行与更新",
+    "original_action": "查看待办",
+    "original_explanation": "完成“查看待办”，使“日常执行与更新”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "持续更新的执行状态及承诺结果记录",
+    "original_acceptance": "状态真实，计划预测实际可比较，长期未更新可识别",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-010"
+    ],
+    "tasks": [
+      "AT-02",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.3-A02",
+    "source_row": 42,
+    "capability_id": "M2.3",
+    "module": "项目执行与问题闭环",
+    "capability": "日常执行与更新",
+    "original_action": "更新Task和Forecast",
+    "original_explanation": "完成“更新Task和Forecast”，使“日常执行与更新”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "持续更新的执行状态及承诺结果记录",
+    "original_acceptance": "状态真实，计划预测实际可比较，长期未更新可识别",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-009"
+    ],
+    "tasks": [
+      "AT-01",
+      "AT-04",
+      "AT-08",
+      "MS-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.3-A03",
+    "source_row": 43,
+    "capability_id": "M2.3",
+    "module": "项目执行与问题闭环",
+    "capability": "日常执行与更新",
+    "original_action": "提交交付物或证据",
+    "original_explanation": "完成“提交交付物或证据”，使“日常执行与更新”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "持续更新的执行状态及承诺结果记录",
+    "original_acceptance": "状态真实，计划预测实际可比较，长期未更新可识别",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-011"
+    ],
+    "tasks": [
+      "AT-01",
+      "AT-08",
+      "MS-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.3-A04",
+    "source_row": 44,
+    "capability_id": "M2.3",
+    "module": "项目执行与问题闭环",
+    "capability": "日常执行与更新",
+    "original_action": "记录下一步、等待、阻塞、变化、更新时间和更新人",
+    "original_explanation": "完成“记录下一步、等待、阻塞、变化、更新时间和更新人”，使“日常执行与更新”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "持续更新的执行状态及承诺结果记录",
+    "original_acceptance": "状态真实，计划预测实际可比较，长期未更新可识别",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-005",
+      "REQ-008"
+    ],
+    "tasks": [
+      "AT-02",
+      "AT-08",
+      "MS-04",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.4-A01",
+    "source_row": 45,
+    "capability_id": "M2.4",
+    "module": "项目执行与问题闭环",
+    "capability": "异常识别与记录",
+    "original_action": "识别并分类Issue、Risk、Delay和Blocker",
+    "original_explanation": "完成“识别并分类Issue、Risk、Delay和Blocker”，使“异常识别与记录”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "结构化异常记录及影响责任",
+    "original_acceptance": "分类一致，影响对象、Owner、状态和下一步明确",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-012"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.4-A02",
+    "source_row": 46,
+    "capability_id": "M2.4",
+    "module": "项目执行与问题闭环",
+    "capability": "异常识别与记录",
+    "original_action": "关联影响对象",
+    "original_explanation": "完成“关联影响对象”，使“异常识别与记录”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "结构化异常记录及影响责任",
+    "original_acceptance": "分类一致，影响对象、Owner、状态和下一步明确",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-012"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.4-A03",
+    "source_row": 47,
+    "capability_id": "M2.4",
+    "module": "项目执行与问题闭环",
+    "capability": "异常识别与记录",
+    "original_action": "记录影响、严重度、原因、Owner、升级需求和重复异常",
+    "original_explanation": "完成“记录影响、严重度、原因、Owner、升级需求和重复异常”，使“异常识别与记录”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "结构化异常记录及影响责任",
+    "original_acceptance": "分类一致，影响对象、Owner、状态和下一步明确",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-012"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.5-A01",
+    "source_row": 48,
+    "capability_id": "M2.5",
+    "module": "项目执行与问题闭环",
+    "capability": "恢复行动与升级",
+    "original_action": "创建Recovery Action",
+    "original_explanation": "完成“创建Recovery Action”，使“恢复行动与升级”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "恢复行动计划及责任日期结果",
+    "original_acceptance": "关键异常有行动或处置结论，逾期无效行动可升级",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-013"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.5-A02",
+    "source_row": 49,
+    "capability_id": "M2.5",
+    "module": "项目执行与问题闭环",
+    "capability": "恢复行动与升级",
+    "original_action": "指定Owner",
+    "original_explanation": "完成“指定Owner”，使“恢复行动与升级”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "恢复行动计划及责任日期结果",
+    "original_acceptance": "关键异常有行动或处置结论，逾期无效行动可升级",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-013"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.5-A03",
+    "source_row": 50,
+    "capability_id": "M2.5",
+    "module": "项目执行与问题闭环",
+    "capability": "恢复行动与升级",
+    "original_action": "设置Due和恢复目标",
+    "original_explanation": "完成“设置Due和恢复目标”，使“恢复行动与升级”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "恢复行动计划及责任日期结果",
+    "original_acceptance": "关键异常有行动或处置结论，逾期无效行动可升级",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-013"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.5-A04",
+    "source_row": 51,
+    "capability_id": "M2.5",
+    "module": "项目执行与问题闭环",
+    "capability": "恢复行动与升级",
+    "original_action": "更新优先级、状态、进展和结果",
+    "original_explanation": "完成“更新优先级、状态、进展和结果”，使“恢复行动与升级”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "恢复行动计划及责任日期结果",
+    "original_acceptance": "关键异常有行动或处置结论，逾期无效行动可升级",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-013"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.5-A05",
+    "source_row": 52,
+    "capability_id": "M2.5",
+    "module": "项目执行与问题闭环",
+    "capability": "恢复行动与升级",
+    "original_action": "识别逾期无效行动并升级",
+    "original_explanation": "完成“识别逾期无效行动并升级”，使“恢复行动与升级”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "恢复行动计划及责任日期结果",
+    "original_acceptance": "关键异常有行动或处置结论，逾期无效行动可升级",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-010",
+      "REQ-013"
+    ],
+    "tasks": [
+      "AT-05",
+      "AT-09",
+      "MS-07",
+      "MS-09"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.6-A01",
+    "source_row": 53,
+    "capability_id": "M2.6",
+    "module": "项目执行与问题闭环",
+    "capability": "管理决策",
+    "original_action": "识别待决策事项",
+    "original_explanation": "完成“识别待决策事项”，使“管理决策”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "待决策清单、决策记录和后续行动",
+    "original_acceptance": "决策事项、人员、期限、理由和结果可追踪",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-014"
+    ],
+    "tasks": [
+      "AT-13",
+      "MS-12",
+      "GOV-01"
+    ],
+    "current_scope": "P1",
+    "disposition": "独立Decision／高级Review按用户范围放P1；现有周报和Issue中的待决责任仍保留，不能静默删去原Action。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.6-A02",
+    "source_row": 54,
+    "capability_id": "M2.6",
+    "module": "项目执行与问题闭环",
+    "capability": "管理决策",
+    "original_action": "记录背景、影响、时限、方案和建议",
+    "original_explanation": "完成“记录背景、影响、时限、方案和建议”，使“管理决策”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "待决策清单、决策记录和后续行动",
+    "original_acceptance": "决策事项、人员、期限、理由和结果可追踪",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-014"
+    ],
+    "tasks": [
+      "AT-13",
+      "MS-12",
+      "GOV-01"
+    ],
+    "current_scope": "P1",
+    "disposition": "独立Decision／高级Review按用户范围放P1；现有周报和Issue中的待决责任仍保留，不能静默删去原Action。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.6-A03",
+    "source_row": 55,
+    "capability_id": "M2.6",
+    "module": "项目执行与问题闭环",
+    "capability": "管理决策",
+    "original_action": "指定决策人",
+    "original_explanation": "完成“指定决策人”，使“管理决策”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "待决策清单、决策记录和后续行动",
+    "original_acceptance": "决策事项、人员、期限、理由和结果可追踪",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-014"
+    ],
+    "tasks": [
+      "AT-13",
+      "MS-12",
+      "GOV-01"
+    ],
+    "current_scope": "P1",
+    "disposition": "独立Decision／高级Review按用户范围放P1；现有周报和Issue中的待决责任仍保留，不能静默删去原Action。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.6-A04",
+    "source_row": 56,
+    "capability_id": "M2.6",
+    "module": "项目执行与问题闭环",
+    "capability": "管理决策",
+    "original_action": "记录决定理由",
+    "original_explanation": "完成“记录决定理由”，使“管理决策”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "待决策清单、决策记录和后续行动",
+    "original_acceptance": "决策事项、人员、期限、理由和结果可追踪",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-014"
+    ],
+    "tasks": [
+      "AT-13",
+      "MS-12",
+      "GOV-01"
+    ],
+    "current_scope": "P1",
+    "disposition": "独立Decision／高级Review按用户范围放P1；现有周报和Issue中的待决责任仍保留，不能静默删去原Action。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.6-A05",
+    "source_row": 57,
+    "capability_id": "M2.6",
+    "module": "项目执行与问题闭环",
+    "capability": "管理决策",
+    "original_action": "转化Action并跟踪结果",
+    "original_explanation": "完成“转化Action并跟踪结果”，使“管理决策”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "待决策清单、决策记录和后续行动",
+    "original_acceptance": "决策事项、人员、期限、理由和结果可追踪",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-014"
+    ],
+    "tasks": [
+      "AT-13",
+      "MS-12",
+      "GOV-01"
+    ],
+    "current_scope": "P1",
+    "disposition": "独立Decision／高级Review按用户范围放P1；现有周报和Issue中的待决责任仍保留，不能静默删去原Action。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.7-A01",
+    "source_row": 58,
+    "capability_id": "M2.7",
+    "module": "项目执行与问题闭环",
+    "capability": "结果确认与验证关闭",
+    "original_action": "检查Action",
+    "original_explanation": "完成“检查Action”，使“结果确认与验证关闭”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "验证关闭记录及结果证据",
+    "original_acceptance": "Action完成不等于Issue关闭，关闭有结果、证据和验证人",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-011",
+      "REQ-015"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.7-A02",
+    "source_row": 59,
+    "capability_id": "M2.7",
+    "module": "项目执行与问题闭环",
+    "capability": "结果确认与验证关闭",
+    "original_action": "记录结果",
+    "original_explanation": "完成“记录结果”，使“结果确认与验证关闭”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "验证关闭记录及结果证据",
+    "original_acceptance": "Action完成不等于Issue关闭，关闭有结果、证据和验证人",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-011",
+      "REQ-015"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.7-A03",
+    "source_row": 60,
+    "capability_id": "M2.7",
+    "module": "项目执行与问题闭环",
+    "capability": "结果确认与验证关闭",
+    "original_action": "确认影响是否消除或接受",
+    "original_explanation": "完成“确认影响是否消除或接受”，使“结果确认与验证关闭”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "验证关闭记录及结果证据",
+    "original_acceptance": "Action完成不等于Issue关闭，关闭有结果、证据和验证人",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-011",
+      "REQ-015"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.7-A04",
+    "source_row": 61,
+    "capability_id": "M2.7",
+    "module": "项目执行与问题闭环",
+    "capability": "结果确认与验证关闭",
+    "original_action": "指定验证人",
+    "original_explanation": "完成“指定验证人”，使“结果确认与验证关闭”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "验证关闭记录及结果证据",
+    "original_acceptance": "Action完成不等于Issue关闭，关闭有结果、证据和验证人",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-011",
+      "REQ-015"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.7-A05",
+    "source_row": 62,
+    "capability_id": "M2.7",
+    "module": "项目执行与问题闭环",
+    "capability": "结果确认与验证关闭",
+    "original_action": "提交证据",
+    "original_explanation": "完成“提交证据”，使“结果确认与验证关闭”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "验证关闭记录及结果证据",
+    "original_acceptance": "Action完成不等于Issue关闭，关闭有结果、证据和验证人",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-011",
+      "REQ-015"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.7-A06",
+    "source_row": 63,
+    "capability_id": "M2.7",
+    "module": "项目执行与问题闭环",
+    "capability": "结果确认与验证关闭",
+    "original_action": "正式关闭或重开",
+    "original_explanation": "完成“正式关闭或重开”，使“结果确认与验证关闭”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "验证关闭记录及结果证据",
+    "original_acceptance": "Action完成不等于Issue关闭，关闭有结果、证据和验证人",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-011",
+      "REQ-015"
+    ],
+    "tasks": [
+      "AT-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.8-A01",
+    "source_row": 64,
+    "capability_id": "M2.8",
+    "module": "项目执行与问题闭环",
+    "capability": "历史与经验沉淀",
+    "original_action": "保留计划和状态变化",
+    "original_explanation": "完成“保留计划和状态变化”，使“历史与经验沉淀”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "结构化执行历史及问题处理案例",
+    "original_acceptance": "原因、行动、决定和结果可关联，案例来自真实关闭记录",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-009",
+      "REQ-011"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-04",
+      "AT-05",
+      "MS-05",
+      "MS-06",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M2.8-A02",
+    "source_row": 65,
+    "capability_id": "M2.8",
+    "module": "项目执行与问题闭环",
+    "capability": "历史与经验沉淀",
+    "original_action": "记录Root Cause、有效无效Action、关键Decision、最终Result和可检索案例",
+    "original_explanation": "完成“记录Root Cause、有效无效Action、关键Decision、最终Result和可检索案例”，使“历史与经验沉淀”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "结构化执行历史及问题处理案例",
+    "original_acceptance": "原因、行动、决定和结果可关联，案例来自真实关闭记录",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-011",
+      "REQ-016",
+      "REQ-017"
+    ],
+    "tasks": [
+      "AT-10",
+      "MS-09"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。 原文Decision/Review在P0以Issue待决责任、周报及现有行动记录承载；新的独立管理平台仍在P1，不扩展本动作范围。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.1-A01",
+    "source_row": 66,
+    "capability_id": "M3.1",
+    "module": "工作与管理入口",
+    "capability": "个人执行入口",
+    "original_action": "展示今日、即将到期、逾期、待更新、待确认、本人异常和Action",
+    "original_explanation": "完成“展示今日、即将到期、逾期、待更新、待确认、本人异常和Action”，使“个人执行入口”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "My Daily Work入口",
+    "original_acceptance": "一个入口找到并完成核心工作，可返回项目背景，减少重复维护",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-010"
+    ],
+    "tasks": [
+      "AT-02",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.1-A02",
+    "source_row": 67,
+    "capability_id": "M3.1",
+    "module": "工作与管理入口",
+    "capability": "个人执行入口",
+    "original_action": "支持更新、提交结果并进入项目背景",
+    "original_explanation": "完成“支持更新、提交结果并进入项目背景”，使“个人执行入口”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "My Daily Work入口",
+    "original_acceptance": "一个入口找到并完成核心工作，可返回项目背景，减少重复维护",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-010"
+    ],
+    "tasks": [
+      "AT-02",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.2-A01",
+    "source_row": 68,
+    "capability_id": "M3.2",
+    "module": "工作与管理入口",
+    "capability": "项目管理入口",
+    "original_action": "展示项目、SKU、阶段、健康、Milestone、Task、异常、Action、待决策和缺失项",
+    "original_explanation": "完成“展示项目、SKU、阶段、健康、Milestone、Task、异常、Action、待决策和缺失项”，使“项目管理入口”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Project Workspace及可信项目视图",
+    "original_acceptance": "偏差、影响、Owner和下一步清楚，无需另做解释报告",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-005"
+    ],
+    "tasks": [
+      "AT-08",
+      "MS-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。 原文Decision/Review在P0以Issue待决责任、周报及现有行动记录承载；新的独立管理平台仍在P1，不扩展本动作范围。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.2-A02",
+    "source_row": 69,
+    "capability_id": "M3.2",
+    "module": "工作与管理入口",
+    "capability": "项目管理入口",
+    "original_action": "支持更新、审查和下钻",
+    "original_explanation": "完成“支持更新、审查和下钻”，使“项目管理入口”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Project Workspace及可信项目视图",
+    "original_acceptance": "偏差、影响、Owner和下一步清楚，无需另做解释报告",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-005"
+    ],
+    "tasks": [
+      "AT-08",
+      "MS-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.3-A01",
+    "source_row": 70,
+    "capability_id": "M3.3",
+    "module": "工作与管理入口",
+    "capability": "异常处理入口",
+    "original_action": "展示开放、缺失Owner/Action/Due、逾期和待关闭异常",
+    "original_explanation": "完成“展示开放、缺失Owner/Action/Due、逾期和待关闭异常”，使“异常处理入口”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "统一异常处理入口",
+    "original_acceptance": "异常集中可见，可直接分配、行动、升级和关闭",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-012",
+      "REQ-013",
+      "REQ-015"
+    ],
+    "tasks": [
+      "AT-05",
+      "AT-08",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.3-A02",
+    "source_row": 71,
+    "capability_id": "M3.3",
+    "module": "工作与管理入口",
+    "capability": "异常处理入口",
+    "original_action": "支持分配、行动、更新、升级、决策和关闭",
+    "original_explanation": "完成“支持分配、行动、更新、升级、决策和关闭”，使“异常处理入口”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "统一异常处理入口",
+    "original_acceptance": "异常集中可见，可直接分配、行动、升级和关闭",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-012",
+      "REQ-013",
+      "REQ-015"
+    ],
+    "tasks": [
+      "AT-05",
+      "AT-08",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。 原文Decision/Review在P0以Issue待决责任、周报及现有行动记录承载；新的独立管理平台仍在P1，不扩展本动作范围。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.4-A01",
+    "source_row": 72,
+    "capability_id": "M3.4",
+    "module": "工作与管理入口",
+    "capability": "周度管理入口",
+    "original_action": "展示健康、变化、偏差、Top Risk、逾期、缺失、待决策和上周结果",
+    "original_explanation": "完成“展示健康、变化、偏差、Top Risk、逾期、缺失、待决策和上周结果”，使“周度管理入口”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "周度管理视图及决定行动记录",
+    "original_acceptance": "周会直接使用AutoPM，决定回写，下周期验证结果",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-019",
+      "REQ-020"
+    ],
+    "tasks": [
+      "AT-13",
+      "MS-12"
+    ],
+    "current_scope": "P1",
+    "disposition": "独立Decision／高级Review按用户范围放P1；现有周报和Issue中的待决责任仍保留，不能静默删去原Action。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.4-A02",
+    "source_row": 73,
+    "capability_id": "M3.4",
+    "module": "工作与管理入口",
+    "capability": "周度管理入口",
+    "original_action": "支持确认、决定和行动回写",
+    "original_explanation": "完成“支持确认、决定和行动回写”，使“周度管理入口”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "周度管理视图及决定行动记录",
+    "original_acceptance": "周会直接使用AutoPM，决定回写，下周期验证结果",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-019",
+      "REQ-020"
+    ],
+    "tasks": [
+      "AT-13",
+      "MS-12"
+    ],
+    "current_scope": "P1",
+    "disposition": "独立Decision／高级Review按用户范围放P1；现有周报和Issue中的待决责任仍保留，不能静默删去原Action。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.5-A01",
+    "source_row": 74,
+    "capability_id": "M3.5",
+    "module": "工作与管理入口",
+    "capability": "领导审查与下钻",
+    "original_action": "展示组合健康、关键风险延误、受影响Milestone和待决策项",
+    "original_explanation": "完成“展示组合健康、关键风险延误、受影响Milestone和待决策项”，使“领导审查与下钻”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Leadership View及下钻路径",
+    "original_acceptance": "汇总结论可下钻，管理决定和后续行动可追踪",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-007"
+    ],
+    "tasks": [
+      "AT-08",
+      "MS-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。 原文Decision/Review在P0以Issue待决责任、周报及现有行动记录承载；新的独立管理平台仍在P1，不扩展本动作范围。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.5-A02",
+    "source_row": 75,
+    "capability_id": "M3.5",
+    "module": "工作与管理入口",
+    "capability": "领导审查与下钻",
+    "original_action": "逐层下钻至Project、SKU、异常、Action、Owner和Result",
+    "original_explanation": "完成“逐层下钻至Project、SKU、异常、Action、Owner和Result”，使“领导审查与下钻”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Leadership View及下钻路径",
+    "original_acceptance": "汇总结论可下钻，管理决定和后续行动可追踪",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-007"
+    ],
+    "tasks": [
+      "AT-08",
+      "MS-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.6-A01",
+    "source_row": 76,
+    "capability_id": "M3.6",
+    "module": "工作与管理入口",
+    "capability": "用户体验与动作效率",
+    "original_action": "删除无用字段",
+    "original_explanation": "完成“删除无用字段”，使“用户体验与动作效率”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "用户问题清单及界面修复任务",
+    "original_acceptance": "核心动作易完成，信息一次维护，反馈转为可验收任务",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-004",
+      "REQ-005"
+    ],
+    "tasks": [
+      "AT-00",
+      "AT-08",
+      "MS-04",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原删除意图改为消费者核对与先隐藏；删除需后续具体影响、恢复方案及范围授权，不直接执行旧文删除指令。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.6-A02",
+    "source_row": 77,
+    "capability_id": "M3.6",
+    "module": "工作与管理入口",
+    "capability": "用户体验与动作效率",
+    "original_action": "减少重复录入和页面切换",
+    "original_explanation": "完成“减少重复录入和页面切换”，使“用户体验与动作效率”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "用户问题清单及界面修复任务",
+    "original_acceptance": "核心动作易完成，信息一次维护，反馈转为可验收任务",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-005",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-00",
+      "AT-08",
+      "MS-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.6-A03",
+    "source_row": 78,
+    "capability_id": "M3.6",
+    "module": "工作与管理入口",
+    "capability": "用户体验与动作效率",
+    "original_action": "突出下一步",
+    "original_explanation": "完成“突出下一步”，使“用户体验与动作效率”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "用户问题清单及界面修复任务",
+    "original_acceptance": "核心动作易完成，信息一次维护，反馈转为可验收任务",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-005",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-00",
+      "AT-08",
+      "MS-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.6-A04",
+    "source_row": 79,
+    "capability_id": "M3.6",
+    "module": "工作与管理入口",
+    "capability": "用户体验与动作效率",
+    "original_action": "简化更新",
+    "original_explanation": "完成“简化更新”，使“用户体验与动作效率”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "用户问题清单及界面修复任务",
+    "original_acceptance": "核心动作易完成，信息一次维护，反馈转为可验收任务",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-005",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-00",
+      "AT-08",
+      "MS-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.6-A05",
+    "source_row": 80,
+    "capability_id": "M3.6",
+    "module": "工作与管理入口",
+    "capability": "用户体验与动作效率",
+    "original_action": "提供说明",
+    "original_explanation": "完成“提供说明”，使“用户体验与动作效率”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "用户问题清单及界面修复任务",
+    "original_acceptance": "核心动作易完成，信息一次维护，反馈转为可验收任务",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-005",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-00",
+      "AT-08",
+      "MS-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M3.6-A06",
+    "source_row": 81,
+    "capability_id": "M3.6",
+    "module": "工作与管理入口",
+    "capability": "用户体验与动作效率",
+    "original_action": "收集并排序用户问题",
+    "original_explanation": "完成“收集并排序用户问题”，使“用户体验与动作效率”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "用户问题清单及界面修复任务",
+    "original_acceptance": "核心动作易完成，信息一次维护，反馈转为可验收任务",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-027",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-10",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.1-A01",
+    "source_row": 82,
+    "capability_id": "M4.1",
+    "module": "自动化、集成与运行保障",
+    "capability": "数据导入与初始化自动化",
+    "original_action": "建立导入模板",
+    "original_explanation": "完成“建立导入模板”，使“数据导入与初始化自动化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "稳定导入流程及错误报告",
+    "original_acceptance": "不重复，错误可定位，不静默覆盖真实数据",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-003",
+      "REQ-004"
+    ],
+    "tasks": [
+      "AT-06",
+      "AT-07",
+      "MS-01",
+      "MS-08"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.1-A02",
+    "source_row": 83,
+    "capability_id": "M4.1",
+    "module": "自动化、集成与运行保障",
+    "capability": "数据导入与初始化自动化",
+    "original_action": "校验格式",
+    "original_explanation": "完成“校验格式”，使“数据导入与初始化自动化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "稳定导入流程及错误报告",
+    "original_acceptance": "不重复，错误可定位，不静默覆盖真实数据",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-003",
+      "REQ-004"
+    ],
+    "tasks": [
+      "AT-06",
+      "AT-07",
+      "MS-01",
+      "MS-08"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.1-A03",
+    "source_row": 84,
+    "capability_id": "M4.1",
+    "module": "自动化、集成与运行保障",
+    "capability": "数据导入与初始化自动化",
+    "original_action": "匹配ID和Owner",
+    "original_explanation": "完成“匹配ID和Owner”，使“数据导入与初始化自动化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "稳定导入流程及错误报告",
+    "original_acceptance": "不重复，错误可定位，不静默覆盖真实数据",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-003",
+      "REQ-004"
+    ],
+    "tasks": [
+      "AT-06",
+      "AT-07",
+      "MS-01",
+      "MS-08"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.1-A04",
+    "source_row": 85,
+    "capability_id": "M4.1",
+    "module": "自动化、集成与运行保障",
+    "capability": "数据导入与初始化自动化",
+    "original_action": "防重复和静默覆盖",
+    "original_explanation": "完成“防重复和静默覆盖”，使“数据导入与初始化自动化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "稳定导入流程及错误报告",
+    "original_acceptance": "不重复，错误可定位，不静默覆盖真实数据",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-003",
+      "REQ-004"
+    ],
+    "tasks": [
+      "AT-06",
+      "AT-07",
+      "MS-01",
+      "MS-08"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.1-A05",
+    "source_row": 86,
+    "capability_id": "M4.1",
+    "module": "自动化、集成与运行保障",
+    "capability": "数据导入与初始化自动化",
+    "original_action": "显示错误",
+    "original_explanation": "完成“显示错误”，使“数据导入与初始化自动化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "稳定导入流程及错误报告",
+    "original_acceptance": "不重复，错误可定位，不静默覆盖真实数据",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-003",
+      "REQ-004"
+    ],
+    "tasks": [
+      "AT-06",
+      "AT-07",
+      "MS-01",
+      "MS-08"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.1-A06",
+    "source_row": 87,
+    "capability_id": "M4.1",
+    "module": "自动化、集成与运行保障",
+    "capability": "数据导入与初始化自动化",
+    "original_action": "支持修正和回退",
+    "original_explanation": "完成“支持修正和回退”，使“数据导入与初始化自动化”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "稳定导入流程及错误报告",
+    "original_acceptance": "不重复，错误可定位，不静默覆盖真实数据",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-003",
+      "REQ-004"
+    ],
+    "tasks": [
+      "AT-06",
+      "AT-07",
+      "MS-01",
+      "MS-08"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.2-A01",
+    "source_row": 88,
+    "capability_id": "M4.2",
+    "module": "自动化、集成与运行保障",
+    "capability": "状态与异常计算",
+    "original_action": "计算到期、逾期、Next Milestone和偏差",
+    "original_explanation": "完成“计算到期、逾期、Next Milestone和偏差”，使“状态与异常计算”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "计算规则及可解释结果",
+    "original_acceptance": "规则与业务定义一致，异常边界通过测试，不无依据覆盖",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-006",
+      "REQ-009",
+      "REQ-010",
+      "REQ-023"
+    ],
+    "tasks": [
+      "AT-01",
+      "AT-02",
+      "AT-04",
+      "MS-03",
+      "MS-04",
+      "MS-05",
+      "MS-07"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.2-A02",
+    "source_row": 89,
+    "capability_id": "M4.2",
+    "module": "自动化、集成与运行保障",
+    "capability": "状态与异常计算",
+    "original_action": "识别缺失与冲突",
+    "original_explanation": "完成“识别缺失与冲突”，使“状态与异常计算”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "计算规则及可解释结果",
+    "original_acceptance": "规则与业务定义一致，异常边界通过测试，不无依据覆盖",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-004",
+      "REQ-006",
+      "REQ-023"
+    ],
+    "tasks": [
+      "AT-01",
+      "AT-03",
+      "AT-06",
+      "MS-03",
+      "MS-08"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.2-A03",
+    "source_row": 90,
+    "capability_id": "M4.2",
+    "module": "自动化、集成与运行保障",
+    "capability": "状态与异常计算",
+    "original_action": "展示依据并支持授权确认",
+    "original_explanation": "完成“展示依据并支持授权确认”，使“状态与异常计算”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "计算规则及可解释结果",
+    "original_acceptance": "规则与业务定义一致，异常边界通过测试，不无依据覆盖",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-005",
+      "REQ-006",
+      "REQ-023"
+    ],
+    "tasks": [
+      "AT-01",
+      "AT-08",
+      "MS-03",
+      "MS-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.3-A01",
+    "source_row": 91,
+    "capability_id": "M4.3",
+    "module": "自动化、集成与运行保障",
+    "capability": "提醒与升级",
+    "original_action": "建立到期、逾期、缺失和关键Delay提醒",
+    "original_explanation": "完成“建立到期、逾期、缺失和关键Delay提醒”，使“提醒与升级”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "分级提醒和升级机制",
+    "original_acceptance": "对象正确，已完成停止，重复受控，关键事项升级",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-010",
+      "REQ-021"
+    ],
+    "tasks": [
+      "AT-09",
+      "MS-09"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.3-A02",
+    "source_row": 92,
+    "capability_id": "M4.3",
+    "module": "自动化、集成与运行保障",
+    "capability": "提醒与升级",
+    "original_action": "建立去重、停止、升级及响应记录",
+    "original_explanation": "完成“建立去重、停止、升级及响应记录”，使“提醒与升级”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "分级提醒和升级机制",
+    "original_acceptance": "对象正确，已完成停止，重复受控，关键事项升级",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-010",
+      "REQ-021"
+    ],
+    "tasks": [
+      "AT-09",
+      "MS-09"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.4-A01",
+    "source_row": 93,
+    "capability_id": "M4.4",
+    "module": "自动化、集成与运行保障",
+    "capability": "报告生成",
+    "original_action": "汇总状态、变化、风险、延误、行动和决定",
+    "original_explanation": "完成“汇总状态、变化、风险、延误、行动和决定”，使“报告生成”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可确认、可追溯的周报草稿",
+    "original_acceptance": "报告来自统一数据，缺失透明，可下钻，发布前人工确认",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-019"
+    ],
+    "tasks": [
+      "AT-09",
+      "MS-09"
+    ],
+    "current_scope": "P0",
+    "disposition": "本动作的结构化周报、来源、确认与导出为P0；并不要求新增AI生成，AI增强另由AT-14/MS-12承接。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.4-A02",
+    "source_row": 94,
+    "capability_id": "M4.4",
+    "module": "自动化、集成与运行保障",
+    "capability": "报告生成",
+    "original_action": "生成周报",
+    "original_explanation": "完成“生成周报”，使“报告生成”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可确认、可追溯的周报草稿",
+    "original_acceptance": "报告来自统一数据，缺失透明，可下钻，发布前人工确认",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "已完成",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-019"
+    ],
+    "tasks": [
+      "AT-09",
+      "MS-09"
+    ],
+    "current_scope": "P0",
+    "disposition": "本动作的结构化周报、来源、确认与导出为P0；并不要求新增AI生成，AI增强另由AT-14/MS-12承接。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.4-A03",
+    "source_row": 95,
+    "capability_id": "M4.4",
+    "module": "自动化、集成与运行保障",
+    "capability": "报告生成",
+    "original_action": "标记缺失待确认",
+    "original_explanation": "完成“标记缺失待确认”，使“报告生成”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可确认、可追溯的周报草稿",
+    "original_acceptance": "报告来自统一数据，缺失透明，可下钻，发布前人工确认",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-019"
+    ],
+    "tasks": [
+      "AT-09",
+      "MS-09"
+    ],
+    "current_scope": "P0",
+    "disposition": "本动作的结构化周报、来源、确认与导出为P0；并不要求新增AI生成，AI增强另由AT-14/MS-12承接。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.4-A04",
+    "source_row": 96,
+    "capability_id": "M4.4",
+    "module": "自动化、集成与运行保障",
+    "capability": "报告生成",
+    "original_action": "保留来源、下钻、确认和导出",
+    "original_explanation": "完成“保留来源、下钻、确认和导出”，使“报告生成”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可确认、可追溯的周报草稿",
+    "original_acceptance": "报告来自统一数据，缺失透明，可下钻，发布前人工确认",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-019"
+    ],
+    "tasks": [
+      "AT-09",
+      "MS-09"
+    ],
+    "current_scope": "P0",
+    "disposition": "本动作的结构化周报、来源、确认与导出为P0；并不要求新增AI生成，AI增强另由AT-14/MS-12承接。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.5-A01",
+    "source_row": 97,
+    "capability_id": "M4.5",
+    "module": "自动化、集成与运行保障",
+    "capability": "PMO主数据连接",
+    "original_action": "确认必要数据范围",
+    "original_explanation": "完成“确认必要数据范围”，使“PMO主数据连接”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "PMO读取验证及映射对账结果",
+    "original_acceptance": "必要主数据稳定匹配，冲突和失败不静默处理",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002",
+      "REQ-003",
+      "REQ-007"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-06",
+      "MS-02",
+      "MS-08",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.5-A02",
+    "source_row": 98,
+    "capability_id": "M4.5",
+    "module": "自动化、集成与运行保障",
+    "capability": "PMO主数据连接",
+    "original_action": "建立Programme、Project、SKU和目标日期映射",
+    "original_explanation": "完成“建立Programme、Project、SKU和目标日期映射”，使“PMO主数据连接”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "PMO读取验证及映射对账结果",
+    "original_acceptance": "必要主数据稳定匹配，冲突和失败不静默处理",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002",
+      "REQ-003",
+      "REQ-007"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-06",
+      "MS-02",
+      "MS-08",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.5-A03",
+    "source_row": 99,
+    "capability_id": "M4.5",
+    "module": "自动化、集成与运行保障",
+    "capability": "PMO主数据连接",
+    "original_action": "验证读取",
+    "original_explanation": "完成“验证读取”，使“PMO主数据连接”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "PMO读取验证及映射对账结果",
+    "original_acceptance": "必要主数据稳定匹配，冲突和失败不静默处理",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002",
+      "REQ-003",
+      "REQ-007"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-06",
+      "MS-02",
+      "MS-08",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.5-A04",
+    "source_row": 100,
+    "capability_id": "M4.5",
+    "module": "自动化、集成与运行保障",
+    "capability": "PMO主数据连接",
+    "original_action": "识别变化冲突",
+    "original_explanation": "完成“识别变化冲突”，使“PMO主数据连接”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "PMO读取验证及映射对账结果",
+    "original_acceptance": "必要主数据稳定匹配，冲突和失败不静默处理",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002",
+      "REQ-003",
+      "REQ-007"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-06",
+      "MS-02",
+      "MS-08",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.5-A05",
+    "source_row": 101,
+    "capability_id": "M4.5",
+    "module": "自动化、集成与运行保障",
+    "capability": "PMO主数据连接",
+    "original_action": "记录同步并对账",
+    "original_explanation": "完成“记录同步并对账”，使“PMO主数据连接”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "PMO读取验证及映射对账结果",
+    "original_acceptance": "必要主数据稳定匹配，冲突和失败不静默处理",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-002",
+      "REQ-003",
+      "REQ-007"
+    ],
+    "tasks": [
+      "AT-03",
+      "AT-06",
+      "MS-02",
+      "MS-08",
+      "GOV-01"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.6-A01",
+    "source_row": 102,
+    "capability_id": "M4.6",
+    "module": "自动化、集成与运行保障",
+    "capability": "权限与审计",
+    "original_action": "定义角色、项目、查看、编辑、确认、审批、导出和敏感字段权限",
+    "original_explanation": "完成“定义角色、项目、查看、编辑、确认、审批、导出和敏感字段权限”，使“权限与审计”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Phase 1权限模型及审计记录",
+    "original_acceptance": "访问和关键操作受控，越权经过测试，操作可追溯",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-026"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-03",
+      "GOV-02"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.6-A02",
+    "source_row": 103,
+    "capability_id": "M4.6",
+    "module": "自动化、集成与运行保障",
+    "capability": "权限与审计",
+    "original_action": "记录变更",
+    "original_explanation": "完成“记录变更”，使“权限与审计”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Phase 1权限模型及审计记录",
+    "original_acceptance": "访问和关键操作受控，越权经过测试，操作可追溯",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-026"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-03",
+      "GOV-02"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.6-A03",
+    "source_row": 104,
+    "capability_id": "M4.6",
+    "module": "自动化、集成与运行保障",
+    "capability": "权限与审计",
+    "original_action": "测试越权",
+    "original_explanation": "完成“测试越权”，使“权限与审计”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Phase 1权限模型及审计记录",
+    "original_acceptance": "访问和关键操作受控，越权经过测试，操作可追溯",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-026"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-03",
+      "GOV-02"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.7-A01",
+    "source_row": 105,
+    "capability_id": "M4.7",
+    "module": "自动化、集成与运行保障",
+    "capability": "运行监控与失败恢复",
+    "original_action": "记录自动化和同步结果",
+    "original_explanation": "完成“记录自动化和同步结果”，使“运行监控与失败恢复”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "运行监控及失败处理机制",
+    "original_acceptance": "失败及时发现，重试安全，故障有责任和回退",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-027"
+    ],
+    "tasks": [
+      "AT-07",
+      "AT-09",
+      "MS-08",
+      "MS-09"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.7-A02",
+    "source_row": 106,
+    "capability_id": "M4.7",
+    "module": "自动化、集成与运行保障",
+    "capability": "运行监控与失败恢复",
+    "original_action": "监控异常",
+    "original_explanation": "完成“监控异常”，使“运行监控与失败恢复”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "运行监控及失败处理机制",
+    "original_acceptance": "失败及时发现，重试安全，故障有责任和回退",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-027"
+    ],
+    "tasks": [
+      "AT-10",
+      "MS-08",
+      "MS-10",
+      "GOV-02"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.7-A03",
+    "source_row": 107,
+    "capability_id": "M4.7",
+    "module": "自动化、集成与运行保障",
+    "capability": "运行监控与失败恢复",
+    "original_action": "告警并分配Owner",
+    "original_explanation": "完成“告警并分配Owner”，使“运行监控与失败恢复”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "运行监控及失败处理机制",
+    "original_acceptance": "失败及时发现，重试安全，故障有责任和回退",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-027"
+    ],
+    "tasks": [
+      "AT-07",
+      "AT-10",
+      "MS-08",
+      "MS-10",
+      "GOV-02"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.7-A04",
+    "source_row": 108,
+    "capability_id": "M4.7",
+    "module": "自动化、集成与运行保障",
+    "capability": "运行监控与失败恢复",
+    "original_action": "支持幂等重试",
+    "original_explanation": "完成“支持幂等重试”，使“运行监控与失败恢复”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "运行监控及失败处理机制",
+    "original_acceptance": "失败及时发现，重试安全，故障有责任和回退",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-004",
+      "REQ-027"
+    ],
+    "tasks": [
+      "AT-06",
+      "AT-07",
+      "MS-03",
+      "MS-08"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.7-A05",
+    "source_row": 109,
+    "capability_id": "M4.7",
+    "module": "自动化、集成与运行保障",
+    "capability": "运行监控与失败恢复",
+    "original_action": "防数据污染",
+    "original_explanation": "完成“防数据污染”，使“运行监控与失败恢复”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "运行监控及失败处理机制",
+    "original_acceptance": "失败及时发现，重试安全，故障有责任和回退",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-004",
+      "REQ-027"
+    ],
+    "tasks": [
+      "AT-06",
+      "MS-03",
+      "MS-08",
+      "GOV-02"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M4.7-A06",
+    "source_row": 110,
+    "capability_id": "M4.7",
+    "module": "自动化、集成与运行保障",
+    "capability": "运行监控与失败恢复",
+    "original_action": "建立回退",
+    "original_explanation": "完成“建立回退”，使“运行监控与失败恢复”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "运行监控及失败处理机制",
+    "original_acceptance": "失败及时发现，重试安全，故障有责任和回退",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-027",
+      "REQ-029"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-10",
+      "GOV-02"
+    ],
+    "current_scope": "P0",
+    "disposition": "原目标保留；按本版BR及目标对象实施，历史Done不继承为验收。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.1-A01",
+    "source_row": 111,
+    "capability_id": "M5.1",
+    "module": "Pilot运行与采用",
+    "capability": "Pilot范围确认",
+    "original_action": "确认试点目标、团队、负责人、项目清单、选择标准、参与角色、使用承诺及启动暂停退出条件",
+    "original_explanation": "完成“确认试点目标、团队、负责人、项目清单、选择标准、参与角色、使用承诺及启动暂停退出条件”，使“Pilot范围确认”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Pilot范围说明及团队项目清单",
+    "original_acceptance": "团队、项目、角色和目标确认，未确认数量周期保持TBD",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-028"
+    ],
+    "tasks": [
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.2-A01",
+    "source_row": 112,
+    "capability_id": "M5.2",
+    "module": "Pilot运行与采用",
+    "capability": "角色与责任",
+    "original_action": "定义执行、项目、职能、管理、Data Owner和平台支持责任",
+    "original_explanation": "完成“定义执行、项目、职能、管理、Data Owner和平台支持责任”，使“角色与责任”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Pilot角色责任矩阵",
+    "original_acceptance": "每类数据和行动有责任，PM不代替所有人维护",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-026",
+      "REQ-028"
+    ],
+    "tasks": [
+      "GOV-02",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.3-A01",
+    "source_row": 113,
+    "capability_id": "M5.3",
+    "module": "Pilot运行与采用",
+    "capability": "使用规则",
+    "original_action": "定义必须维护的信息、更新频率、异常Action升级关闭规则、人工确认和最低证据",
+    "original_explanation": "完成“定义必须维护的信息、更新频率、异常Action升级关闭规则、人工确认和最低证据”，使“使用规则”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Pilot使用规则",
+    "original_acceptance": "何时在哪里更新什么清楚，关键事实保留人工责任",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-008",
+      "REQ-010",
+      "REQ-011",
+      "REQ-015",
+      "REQ-028"
+    ],
+    "tasks": [
+      "GOV-01",
+      "GOV-02",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.4-A01",
+    "source_row": 114,
+    "capability_id": "M5.4",
+    "module": "Pilot运行与采用",
+    "capability": "双系统过渡",
+    "original_action": "明确唯一维护位置、旧工具范围、读取写入链接同步方向、冲突失败、停止条件和回退方案",
+    "original_explanation": "完成“明确唯一维护位置、旧工具范围、读取写入链接同步方向、冲突失败、停止条件和回退方案”，使“双系统过渡”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "双系统过渡方案",
+    "original_acceptance": "无规则重复维护被消除，切换和回退不丢数据",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-003",
+      "REQ-028",
+      "REQ-029"
+    ],
+    "tasks": [
+      "MS-10",
+      "GOV-01",
+      "GOV-03",
+      "GOV-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.5-A01",
+    "source_row": 115,
+    "capability_id": "M5.5",
+    "module": "Pilot运行与采用",
+    "capability": "角色上手",
+    "original_action": "使用真实项目完成任务更新、状态异常维护、Action确认、管理审查和Decision",
+    "original_explanation": "完成“使用真实项目完成任务更新、状态异常维护、Action确认、管理审查和Decision”，使“角色上手”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "角色上手记录及首轮问题清单",
+    "original_acceptance": "关键角色在真实项目完成核心动作，不以登录培训作为完成",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-026",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。 原文Decision/Review在P0以Issue待决责任、周报及现有行动记录承载；新的独立管理平台仍在P1，不扩展本动作范围。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.5-A02",
+    "source_row": 116,
+    "capability_id": "M5.5",
+    "module": "Pilot运行与采用",
+    "capability": "角色上手",
+    "original_action": "记录问题和理解偏差",
+    "original_explanation": "完成“记录问题和理解偏差”，使“角色上手”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "角色上手记录及首轮问题清单",
+    "original_acceptance": "关键角色在真实项目完成核心动作，不以登录培训作为完成",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-026",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.6-A01",
+    "source_row": 117,
+    "capability_id": "M5.6",
+    "module": "Pilot运行与采用",
+    "capability": "周度运行节奏",
+    "original_action": "按规则更新",
+    "original_explanation": "完成“按规则更新”，使“周度运行节奏”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可重复周度运行机制",
+    "original_acceptance": "真实项目持续更新，周会使用AutoPM，行动下周期验证",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "已完成",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-019",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.6-A02",
+    "source_row": 118,
+    "capability_id": "M5.6",
+    "module": "Pilot运行与采用",
+    "capability": "周度运行节奏",
+    "original_action": "检查数据",
+    "original_explanation": "完成“检查数据”，使“周度运行节奏”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可重复周度运行机制",
+    "original_acceptance": "真实项目持续更新，周会使用AutoPM，行动下周期验证",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-019",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.6-A03",
+    "source_row": 119,
+    "capability_id": "M5.6",
+    "module": "Pilot运行与采用",
+    "capability": "周度运行节奏",
+    "original_action": "生成异常和周报",
+    "original_explanation": "完成“生成异常和周报”，使“周度运行节奏”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可重复周度运行机制",
+    "original_acceptance": "真实项目持续更新，周会使用AutoPM，行动下周期验证",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-019",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.6-A04",
+    "source_row": 120,
+    "capability_id": "M5.6",
+    "module": "Pilot运行与采用",
+    "capability": "周度运行节奏",
+    "original_action": "开展周度审查",
+    "original_explanation": "完成“开展周度审查”，使“周度运行节奏”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可重复周度运行机制",
+    "original_acceptance": "真实项目持续更新，周会使用AutoPM，行动下周期验证",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-019",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。 原文Decision/Review在P0以Issue待决责任、周报及现有行动记录承载；新的独立管理平台仍在P1，不扩展本动作范围。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.6-A05",
+    "source_row": 121,
+    "capability_id": "M5.6",
+    "module": "Pilot运行与采用",
+    "capability": "周度运行节奏",
+    "original_action": "回写决定和Action",
+    "original_explanation": "完成“回写决定和Action”，使“周度运行节奏”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可重复周度运行机制",
+    "original_acceptance": "真实项目持续更新，周会使用AutoPM，行动下周期验证",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-019",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。 原文Decision/Review在P0以Issue待决责任、周报及现有行动记录承载；新的独立管理平台仍在P1，不扩展本动作范围。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.6-A06",
+    "source_row": 122,
+    "capability_id": "M5.6",
+    "module": "Pilot运行与采用",
+    "capability": "周度运行节奏",
+    "original_action": "下周期验证结果",
+    "original_explanation": "完成“下周期验证结果”，使“周度运行节奏”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "可重复周度运行机制",
+    "original_acceptance": "真实项目持续更新，周会使用AutoPM，行动下周期验证",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-019",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-11",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.7-A01",
+    "source_row": 123,
+    "capability_id": "M5.7",
+    "module": "Pilot运行与采用",
+    "capability": "用户支持与问题处理",
+    "original_action": "建立反馈入口",
+    "original_explanation": "完成“建立反馈入口”，使“用户支持与问题处理”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "问题改进清单及支持修复节奏",
+    "original_acceptance": "关键问题有分类、影响、责任和状态，修复经用户验证",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-027",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-10",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.7-A02",
+    "source_row": 124,
+    "capability_id": "M5.7",
+    "module": "Pilot运行与采用",
+    "capability": "用户支持与问题处理",
+    "original_action": "分类问题",
+    "original_explanation": "完成“分类问题”，使“用户支持与问题处理”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "问题改进清单及支持修复节奏",
+    "original_acceptance": "关键问题有分类、影响、责任和状态，修复经用户验证",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-027",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-10",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.7-A03",
+    "source_row": 125,
+    "capability_id": "M5.7",
+    "module": "Pilot运行与采用",
+    "capability": "用户支持与问题处理",
+    "original_action": "评估影响优先级",
+    "original_explanation": "完成“评估影响优先级”，使“用户支持与问题处理”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "问题改进清单及支持修复节奏",
+    "original_acceptance": "关键问题有分类、影响、责任和状态，修复经用户验证",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-027",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-10",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.7-A04",
+    "source_row": 126,
+    "capability_id": "M5.7",
+    "module": "Pilot运行与采用",
+    "capability": "用户支持与问题处理",
+    "original_action": "分配Owner",
+    "original_explanation": "完成“分配Owner”，使“用户支持与问题处理”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "问题改进清单及支持修复节奏",
+    "original_acceptance": "关键问题有分类、影响、责任和状态，修复经用户验证",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-027",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-10",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.7-A05",
+    "source_row": 127,
+    "capability_id": "M5.7",
+    "module": "Pilot运行与采用",
+    "capability": "用户支持与问题处理",
+    "original_action": "验证修复",
+    "original_explanation": "完成“验证修复”，使“用户支持与问题处理”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "问题改进清单及支持修复节奏",
+    "original_acceptance": "关键问题有分类、影响、责任和状态，修复经用户验证",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-027",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-10",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M5.7-A06",
+    "source_row": 128,
+    "capability_id": "M5.7",
+    "module": "Pilot运行与采用",
+    "capability": "用户支持与问题处理",
+    "original_action": "转化重复反馈",
+    "original_explanation": "完成“转化重复反馈”，使“用户支持与问题处理”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "问题改进清单及支持修复节奏",
+    "original_acceptance": "关键问题有分类、影响、责任和状态，修复经用户验证",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-027",
+      "REQ-028"
+    ],
+    "tasks": [
+      "AT-10",
+      "MS-10",
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.1-A01",
+    "source_row": 129,
+    "capability_id": "M6.1",
+    "module": "价值证据与Gate决策",
+    "capability": "基线定义",
+    "original_action": "定义人工追踪、周报汇总、数据质量、Task/Issue/Action/Delay基线",
+    "original_explanation": "完成“定义人工追踪、周报汇总、数据质量、Task/Issue/Action/Delay基线”，使“基线定义”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "指标定义及Pilot前基线",
+    "original_acceptance": "定义和证据清楚，无基线不宣称改善",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-028",
+      "REQ-029"
+    ],
+    "tasks": [
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.1-A02",
+    "source_row": 130,
+    "capability_id": "M6.1",
+    "module": "价值证据与Gate决策",
+    "capability": "基线定义",
+    "original_action": "定义算法来源Owner周期并在Pilot前记录",
+    "original_explanation": "完成“定义算法来源Owner周期并在Pilot前记录”，使“基线定义”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "指标定义及Pilot前基线",
+    "original_acceptance": "定义和证据清楚，无基线不宣称改善",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-028",
+      "REQ-029"
+    ],
+    "tasks": [
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.2-A01",
+    "source_row": 131,
+    "capability_id": "M6.2",
+    "module": "价值证据与Gate决策",
+    "capability": "使用与采用证据",
+    "original_action": "记录活跃项目用户、频率及时性、周度审查、关键动作、中断退出和双系统维护",
+    "original_explanation": "完成“记录活跃项目用户、频率及时性、周度审查、关键动作、中断退出和双系统维护”，使“使用与采用证据”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Pilot使用证据包",
+    "original_acceptance": "区分登录、一次录入和持续使用，负担和中断如实记录",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-028"
+    ],
+    "tasks": [
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.3-A01",
+    "source_row": 132,
+    "capability_id": "M6.3",
+    "module": "价值证据与Gate决策",
+    "capability": "数据质量证据",
+    "original_action": "记录字段、关系、Owner、Due、状态完整性，以及重复、冲突、同步失败、修正和关闭",
+    "original_explanation": "完成“记录字段、关系、Owner、Due、状态完整性，以及重复、冲突、同步失败、修正和关闭”，使“数据质量证据”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "数据质量证据包",
+    "original_acceptance": "指标可重复计算，问题可追溯，管理可用性有结论",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "进行中",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-004",
+      "REQ-028"
+    ],
+    "tasks": [
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.4-A01",
+    "source_row": 133,
+    "capability_id": "M6.4",
+    "module": "价值证据与Gate决策",
+    "capability": "执行闭环证据",
+    "original_action": "记录Task按期逾期、异常Action覆盖、责任日期关闭、Delay影响恢复、Issue验证关闭和Decision转Action",
+    "original_explanation": "完成“记录Task按期逾期、异常Action覆盖、责任日期关闭、Delay影响恢复、Issue验证关闭和Decision转Action”，使“执行闭环证据”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "执行闭环证据包",
+    "original_acceptance": "能识别闭环中断，区分Action完成和Issue关闭",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-015",
+      "REQ-028"
+    ],
+    "tasks": [
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。 原文Decision/Review在P0以Issue待决责任、周报及现有行动记录承载；新的独立管理平台仍在P1，不扩展本动作范围。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.5-A01",
+    "source_row": 134,
+    "capability_id": "M6.5",
+    "module": "价值证据与Gate决策",
+    "capability": "效率与业务结果",
+    "original_action": "比较查找、周报、追问、重复维护、问题发现升级关闭",
+    "original_explanation": "完成“比较查找、周报、追问、重复维护、问题发现升级关闭”，使“效率与业务结果”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Pilot前后比较及价值结论",
+    "original_acceptance": "基于基线，同时呈现改善、未改善、负面影响和数据不足",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-028",
+      "REQ-029"
+    ],
+    "tasks": [
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.5-A02",
+    "source_row": 135,
+    "capability_id": "M6.5",
+    "module": "价值证据与Gate决策",
+    "capability": "效率与业务结果",
+    "original_action": "记录决定结果、新增工作和负面影响",
+    "original_explanation": "完成“记录决定结果、新增工作和负面影响”，使“效率与业务结果”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Pilot前后比较及价值结论",
+    "original_acceptance": "基于基线，同时呈现改善、未改善、负面影响和数据不足",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-028",
+      "REQ-029"
+    ],
+    "tasks": [
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.5-A03",
+    "source_row": 136,
+    "capability_id": "M6.5",
+    "module": "价值证据与Gate决策",
+    "capability": "效率与业务结果",
+    "original_action": "形成结论",
+    "original_explanation": "完成“形成结论”，使“效率与业务结果”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Pilot前后比较及价值结论",
+    "original_acceptance": "基于基线，同时呈现改善、未改善、负面影响和数据不足",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-028",
+      "REQ-029"
+    ],
+    "tasks": [
+      "GOV-03"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.6-A01",
+    "source_row": 137,
+    "capability_id": "M6.6",
+    "module": "价值证据与Gate决策",
+    "capability": "平台能力评估",
+    "original_action": "评估性能容量、中国访问、权限审计、自动化集成、导出迁移回退、支持许可成本及技术路线",
+    "original_explanation": "完成“评估性能容量、中国访问、权限审计、自动化集成、导出迁移回退、支持许可成本及技术路线”，使“平台能力评估”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "平台评估及Phase 2技术路线建议",
+    "original_acceptance": "基于真实使用，事实限制建议分开，不预设最终平台",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-029"
+    ],
+    "tasks": [
+      "GOV-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.7-A01",
+    "source_row": 138,
+    "capability_id": "M6.7",
+    "module": "价值证据与Gate决策",
+    "capability": "Gate 1决策",
+    "original_action": "汇总证据",
+    "original_explanation": "完成“汇总证据”，使“Gate 1决策”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Gate 1评审包、决策记录及Phase 2条件",
+    "original_acceptance": "决策由证据支持，未确认不转承诺，通过后才进入Phase 2",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-026",
+      "REQ-028",
+      "REQ-029"
+    ],
+    "tasks": [
+      "GOV-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.7-A02",
+    "source_row": 139,
+    "capability_id": "M6.7",
+    "module": "价值证据与Gate决策",
+    "capability": "Gate 1决策",
+    "original_action": "评估成功条件",
+    "original_explanation": "完成“评估成功条件”，使“Gate 1决策”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Gate 1评审包、决策记录及Phase 2条件",
+    "original_acceptance": "决策由证据支持，未确认不转承诺，通过后才进入Phase 2",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-026",
+      "REQ-028",
+      "REQ-029"
+    ],
+    "tasks": [
+      "GOV-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.7-A03",
+    "source_row": 140,
+    "capability_id": "M6.7",
+    "module": "价值证据与Gate决策",
+    "capability": "Gate 1决策",
+    "original_action": "识别缺口风险",
+    "original_explanation": "完成“识别缺口风险”，使“Gate 1决策”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Gate 1评审包、决策记录及Phase 2条件",
+    "original_acceptance": "决策由证据支持，未确认不转承诺，通过后才进入Phase 2",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-026",
+      "REQ-028",
+      "REQ-029"
+    ],
+    "tasks": [
+      "GOV-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.7-A04",
+    "source_row": 141,
+    "capability_id": "M6.7",
+    "module": "价值证据与Gate决策",
+    "capability": "Gate 1决策",
+    "original_action": "提出继续调整延长迁移停止建议",
+    "original_explanation": "完成“提出继续调整延长迁移停止建议”，使“Gate 1决策”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Gate 1评审包、决策记录及Phase 2条件",
+    "original_acceptance": "决策由证据支持，未确认不转承诺，通过后才进入Phase 2",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-026",
+      "REQ-028",
+      "REQ-029"
+    ],
+    "tasks": [
+      "GOV-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  },
+  {
+    "action_id": "M6.7-A05",
+    "source_row": 142,
+    "capability_id": "M6.7",
+    "module": "价值证据与Gate决策",
+    "capability": "Gate 1决策",
+    "original_action": "明确Phase 2条件和正式决定",
+    "original_explanation": "完成“明确Phase 2条件和正式决定”，使“Gate 1决策”能够按统一规则执行、检查并留下可验证结果。",
+    "original_output": "Gate 1评审包、决策记录及Phase 2条件",
+    "original_acceptance": "决策由证据支持，未确认不转承诺，通过后才进入Phase 2",
+    "historical_design_status": "TARGET",
+    "historical_dependency": "TBD",
+    "historical_owner": "TBD",
+    "historical_date": "TBD",
+    "historical_execution_status": "未开始",
+    "historical_evidence": "",
+    "requirements": [
+      "REQ-026",
+      "REQ-028",
+      "REQ-029"
+    ],
+    "tasks": [
+      "GOV-04"
+    ],
+    "current_scope": "P0",
+    "disposition": "治理／试用／度量／Gate工作；不机械转成新增表或代码功能。",
+    "current_acceptance": "Not Submitted"
+  }
+]

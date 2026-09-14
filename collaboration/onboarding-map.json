@@ -1,0 +1,16 @@
+[
+  {
+    "task_id": "ONBOARD-QODER-001",
+    "role": "qoder",
+    "number": 42,
+    "url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/42",
+    "status": "Ready"
+  },
+  {
+    "task_id": "ONBOARD-DUMATE-001",
+    "role": "dumate",
+    "number": 43,
+    "url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/43",
+    "status": "Accepted"
+  }
+]

@@ -1,0 +1,392 @@
+[
+  {
+    "task_id": "AT-00",
+    "title": "[AT-00] 只读复核隔离基线与字段消费者",
+    "body_file": "issues/AT-00.md",
+    "status": "Ready",
+    "legacy_execution_status": "Unassigned",
+    "assignee": null,
+    "github_number": 3,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/3"
+  },
+  {
+    "task_id": "AT-01",
+    "title": "[AT-01] 已暂停：任务完成及项目统计口径改造",
+    "body_file": "issues/AT-01.md",
+    "status": "Deferred",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 4,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/4"
+  },
+  {
+    "task_id": "AT-02",
+    "title": "[AT-02] My Work与人员责任维护",
+    "body_file": "issues/AT-02.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 5,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/5"
+  },
+  {
+    "task_id": "AT-03",
+    "title": "[AT-03] Program、Project与SKU关系生命周期",
+    "body_file": "issues/AT-03.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 6,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/6"
+  },
+  {
+    "task_id": "AT-04",
+    "title": "[AT-04] 模板与统一排期处理",
+    "body_file": "issues/AT-04.md",
+    "status": "Blocked",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 7,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/7"
+  },
+  {
+    "task_id": "AT-05",
+    "title": "[AT-05] Issue结果、验证关闭与重开",
+    "body_file": "issues/AT-05.md",
+    "status": "Blocked",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 8,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/8"
+  },
+  {
+    "task_id": "AT-06",
+    "title": "[AT-06] 计划导入与Bridge可靠写入",
+    "body_file": "issues/AT-06.md",
+    "status": "Blocked",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 9,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/9"
+  },
+  {
+    "task_id": "AT-07",
+    "title": "[AT-07] 团队Data Center与托管处理",
+    "body_file": "issues/AT-07.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 10,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/10"
+  },
+  {
+    "task_id": "AT-08",
+    "title": "[AT-08] 统一Project Hub与组合界面",
+    "body_file": "issues/AT-08.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 11,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/11"
+  },
+  {
+    "task_id": "AT-09",
+    "title": "[AT-09] 周报、提醒与Tracker结果",
+    "body_file": "issues/AT-09.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 12,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/12"
+  },
+  {
+    "task_id": "AT-10",
+    "title": "[AT-10] 最小案例复用与运行维护",
+    "body_file": "issues/AT-10.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 13,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/13"
+  },
+  {
+    "task_id": "AT-11",
+    "title": "[AT-11] 角色、完整链路与生产发布验收",
+    "body_file": "issues/AT-11.md",
+    "status": "Blocked",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 14,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/14"
+  },
+  {
+    "task_id": "AT-12",
+    "title": "[AT-12] 计划交互与模板升级增强",
+    "body_file": "issues/AT-12.md",
+    "status": "Deferred",
+    "legacy_execution_status": "Deferred",
+    "assignee": null,
+    "github_number": 15,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/15"
+  },
+  {
+    "task_id": "AT-13",
+    "title": "[AT-13] 管理Review与轻量待决事项",
+    "body_file": "issues/AT-13.md",
+    "status": "Deferred",
+    "legacy_execution_status": "Deferred",
+    "assignee": null,
+    "github_number": 16,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/16"
+  },
+  {
+    "task_id": "AT-14",
+    "title": "[AT-14] 有来源的AI摘要与案例推荐",
+    "body_file": "issues/AT-14.md",
+    "status": "Deferred",
+    "legacy_execution_status": "Deferred",
+    "assignee": null,
+    "github_number": 17,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/17"
+  },
+  {
+    "task_id": "MS-00",
+    "title": "[MS-00] 微软环境、许可和运行身份",
+    "body_file": "issues/MS-00.md",
+    "status": "Blocked",
+    "legacy_execution_status": "Blocked Environment",
+    "assignee": null,
+    "github_number": 18,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/18"
+  },
+  {
+    "task_id": "MS-01",
+    "title": "[MS-01] 复用Bridge并分离公共规则",
+    "body_file": "issues/MS-01.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Unassigned",
+    "assignee": null,
+    "github_number": 19,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/19"
+  },
+  {
+    "task_id": "MS-02",
+    "title": "[MS-02] Dataverse模型、身份和权限",
+    "body_file": "issues/MS-02.md",
+    "status": "Blocked",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 20,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/20"
+  },
+  {
+    "task_id": "MS-03",
+    "title": "[MS-03] 公共API与服务端规则",
+    "body_file": "issues/MS-03.md",
+    "status": "Blocked",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 21,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/21"
+  },
+  {
+    "task_id": "MS-04",
+    "title": "[MS-04] Canvas统一Program与Project Hub",
+    "body_file": "issues/MS-04.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 22,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/22"
+  },
+  {
+    "task_id": "MS-05",
+    "title": "[MS-05] 建案模板与计划维护",
+    "body_file": "issues/MS-05.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 23,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/23"
+  },
+  {
+    "task_id": "MS-06",
+    "title": "[MS-06] ProjectSKU范围与里程碑例外",
+    "body_file": "issues/MS-06.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 24,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/24"
+  },
+  {
+    "task_id": "MS-07",
+    "title": "[MS-07] My Work与Issue验证闭环",
+    "body_file": "issues/MS-07.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 25,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/25"
+  },
+  {
+    "task_id": "MS-08",
+    "title": "[MS-08] 应用内导入、预览与批量维护",
+    "body_file": "issues/MS-08.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 26,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/26"
+  },
+  {
+    "task_id": "MS-09",
+    "title": "[MS-09] 周报、提醒、Tracker与Lesson",
+    "body_file": "issues/MS-09.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 27,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/27"
+  },
+  {
+    "task_id": "MS-10",
+    "title": "[MS-10] 迁移、发布与运行交接",
+    "body_file": "issues/MS-10.md",
+    "status": "Blocked",
+    "legacy_execution_status": "Waiting Dependencies",
+    "assignee": null,
+    "github_number": 28,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/28"
+  },
+  {
+    "task_id": "MS-11",
+    "title": "[MS-11] 计划与管理效率增强",
+    "body_file": "issues/MS-11.md",
+    "status": "Deferred",
+    "legacy_execution_status": "Deferred",
+    "assignee": null,
+    "github_number": 29,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/29"
+  },
+  {
+    "task_id": "MS-12",
+    "title": "[MS-12] Review、知识与有来源AI",
+    "body_file": "issues/MS-12.md",
+    "status": "Deferred",
+    "legacy_execution_status": "Deferred",
+    "assignee": null,
+    "github_number": 30,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/30"
+  },
+  {
+    "task_id": "MS-13",
+    "title": "[MS-13] 更多正式系统接入",
+    "body_file": "issues/MS-13.md",
+    "status": "Deferred",
+    "legacy_execution_status": "Deferred",
+    "assignee": null,
+    "github_number": 31,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/31"
+  },
+  {
+    "task_id": "GOV-01",
+    "title": "[GOV-01] 业务字典、归属和规则决策",
+    "body_file": "issues/GOV-01.md",
+    "status": "Ready",
+    "legacy_execution_status": "Unassigned",
+    "assignee": null,
+    "github_number": 32,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/32"
+  },
+  {
+    "task_id": "GOV-02",
+    "title": "[GOV-02] 权限、发布与运行责任",
+    "body_file": "issues/GOV-02.md",
+    "status": "Ready",
+    "legacy_execution_status": "Unassigned",
+    "assignee": null,
+    "github_number": 33,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/33"
+  },
+  {
+    "task_id": "GOV-03",
+    "title": "[GOV-03] 试用、采纳和价值基线",
+    "body_file": "issues/GOV-03.md",
+    "status": "Backlog",
+    "legacy_execution_status": "Unassigned",
+    "assignee": null,
+    "github_number": 34,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/34"
+  },
+  {
+    "task_id": "GOV-04",
+    "title": "[GOV-04] 成果审核、变更与双平台Gate",
+    "body_file": "issues/GOV-04.md",
+    "status": "Ready",
+    "legacy_execution_status": "Unassigned",
+    "assignee": null,
+    "github_number": 35,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/35"
+  },
+  {
+    "task_id": "DG-01",
+    "title": "[DG-01] 重新核对字段治理门槛",
+    "body_file": "issues/DG-01.md",
+    "status": "Ready",
+    "legacy_execution_status": null,
+    "assignee": null,
+    "github_number": 36,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/36"
+  },
+  {
+    "task_id": "UX-MS-01",
+    "title": "[UX-MS-01] Power Apps 项目详情设计工作单",
+    "body_file": "issues/UX-MS-01.md",
+    "status": "Backlog",
+    "legacy_execution_status": null,
+    "assignee": null,
+    "github_number": 37,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/37"
+  },
+  {
+    "task_id": "AT-F01",
+    "title": "[AT-F01] 新 Program 自动补齐市场记录",
+    "body_file": "issues/AT-F01.md",
+    "status": "Blocked",
+    "legacy_execution_status": null,
+    "assignee": null,
+    "github_number": 38,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/38"
+  },
+  {
+    "task_id": "AT-F02",
+    "title": "[AT-F02] Status Reports 发布前修复",
+    "body_file": "issues/AT-F02.md",
+    "status": "Blocked",
+    "legacy_execution_status": null,
+    "assignee": null,
+    "github_number": 39,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/39"
+  },
+  {
+    "task_id": "AT-F03",
+    "title": "[AT-F03] 部门页面及项目归属验收",
+    "body_file": "issues/AT-F03.md",
+    "status": "Blocked",
+    "legacy_execution_status": null,
+    "assignee": null,
+    "github_number": 40,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/40"
+  },
+  {
+    "task_id": "AT-F04",
+    "title": "[AT-F04] 知识库阅读与支持反馈入口",
+    "body_file": "issues/AT-F04.md",
+    "status": "Blocked",
+    "legacy_execution_status": null,
+    "assignee": null,
+    "github_number": 41,
+    "github_url": "https://github.com/sunny-06064710-3/autopm-dadhboard/issues/41"
+  }
+]

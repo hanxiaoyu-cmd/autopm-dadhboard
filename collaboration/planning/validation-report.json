@@ -1,0 +1,22 @@
+{
+  "task_count": 33,
+  "p0": 27,
+  "p1": 6,
+  "task_cards": 33,
+  "design_work_order_count": 1,
+  "requirement_count": 29,
+  "action_count": 135,
+  "capability_count": 42,
+  "test_definitions": 32,
+  "dependency_graph": "acyclic",
+  "unmapped_actions": 0,
+  "unmapped_requirements": 0,
+  "planning_markdown_file_links_checked": 1218,
+  "broken_planning_file_links": 0,
+  "source_snapshot_files": 12,
+  "source_hashes": "verified",
+  "application_tests_run_in_this_build": false,
+  "platform_changes": false,
+  "dispatched_tasks": 0,
+  "scope": "Document completeness only. Historical source links and remote links not validated; application behavior not certified."
+}

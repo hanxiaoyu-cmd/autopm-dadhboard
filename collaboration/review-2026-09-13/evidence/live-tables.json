@@ -1,0 +1,2360 @@
+{
+  "tables": [
+    {
+      "id": "tbl4XSiYGfBDlq5QP",
+      "name": "PMO Roadmap Programs",
+      "primaryFieldId": "fldJQIe4pvdr6UMYC",
+      "fields": [
+        {
+          "id": "fldJQIe4pvdr6UMYC",
+          "name": "Program_Name",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldx3y6QWyF5aS8El",
+          "name": "ALE_ID",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldP15iuAid4T922G",
+          "name": "Program_Image",
+          "type": "multipleAttachments"
+        },
+        {
+          "id": "fldGrnpno4ZreCV2p",
+          "name": "Program_Code",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldb2He8KDHdj9jXo",
+          "name": "Program_Aliases",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldknR63HknZL4uu4",
+          "name": "Brand",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldZzdokPrZa8iJ9U",
+          "name": "Category",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldEWZAdJaiOdyDjt",
+          "name": "Sub_Category",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fld4jbSIQXUQHFffg",
+          "name": "Launch_Year_Projection",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldP4ZTbxR5qEudnX",
+          "name": "Projects ID (Link)",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fld9dl8Ah5O3uhWhD",
+          "name": "Project count（Auto）",
+          "type": "count"
+        },
+        {
+          "id": "fldmK7sBofu0bONJL",
+          "name": "SKU count（Auto）",
+          "type": "rollup"
+        },
+        {
+          "id": "fldDm7wMmatH6lglH",
+          "name": "Program_Status",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldVkKFtq67GlsiTn",
+          "name": "Milestone_Status",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldWHWFsq55Dnn3eL",
+          "name": "TRA_Target",
+          "type": "singleLineText"
+        },
+        {
+          "id": "flduCFiSdvvLsrVsS",
+          "name": "MP_Target",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldt7DEZUe7skD1bt",
+          "name": "Launch_Target",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldB58JQMuc7dICoO",
+          "name": "PMO_Lead",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldlOqS8DBBI1Alf2",
+          "name": "PD_Lead",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldK4w8wHYwT5k56n",
+          "name": "Comm_Lead",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldPgNc7NhjxOtCnI",
+          "name": "Eng_Lead",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldUTbe4Cw3qO7ybb",
+          "name": "ID_Lead",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldFoHTYnrVL7Fb25",
+          "name": "CMF_Lead",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fld4t9LbEUCTAIRhW",
+          "name": "TPMO_Lead",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldlkdOY8juPB16y6",
+          "name": "CI_Lead",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldUu0NOISyIbiacW",
+          "name": "Compliance_Lead",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fld8zmkIwl8SQfwZJ",
+          "name": "Supply_Planning_Lead",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldrTSUSm7yLJQzwt",
+          "name": "Supply_Chain_Lead",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldMlQOOILWtS1Ohu",
+          "name": "NPI_Lead",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldSSQr6Ibi6XhXFY",
+          "name": "US_DTC_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldWZbiM3EvHtacO5",
+          "name": "US_Amazon_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldzJHFD5w803ORkr",
+          "name": "US_Rcom_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldeCCU8Ct0dtt4s2",
+          "name": "US_InStore_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldr4VAWjuOV7HonN",
+          "name": "CA_DTC_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldpsgNbpSyjiypm1",
+          "name": "CA_Amazon_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fld2D3jhWC2mLX51k",
+          "name": "CA_Rcom_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fld9VhoDUUcsbW5ph",
+          "name": "CA_InStore_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldoa9itX3O0XDUEw",
+          "name": "MX_DTC_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldQce80LsDjnr6Qj",
+          "name": "MX_Amazon_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldDJsJ5c8krCV5GF",
+          "name": "MX_Rcom_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldql37hsF0SuWMCq",
+          "name": "MX_InStore_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldwtDg4lyh9Vn7It",
+          "name": "UK_DTC_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldiKyg13vvnH4bkh",
+          "name": "UK_Amazon_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fld5Le5kBAqgI26Gy",
+          "name": "UK_Rcom_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldvzUycD3ofGujRu",
+          "name": "UK_InStore_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fld6e1aQjJlWIFIi7",
+          "name": "EU_DTC_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldbpYiEBp9DhWkPv",
+          "name": "EU_Amazon_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldOrzVQJ7pPUFzFQ",
+          "name": "EU_Rcom_Launch_Date",
+          "type": "date"
+        },
+        {
+          "id": "fldVg3UwHeKU3Pidy",
+          "name": "EU_InStore_Launch_Date",
+          "type": "date"
+        }
+      ]
+    },
+    {
+      "id": "tblmPaonKzQ3VITjR",
+      "name": "PMO SKUs",
+      "primaryFieldId": "fldfS0CSAKjcD6GwT",
+      "fields": [
+        {
+          "id": "fldfS0CSAKjcD6GwT",
+          "name": "DEV_SKU",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldZAQnrAtMFykNpa",
+          "name": "Is_Authenticated",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldshPO24RRx6tBLq",
+          "name": "SKU From PLM 2",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldRz1DPHQTrSzx6v",
+          "name": "Market",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldMeFtOvTlEzE3Dl",
+          "name": "Auth_SKU",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldOoKXK8Yu73L3of",
+          "name": "Master_Item",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fld7V75KJXhL5BL47",
+          "name": "Color(Auto)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldLOOSZUucVmytcL",
+          "name": "SKU Status (Link)",
+          "type": "singleSelect",
+          "description": "Human-maintained business status. Not auto-set by system. Options: On Track / At Risk / Delayed / Completed / Not Started"
+        },
+        {
+          "id": "fld1tx1diiUPpZQaY",
+          "name": "Brand",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldFufuXFZ9TsFvxL",
+          "name": "PMO_Category",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldUQK6LH4DUPeV3A",
+          "name": "Sub_Category",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fld2Q4d8ueGomsCEg",
+          "name": "Program_Code",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldFoxbB3YarIqLaJ",
+          "name": "ALE_ID",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldjddvp0YgVCGd56",
+          "name": "Projects ID",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fld7lRPQOUPIm4kll",
+          "name": "Project count(Auto)",
+          "type": "count"
+        },
+        {
+          "id": "fldjaFSycFbd0TO7M",
+          "name": "Project SKUs （Link）",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldqbNJI59yzPOChX",
+          "name": "Matched SKU count (Auto)",
+          "type": "count"
+        },
+        {
+          "id": "fldBiQOkBUZhxCJzE",
+          "name": "SKU Milestone Plans（Link）",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "flddhGVJtCfqlqC4H",
+          "name": "SKU_ID (from SKU From PLM 2)",
+          "type": "multipleLookupValues"
+        },
+        {
+          "id": "fldDRiBC4XlLRBvYm",
+          "name": "Supplier (from SKU From PLM 2)",
+          "type": "multipleLookupValues"
+        },
+        {
+          "id": "fldvG3lhhqrYexT2D",
+          "name": "BaseModel (from SKU From PLM 2)",
+          "type": "multipleLookupValues"
+        },
+        {
+          "id": "fldvDMWXNoc0vlMAP",
+          "name": "Category (from SKU From PLM 2)",
+          "type": "multipleLookupValues"
+        }
+      ]
+    },
+    {
+      "id": "tbllvOHZdwfBRWGM0",
+      "name": "Projects",
+      "description": "1. 这是哪个项目，属于哪个 Program，包含哪些 Project SKU 执行实例？\n2. 项目整体状态和当前阶段是什么？\n3. 谁负责，哪个工厂／供应商执行？\n4. 主计划、任务和问题现在如何？\n5. 本周发生了什么，下一步需要关注什么？",
+      "primaryFieldId": "fldrbN8jUpydlGNk2",
+      "fields": [
+        {
+          "id": "fldrbN8jUpydlGNk2",
+          "name": "Project ID (Manual)",
+          "type": "singleLineText",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review. F"
+        },
+        {
+          "id": "flduVdC4pbOyXnjfa",
+          "name": "Brand (Manual)",
+          "type": "singleSelect",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldyj1QuRUzX1JfqZ",
+          "name": "Project name (Manual)",
+          "type": "singleLineText",
+          "description": "Project name/SKU from weekly report (e.g. PB051GN2)"
+        },
+        {
+          "id": "fldnvGHbzBoQxGslh",
+          "name": "Project Description (Manual)",
+          "type": "multilineText",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fld6lQExjypHxF9AM",
+          "name": "Project Type (Manual)",
+          "type": "singleSelect",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldaqmBIKitHamqGX",
+          "name": "Project SKU (Manual)",
+          "type": "singleLineText",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldsH98MhQc6DwFDp",
+          "name": "Factory （Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldL99IASyNhXsz0K",
+          "name": "Manufacture Country (Manual)",
+          "type": "singleSelect",
+          "description": "[AutoPM-KEEP] Useful business data field."
+        },
+        {
+          "id": "fldzWzoU2YhOBrjSu",
+          "name": "Factory count（Auto)",
+          "type": "count"
+        },
+        {
+          "id": "fldC1zbmOTdPuUgcD",
+          "name": "SKU count(Auto)",
+          "type": "count"
+        },
+        {
+          "id": "fld5Krya3sgtWj2J1",
+          "name": "Tooling (Manual)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldMqZW8GnIah2tUS",
+          "name": "LOA-13weeks plan(Manual)",
+          "type": "number",
+          "description": "[AutoPM-KEEP] Useful business data field."
+        },
+        {
+          "id": "fldDVSUxh30SM3ZU8",
+          "name": "Project Status (Manual)",
+          "type": "singleSelect",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fld09VvBo5kA3WnV7",
+          "name": "Project Progress Bar (Auto)",
+          "type": "percent"
+        },
+        {
+          "id": "fldU0VTgs8HXSN0eQ",
+          "name": "Open Task (Auto)",
+          "type": "rollup",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldz4eRUFo64LaLto",
+          "name": "Open Issue (Auto)",
+          "type": "rollup",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldWn1OpjvbhvPSGw",
+          "name": "Engineering remark(Manual)",
+          "type": "richText"
+        },
+        {
+          "id": "fldRBqxn0jWY3ATIX",
+          "name": "Engineering remark Summary (Auto)",
+          "type": "aiText"
+        },
+        {
+          "id": "fldXfOMDrPpKXrU5n",
+          "name": "Engineering remark Headline (Auto)",
+          "type": "aiText"
+        },
+        {
+          "id": "fldxgcLvPoyCMAHkd",
+          "name": "Last Modified",
+          "type": "lastModifiedTime"
+        },
+        {
+          "id": "fldYYP7Ww11XEEvFc",
+          "name": "Issues (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldXFvT45GnPHz77v",
+          "name": "Tasks (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldb2zKaayJmks138",
+          "name": "PMO Program (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-REVIEW-INTEGRATION] Import/PMO/integration field. Do not delete until import flow is confirmed obsolete."
+        },
+        {
+          "id": "fldaBWDS8mHg6vVZw",
+          "name": "PMO SKU (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-REVIEW-INTEGRATION] Import/PMO/integration field. Do not delete until import flow is confirmed obsolete."
+        },
+        {
+          "id": "fldpmabmLchm9Gn3t",
+          "name": "Project SKUs（Link）",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldzFWVXZmWI31xWR",
+          "name": "Jira URL (Manual)",
+          "type": "url",
+          "description": "[AutoPM-KEEP-OPTIONAL] Link/attachment/supporting field. Keep but can be hidden from most views."
+        },
+        {
+          "id": "fldBeL6b9b3ES40MO",
+          "name": "Teams Channel URL (Manual)",
+          "type": "url",
+          "description": "[AutoPM-KEEP-OPTIONAL] Link/attachment/supporting field. Keep but can be hidden from most views."
+        },
+        {
+          "id": "fldWyH22qULcav4Ay",
+          "name": "Sample plan URL (Manual)",
+          "type": "url",
+          "description": "[AutoPM-KEEP-OPTIONAL] Link/attachment/supporting field. Keep but can be hidden from most views."
+        },
+        {
+          "id": "fld8bqkD2Req8NgSo",
+          "name": "ECN URL (Manual)",
+          "type": "url",
+          "description": "[AutoPM-KEEP-OPTIONAL] Link/attachment/supporting field. Keep but can be hidden from most views. ECN Link for the project"
+        },
+        {
+          "id": "fldkXKhGKvwEFKK61",
+          "name": "SharePoint Folder URL (Manual)",
+          "type": "url",
+          "description": "[AutoPM-KEEP-OPTIONAL] Link/attachment/supporting field. Keep but can be hidden from most views."
+        },
+        {
+          "id": "fldkrK1zXxNXv1Q6D",
+          "name": "DQTP URL(Manual)",
+          "type": "url",
+          "description": "[AutoPM-KEEP-OPTIONAL] Link/attachment/supporting field. Keep but can be hidden from most views."
+        },
+        {
+          "id": "flde0GBamxdzcer0s",
+          "name": "PIS URL(Manual)",
+          "type": "url",
+          "description": "[AutoPM-KEEP-OPTIONAL] Link/attachment/supporting field. Keep but can be hidden from most views."
+        },
+        {
+          "id": "fldgXm2BaKf2rwvZ9",
+          "name": "Project Level (Auto)",
+          "type": "formula",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review. Auto-calculated from Change Types (Manual). L4=highest, L0=lowest"
+        },
+        {
+          "id": "fldDOmEhl8RtTlWTa",
+          "name": "Tasks Generated (Manual)",
+          "type": "checkbox",
+          "description": "[AutoPM-KEEP] Useful business data field."
+        },
+        {
+          "id": "fldBzJ8Wdsj7vf47f",
+          "name": "Change Types (Manual)",
+          "type": "multipleSelects",
+          "description": "Select all change types that apply to this project. The system will determine the project level from the highest level selected."
+        },
+        {
+          "id": "flduAU0OuL0tE8OKs",
+          "name": "Generate Weekly Email (Manual)",
+          "type": "checkbox",
+          "description": "[AutoPM-KEEP-WORKFLOW] Used by workflow/email/report process."
+        },
+        {
+          "id": "fldW9749hzOdR6L9G",
+          "name": "Email Recipients (Manual)",
+          "type": "singleLineText",
+          "description": "[AutoPM-KEEP-WORKFLOW] Used by workflow/email/report process."
+        },
+        {
+          "id": "fldJYeLq75sN8eT2i",
+          "name": "Import File (Manual)",
+          "type": "multipleAttachments",
+          "description": "[AutoPM-REVIEW-INTEGRATION] Import/PMO/integration field. Do not delete until import flow is confirmed obsolete."
+        },
+        {
+          "id": "fldWwnfa0HSd7I31f",
+          "name": "Import Note (Auto)",
+          "type": "singleLineText",
+          "description": "[AutoPM-REVIEW-INTEGRATION] Import/PMO/integration field. Do not delete until import flow is confirmed obsolete."
+        },
+        {
+          "id": "fldJ4yLc3eveq0rf6",
+          "name": "Import Status (Auto)",
+          "type": "singleSelect",
+          "description": "[AutoPM-REVIEW-INTEGRATION] Import/PMO/integration field. Do not delete until import flow is confirmed obsolete."
+        },
+        {
+          "id": "fldnBReTcI3OW8zSV",
+          "name": "Project People(Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldenZLrAjz2vSB1I",
+          "name": "NPI Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldoEpjuy5AUxO7lH",
+          "name": "PMO Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldCAsseki0gHRqwA",
+          "name": "NPD Owner(Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldEsQPQJejmOXHlS",
+          "name": "EE Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldZxRdSeOtAF7wb1",
+          "name": "DQTP Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldq5nmzH2oQTyEi0",
+          "name": "Compliance Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "flda2twrL3S4zZGGX",
+          "name": "CMF Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldTYr6Rui2zWzL1O",
+          "name": "SC Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fld98Qx6zoRxdK9qh",
+          "name": "Quality Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldVbCWHgQnre1MNx",
+          "name": "PD Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldCX73pjmetIExAw",
+          "name": "ENG Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "flddp6Mgrm0t02lOD",
+          "name": "Package Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldYGbC09heumfoIK",
+          "name": "Planning Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldaE3sgiS7tpFAHE",
+          "name": "ID Owner(Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldbxvQuXCPj9BFe1",
+          "name": "ME Owner(Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldX1imvwzCswwdI1",
+          "name": "VAVE Owner(Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldPuYTn9BBmRQGxD",
+          "name": "Tooling Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldzxLP8wDLkCB56n",
+          "name": "On-side Quality Owner(Manual)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-OWNER] People/owner linked field. Used for forms, interfaces, reports, or responsibility tracking."
+        },
+        {
+          "id": "fldyQe5Upv1G1ARRX",
+          "name": "Milestones (system manage)",
+          "type": "singleLineText",
+          "description": "[AutoPM-KEEP] Useful business data field."
+        },
+        {
+          "id": "fldtItr7q3SUUgaJf",
+          "name": "Start Date (Manual)",
+          "type": "date",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldBACvGzjhjtvp2s",
+          "name": "Planned MP Date (Manual)",
+          "type": "date",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fld65xhUcqGNNMHh5",
+          "name": "MP Start Date (Manual)",
+          "type": "date",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldJqV2gWNsAYiYvO",
+          "name": "MP Gap Analysis(Auto)",
+          "type": "formula",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] Core/linked/auto field. Do not delete or rename without system review."
+        },
+        {
+          "id": "fldvVT0zEuvdOiVuF",
+          "name": "Project duration(Auto)",
+          "type": "number",
+          "description": "[AutoPM-KEEP] Useful business data field."
+        },
+        {
+          "id": "fldkB1W3ai6D6ttJb",
+          "name": "Kick Off Date (Manual)",
+          "type": "date"
+        },
+        {
+          "id": "fldE8HEawi8KsxFsW",
+          "name": "DQTP Finish Date (Manual)",
+          "type": "date"
+        },
+        {
+          "id": "fld8DoUHk6PSrpBHw",
+          "name": "Compliance Complete Date (Manual)",
+          "type": "date"
+        },
+        {
+          "id": "fld5hPjIef2HsHNS1",
+          "name": "MP AW Date (Manual)",
+          "type": "date"
+        },
+        {
+          "id": "fldt06BW0g1iVrYqa",
+          "name": "P1 CAD DROP",
+          "type": "date"
+        },
+        {
+          "id": "fld6bwzXVLx7ofs64",
+          "name": "P1 BUILD DATE",
+          "type": "date"
+        },
+        {
+          "id": "fldxwiHofSvXBsdvV",
+          "name": "P2 CAD DROP",
+          "type": "date"
+        },
+        {
+          "id": "fld8LIzCqCJuv10kG",
+          "name": "P2 BUILD DATE",
+          "type": "date"
+        },
+        {
+          "id": "fldfwb8rZBfpcMycN",
+          "name": "P3 CAD DROP",
+          "type": "date"
+        },
+        {
+          "id": "fldZP4r8ZT1XgQBN6",
+          "name": "P3 BUILD DATE",
+          "type": "date"
+        },
+        {
+          "id": "fldjo6Z3uaVTIqEtE",
+          "name": "Last P Date",
+          "type": "date",
+          "description": "Last P milestone date (maps to Tracker C25). Replacement for Last P singleLineText field."
+        },
+        {
+          "id": "fld3yIGbcDlPZAKjY",
+          "name": "Last P BUILD DATE",
+          "type": "date"
+        },
+        {
+          "id": "fldRcroQNEkkMrom4",
+          "name": "TRA Date",
+          "type": "date"
+        },
+        {
+          "id": "fldlIrDxiKi5fQVxS",
+          "name": "Cut Steel Date",
+          "type": "date"
+        },
+        {
+          "id": "fldFBFajlCdatfJ9D",
+          "name": "FOT Date",
+          "type": "date"
+        },
+        {
+          "id": "fldGkh9D4cumJhRaD",
+          "name": "EB1 Date",
+          "type": "date"
+        },
+        {
+          "id": "fldRVZjpM4eU8NFk9",
+          "name": "EB2 Date",
+          "type": "date"
+        },
+        {
+          "id": "fldJu1b9IboBukBjX",
+          "name": "EB3 Date",
+          "type": "date"
+        },
+        {
+          "id": "fldmKnDsAbh4zcT1Y",
+          "name": "Tooling Transfer Load Date",
+          "type": "date"
+        },
+        {
+          "id": "fldFOaJW8EGSsSvqb",
+          "name": "Tooling Transfer Arrival Date",
+          "type": "date"
+        },
+        {
+          "id": "fld8fmw6vlFtlhDFV",
+          "name": "Pilot Date",
+          "type": "date"
+        },
+        {
+          "id": "fld24PSgs18BCwCwf",
+          "name": "MPRA Date",
+          "type": "date",
+          "description": "MPRA / ECN IMP milestone date (maps to Tracker C36)"
+        },
+        {
+          "id": "fldRFYsRbGK0o6AXJ",
+          "name": "CRD date",
+          "type": "date"
+        },
+        {
+          "id": "fldLIjOi37zSEZ41D",
+          "name": "FPO",
+          "type": "date"
+        },
+        {
+          "id": "fldCSLbLjXs2MPGye",
+          "name": "Sub_Category (from PMO SKU (Link))",
+          "type": "multipleLookupValues"
+        },
+        {
+          "id": "fldnT97ZbCuWs7iyc",
+          "name": "PMO_Category (from PMO SKU (Link))",
+          "type": "multipleLookupValues"
+        },
+        {
+          "id": "fldanqNh2RcGeioIE",
+          "name": "Category (from SKU From PLM 2) (from PMO SKU (Link))",
+          "type": "multipleLookupValues"
+        },
+        {
+          "id": "fldpQWJHIzgZvsTRl",
+          "name": "Schedule Import",
+          "type": "multipleRecordLinks"
+        }
+      ]
+    },
+    {
+      "id": "tblS2my1r93KothyZ",
+      "name": "Tasks",
+      "primaryFieldId": "fldFAuDami04IZt5N",
+      "fields": [
+        {
+          "id": "fldFAuDami04IZt5N",
+          "name": "Task ID (Auto)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldZmIf1cjO1baWz9",
+          "name": "Projects（Link）",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldMHYYFALdG1pcM0",
+          "name": "Task Name (Manual)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldk4gkMw7jQg2SXv",
+          "name": "Start Date (Manual)",
+          "type": "date"
+        },
+        {
+          "id": "fld30ugjjB5HD9h1t",
+          "name": "Due Date (Manual)",
+          "type": "date"
+        },
+        {
+          "id": "fld8TOPNvLUyfjpj0",
+          "name": "Tasks Owners (Manual)",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldEn4TIwxSzJCbKy",
+          "name": "Task Completion (Auto)",
+          "type": "formula"
+        },
+        {
+          "id": "fldI4f3QH8SnkYh8N",
+          "name": "% Complete (Auto)",
+          "type": "formula"
+        },
+        {
+          "id": "fldVQnGdBMtSIvOCB",
+          "name": "Completed By (Manual)",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldqNfP0yQgKcDgca",
+          "name": "Issues (Link)",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "flds78CfCATg2rgi7",
+          "name": "Priority (Manual)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldJdUIiYTo77f2NN",
+          "name": "Milestone (Manual)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fld5dit3vxgTuW5Ou",
+          "name": "Phase (Manual)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldBsZbGVOC0SS9mX",
+          "name": "Deliverables (Manual)",
+          "type": "url"
+        },
+        {
+          "id": "fldynCtswSyvLPMeS",
+          "name": "SKU Milestone Plans（Link）",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldqzr19sTuYjbpmG",
+          "name": "Owner Count (Auto)",
+          "type": "rollup"
+        },
+        {
+          "id": "fldB8J5RpbSTpmORz",
+          "name": "Completed Count (Auto)",
+          "type": "rollup"
+        },
+        {
+          "id": "fldqKrLqL5TOAWgJY",
+          "name": "Last Modified",
+          "type": "lastModifiedTime"
+        },
+        {
+          "id": "fldUzxoyz8xWQm1wG",
+          "name": "Collaborators",
+          "type": "multipleCollaborators"
+        }
+      ]
+    },
+    {
+      "id": "tblqYHGaZL6FoTZHV",
+      "name": "Issues",
+      "primaryFieldId": "fldH7wExRQPOHVW35",
+      "fields": [
+        {
+          "id": "fldH7wExRQPOHVW35",
+          "name": "Issue ID (Auto)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldwUmgjS8KPRiFFf",
+          "name": "Record Date (Auto)",
+          "type": "date"
+        },
+        {
+          "id": "fldqyrQz6KDJHiBoh",
+          "name": "Related Tasks (Manual)",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fld6TUPutbZeb0OXH",
+          "name": "Issue description (Manual)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fld3GzRRInVIIuzDJ",
+          "name": "Impact MP plan (Manual)",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldwzeQr9Ue4RUnBw",
+          "name": "Issue Status (Manual)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldPXDw07OQgAc1hN",
+          "name": "Severity (Manual)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldzQGqKtfgv59d6R",
+          "name": "Category (Manual)",
+          "type": "multipleSelects"
+        },
+        {
+          "id": "fldTcwJCg6OdpoGaO",
+          "name": "Recovery Action (Manual)",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldboKxfGDcOgpaNw",
+          "name": "Recovery Owners (Manual)",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldiSAxlci41MJWYt",
+          "name": "Planned close Date (Manual)",
+          "type": "date"
+        },
+        {
+          "id": "fldbZYuFwTSkfRTw6",
+          "name": "Projects（Link）",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldRPfWHucte8nWQF",
+          "name": "Project SKU（Link）",
+          "type": "multipleLookupValues",
+          "description": "Auto lookup of Project SKU from the linked project via Projects (system manage). Do not edit."
+        },
+        {
+          "id": "fldJOHO7N4E1g7p5E",
+          "name": "SKU Milestone Plans（Link）",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fld2WQYHhW6wKmyF5",
+          "name": "Jira link URL",
+          "type": "url"
+        },
+        {
+          "id": "fld08VbL17q7bjliX",
+          "name": "Root Cause (Manual)",
+          "type": "multilineText"
+        }
+      ]
+    },
+    {
+      "id": "tblFnOJklkLYMesuk",
+      "name": "People",
+      "primaryFieldId": "fldcRUbxKXgWqxjXl",
+      "fields": [
+        {
+          "id": "fldcRUbxKXgWqxjXl",
+          "name": "Person Name (Manual)",
+          "type": "singleLineText",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "fldqfmkNDKbO9WZ9z",
+          "name": "Person ID (Auto)",
+          "type": "singleLineText",
+          "description": "Auto-generated Person ID in format PER-XXX"
+        },
+        {
+          "id": "fldN56mYHDJ0vnNV1",
+          "name": "Department (Manual)",
+          "type": "singleSelect",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "fld5DkYkN5WjJoASc",
+          "name": "Person Name selection (Manual)",
+          "type": "singleLineText",
+          "description": "[AutoPM-REVIEW-DUPLICATE] Suspected duplicate/history helper field. Hide or review first; delete only after confirming no Interface/Automation dependency."
+        },
+        {
+          "id": "fldso3b8ll4PgAUyd",
+          "name": "Location (Manual)",
+          "type": "singleLineText",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "fld2tBAZMlZN98yyk",
+          "name": "Email (Manual)",
+          "type": "email",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "fldUwgGG2OY0dntE7",
+          "name": "Line Manager (Manual)",
+          "type": "singleLineText",
+          "description": "[AutoPM-KEEP-WORKFLOW] Used or reserved for reminders, notification, org, permission, or workflow design."
+        },
+        {
+          "id": "fldEgVXmUjWMNmfJR",
+          "name": "Primary Function (Manual)",
+          "type": "singleSelect",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "fldIOccQCHEgNbHuP",
+          "name": "Status (Manual)",
+          "type": "singleSelect",
+          "description": "[AutoPM-KEEP-WORKFLOW] Used or reserved for reminders, notification, org, permission, or workflow design."
+        },
+        {
+          "id": "fldaZs1SVlBFCr2pn",
+          "name": "Tasks Owner (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "fld2FRFeyHWJM40Jp",
+          "name": "Task compete by (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "fld6g0j3stP07G7pl",
+          "name": "Issues Owner (link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "fldKykSC0mNIX4y6Q",
+          "name": "Project member summary(Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "fldkEiRYviE1MOgiR",
+          "name": "Schedule Import(Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-REVIEW-LOW-USAGE] Low/no current data. Review before deleting."
+        },
+        {
+          "id": "fldMUwQKwdKyckm1c",
+          "name": "Receive Daily Reminder (Manual)",
+          "type": "checkbox",
+          "description": "[AutoPM-KEEP-WORKFLOW] Used or reserved for reminders, notification, org, permission, or workflow design."
+        },
+        {
+          "id": "fldokQY2Qj4WGN1AP",
+          "name": "Collaborator (Manual)",
+          "type": "multipleCollaborators",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "fldbMODleLX9ZNZXY",
+          "name": "PMO Owner  (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "fldkn2vJPAnWn739I",
+          "name": "NPI Owner (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "fldMiDFrC3piVHRV8",
+          "name": "NPD Owner(Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-DO-NOT-DELETE] People master data, owner links, or auto fields. Do not delete or rename."
+        },
+        {
+          "id": "flddiAP9CV4bvCfNE",
+          "name": "EE Owner Projects (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-BACKLINK] Reverse linked field from Projects owner fields. Do not delete unless the source Projects field is removed."
+        },
+        {
+          "id": "fldotenZ2SsQuTA0t",
+          "name": "DQTP Owner Projects (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-BACKLINK] Reverse linked field from Projects owner fields. Do not delete unless the source Projects field is removed."
+        },
+        {
+          "id": "fld9Bimz7igCP8rHY",
+          "name": "Compliance Owner Projects (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-BACKLINK] Reverse linked field from Projects owner fields. Do not delete unless the source Projects field is removed."
+        },
+        {
+          "id": "fldNsIIJDbiNpX0Cc",
+          "name": "CMF Owner Projects (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-BACKLINK] Reverse linked field from Projects owner fields. Do not delete unless the source Projects field is removed."
+        },
+        {
+          "id": "fldrK7GZzMY3B7RqD",
+          "name": "SC Owner Projects (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-BACKLINK] Reverse linked field from Projects owner fields. Do not delete unless the source Projects field is removed."
+        },
+        {
+          "id": "fld9GPzdPPZXZ4sI2",
+          "name": "Quality Owner Projects (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-BACKLINK] Reverse linked field from Projects owner fields. Do not delete unless the source Projects field is removed."
+        },
+        {
+          "id": "fldOQWgBOrEW1IKPT",
+          "name": "PD Owner Projects (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-BACKLINK] Reverse linked field from Projects owner fields. Do not delete unless the source Projects field is removed."
+        },
+        {
+          "id": "fld1KBla4iQLwC8zk",
+          "name": "ENG Owner Projects (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-BACKLINK] Reverse linked field from Projects owner fields. Do not delete unless the source Projects field is removed."
+        },
+        {
+          "id": "fldc0umQFDE6yvQLI",
+          "name": "Package Owner Projects (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-BACKLINK] Reverse linked field from Projects owner fields. Do not delete unless the source Projects field is removed."
+        },
+        {
+          "id": "fld2eDYjsGxl3fqIu",
+          "name": "Planning Owner Projects (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-KEEP-BACKLINK] Reverse linked field from Projects owner fields. Do not delete unless the source Projects field is removed."
+        },
+        {
+          "id": "fldQzFSAsKnUyN5aA",
+          "name": "ID Owner(Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-REVIEW-DUPLICATE] Suspected duplicate/history helper field. Hide or review first; delete only after confirming no Interface/Automation dependency."
+        },
+        {
+          "id": "fldf1xROvqkUnPNRS",
+          "name": "Tooling Owner (Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-REVIEW-DUPLICATE] Suspected duplicate/history helper field. Hide or review first; delete only after confirming no Interface/Automation dependency."
+        },
+        {
+          "id": "fldaOz8Fuw1hupGUu",
+          "name": "On-side Quality Owner(Link)",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-REVIEW-DUPLICATE] Suspected duplicate/history helper field. Hide or review first; delete only after confirming no Interface/Automation dependency."
+        },
+        {
+          "id": "fldhCJjLSbXBEfrf2",
+          "name": "VAVE Owner（Link）",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-REVIEW-DUPLICATE] Suspected duplicate/history helper field. Hide or review first; delete only after confirming no Interface/Automation dependency."
+        },
+        {
+          "id": "fldtUavYOn6zJnbJP",
+          "name": "ME owner （Link）",
+          "type": "multipleRecordLinks",
+          "description": "[AutoPM-REVIEW-DUPLICATE] Suspected duplicate/history helper field. Hide or review first; delete only after confirming no Interface/Automation dependency."
+        }
+      ]
+    },
+    {
+      "id": "tblu6r1fuMN3W1pOY",
+      "name": "Factories",
+      "description": "Factory and supplier information for NPI projects",
+      "primaryFieldId": "fld2GDuYwBhoUwhq0",
+      "fields": [
+        {
+          "id": "fld2GDuYwBhoUwhq0",
+          "name": "Factory Full Name (Manual)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fld4NVtL1yt6eDu4v",
+          "name": "Country (Manual)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fld3hPBvZQvDDVQ0h",
+          "name": "Status (Manual)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldHTj7koS2Ke4UdW",
+          "name": "Factory ID (Auto)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldbG6DosmMgD8V7r",
+          "name": "Contact Email (Manual)",
+          "type": "email"
+        },
+        {
+          "id": "fldAwh01Lzi3zdmHc",
+          "name": "Factory code (Manual)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldyzTDbGGoiTldtf",
+          "name": "Projects (Link)",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldtDHT7p75fJTgs8",
+          "name": "Last Modified",
+          "type": "lastModifiedTime"
+        }
+      ]
+    },
+    {
+      "id": "tblEQB288fIZ1g0rM",
+      "name": "Project SKUs",
+      "description": "Each record represents a Project x SKU execution instance. One SKU can belong to multiple Projects.",
+      "primaryFieldId": "fldE4ZYfveOFHTsbK",
+      "fields": [
+        {
+          "id": "fldE4ZYfveOFHTsbK",
+          "name": "Assignment Name",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldw5v9IPba7zWdFe",
+          "name": "Project（Link）",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldeY6y782CuaNUvX",
+          "name": "SKU（Link）",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldL4wwqFikuRAU07",
+          "name": "Program_Code (from SKU)",
+          "type": "multipleLookupValues"
+        },
+        {
+          "id": "fldbxF3jOZnOdYZJn",
+          "name": "SKU Status (Manual)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fld8oLg1NKHHEWZqm",
+          "name": "Issues (Link) (from Project（Link）)",
+          "type": "multipleLookupValues"
+        },
+        {
+          "id": "fldlZh34fgKwbCNFg",
+          "name": "Factory （Manual) (from Project（Link）)",
+          "type": "multipleLookupValues"
+        },
+        {
+          "id": "fldMT1ve6hZ9HPtIb",
+          "name": "SKU Milestone Plans (Link)",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldMQgfkXeZkKnscQ",
+          "name": "Unique Key",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldbEkJEex4T7UqZt",
+          "name": "Last Modified",
+          "type": "lastModifiedTime"
+        }
+      ]
+    },
+    {
+      "id": "tblljB3thwJpugFbq",
+      "name": "SKU Milestone Plans",
+      "description": "SKU x Master Plan Milestone Task mapping. Each record = one SKU x one milestone Task.",
+      "primaryFieldId": "fldHlb2RK0mZyaEwy",
+      "fields": [
+        {
+          "id": "fldHlb2RK0mZyaEwy",
+          "name": "Plan Name",
+          "type": "singleLineText",
+          "description": "System-generated readable name, e.g. 'FW575GD1 - MP Start'"
+        },
+        {
+          "id": "fldjhPUHc4KETklSN",
+          "name": "PMO SKUs (Link)",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldiuNv6BkcEOccwK",
+          "name": "Program_Code (from SKU)",
+          "type": "multipleLookupValues"
+        },
+        {
+          "id": "fldB2Fmd8FOMeH74g",
+          "name": "Master Task (Link)",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldvL1yUaMawQCSsf",
+          "name": "Adjustment Reason (Manual)",
+          "type": "multilineText",
+          "description": "Reason for independent date adjustment"
+        },
+        {
+          "id": "fld3qHbE6an2ohUdQ",
+          "name": "Override Date (Manial)",
+          "type": "date",
+          "description": "Manual override date. Leave blank to inherit from master plan."
+        },
+        {
+          "id": "fldwfTyTSasfpagzJ",
+          "name": "Related Issues (Link)",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fld6A9KPjGnh97keP",
+          "name": "Milestone (Link)",
+          "type": "multipleLookupValues",
+          "description": "Lookup from Master Task -> Milestone"
+        },
+        {
+          "id": "fldCqTfbFlwXZn6Q0",
+          "name": "Master Date(Link)",
+          "type": "multipleLookupValues",
+          "description": "Lookup from Master Task -> Start Date (authoritative master plan date)"
+        },
+        {
+          "id": "fldCizbAkaUhoVzIX",
+          "name": "Effective Date(Auto)",
+          "type": "formula",
+          "description": "Override Date if set, otherwise Master Date. Blank if both empty."
+        },
+        {
+          "id": "fldoPIC7shqx3GxRG",
+          "name": "Plan Source(Auto)",
+          "type": "formula",
+          "description": "Independent / Inherited / Unscheduled"
+        },
+        {
+          "id": "fldKnWHTgeDBayuRu",
+          "name": "Project SKU(Link)",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldvi9lxldmX8NBNI",
+          "name": "Relationship Check(Auto)",
+          "type": "formula"
+        },
+        {
+          "id": "fldhsylyxHGnqSiQU",
+          "name": "Unique Key",
+          "type": "singleLineText",
+          "description": "SKU rec ID + Master Task rec ID for deduplication"
+        }
+      ]
+    },
+    {
+      "id": "tblXfBPujjcxQ9HFh",
+      "name": "SKU From PLM",
+      "primaryFieldId": "fldwYKk2nPfdAIjl5",
+      "fields": [
+        {
+          "id": "fldwYKk2nPfdAIjl5",
+          "name": "SKU_ID",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldcdoRYEh6FqlpKf",
+          "name": "Category",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld4RKJGh0TAWcJEc",
+          "name": "BaseModel",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldACcd4TFBWpv5cL",
+          "name": "SKU Name",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldT5il8fjzF5tuQs",
+          "name": "Supplier",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fld6YZjANSRoNr9bv",
+          "name": "PMO SKU Link",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldwmMN8eL9QyMWY4",
+          "name": "Projects",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldph73Ln7H4cYcbV",
+          "name": "Creation",
+          "type": "dateTime"
+        },
+        {
+          "id": "fldbxT0M8TJWI9oh0",
+          "name": "PMO SKUs",
+          "type": "singleLineText"
+        }
+      ]
+    },
+    {
+      "id": "tbljot9yt7YorTPyR",
+      "name": "Task Template",
+      "primaryFieldId": "fldLSq2EBS2tB5pW3",
+      "fields": [
+        {
+          "id": "fldLSq2EBS2tB5pW3",
+          "name": "Template ID (Manual)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldO2bD5nHzDcDCLe",
+          "name": "Template Task Name (Manual)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldP1vAufsidAQL5A",
+          "name": "Gate (Manual)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldoqRjOu7KYK4HZz",
+          "name": "Department (Auto)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldcJn0vwnzrkPCiK",
+          "name": "Task Level (Manual)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldEWwXmw1ju2O0T6",
+          "name": "Milestone (Auto)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldvx1XUiHZDuvh0K",
+          "name": "Default Duration (Manual)",
+          "type": "number"
+        },
+        {
+          "id": "fldZnsxWhSkbwtGK5",
+          "name": "Is Critical Path (Manual)",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldjbmba9ks6xrYI6",
+          "name": "Is Required (Manual)",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldffnVf6GRRN6jJj",
+          "name": "Predecessor Template IDs (Manual)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldUYOvsSSRWeEB8J",
+          "name": "Notes (Manual)",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld1PAWZhPh9QKBwr",
+          "name": "Task Complexity (Auto)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldt5geiZAd4fV7x2",
+          "name": "Min Level (Manual)",
+          "type": "singleSelect",
+          "description": "该任务模板适用的最低项目等级\n>= Min Level 的项目才会生成此任务\n例如：Min Level=L2，则 L2/L3/L4/L5 项目都会生成此任务，L0/L1 不生成"
+        },
+        {
+          "id": "fld7rT9pSf1kptMGJ",
+          "name": "Task ID [STD]",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldT1SIDW5yfI0sSj",
+          "name": "Gate [STD]",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldwaNhYpsqpF7E8j",
+          "name": "Est. Duration (days) [STD]",
+          "type": "number"
+        },
+        {
+          "id": "fldFAgqLTCf09zrtr",
+          "name": "Is Delivery [STD]",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldggeIx1oWsvi2kY",
+          "name": "Depends On [STD]",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldFNWekeAstmso9I",
+          "name": "L0 [STD]",
+          "type": "checkbox"
+        },
+        {
+          "id": "flds3laLx9F5ximj3",
+          "name": "L1 [STD]",
+          "type": "checkbox"
+        },
+        {
+          "id": "fld3Ja4vaTSWl8rkY",
+          "name": "L2 [STD]",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldqfgMui9AFGMKfb",
+          "name": "L3 [STD]",
+          "type": "checkbox"
+        },
+        {
+          "id": "fld3ezT1vaa8Yl50Y",
+          "name": "L4 [STD]",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "id": "tbl6BKcL7qnsfsXrT",
+      "name": "ALL Tracker",
+      "primaryFieldId": "fldnJfVpj7T8rXsL4",
+      "fields": [
+        {
+          "id": "fldnJfVpj7T8rXsL4",
+          "name": "PROJECT_TRACKER_SKU_KEY",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldPGfHiWC8khojEZ",
+          "name": "DATE_ADDED",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldklt9q5L0PS2K8j",
+          "name": "SKU",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld5fBKbTKBDbswdH",
+          "name": "BASE_MODEL",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld3LeqLXQ7oDay8Q",
+          "name": "PROJECT_NAME_DESCRIPTION",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldUfPYG0Fk1Sud6G",
+          "name": "PROJECT_TYPE",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldpmfeR3nLq0Q6WW",
+          "name": "MANUFACTURING_FACTORY",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldJt5gYFBzIjFPVE",
+          "name": "BRAND",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldgfBF8HTEjaoBxX",
+          "name": "CATEGORY",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld1OwfLN4BxP2d6P",
+          "name": "SUB_CATEGORY",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldqO0pwxePmidD6k",
+          "name": "TARGET_LAUNCH_YEAR",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldWdBFLflkvvzaYu",
+          "name": "LAUNCH_TIMING",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldvlW030UxsXZ07x",
+          "name": "DEVELOPMENT_FACTORY",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld26yTTuBHpdjRPN",
+          "name": "COUNTRY",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldtozacg0Yb90Kde",
+          "name": "ENGINEERING_OEM_KICK_OFF_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld2eQdIi6WEVg4fm",
+          "name": "ORIGINAL_TOOLING_RELEASE_AUTH_AT_KICK_OFF_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld3PDU9Hbqe3gqQY",
+          "name": "ORIGINAL_MASS_PRODUCTION_READY_AT_KICK_OFF_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldC8q1smezmzDOeu",
+          "name": "P1_CAD_DROP_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldiSEfFl9Ga6KGvA",
+          "name": "P2_CAD_DROP_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldbBWiuHuEvdwSjs",
+          "name": "P3_CAD_DROP_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldyitQTmiEIZKpgi",
+          "name": "LAST_PROTOTYPE_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldrgnW9r9wy4x7VD",
+          "name": "TOOLING_RELEASE_AUTHORIZATION_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld2eFa2FMMDkmLO0",
+          "name": "CUT_STEEL_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldyQEIQyfIsQT9We",
+          "name": "FIRST_OFF_TOOL_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldeZhN5CGoe3YmXF",
+          "name": "ENGINEERING_BUILD_1_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldZrDTWVf4oIACmX",
+          "name": "ENGINEERING_BUILD_2_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldjALF8jjt15ak1n",
+          "name": "TOOLING_TRANSFER_LOAD_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldq2fSb5Up3omyfw",
+          "name": "TOOLING_TRANSFER_ARRIVAL_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldk2vSw9NtsUcU0Z",
+          "name": "ENGINEERING_BUILD_3_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldFXpEHW4YBJOHt7",
+          "name": "PILOT_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "flds6nIU6Jdtwhskz",
+          "name": "MASS_PRODUCTION_RELEASE_AUTHORIZATION_ECN_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldhBYGWZJXZMy3RF",
+          "name": "MASS_PRODUCTION_START_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldBU88E7AYKZTeqy",
+          "name": "PREVIOUS_MASS_PRODUCTION_START_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldJXdNdajIDV1PZc",
+          "name": "ENGINEERING_REMARKS_INITIAL_MM_DD_COMMENT",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldh0DKGK8PxPmIxX",
+          "name": "PROJECT_STATUS",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldrJyzQwoisOs3eI",
+          "name": "ENGINEERING_STATUS",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldtTvh2o82LNPSGt",
+          "name": "SUPPLY_CHAIN_LEADER",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldbVnyWrAaxiuvvG",
+          "name": "NEW_PRODUCT_INNOVATION_LEADER",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldyXw66EjCtZeJat",
+          "name": "NEW_PRODUCT_INNOVATION_CATEGORY_LEAD",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldH1AP12UU9eJrJt",
+          "name": "NEW_PRODUCT_INNOVATION_PROJECT_LEAD",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldFMgZAVVPmaLW9x",
+          "name": "NEW_PRODUCT_DEVELOPMENT_LEADER",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld9pVphw294KjPfH",
+          "name": "NEW_PRODUCT_DEVELOPMENT_CATEGORY_LEAD",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldEHuzQCBp8PI80l",
+          "name": "NEW_PRODUCT_DEVELOPMENT_PROJECT_LEAD",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldhyZRPXO8FJGyYz",
+          "name": "TOOLING_RELEASE_AUTHORIZATION_MONTH",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld0hu08iWluCO0TP",
+          "name": "MASS_PRODUCTION_MONTH",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld19tr8maAnl62SI",
+          "name": "MASS_PRODUCTION_WEEK",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldpo47K38nibQtBa",
+          "name": "FACTORY_PO_RELEASE_DATE",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldBy281EcDjUfqPl",
+          "name": "IS_VALID_SKU",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldSDLfQO98rfHOhr",
+          "name": "AGILE_LAUNCH_ENGINE_ID",
+          "type": "multilineText"
+        }
+      ]
+    },
+    {
+      "id": "tbl5Ok06J4tm0ytSJ",
+      "name": "CPM Analysis",
+      "description": "CPM analysis results for 86 standard tasks: ES/EF/LS/LF/Float/Critical/Near Critical",
+      "primaryFieldId": "fldLh8RmL0vSVQe42",
+      "fields": [
+        {
+          "id": "fldLh8RmL0vSVQe42",
+          "name": "Task Name [STD]",
+          "type": "singleLineText",
+          "description": "Task name from standard template"
+        },
+        {
+          "id": "fldqcNyYXzihK3dAF",
+          "name": "Gate [STD]",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fld4ZoKl8s25T6tSa",
+          "name": "L0 [STD]",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldVWVkZaKe8XpbOS",
+          "name": "L1 [STD]",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldY9IADIfKUBMQjr",
+          "name": "L2 [STD]",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldRZC3bcGdwtB4UC",
+          "name": "L3 [STD]",
+          "type": "checkbox"
+        },
+        {
+          "id": "flduEkMAcXJCy2IbN",
+          "name": "Milestone(Manual)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "flduV3pH9oM0fvYZT",
+          "name": "Is Critical Path (Auto)",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldD5raZODrXmFsvV",
+          "name": "L5 NPD [STD] copy",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldLKGLauj13moajq",
+          "name": "Is Delivery [STD]",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldkwOW8cVak1eBYz",
+          "name": "Task owner Department(Manual)",
+          "type": "multipleSelects"
+        },
+        {
+          "id": "fldZbpi6S0jPR88wb",
+          "name": "Task ID [STD]",
+          "type": "singleLineText",
+          "description": "Task ID from standard template"
+        },
+        {
+          "id": "fldfYvGOAKl91hDay",
+          "name": "Est. Duration (days) [STD]",
+          "type": "number"
+        },
+        {
+          "id": "fldsFvlDpdT5XgxdK",
+          "name": "Depends On [STD]",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldNBbXGgM1nefPRP",
+          "name": "ES (Auto)",
+          "type": "number",
+          "description": "Early Start - CPM forward pass"
+        },
+        {
+          "id": "fldxTxnAPl0s19PpI",
+          "name": "EF (Auto)",
+          "type": "number",
+          "description": "Early Finish - CPM forward pass"
+        },
+        {
+          "id": "fldXgdSssafxXKcjw",
+          "name": "LS (Auto)",
+          "type": "number",
+          "description": "Late Start - CPM backward pass"
+        },
+        {
+          "id": "fldRwjN0WVwaqXZrR",
+          "name": "LF (Auto)",
+          "type": "number",
+          "description": "Late Finish - CPM backward pass"
+        },
+        {
+          "id": "fldJ2th5R6xQQ4wDN",
+          "name": "Float (Auto)",
+          "type": "number",
+          "description": "Slack = LS - ES"
+        },
+        {
+          "id": "fldOP4hFwifuZfYh4",
+          "name": "Is Near Critical (Auto)",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldadjwx8PAvfZJaP",
+          "name": "Projects",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldnb6yer9lzp3PI0",
+          "name": "Tasks",
+          "type": "singleLineText"
+        }
+      ]
+    },
+    {
+      "id": "tblrhLbSSytMZW5Xk",
+      "name": "Schedule Import",
+      "description": "Staging table: paste schedule rows here, check Import to load into Tasks. Processed by AutoPM-12.",
+      "primaryFieldId": "fldEsgNrlucwF7PoH",
+      "fields": [
+        {
+          "id": "fldEsgNrlucwF7PoH",
+          "name": "Import Result Count",
+          "type": "number",
+          "description": "Number of tasks created from this import"
+        },
+        {
+          "id": "fldturwGxFtfd4Za4",
+          "name": "Project ID (from File)",
+          "type": "singleLineText",
+          "description": "Original Project ID text from the uploaded CSV/XML file"
+        },
+        {
+          "id": "fldlGz1Yg6YYAlhho",
+          "name": "Project SKU (Manual)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldNAsW3X5aF7JMKP",
+          "name": "Project ID (Manual)",
+          "type": "multipleLookupValues",
+          "description": "e.g. BR601KR; project will be created if missing"
+        },
+        {
+          "id": "fldFK43APr4uBSFkN",
+          "name": "Project SKU (Manual)1",
+          "type": "multipleLookupValues"
+        },
+        {
+          "id": "fldluDpgzmTUoMhLL",
+          "name": "Project SKU (Auto)",
+          "type": "multipleLookupValues"
+        },
+        {
+          "id": "fld9df5kpyQ8siXH8",
+          "name": "Project members",
+          "type": "button"
+        },
+        {
+          "id": "fldTrGgvpTrPsEiWL",
+          "name": "Default Owner (Manual)",
+          "type": "multipleRecordLinks",
+          "description": "Fallback owner (email or name in People) for CSV rows without an owner; enables auto-Complete for 100% tasks"
+        },
+        {
+          "id": "fldp6rGkdpjLujXq9",
+          "name": "Start Date (Manual)",
+          "type": "date"
+        },
+        {
+          "id": "fldHQdj7FGrrvJpU0",
+          "name": "Due Date (Manual)",
+          "type": "date"
+        },
+        {
+          "id": "fld1z8N6yuy95DSCJ",
+          "name": "Import File",
+          "type": "multipleAttachments",
+          "description": "Upload CSV file here to auto-import tasks"
+        },
+        {
+          "id": "fld8qkPQN9zf7n6fT",
+          "name": "Import Status (system manage)",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldYzKEZCc267MGtS",
+          "name": "Import Note (system manage)",
+          "type": "singleLineText"
+        },
+        {
+          "id": "flds94LspXBwF7PGO",
+          "name": "Project (Link)",
+          "type": "multipleRecordLinks",
+          "description": "Link to matched Projects record (set by automation after matching Project ID)"
+        }
+      ]
+    },
+    {
+      "id": "tblYpSrdHi84mJ8rO",
+      "name": "System Knowledge & Progress",
+      "primaryFieldId": "fldNALQziE6vNODrk",
+      "fields": [
+        {
+          "id": "fldNALQziE6vNODrk",
+          "name": "Key",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldVD55lBONnNUhQ9",
+          "name": "Title",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldTj6VPJPSTN3jyZ",
+          "name": "Contents",
+          "type": "richText"
+        },
+        {
+          "id": "fldxXu8AQKP433PEX",
+          "name": "Type",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldVwBzyn843byPGO",
+          "name": "Topic",
+          "type": "multipleSelects"
+        },
+        {
+          "id": "fldid8nc10DSSSdQl",
+          "name": "Owner",
+          "type": "singleCollaborator"
+        },
+        {
+          "id": "fldUXafQKBozmli9D",
+          "name": "Status",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldIoe5wPlhSrYFVq",
+          "name": "Tasks",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fld6diU406fbdy7vb",
+          "name": "Issues",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldnbUpFXLX1tR4hY",
+          "name": "Deliverable",
+          "type": "url"
+        },
+        {
+          "id": "fld4eDHotk3GJOReg",
+          "name": "Attachments",
+          "type": "multipleAttachments"
+        },
+        {
+          "id": "fld28kWuf7cAjCbFA",
+          "name": "Last Modified",
+          "type": "lastModifiedTime"
+        },
+        {
+          "id": "fldHydWA8ecRAGXVA",
+          "name": "Load for Context",
+          "type": "checkbox"
+        },
+        {
+          "id": "fldbCmaUvLcSjCWrd",
+          "name": "Summary",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldDI1g5xlpKuMHHe",
+          "name": "Validity",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fld92mKQhVKjgCSOX",
+          "name": "Due Date",
+          "type": "date"
+        },
+        {
+          "id": "fldmhefIBvQJc4ay6",
+          "name": "Verified Date",
+          "type": "date"
+        },
+        {
+          "id": "fldh0AtQdbRT2HU6h",
+          "name": "Source",
+          "type": "multipleSelects"
+        },
+        {
+          "id": "fldGbkRGWag7itdum",
+          "name": "Supersedes",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "flduTvJGNa2V9eve7",
+          "name": "Superseded By",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldEER3kFJwNqZSds",
+          "name": "Blocks",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fld4PK5abJ3hEV2dz",
+          "name": "Blocked By",
+          "type": "multipleRecordLinks"
+        },
+        {
+          "id": "fldJGpTExwKB2lGt7",
+          "name": "Table Ref",
+          "type": "multipleSelects"
+        },
+        {
+          "id": "fldRdFK0st60U2G01",
+          "name": "Automation Ref",
+          "type": "multipleSelects"
+        },
+        {
+          "id": "fld9RIUIOnbQ42xUB",
+          "name": "Field Ref",
+          "type": "singleLineText"
+        },
+        {
+          "id": "fldzEGj7aa533mcXk",
+          "name": "Last Modified 2",
+          "type": "lastModifiedTime"
+        }
+      ]
+    },
+    {
+      "id": "tblE10VAfX0JZKAye",
+      "name": "Issue Summary",
+      "primaryFieldId": "fldhl424H2Qa0Ew4x",
+      "fields": [
+        {
+          "id": "fldhl424H2Qa0Ew4x",
+          "name": "Board ID",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldrolLKYtij5Rc6H",
+          "name": "Last Modified",
+          "type": "lastModifiedTime"
+        },
+        {
+          "id": "fldwSwwhVEDsHLHM7",
+          "name": "Priority",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fld7E3PNBCingkhbS",
+          "name": "Status",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldyUnlzeWyG4kS7I",
+          "name": "Category",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldY619UmbW4RRAci",
+          "name": "Issue (Chinese)",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldiJWi51pbomx0Od",
+          "name": "Original Feedback",
+          "type": "multilineText"
+        },
+        {
+          "id": "fld9vamlMkVOPuJ8X",
+          "name": "Source",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldL52hvk15GnfDLt",
+          "name": "Action Plan / Notes",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldPY9P81sp8X5nK9",
+          "name": "Value Rating",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldAJAzic3cVU0Jpq",
+          "name": "Value Justification",
+          "type": "multilineText"
+        },
+        {
+          "id": "fldBw53vfJZp9jdLs",
+          "name": "Suggested Priority",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldEQu0hk8PbfqKbx",
+          "name": "Document",
+          "type": "url"
+        },
+        {
+          "id": "fldLMtUL0VxWdXsjG",
+          "name": "Notes",
+          "type": "multilineText",
+          "description": "Codex review notes for next action, closure suggestion, quality concern, or follow-up reminder. Added by Codex on 2026-08-30."
+        },
+        {
+          "id": "fldakITfPIs7EK6UR",
+          "name": "Completion Status",
+          "type": "singleSelect"
+        },
+        {
+          "id": "fldzSQKOAkvzdRloO",
+          "name": "Issue (English)",
+          "type": "multilineText",
+          "description": "English translation of the issue description for team-wide understanding."
+        }
+      ]
+    }
+  ]
+}
