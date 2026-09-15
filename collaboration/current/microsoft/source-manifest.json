@@ -1,0 +1,74 @@
+[
+  {
+    "path": "legacy_bridge/bridge.py",
+    "source_group": "legacy-source",
+    "source_name": "bridge.py",
+    "sha256": "83ad0eeef212f227924a350fccaab81d743e778f8774691002ed5826732cee74",
+    "bytes": 70561,
+    "copied_at_utc": "2026-09-15T14:57:16.235705+00:00"
+  },
+  {
+    "path": "legacy_bridge/test_bridge.py",
+    "source_group": "legacy-source",
+    "source_name": "test_bridge.py",
+    "sha256": "2eb8d07c7248a52bdf2fede8cfb2e089d67aba7ac4e35c96b36c925e66b7da2b",
+    "bytes": 13112,
+    "copied_at_utc": "2026-09-15T14:57:16.235705+00:00"
+  },
+  {
+    "path": "candidate_bridge/bridge.py",
+    "source_group": "unaccepted-candidate",
+    "source_name": "bridge.py",
+    "sha256": "eb72d4afdff87ef988ff7a8d533029e1d590173a48a6ce23fa2d58a89acd1a5b",
+    "bytes": 67266,
+    "copied_at_utc": "2026-09-15T14:57:16.235705+00:00"
+  },
+  {
+    "path": "candidate_bridge/test_bridge.py",
+    "source_group": "unaccepted-candidate",
+    "source_name": "test_bridge.py",
+    "sha256": "5eaa8e92fd1d4c56b8276c27a4560c38c987278ff04907e77e137f711c92ecd3",
+    "bytes": 13298,
+    "copied_at_utc": "2026-09-15T14:57:16.235705+00:00"
+  },
+  {
+    "path": "candidate_bridge/verified_writer.py",
+    "source_group": "unaccepted-candidate",
+    "source_name": "verified_writer.py",
+    "sha256": "2c3f070c04c6eb8b40429bae44d36a86d3d9d4fe0298504f029399ff7c2ae370",
+    "bytes": 10690,
+    "copied_at_utc": "2026-09-15T14:57:16.235705+00:00"
+  },
+  {
+    "path": "candidate_bridge/test_verified_writer.py",
+    "source_group": "unaccepted-candidate",
+    "source_name": "test_verified_writer.py",
+    "sha256": "43c1067d9b30e3b6064d4e88b3ca7fcb79a92b2f0f26ea6a0e21d777ef5cb459",
+    "bytes": 5948,
+    "copied_at_utc": "2026-09-15T14:57:16.235705+00:00"
+  },
+  {
+    "path": "preparation/tools/prepare_migration.py",
+    "source_group": "offline-preparation",
+    "source_name": "prepare_migration.py",
+    "sha256": "fdd5219b9f164e06aa06aa81f8feb56208fbe263ecc85568c5055167c30c25b5",
+    "bytes": 6258,
+    "copied_at_utc": "2026-09-15T14:57:16.235705+00:00"
+  },
+  {
+    "path": "preparation/tests/test_migration.py",
+    "source_group": "offline-preparation",
+    "source_name": "test_migration.py",
+    "sha256": "1524aaeb980c6c2d6291e9c07b47b071e8c4343f85b4737a9a5bc44838ad087c",
+    "bytes": 3486,
+    "copied_at_utc": "2026-09-15T14:57:16.235705+00:00"
+  },
+  {
+    "path": "preparation/functional-parity.csv",
+    "source_group": "offline-preparation",
+    "source_name": "functional-parity.csv",
+    "sha256": "10e69817e71822cdfd028d31e677fd344512297059ade84c5d32945e7bd4dd11",
+    "bytes": 2446,
+    "copied_at_utc": "2026-09-15T14:57:16.235705+00:00"
+  }
+]

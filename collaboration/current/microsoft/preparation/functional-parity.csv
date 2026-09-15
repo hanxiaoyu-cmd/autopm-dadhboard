@@ -1,0 +1,13 @@
+Feature,Legacy evidence,Target,Current status,Required acceptance
+F01 Programs,PRD 3 and 6; Other_Core_Tables_Field_Architecture_Plan,Dataverse Program and Canvas Portfolio,Snapshot audit implemented; cloud pending,Full scope counts and relationship differences reconciled
+F02 Project Hub,Projects_Field_Architecture_Plan,Dataverse Project and Canvas Project Hub,Existing SharePoint UI only,Unassigned visible; identity status owner dates searchable
+F03 Project creation and templates,PRD 4.1; Engineering work package 5,Versioned templates and creation API,Not migrated,Existing template outputs and duplicate submission verified
+F04 Plans tasks deliverables,PRD 4.1 and 4.2; existing Bridge dated task parsing,Dataverse tasks and milestones,Legacy parser tests passed; target not implemented,Baseline forecast actual and dependencies preserved
+F05 Project SKU execution,PRD 4.1.1; Other_Core_Tables_Field_Architecture_Plan,Explicit ProjectSKU and milestone exception records,Candidate links generated; execution fields unresolved,Same SKU in two projects isolated; override history preserved
+F06 My Work and reminders,Engineering work package 8 and 13,Canvas queues and solution-aware flows,Not migrated,Correct recipients; deduplication; completion stops reminders
+F07 Issue Recovery,PRD 4.3; Engineering work package 6,Dataverse issue action verification,Not migrated,Action done cannot bypass verification; reopen history
+F08 Weekly import,Data Bridge v5.1 maintenance handover; bridge.py,Shared parser and Dataverse import jobs,Read-only parser runner implemented; writes pending,Preview freshness duplicate ambiguity partial failure cases
+F09 Weekly and Tracker,Data Bridge v5.1; Engineering work package 9,Report snapshots and new Tracker workbook,12 legacy regressions passed; Dataverse integration pending,Formulas baseline styles and approved source fields preserved
+F10 Templates and lessons,PRD 4.5 and matrix Template assets,Versioned templates and verified cases,Not migrated,Existing templates checked; cases link to evidence
+F11 Data and administration,PRD 7.4; Engineering work package 16,Dataverse server rules roles audit and ALM,Environment privilege blocker verified,Direct writes obey rules; identity permissions and recovery tested
+F12 AI assistance,Matrix AI Summary and Engineering work package 14,Approved model service behind application,Not connected,Access-scoped source citations; no authoritative status overwrite

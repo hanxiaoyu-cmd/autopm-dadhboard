@@ -1,0 +1,56 @@
+[
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "legacy_bridge",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "collaboration/current/microsoft",
+    "exit_code": 0,
+    "utc": "2026-09-15T14:57:16.235705+00:00",
+    "output": "test_airtable_duplicates_and_rename (test_bridge.BridgeTests.test_airtable_duplicates_and_rename) ... ok\ntest_apply_stale_no_writes (test_bridge.BridgeTests.test_apply_stale_no_writes) ... ok\ntest_dates (test_bridge.BridgeTests.test_dates) ... ok\ntest_fixed_and_ordinary_task_classification (test_bridge.BridgeTests.test_fixed_and_ordinary_task_classification) ... ok\ntest_formula_and_tbc_are_not_overwritten (test_bridge.BridgeTests.test_formula_and_tbc_are_not_overwritten) ... ok\ntest_green_style_preserves_ignorable_namespace_prefixes (test_bridge.BridgeTests.test_green_style_preserves_ignorable_namespace_prefixes) ... ok\ntest_no_invented_milestone_alias (test_bridge.BridgeTests.test_no_invented_milestone_alias) ... ok\ntest_project_key_is_not_model (test_bridge.BridgeTests.test_project_key_is_not_model) ... ok\ntest_rich_text_strike (test_bridge.BridgeTests.test_rich_text_strike) ... ok\ntest_sku_shorthand_normalization (test_bridge.BridgeTests.test_sku_shorthand_normalization) ... ok\ntest_task_issue_and_project_mapping (test_bridge.BridgeTests.test_task_issue_and_project_mapping) ... ok\ntest_zip_update_preserves_objects_formula_and_baseline (test_bridge.BridgeTests.test_zip_update_preserves_objects_formula_and_baseline) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.043s\n\nOK\n",
+    "scope": "offline synthetic fixtures only"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "candidate_bridge",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "collaboration/current/microsoft",
+    "exit_code": 0,
+    "utc": "2026-09-15T14:57:16.235705+00:00",
+    "output": "test_airtable_duplicates_and_rename (test_bridge.BridgeTests.test_airtable_duplicates_and_rename) ... ok\ntest_apply_stale_no_writes (test_bridge.BridgeTests.test_apply_stale_no_writes) ... ok\ntest_dates (test_bridge.BridgeTests.test_dates) ... ok\ntest_fixed_and_ordinary_task_classification (test_bridge.BridgeTests.test_fixed_and_ordinary_task_classification) ... ok\ntest_formula_and_tbc_are_not_overwritten (test_bridge.BridgeTests.test_formula_and_tbc_are_not_overwritten) ... ok\ntest_green_style_preserves_ignorable_namespace_prefixes (test_bridge.BridgeTests.test_green_style_preserves_ignorable_namespace_prefixes) ... ok\ntest_no_invented_milestone_alias (test_bridge.BridgeTests.test_no_invented_milestone_alias) ... ok\ntest_project_key_is_not_model (test_bridge.BridgeTests.test_project_key_is_not_model) ... ok\ntest_rich_text_strike (test_bridge.BridgeTests.test_rich_text_strike) ... ok\ntest_sku_shorthand_normalization (test_bridge.BridgeTests.test_sku_shorthand_normalization) ... ok\ntest_task_issue_and_project_mapping (test_bridge.BridgeTests.test_task_issue_and_project_mapping) ... ok\ntest_zip_update_preserves_objects_formula_and_baseline (test_bridge.BridgeTests.test_zip_update_preserves_objects_formula_and_baseline) ... ok\ntest_create_requires_independent_readback (test_verified_writer.WriterTests.test_create_requires_independent_readback) ... ok\ntest_duplicate_creates_block_before_any_post (test_verified_writer.WriterTests.test_duplicate_creates_block_before_any_post) ... ok\ntest_empty_create_response_never_verified (test_verified_writer.WriterTests.test_empty_create_response_never_verified) ... ok\ntest_existing_identity_with_different_values_blocks (test_verified_writer.WriterTests.test_existing_identity_with_different_values_blocks) ... ok\ntest_failed_readback_can_resume_known_id_without_create (test_verified_writer.WriterTests.test_failed_readback_can_resume_known_id_without_create) ... ok\ntest_legacy_journal_is_not_destroyed (test_verified_writer.WriterTests.test_legacy_journal_is_not_destroyed) ... ok\ntest_missing_updated_record_blocks (test_verified_writer.WriterTests.test_missing_updated_record_blocks) ... ok\ntest_new_batch_reconciles_existing_create (test_verified_writer.WriterTests.test_new_batch_reconciles_existing_create) ... ok\ntest_receipt_replay_does_not_overwrite_later_change (test_verified_writer.WriterTests.test_receipt_replay_does_not_overwrite_later_change) ... ok\ntest_timeout_after_create_does_not_repeat_post (test_verified_writer.WriterTests.test_timeout_after_create_does_not_repeat_post) ... ok\ntest_update_readback_and_before_image (test_verified_writer.WriterTests.test_update_readback_and_before_image) ... ok\ntest_wrong_readback_never_verified (test_verified_writer.WriterTests.test_wrong_readback_never_verified) ... ok\n\n----------------------------------------------------------------------\nRan 24 tests in 0.278s\n\nOK\n",
+    "scope": "offline synthetic fixtures only"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "preparation/tests",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "collaboration/current/microsoft",
+    "exit_code": 0,
+    "utc": "2026-09-15T14:57:16.235705+00:00",
+    "output": "test_deterministic_and_no_source_mutation (test_migration.MigrationTests.test_deterministic_and_no_source_mutation) ... ok\ntest_duplicate_key_not_silently_overwritten (test_migration.MigrationTests.test_duplicate_key_not_silently_overwritten) ... ok\ntest_duplicates_do_not_inflate_counts (test_migration.MigrationTests.test_duplicates_do_not_inflate_counts) ... ok\ntest_historical_links_are_compared_not_discarded (test_migration.MigrationTests.test_historical_links_are_compared_not_discarded) ... ok\ntest_many_to_many_does_not_copy_master_status (test_migration.MigrationTests.test_many_to_many_does_not_copy_master_status) ... ok\ntest_orphan_relation_preserved_in_source (test_migration.MigrationTests.test_orphan_relation_preserved_in_source) ... ok\ntest_unassigned_not_dropped (test_migration.MigrationTests.test_unassigned_not_dropped) ... ok\ntest_unlinked_sku_orphan_is_reported (test_migration.MigrationTests.test_unlinked_sku_orphan_is_reported) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.001s\n\nOK\n",
+    "scope": "offline synthetic fixtures only"
+  }
+]

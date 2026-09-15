@@ -45,3 +45,15 @@
 | `collaboration/review-2026-09-13/README.md` | `D:/个人资料/AI学习圈/SN Auto PM/99-备份/快照_2026-06-29_整理前整包/AutoPM资料精炼版/03-Demo development/workflow/Kick off.pdf` | 原始引用，未随包提供/远端不可直接访问；必要时由Codex核查来源并补入 |
 | `collaboration/review-2026-09-13/README.md` | `D:/个人资料/AI学习圈/SN Auto PM/99-备份/快照_2026-06-29_整理前整包/AutoPM资料精炼版/03-Demo development/workflow/workflow.html` | 原始引用，未随包提供/远端不可直接访问；必要时由Codex核查来源并补入 |
 | `collaboration/review-2026-09-13/README.md` | `../2026-09-12/README.md` | 原始引用，未随包提供/远端不可直接访问；必要时由Codex核查来源并补入 |
+
+## 2026-09-15 Power Apps 输入补充
+
+已补充 [最小源码包](../collaboration/current/microsoft/README.md)：legacy/candidate Bridge、verified_writer、迁移准备工具及合成测试，原字节指纹见包内manifest。历史表中的缺口保留原始记录，本段标明本次实际补齐范围。
+
+| 当前缺口 | 负责协调 | 对本轮影响 |
+|---|---|---|
+| 当前线上Schema、页面/按钮、自动化输入/触发/脚本版本及运行记录 | Codex协调，Qoder列最小需求 | 功能矩阵可先从历史资料开始，未知项不能标验证通过 |
+| 已批准微软环境、许可证、Dataverse权限和运行身份 | 用户/IT提供，Qoder只读核对 | #18部署门槛未过；#19离线不受阻 |
+| 批准的真实Shark/Ninja/Tracker固定回归样本 | 用户确认范围，Codex筛选 | 本包仅合成数据，真实端到端用例Not Run |
+| 旧domain.py及Task完成/进度候选规则 | 不作为本轮输入 | 含已暂停行为，不得从旧蓝图恢复 |
+| Qoder另一台机器上的启动/调度连接 | Qoder回执证明 | 派工已发布不代表自动启动 |

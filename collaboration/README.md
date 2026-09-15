@@ -32,3 +32,8 @@ DuMate本地文件交接产物已核验。Qoder在另一台机器，必须使用
 统一规范：[根AGENTS](../AGENTS.md)。先列计划取得用户确认，再执行；日志、实际变更、检查结果交回原Issue，Codex验收。当前执行状态只保存在GitHub Issue；issue-map/onboarding-map仅导航，planning/triage均为历史记录。
 
 资料分类见 [文档索引](../docs/README.md)。历史资料已归档；失效的历史引用逐项见 [依赖登记](../docs/DEPENDENCIES.md)，不要让远程AI读取Windows盘符。
+
+## Power Apps 复刻派工修订（2026-09-15）
+
+用户已明确授权Qoder按业务功能等效目标推进首轮：MS-00只读环境核实、MS-01离线复用。微软许可与部署仍需证据；保留既有Task完成机制、暂停项目进度改造，生产切换不在本轮。
+统一入口为 [微软任务书](planning/dispatch/START_MICROSOFT.md)；后续MS任务沿用原Issue及依赖，未来增强保持待办。Qoder经GitHub取得输入与提交结果，不依赖协调方本机路径。
