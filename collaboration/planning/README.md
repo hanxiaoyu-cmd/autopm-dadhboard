@@ -1,3 +1,11 @@
+# 9/11规划基线（历史快照）
+
+本目录保留原任务定义和来源，不再维护当前执行状态。当前状态只读GitHub Issue；任务导航见 [索引](../issue-map.json)。执行遵守 [根规则](../../AGENTS.md)。下文历史“主台账”“当前优先”“未推送”等只适用于原日期。
+
+模板仍可复用，但以根规则的用户确认、日志和验收要求为准。旧生成器仅供历史包复现，不能重建现行派工。外部来源与缺失附件见 [依赖登记](../../docs/DEPENDENCIES.md)。
+
+---
+
 # AutoPM 双平台开发控制包
 
 **v1.2业务修订：** [Project、Task、Issue简明说明](design/PROJECT-TASK-ISSUE.md)及[执行清单](design/PROJECT-TASK-ISSUE-IMPLEMENTATION.md)。Tasks为项目计划；问题措施保存在Issue Actions，不自动进入Tasks。此项业务决定覆盖旧源资料中的相反建议；平台未实施。design中的两份文件为Git主台账的随包副本，主台账仍在field-governance。

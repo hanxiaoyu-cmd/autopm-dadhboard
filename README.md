@@ -1,178 +1,27 @@
-## 项目管理 / Collaboration
+# AutoPM
 
-[多 AI 使用分工指南](collaboration/使用分工指南.md) · [当前管理入口](collaboration/README.md) · [协作总任务 #1](https://github.com/sunny-06064710-3/autopm-dadhboard/issues/1)
+AutoPM 项目资料、应用代码和多 AI 协作仓库。Codex 负责主维护、任务统筹、审核和集成；执行 AI 按用户确认的范围交付。
 
-开发任务由 Codex 统一协调，其他 AI 按 Issue 在独立分支交付。以下为历史应用部署资料。
+## 从这里开始
 
----
+1. 所有 AI 必读 [AGENTS.md](AGENTS.md)。
+2. 查看 [当前业务决定与团队入口](collaboration/README.md)、[使用分工指南](collaboration/使用分工指南.md)。
+3. 从 [总协调 Issue #1](https://github.com/sunny-06064710-3/autopm-dadhboard/issues/1) 获取有效分支和任务；未确认前只整理计划。
 
-# AutoPM 部署指南 / Deployment Guide
+过渡期：本规范位于 `codex/autopm-management-20260914`，通过 [PR #44](https://github.com/sunny-06064710-3/autopm-dadhboard/pull/44) 集成。合并前不能假定 main 已包含这些文件；后续基准分支以总协调 Issue 为准。
 
----
+## 目录与事实来源
 
-## 🇨🇳 中文指南
+| 位置 | 用途 |
+|---|---|
+| `backend/` | 当前服务代码；部署配置见 `render.yaml` |
+| `backend/frontend/` | 当前服务实际挂载的前端目录 |
+| `frontend/`、`backend/static/` | 历史/其他候选前端，未确认用途前不要作为当前修改入口 |
+| [docs](docs/README.md) | 文档索引、来源边界、历史归档 |
+| [collaboration](collaboration/README.md) | 当前决定、分工和交付模板 |
+| `collaboration/team/<角色>/outbox/<任务ID>/` | 一项任务的确认记录、结果、测试与变更日志 |
+| GitHub Issues / PRs | 当前任务状态 / 实际变更和审查证据 |
 
-### 第一步：注册 GitHub
+`backend/main.py` 使用 `backend/frontend/`；`render.yaml` 从 backend 启动服务。这里是代码配置判断，不代表线上部署已验收。历史页面、bak及辅助脚本暂留原位，改动前须检查消费者。
 
-1. 打开 https://github.com 注册账号
-2. 点击右上角 **+** → **New repository**
-3. 仓库名填 `autopm`
-4. 选择 **Private**（推荐，只有你能看到）
-5. **不要勾选** "Add a README file"
-6. 点击 **Create repository**
-
-### 第二步：上传代码
-
-**方式 A：网页上传（最简单）**
-
-1. 在刚创建的仓库页面，点击 **uploading an existing file**
-2. 把 `autopm-deploy/` 文件夹里的所有文件和文件夹拖进去
-3. 确保文件结构如下：
-   ```
-   autopm/
-   ├── backend/
-   │   ├── main.py
-   │   ├── models.py
-   │   ├── schemas.py
-   │   ├── auth.py
-   │   ├── alerts_engine.py
-   │   ├── database.py
-   │   ├── seed.py
-   │   ├── requirements.txt
-   │   └── Procfile
-   ├── frontend/
-   │   └── index.html
-   ├── render.yaml
-   └── README.md
-   ```
-4. 点击 **Commit changes**
-
-**方式 B：Git 命令行**
-
-```bash
-cd autopm-deploy
-git init
-git add .
-git commit -m "Initial commit: AutoPM"
-git remote add origin https://github.com/你的用户名/autopm.git
-git push -u origin main
-```
-
-### 第三步：注册 Render 并部署
-
-1. 打开 https://render.com 点击 **Get Started**（可以用 GitHub 账号登录）
-2. 登录后，点击 **New** → **Web Service**
-3. 选择 **Build and deploy from a Git repository**
-4. 点击 **Connect** 连接你的 GitHub 仓库 `autopm`
-5. 填写部署设置：
-   - **Name**: `autopm`（或你喜欢的名字）
-   - **Runtime**: Python 3
-   - **Build Command**: `pip install -r backend/requirements.txt`
-   - **Start Command**: `cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT`
-   - **Plan**: Free
-6. 点击 **Create Web Service**
-
-### 第四步：等待部署完成
-
-- 大约 3-5 分钟
-- 你可以在 Render 的 **Logs** 页面看到部署进度
-- 部署完成后，Render 会给你一个 URL，类似 `https://autopm-xxxx.onrender.com`
-- 打开这个 URL 就能看到 AutoPM 了！
-
-### 第五步：分享给团队
-
-- 把 URL 发给 3-5 个人
-- 所有人改的数据实时同步到同一个数据库
-- 默认管理员账号：用户名 `sunny`，密码 `autopm2026`
-- **免费套餐限制**：30 分钟没人访问会休眠，有人访问自动唤醒（等待约 30 秒）
-
-### ⚠️ 注意事项
-
-- 免费套餐的 SQLite 数据库在每次部署时会重置。如果需要持久化数据，建议升级到 Render 付费套餐或使用外部数据库。
-- 免费套餐每月有 750 小时免费运行时间。
-- 如果页面加载慢，是后端正在唤醒（从休眠到启动约 30 秒）。
-
----
-
-## 🇺🇸 English Guide
-
-### Step 1: Register GitHub
-
-1. Go to https://github.com and sign up
-2. Click **+** → **New repository** in the top right
-3. Repository name: `autopm`
-4. Select **Private** (recommended)
-5. Do **NOT** check "Add a README file"
-6. Click **Create repository**
-
-### Step 2: Upload Code
-
-**Option A: Web Upload (Easiest)**
-
-1. On your new repository page, click **uploading an existing file**
-2. Drag all files and folders from the `autopm-deploy/` directory
-3. Make sure the structure looks like:
-   ```
-   autopm/
-   ├── backend/
-   │   ├── main.py
-   │   ├── models.py
-   │   ├── schemas.py
-   │   ├── auth.py
-   │   ├── alerts_engine.py
-   │   ├── database.py
-   │   ├── seed.py
-   │   ├── requirements.txt
-   │   └── Procfile
-   ├── frontend/
-   │   └── index.html
-   ├── render.yaml
-   └── README.md
-   ```
-4. Click **Commit changes**
-
-**Option B: Git CLI**
-
-```bash
-cd autopm-deploy
-git init
-git add .
-git commit -m "Initial commit: AutoPM"
-git remote add origin https://github.com/YOUR_USERNAME/autopm.git
-git push -u origin main
-```
-
-### Step 3: Register Render & Deploy
-
-1. Go to https://render.com and click **Get Started** (you can sign in with GitHub)
-2. After login, click **New** → **Web Service**
-3. Select **Build and deploy from a Git repository**
-4. Click **Connect** next to your `autopm` repository
-5. Fill in deployment settings:
-   - **Name**: `autopm` (or any name you like)
-   - **Runtime**: Python 3
-   - **Build Command**: `pip install -r backend/requirements.txt`
-   - **Start Command**: `cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT`
-   - **Plan**: Free
-6. Click **Create Web Service**
-
-### Step 4: Wait for Deployment
-
-- Takes about 3-5 minutes
-- You can check progress in Render's **Logs** page
-- Once deployed, Render gives you a URL like `https://autopm-xxxx.onrender.com`
-- Open that URL and you'll see AutoPM!
-
-### Step 5: Share with Team
-
-- Share the URL with 3-5 people
-- All changes sync in real-time to the same database
-- Default admin account: username `sunny`, password `autopm2026`
-- **Free tier note**: The service sleeps after 30 min of inactivity. It auto-wakes when someone visits (takes ~30 seconds).
-
-### ⚠️ Important Notes
-
-- On the free tier, the SQLite database resets on each deployment. For persistent data, consider upgrading Render or using an external database.
-- Free tier includes 750 hours/month of runtime.
-- If the page loads slowly, the backend is waking up from sleep (~30 seconds).
-
+根目录不存临时文件、个人记忆或重复任务台账。历史资料不构成执行授权，入口见 [归档说明](docs/archive/README.md)。

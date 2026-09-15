@@ -1,0 +1,292 @@
+{
+  "date": "2026-09-15",
+  "source_commit": "6f6dee824000f06f4bd9eca5eeb7b65ec77d6533",
+  "files": [
+    {
+      "from": "AutoPM_FULL_CONTEXT.md",
+      "to": "docs/archive/legacy-context/AutoPM_FULL_CONTEXT.md",
+      "sha256": "eea2bda6d12bf980a786d1740ceecf15e31f5676e5fbe4263121c70de876cafd"
+    },
+    {
+      "from": "_content_area.txt",
+      "to": "docs/archive/debug-snippets/_content_area.txt",
+      "sha256": "7a65225d2158f8ea79bab8de140b4d3e9441611c29f1c1c2e13d050f44f287ee"
+    },
+    {
+      "from": "_core_check.txt",
+      "to": "docs/archive/debug-snippets/_core_check.txt",
+      "sha256": "a94e4b5c7f2ed57c9dfc0a8cd17b23a5f314cb0c4cb5d127cb70418c8f2985f6"
+    },
+    {
+      "from": "_core_container.txt",
+      "to": "docs/archive/debug-snippets/_core_container.txt",
+      "sha256": "dd44397715eb3d225a75c37651431961e31f6dc2fc82767352187a20dfce49e5"
+    },
+    {
+      "from": "_deployed_analysis.txt",
+      "to": "docs/archive/debug-snippets/_deployed_analysis.txt",
+      "sha256": "858a4a0de0ed72a8496caf225bd0b0f7e1f8fcf1badabf1eb3e3f6f967e451aa"
+    },
+    {
+      "from": "_modal_check.txt",
+      "to": "docs/archive/debug-snippets/_modal_check.txt",
+      "sha256": "2b88f3110796ee7361e63803fe06ffb1aa233583791b0f4ecc637dea2df2979d"
+    },
+    {
+      "from": "_v16_css.txt",
+      "to": "docs/archive/debug-snippets/_v16_css.txt",
+      "sha256": "098669c4640a0b19a71f842a5c97f792196bbb5be3e426478e5433e3292a5a9b"
+    },
+    {
+      "from": "docs/Agileex会议议题_20260529.md",
+      "to": "docs/archive/legacy-docs/Agileex会议议题_20260529.md",
+      "sha256": "96d0240464e7fb13c3b0c986a4846e902dc4404060c82a80bde6cf33c883b362"
+    },
+    {
+      "from": "docs/AutoPM-Phase1-Full-Plan.md",
+      "to": "docs/archive/legacy-docs/AutoPM-Phase1-Full-Plan.md",
+      "sha256": "db46ef1c7124f9022527783d0b657846e92b48582788f4d7828d3904d30e50db"
+    },
+    {
+      "from": "docs/AutoPM-Project-Handoff.md",
+      "to": "docs/archive/legacy-docs/AutoPM-Project-Handoff.md",
+      "sha256": "89e5240f776ef0b828903644602e6092b825751d940bba6976c6f2899dd70e3b"
+    },
+    {
+      "from": "docs/AutoPM_4Projects_Breakdown_v2.xlsx",
+      "to": "docs/archive/legacy-docs/AutoPM_4Projects_Breakdown_v2.xlsx",
+      "sha256": "7371ff16563804674f68b8212141048bd3114fbecc7648a602b67ea77e2abfe2"
+    },
+    {
+      "from": "docs/AutoPM_60Day_Roadmap.md",
+      "to": "docs/archive/legacy-docs/AutoPM_60Day_Roadmap.md",
+      "sha256": "a697c6961aad33840d22643caec5915b5f2b8256c2964bee76784ec41b7e4444"
+    },
+    {
+      "from": "docs/AutoPM_Bootstrap_Plan.md",
+      "to": "docs/archive/legacy-docs/AutoPM_Bootstrap_Plan.md",
+      "sha256": "6d881c16f56a4adcf9154cc4470e9dad44ee71ed3eb18ee20165ab6f72b39b3b"
+    },
+    {
+      "from": "docs/AutoPM_Dependency_Map.md",
+      "to": "docs/archive/legacy-docs/AutoPM_Dependency_Map.md",
+      "sha256": "946d3c90212145ff30cd052b07d7b888d736ea5499af467e3a27725a23a03aea"
+    },
+    {
+      "from": "docs/AutoPM_Meeting_Prep_Ufuk.md",
+      "to": "docs/archive/legacy-docs/AutoPM_Meeting_Prep_Ufuk.md",
+      "sha256": "08f7ce50969927c38f3762130d73e52666acc927e6188d6fd740c5cbd9448deb"
+    },
+    {
+      "from": "docs/AutoPM_Platform_WBS.md",
+      "to": "docs/archive/legacy-docs/AutoPM_Platform_WBS.md",
+      "sha256": "65d4e38e073a20d97bb5515bef876b62fe4a4613c7e0de3255d66e3669925d7f"
+    },
+    {
+      "from": "docs/AutoPM_Resource_Roadmap.md",
+      "to": "docs/archive/legacy-docs/AutoPM_Resource_Roadmap.md",
+      "sha256": "8ad76656a9fcae14655b1cc0a2ca2d6fb7dbce2eae5119ce0fa5187ad11f1f94"
+    },
+    {
+      "from": "docs/AutoPM_Strategic_Plan.md",
+      "to": "docs/archive/legacy-docs/AutoPM_Strategic_Plan.md",
+      "sha256": "cb439585130304993c3b864141431c77eb2575d38c630edeb673a6b8ce87e737"
+    },
+    {
+      "from": "docs/AutoPM_Ufuk_Review_and_Reply.md",
+      "to": "docs/archive/legacy-docs/AutoPM_Ufuk_Review_and_Reply.md",
+      "sha256": "cad546e7da8800342a1e4f1e3fc72d58c50cf4bf4708db238d327767b4613875"
+    },
+    {
+      "from": "docs/AutoPM_Vendor_Assessment_Summary.md",
+      "to": "docs/archive/legacy-docs/AutoPM_Vendor_Assessment_Summary.md",
+      "sha256": "0721f18cc14d5aeea6bab7335c3dca77b8d0ecbdbd96b79fe52967788175257b"
+    },
+    {
+      "from": "docs/AutoPM_Vendor_Evaluation.md",
+      "to": "docs/archive/legacy-docs/AutoPM_Vendor_Evaluation.md",
+      "sha256": "2f63b78bce2b0cc110321ff0bb2eb900aa61361fb8e1b444fb353a8f0dfc00f3"
+    },
+    {
+      "from": "docs/AutoPM_供应商推进计划.md",
+      "to": "docs/archive/legacy-docs/AutoPM_供应商推进计划.md",
+      "sha256": "ba10319ca105770054bf6feb14ccb251ba2b6157930b595a2a5435a8e888c53a"
+    },
+    {
+      "from": "docs/AutoPM_市场调研报告.md",
+      "to": "docs/archive/legacy-docs/AutoPM_市场调研报告.md",
+      "sha256": "4b09a6c5282b352b0f5316e5543328dc540b0e5a158459a8a09de55ccd26d829"
+    },
+    {
+      "from": "docs/AutoPM_架构设计文档.md",
+      "to": "docs/archive/legacy-docs/AutoPM_架构设计文档.md",
+      "sha256": "66d70ccace840b39d7b3d13ae2bd837cf483744f18efc2d179085bf13eb6a062"
+    },
+    {
+      "from": "docs/Ody_vs_Agileex_对比报告_Jen_v2.md",
+      "to": "docs/archive/legacy-docs/Ody_vs_Agileex_对比报告_Jen_v2.md",
+      "sha256": "c859b8b69f49cd5da7a24dd0dfa717e41df786814e2866717e8836a323f814a9"
+    },
+    {
+      "from": "docs/Ody_vs_Agileex对比问题.md",
+      "to": "docs/archive/legacy-docs/Ody_vs_Agileex对比问题.md",
+      "sha256": "0b9d4bda8a81d0b88f3543d7177f35309b886c7a83fa0917d58ceefe53166f69"
+    },
+    {
+      "from": "docs/Rodyr调研报告.md",
+      "to": "docs/archive/legacy-docs/Rodyr调研报告.md",
+      "sha256": "e29689ef494764cc461457b817d877b0c72a91b38d013025fc18d6a78b4da1c4"
+    },
+    {
+      "from": "recent_memory/decision/AI+制造业副业方向.md",
+      "to": "docs/archive/legacy-context/recent_memory/decision/AI+制造业副业方向.md",
+      "sha256": "705e5690c457c1ba440df28cf1eb6886f5aeff1d656a83421a9053ea29c75ebf"
+    },
+    {
+      "from": "recent_memory/decision/Agileex主路线判断.md",
+      "to": "docs/archive/legacy-context/recent_memory/decision/Agileex主路线判断.md",
+      "sha256": "e293a40bd899fac0da06a1dedc0ac74d6df589e082b2e73c847333463d73e6e7"
+    },
+    {
+      "from": "recent_memory/decision/AutoPM_PDF自动解析.md",
+      "to": "docs/archive/legacy-context/recent_memory/decision/AutoPM_PDF自动解析.md",
+      "sha256": "2cfda419d77a3b5a7adb1d9a1a22a285c5f81d3b9a97a3fcce03b75e57d40df2"
+    },
+    {
+      "from": "recent_memory/decision/AutoPM_v18.0_Bug分析.md",
+      "to": "docs/archive/legacy-context/recent_memory/decision/AutoPM_v18.0_Bug分析.md",
+      "sha256": "8e9d5af879819a7e61db798a11a5c1676a222327109e73365dca1daa664f53a2"
+    },
+    {
+      "from": "recent_memory/decision/AutoPM使用技巧.md",
+      "to": "docs/archive/legacy-context/recent_memory/decision/AutoPM使用技巧.md",
+      "sha256": "b918253cceac348f7dd77dedf8954b2f070b0de910758a79e61c626b5c4ed2ee"
+    },
+    {
+      "from": "recent_memory/decision/NPI部署平台转向Coze.md",
+      "to": "docs/archive/legacy-context/recent_memory/decision/NPI部署平台转向Coze.md",
+      "sha256": "cbbc56b2fb016bafbfe9054b6b9780db04ef099433a74ce7705d8e8ca5674cda"
+    },
+    {
+      "from": "recent_memory/decision/Ody_vs_Agileex供应商策略.md",
+      "to": "docs/archive/legacy-context/recent_memory/decision/Ody_vs_Agileex供应商策略.md",
+      "sha256": "956f5ea80dc2f1131ac18bc3997c3f148ff606e42f6251c9c0f6f86e36745f28"
+    },
+    {
+      "from": "recent_memory/decision/Rodyr公司综合评估.md",
+      "to": "docs/archive/legacy-context/recent_memory/decision/Rodyr公司综合评估.md",
+      "sha256": "fdc2ec4164f651d28f0aa1f0d3d5014c4a7e15bbba6da3b6c9b4cddee05c30ae"
+    },
+    {
+      "from": "recent_memory/decision/Rodyr提案审查.md",
+      "to": "docs/archive/legacy-context/recent_memory/decision/Rodyr提案审查.md",
+      "sha256": "983aa08aaaba6112208cbd0bfea436b16c7778088635a2add92e366cfaafca36"
+    },
+    {
+      "from": "recent_memory/decision/agent-browser高级使用技巧.md",
+      "to": "docs/archive/legacy-context/recent_memory/decision/agent-browser高级使用技巧.md",
+      "sha256": "2f6a2536666a48b1581bc2628160397b408f592ae54ac408b07323044aa2d89a"
+    },
+    {
+      "from": "recent_memory/decision/bash命令技巧.md",
+      "to": "docs/archive/legacy-context/recent_memory/decision/bash命令技巧.md",
+      "sha256": "67055eb1b153479bb76d3d57035f37bb4bd620b42e7a67e073ee0a5a6e080ee1"
+    },
+    {
+      "from": "recent_memory/decision/输出质量失败与整改机制.md",
+      "to": "docs/archive/legacy-context/recent_memory/decision/输出质量失败与整改机制.md",
+      "sha256": "7c0797e755ffa01369ea9c18610b87763dda07d14bfc80729c44c62a3351cc7d"
+    },
+    {
+      "from": "recent_memory/index.json",
+      "to": "docs/archive/legacy-context/recent_memory/index.json",
+      "sha256": "bb6ca5009ec54b197e5fb2da69653486a33bedd3b1efd76400d303e2b93c1e4a"
+    },
+    {
+      "from": "recent_memory/project/Agileex调研报告.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/Agileex调研报告.md",
+      "sha256": "25f6a56ec49eca4c6a7bd3b4527db7eb99be3b84e736e01995733bed14e6e234"
+    },
+    {
+      "from": "recent_memory/project/AutoPM Phase 1计划.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/AutoPM Phase 1计划.md",
+      "sha256": "0d08c837edb21f7a0589c97e70cc7c00e0f44998b00219ec51f069486c158edf"
+    },
+    {
+      "from": "recent_memory/project/AutoPM_改革.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/AutoPM_改革.md",
+      "sha256": "6f5c3a225b71361a2dc1998f3f4cdc67fa420b3a2c52ec8f81790c44235454b8"
+    },
+    {
+      "from": "recent_memory/project/AutoPM战略调整.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/AutoPM战略调整.md",
+      "sha256": "141117f585383b88092cddb77eff7b3c1350a68299cbfac26fe9f6f0554efdf4"
+    },
+    {
+      "from": "recent_memory/project/AutoPM新项目录入.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/AutoPM新项目录入.md",
+      "sha256": "77f13961def356f61013873b2b6cb4e6e1e75813fb26dec07bce822131924bf2"
+    },
+    {
+      "from": "recent_memory/project/MEM论文_V3修订.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/MEM论文_V3修订.md",
+      "sha256": "8b442b761817ef04047335f84f67cdd66d9c819de02fe0278ad6aff161e9bcf3"
+    },
+    {
+      "from": "recent_memory/project/NPI流程AI助手.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/NPI流程AI助手.md",
+      "sha256": "a3c504c32acb980e5e0fa5b8a6e9caf1dff8ec3965354926f006a84178429034"
+    },
+    {
+      "from": "recent_memory/project/下周二Jen汇报计划.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/下周二Jen汇报计划.md",
+      "sha256": "bbaba750fa8396940a92e848e28d266dd9dde3892989c22a44c3c04cb18fecea"
+    },
+    {
+      "from": "recent_memory/project/书籍解读与音频.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/书籍解读与音频.md",
+      "sha256": "0f98c8f3d1e5b884a07bdd6ab659288a1d2caed5b0852e24f57557c861796fbf"
+    },
+    {
+      "from": "recent_memory/project/微软Windows11_AI操作系统电子书.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/微软Windows11_AI操作系统电子书.md",
+      "sha256": "54bee276144ac9d554ddea4958bc573866f05b3ed2a643574b42ce539c86ed62"
+    },
+    {
+      "from": "recent_memory/project/神州数码原力企业虾AI智能体活动.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/神州数码原力企业虾AI智能体活动.md",
+      "sha256": "e6bb29fad3fdf440da6f98722f5139670f96332c9a251f71a9652d8a085f83a9"
+    },
+    {
+      "from": "recent_memory/project/网易智企帝王蟹AI员工平台.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/网易智企帝王蟹AI员工平台.md",
+      "sha256": "a3e2fa2f1ee61d78e6dbe21c549592b2c8eac3b13a1940cc16d173af1cc3f719"
+    },
+    {
+      "from": "recent_memory/project/詹姆斯·沃森播客素材研究笔记.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/詹姆斯·沃森播客素材研究笔记.md",
+      "sha256": "fbddb443b4ece11ffdaa52146e62fc1103a6846c92f55a56126a1f62fbd43401"
+    },
+    {
+      "from": "recent_memory/project/链条15-哲学家的追问.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/链条15-哲学家的追问.md",
+      "sha256": "86e04ac5ba5162893c9db1b6867b1e574f06b5c08a3ba62c43681efce91feb99"
+    },
+    {
+      "from": "recent_memory/project/链条18+19_10人推送计划.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/链条18+19_10人推送计划.md",
+      "sha256": "eca9a55d0e6384ddca21fb903d47514436125e92441b2bf315732b685bda868e"
+    },
+    {
+      "from": "recent_memory/project/链条8-探索生命之谜.md",
+      "to": "docs/archive/legacy-context/recent_memory/project/链条8-探索生命之谜.md",
+      "sha256": "a43a1759c4992229063256989827407f8af8e2e4c8c8a36f9dc1b557fc0ede60"
+    },
+    {
+      "from": "recent_memory/todo/AutoPM待办清单.md",
+      "to": "docs/archive/legacy-context/recent_memory/todo/AutoPM待办清单.md",
+      "sha256": "fdb74efce440f0c9dc1b76e3fa7e5e7d5e455d1342b8599b2af3e14ba62d4b9e"
+    }
+  ],
+  "meaning": "Byte-preserving moves; archive retains historical content and is not access isolation."
+}

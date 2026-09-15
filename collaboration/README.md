@@ -26,3 +26,9 @@ Issues用Backlog、Ready、Blocked、Deferred、In progress、In review、Accept
 现有PAT已通过仓库访问；创建GitHub Projects返回`Resource not accessible by personal access token`。当前使用Issues和标签管理，看板单独列为权限阻塞，不阻塞执行。
 
 DuMate本地文件交接产物已核验。Qoder在另一台机器，必须使用GitHub。没有已验证的自动唤醒连接，不声称各AI持续后台运行。
+
+## 2026-09-15 管理规则生效入口
+
+统一规范：[根AGENTS](../AGENTS.md)。先列计划取得用户确认，再执行；日志、实际变更、检查结果交回原Issue，Codex验收。当前执行状态只保存在GitHub Issue；issue-map/onboarding-map仅导航，planning/triage均为历史记录。
+
+资料分类见 [文档索引](../docs/README.md)。历史资料已归档；失效的历史引用逐项见 [依赖登记](../docs/DEPENDENCIES.md)，不要让远程AI读取Windows盘符。

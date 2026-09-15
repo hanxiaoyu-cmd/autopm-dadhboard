@@ -1,16 +1,38 @@
-# AutoPM development coordination
+# AutoPM：所有执行 AI 的统一规则
 
-Codex is the lead maintainer and coordinator. It defines scope, assigns work, reviews evidence, integrates changes and maintains GitHub Issues. DuMate, Qoder and other assistants execute explicitly assigned work.
+规则版本：2026-09-15。项目内只有本文件维护完整执行规则；各 AI 的 Skill/持久指令保存入口，每次重新读取，不维护平行规则副本。用户最新明确指令优先。
 
-Start with [the collaboration guide](collaboration/使用分工指南.md) and [current decisions](collaboration/README.md). Read the assigned Issue before changing files. Historical planning is context, not permission to implement superseded designs.
+## 读取顺序与职责
 
-- One task ID, one responsible executor, one isolated branch or work directory.
-- Do not modify another worker's files or overwrite uncommitted work.
-- Remote assistants use repository-relative paths, Issue comments and PRs; Windows drive paths are source references only.
-- Deliver actual changes, checks, version and remaining gaps. Codex verifies before accepting or closing work.
-- Preserve the existing Task completion behavior and the pause on project progress redesign.
-- GitHub development Issues, Airtable project Tasks and business Issues/Issue Actions have distinct purposes.
-- No credentials in files or Issues. Do not modify production, send external messages, change access, merge or deploy beyond the assigned scope.
-- Use the in-app browser when the user says browser, unless they explicitly specify another browser.
+先读根 README、本文件、collaboration/README.md，再读原 Issue、最新评论及允许的任务输入。有效分支以总协调 Issue #1 为准；PR #44 合并前使用管理分支，合并后由协调方更新入口。不得猜测主分支含有未合并资料。
 
-The application code predates this coordination setup. This change adds management documentation, not a new production release.
+- 用户：业务决定和执行前确认。
+- Codex：资料与规则维护、定义范围、派工、审查、集成和状态更新。
+- DuMate / Qoder / ai-03 / ai-04：只执行自己被确认的任务，提交实际证据。角色标签不是具体账号或接收证明。
+
+## 每日检查 → 用户确认 → 执行 → 交付 → 验收
+
+1. 每天开始工作先只读检查分配给自己的未关闭 Issue。定时检查须由各 AI 使用受支持且获准的调度功能设置，并提供实际运行证据；没有调度则仅在启动时检查，不声称后台运行。
+2. 执行前列出 Issue、目标、步骤、预计修改文件/平台对象、验收方法、风险与依赖，标注“待确认，尚未执行”。Ready、派工评论或沉默均不等于用户确认。Blocked/Deferred 任务不得自行恢复。
+3. 用户明确确认后，在原 Issue 记录确认时间/时区、确认范围和出处、执行身份及起始版本。已有对本任务具体范围的明确授权不重复索取；新范围必须重新确认。不要记录整段私人对话或凭据。
+4. 一任务一主执行者、一独立分支或任务指定隔离目录。接收并记录确认后才标 In progress。不要覆盖其他人的未提交修改；遇到并发更改先核对版本。
+5. 按指定范围执行，发现超范围、冲突、缺输入或权限时停止相关修改并报告；不盲目重试、不绕过授权。
+6. 交付采用 collaboration/planning/templates/DELIVERY.md，在自己的 outbox/<任务ID>/result.md 记录确认、实际变更、测试结果、未验证项、风险、回退和版本。关联原 Issue 与 PR，标 In review。测试未运行必须说明；提交不等于验收。
+7. Codex 核查确认、范围、实际成果和适用检查，验收后更新 Issue。执行 AI 不自行合并、部署或关闭任务；主分支集成、生产操作须有对应授权。
+
+## 状态与资料纪律
+
+- GitHub Issue 是当前执行状态的唯一来源；任务索引只导航，历史台账不再同步当前状态。
+- 正文、标签和最新评论须一致；改变范围用注明日期的变更记录，不静默覆盖已确认约定。
+- 当前决定见 collaboration/README.md；planning和review保留来源日期，历史Done不等于现在Accepted。
+- 文档更新放既有合适位置；代码旁不堆临时输出或bak；搬移资料保留旧→新路径及哈希。非项目内容不得作为任务输入。
+- 新文档只用仓库相对链接或可访问远端链接。原始本机路径只作来源说明；缺失资料登记在 docs/DEPENDENCIES.md，不冒充已随包。
+- DuMate 的 GOV-01 暂用指定本地outbox，由Codex读回并同步GitHub；Qoder用独立分支/PR。只有任务明确指定才能改变交付方式。
+
+## 业务与权限边界
+
+保留现有Task完成机制，暂停项目进度改造。GitHub Issues管理开发；业务Tasks管理项目计划；业务Issues/Issue Actions管理异常措施，不自动互相复制。
+
+不将密钥、令牌、密码写入仓库、Issue或日志。不复制其他AI认证材料。生产发布、真实对外消息、数据删除、权限改变不能由历史任务推导授权。用户说浏览器时默认站内浏览器。
+
+涉及OCR时，本机优先执行用户指定 local-ocr Skill；原生文本无需OCR。远程AI没有该环境时报告限制，不猜测本机路径或声称已完成OCR。

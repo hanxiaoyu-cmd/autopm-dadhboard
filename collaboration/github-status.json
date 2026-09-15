@@ -1,23 +1,8 @@
 {
-  "date": "2026-09-14",
+  "as_of": "2026-09-15",
   "repository": "sunny-06064710-3/autopm-dadhboard",
-  "visibility": "private",
-  "verified_via": "GitHub CLI REST API and git remote SHA",
   "coordinator_issue": 1,
-  "detailed_issues_created": 39,
-  "detailed_issues_mapping_verified": true,
-  "files_pushed": true,
-  "branch": "codex/autopm-management-20260914",
-  "pull_request": 44,
-  "merged": false,
-  "cli_auth": "Authenticated API identity sunny-06064710-3; repository read, Issue write and branch push verified",
-  "project_created": false,
-  "project_blocker": "createProjectV2: Resource not accessible by personal access token",
-  "workers": {
-    "dumate": "Onboarding accepted #43; #32 dispatched, receipt pending",
-    "ai-03": "User reports configuration; identity and independent acceptance pending",
-    "qoder": "#42 dispatched, receipt pending",
-    "ai-04": "User reports configuration; identity and independent acceptance pending"
-  },
-  "automatic_worker_trigger_verified": false
+  "status_source": "GitHub Issues and PRs; this file is an index, not a live status snapshot",
+  "management_pr": 44,
+  "management_branch": "codex/autopm-management-20260914"
 }

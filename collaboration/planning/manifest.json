@@ -47,6 +47,11 @@
       "sha256": "066fa2618b686e5f9c2afd5e25a5b3f6e44f15928440911599b0cc2c862b7a71"
     },
     {
+      "path": "dispatch/AGENTS.md",
+      "bytes": 311,
+      "sha256": "dcdbadc6014276efb413dc858879c72018c5cc8c768cd1cba3b00c7b6d5ea181"
+    },
+    {
       "path": "dispatch/DESIGN_POWERAPPS_UX01.md",
       "bytes": 13585,
       "sha256": "01901dd3458a09d73981d797a03b31d0411c507c73cb8f04deb3a3a0fcabfadd"
@@ -68,8 +73,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6237,
-      "sha256": "9cb2fdffe89c321c3407330e527a54765dfa5629872f3f252f651ff1ad1e9b34"
+      "bytes": 6800,
+      "sha256": "7610ece072a64c5066efa79e8afa128cc47ebf1425b0e32fc16b86674ba79337"
     },
     {
       "path": "reviews/RV-20260911-001.md",
@@ -155,6 +160,11 @@
       "path": "task-register.json",
       "bytes": 65322,
       "sha256": "8f5e835417a238808af5107f765f47e205a60395fc9b6dca4e3feace7405629b"
+    },
+    {
+      "path": "tasks/AGENTS.md",
+      "bytes": 311,
+      "sha256": "dcdbadc6014276efb413dc858879c72018c5cc8c768cd1cba3b00c7b6d5ea181"
     },
     {
       "path": "tasks/AT-00.md",
@@ -328,13 +338,13 @@
     },
     {
       "path": "templates/DELIVERY.md",
-      "bytes": 1286,
-      "sha256": "2cb8f8f19e0c08a35a327a9ff4b9361b1da893cebee4303017a940d820fefe8f"
+      "bytes": 1836,
+      "sha256": "82aca903013ffd6be4d5ab0e374f67449d535754f44b51eb52bdf1988f9e7be5"
     },
     {
       "path": "templates/REVIEW.md",
-      "bytes": 810,
-      "sha256": "cc6826db16b4628675c416f0886a972cc7f40052e843c05f6d2e19ba27539441"
+      "bytes": 1182,
+      "sha256": "dad901392c2c9cbc9e266cf8d53b631b9d43b119381efb6414ec80828ec94627"
     },
     {
       "path": "traceability/action-crosswalk.json",
@@ -367,5 +377,5 @@
       "sha256": "55cfa92063ab59df372d1df630666105878e09c52f08974ff74adf75bae401cc"
     }
   ],
-  "meaning": "Integrity of this local planning package, not authenticity of historical business results."
+  "meaning": "2026-09-15 organized package integrity; original source snapshots retain source-manifest hashes. No business acceptance implied."
 }
