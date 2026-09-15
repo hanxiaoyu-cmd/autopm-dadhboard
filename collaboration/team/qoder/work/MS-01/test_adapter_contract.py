@@ -53,12 +53,14 @@ class FakeAPI:
             return {}
         if method == "POST":
             import uuid
+            created = []
             for rec in body.get("records", []):
                 rid = f"rec_{uuid.uuid4().hex[:8]}"
                 table = url.split("/")[-1]
                 new_rec = {"id": rid, "fields": copy.deepcopy(rec["fields"])}
                 self._records.setdefault(table, {})[rid] = new_rec
-            return {"records": [{"id": rid, "fields": rec["fields"]} for rec in body.get("records", [])]}
+                created.append({"id": rid, "fields": copy.deepcopy(rec["fields"])})
+            return {"records": created}
         return {}
 
 
@@ -165,9 +167,17 @@ class TC15_ImportPreview(unittest.TestCase):
 
 class TC16_VersionConflict(unittest.TestCase):
     """TC-16: Old version vs post-preview conflict.
-
     Old source does not overwrite new value.
     Post-preview change returns conflict, preserves both values.
+
+    Distinction between changed_by_other and conflict:
+    - changed_by_other: current value differs from planned_old but matches a
+      known safe terminal state (e.g. "Closed"). Another actor already completed
+      the work through a different channel; acknowledge the change without
+      raising a conflict. Business behavior is unchanged.
+    - conflict: current value differs from BOTH planned_old AND the intended
+      new value, representing a genuine three-way divergence that requires
+      human review to resolve.
     """
 
     def test_old_source_not_overwrite_new(self):
