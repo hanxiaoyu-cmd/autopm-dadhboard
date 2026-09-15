@@ -1,0 +1,12 @@
+Environment,Dataverse,许可,开发Solution,服务身份,连接/Power Automate,Azure Functions,SharePoint,证据状态,说明
+Dev,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,无可核验证据；未登录或扩大权限
+Test,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,无可核验证据；未登录或扩大权限
+Prod,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,无可核验证据；未登录或扩大权限
+Dataverse表创建权限,Unknown,N/A,N/A,N/A,N/A,N/A,N/A,MS-00核实范围；无环境访问
+Solution发布权限,N/A,Unknown,N/A,N/A,N/A,N/A,N/A,MS-00核实范围；无环境访问
+插件注册权限,N/A,Unknown,N/A,N/A,N/A,N/A,N/A,MS-00核实范围；无环境访问
+用户许可分配,N/A,N/A,Unknown,N/A,N/A,N/A,N/A,MS-00核实范围；无环境访问
+连接引用配置,N/A,N/A,N/A,Unknown,N/A,N/A,N/A,MS-00核实范围；无环境访问
+环境变量/凭据托管,N/A,N/A,N/A,N/A,Unknown,N/A,N/A,MS-00核实范围；无环境访问
+TC-25 部署配置与故障交接,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Not Run（离线子结果：无可部署环境；无版本记录；无恢复证据）
+TC-32 数据模型生成与平台约束,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Not Run（离线子结果：无Dataverse环境；离线元数据生成未执行）
