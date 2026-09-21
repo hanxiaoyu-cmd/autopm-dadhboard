@@ -1,0 +1,12 @@
+.local/
+apikey/
+.venv/
+__pycache__/
+*.pyc
+build/
+archive/
+dist/
+Run Logs/
+All Projects Tracker SUNNY (1)/
+All Projects Tracker SUNNY (1).zip
+AutoPM_Bridge_Maintenance_Handover_2026-09-07.md

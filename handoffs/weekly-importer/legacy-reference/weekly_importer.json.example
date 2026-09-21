@@ -1,0 +1,11 @@
+{
+  "api_token": "your_airtable_api_token_here",
+  "base_id": "your_base_id_here",
+  "projects_table_id": "Projects",
+  "remark_field": "Engineering remark(Manual)",
+  "project_name_field": "Project name (Manual)",
+  "batch_size": 10,
+  "request_timeout": 30,
+  "max_retries": 3,
+  "retry_delay": 1.0
+}

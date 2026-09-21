@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "AutoPM · Airtable 授权助手",
+  "version": "1.0.0",
+  "description": "选择 Airtable 权限，完成 OAuth 授权或 PAT 配置指引，验证连接并导出 AutoPM JSON。",
+  "minimum_chrome_version": "116",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtpe3pH24KsOH86VEtzg1UixKtGJvXbchham9USCOein/7T+RfYS7h42f4PUASGeyi9u7ukmFvs69rdxuUdWkAA2y6wqfBEZNaagubdQCSUzA+CoCa0DNBb+hbfrSnTfVrLAaaLUgt0dKezto4UHRmPFg0JcZcSgWEEuL3+Z9V32XUduqVU8SuLNHZL9KuTOH1EeuPvn+/tOV2jxcQp2W2vs7MXc50t5mEsamfdiS6RdOE8c0yKhvwAmRGH2xUc2u1BaS/79NKWCktGTjVRi7DoYvZm9toH8h7SI2JPktB17cRrLNGDBIEJbaNIc5bOtlQOtexsBjvZ0Jcj2uH407MQIDAQAB",
+  "permissions": [
+    "storage",
+    "identity",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "https://api.airtable.com/*",
+    "https://airtable.com/*"
+  ],
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "打开 Airtable 授权助手"
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

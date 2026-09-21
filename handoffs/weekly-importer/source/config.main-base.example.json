@@ -1,0 +1,78 @@
+{
+  "date_order": "AUTO",
+  "deepseek_base_url": "https://api.deepseek.com",
+  "deepseek_model": "deepseek-v4-flash",
+  "base_id": "appOMWiK4CTOH7iQu",
+  "projects_table_id": "tbllvOHZdwfBRWGM0",
+  "tasks_table_id": "tblS2my1r93KothyZ",
+  "issues_table_id": "tblqYHGaZL6FoTZHV",
+  "require_milestone": true,
+  "task_date_mode": "due_only",
+  "base_name": "AutoPM V2（Pilot）",
+  "project_report_storage": "engineering_remark",
+  "project_report_storage_base_id": "appOMWiK4CTOH7iQu",
+  "field_mapping": {
+    "projects": {
+      "project_id": "fldrbN8jUpydlGNk2",
+      "project_name": "fldyj1QuRUzX1JfqZ",
+      "sku": "fldaqmBIKitHamqGX",
+      "region": null,
+      "sub_category": null,
+      "status": "fldDVSUxh30SM3ZU8",
+      "brand": "flduVdC4pbOyXnjfa",
+      "type": "fld6lQExjypHxF9AM",
+      "capacity": null,
+      "factory": "fldsH98MhQc6DwFDp",
+      "quality": "fld98Qx6zoRxdK9qh",
+      "npi_lead": "fldenZLrAjz2vSB1I",
+      "npd_lead": "fldCAsseki0gHRqwA",
+      "pmo": "fldoEpjuy5AUxO7lH",
+      "current_progress": "fldWn1OpjvbhvPSGw",
+      "update_this_week": null,
+      "tooling": "fld5Krya3sgtWj2J1",
+      "kick_off_date": "fldkB1W3ai6D6ttJb",
+      "dqtp_finish_date": "fldE8HEawi8KsxFsW",
+      "mp_aw_date": "fld5hPjIef2HsHNS1",
+      "compliance_complete_date": "fld8DoUHk6PSrpBHw",
+      "start_date": "fldtItr7q3SUUgaJf",
+      "mp_start_date": "fld65xhUcqGNNMHh5",
+      "report_date": null,
+      "next_plm": "fldRnPp3IWCMOQ1My",
+      "jira_link": "fldzFWVXZmWI31xWR"
+    },
+    "tasks": {
+      "name": "fldMHYYFALdG1pcM0",
+      "project": "fldZmIf1cjO1baWz9",
+      "start_date": "fldk4gkMw7jQg2SXv",
+      "due_date": "fld30ugjjB5HD9h1t",
+      "milestone": "fldJdUIiYTo77f2NN",
+      "owners": "fld8TOPNvLUyfjpj0",
+      "duration": null
+    },
+    "issues": {
+      "text": "fld6TUPutbZeb0OXH",
+      "project": "fldbZYuFwTSkfRTw6",
+      "action": "fldTcwJCg6OdpoGaO",
+      "record_date": "fldwUmgjS8KPRiFFf",
+      "risk": "fldPXDw07OQgAc1hN",
+      "owner": "fldboKxfGDcOgpaNw",
+      "due_date": "fldiSAxlci41MJWYt"
+    },
+    "people": {
+      "name": "fldcRUbxKXgWqxjXl",
+      "department": "fldN56mYHDJ0vnNV1"
+    },
+    "factories": {
+      "name": "fld2GDuYwBhoUwhq0",
+      "factory_id": "fldHTj7koS2Ke4UdW",
+      "code": "fldAwh01Lzi3zdmHc",
+      "old_name": null
+    }
+  },
+  "people_table_id": "tblFnOJklkLYMesuk",
+  "factories_table_id": "tblu6r1fuMN3W1pOY",
+  "project_report_storage_by_base": {
+    "appOMWiK4CTOH7iQu": "engineering_remark",
+    "appgko0A4rnqZfn9U": "engineering_remark"
+  }
+}

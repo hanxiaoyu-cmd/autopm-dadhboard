@@ -1,0 +1,177 @@
+[
+  {
+    "id": "data.records:read",
+    "label": "读取记录",
+    "description": "See the data in records",
+    "group": "Basic scopes",
+    "basic": true
+  },
+  {
+    "id": "data.records:write",
+    "label": "创建、修改和删除记录",
+    "description": "Create, edit, and delete records",
+    "group": "Basic scopes",
+    "basic": true
+  },
+  {
+    "id": "data.recordComments:read",
+    "label": "读取评论",
+    "description": "See comments in records",
+    "group": "Basic scopes",
+    "basic": true
+  },
+  {
+    "id": "data.recordComments:write",
+    "label": "创建、修改和删除评论",
+    "description": "Create, edit, and delete record comments",
+    "group": "Basic scopes",
+    "basic": true
+  },
+  {
+    "id": "schema.bases:read",
+    "label": "读取 Base 和表结构",
+    "description": "See the structure of a base, like table names or field types",
+    "group": "Basic scopes",
+    "basic": true
+  },
+  {
+    "id": "schema.bases:write",
+    "label": "创建或修改表结构",
+    "description": "Edit the structure of a base, like adding new fields or tables",
+    "group": "Basic scopes",
+    "basic": true
+  },
+  {
+    "id": "workspacesAndBases:read",
+    "label": "读取工作区和协作者信息",
+    "description": "View metadata about workspaces, bases, and views including collaborators",
+    "group": "Basic scopes",
+    "basic": true
+  },
+  {
+    "id": "webhook:manage",
+    "label": "管理 Webhook",
+    "description": "View, create, delete webhooks for a base, as well as fetch webhook payloads.",
+    "group": "Basic scopes",
+    "basic": true
+  },
+  {
+    "id": "block:manage",
+    "label": "发布自定义扩展",
+    "description": "Create new releases and submissions for custom extensions via the Blocks CLI.",
+    "group": "Basic scopes",
+    "basic": true
+  },
+  {
+    "id": "user.email:read",
+    "label": "读取用户邮箱",
+    "description": "See the user's email address",
+    "group": "Basic scopes",
+    "basic": true
+  },
+  {
+    "id": "enterprise.groups:read",
+    "label": "enterprise.groups:read",
+    "description": "View information about user groups under the enterprise, their access, and their members",
+    "group": "Enterprise member scopes",
+    "basic": false
+  },
+  {
+    "id": "workspacesAndBases:write",
+    "label": "workspacesAndBases:write",
+    "description": "Edit metadata of workspaces and bases, including collaborators, invites, views, and extensions",
+    "group": "Enterprise member scopes",
+    "basic": false
+  },
+  {
+    "id": "workspacesAndBases.shares:manage",
+    "label": "workspacesAndBases.shares:manage",
+    "description": "View, enable, disable and delete share links for bases. Note: Share links can be used to view the data in the base.",
+    "group": "Enterprise member scopes",
+    "basic": false
+  },
+  {
+    "id": "enterprise.scim.usersAndGroups:manage",
+    "label": "enterprise.scim.usersAndGroups:manage",
+    "description": "Manage the organization's users and groups via SCIM APIs, including provisioning and deprovisioning them.",
+    "group": "Enterprise admin scopes",
+    "basic": false
+  },
+  {
+    "id": "enterprise.auditLogs:read",
+    "label": "enterprise.auditLogs:read",
+    "description": "View the organization's audit logs",
+    "group": "Enterprise admin scopes",
+    "basic": false
+  },
+  {
+    "id": "enterprise.changeEvents:read",
+    "label": "enterprise.changeEvents:read",
+    "description": "View the organization's change events",
+    "group": "Enterprise admin scopes",
+    "basic": false
+  },
+  {
+    "id": "enterprise.exports:manage",
+    "label": "enterprise.exports:manage",
+    "description": "Manage the organization's data exports, including eDiscovery exports",
+    "group": "Enterprise admin scopes",
+    "basic": false
+  },
+  {
+    "id": "enterprise.account:read",
+    "label": "enterprise.account:read",
+    "description": "View data about the enterprise account, including workspaces ids, users, groups and email domains",
+    "group": "Enterprise admin scopes",
+    "basic": false
+  },
+  {
+    "id": "enterprise.account:write",
+    "label": "enterprise.account:write",
+    "description": "Edit data about the enterprise account, including creating descendant enterprise accounts",
+    "group": "Enterprise admin scopes",
+    "basic": false
+  },
+  {
+    "id": "enterprise.user:read",
+    "label": "enterprise.user:read",
+    "description": "View account information of users under the enterprise, including user id, name, email and bases user has access to",
+    "group": "Enterprise admin scopes",
+    "basic": false
+  },
+  {
+    "id": "enterprise.user:write",
+    "label": "enterprise.user:write",
+    "description": "Manage users under the enterprise account, including provisioning, deactivating and deleting users",
+    "group": "Enterprise admin scopes",
+    "basic": false
+  },
+  {
+    "id": "enterprise.groups:manage",
+    "label": "enterprise.groups:manage",
+    "description": "Manage user groups under the enterprise, including moving them",
+    "group": "Enterprise admin scopes",
+    "basic": false
+  },
+  {
+    "id": "workspacesAndBases:manage",
+    "label": "workspacesAndBases:manage",
+    "description": "Manage workspaces and bases under the enterprise, including moving them",
+    "group": "Enterprise admin scopes",
+    "basic": false
+  },
+  {
+    "id": "hyperDB.records:read",
+    "label": "hyperDB.records:read",
+    "description": "Read records in the user's HyperDB tables",
+    "group": "Enterprise admin scopes",
+    "basic": false
+  },
+  {
+    "id": "hyperDB.records:write",
+    "label": "hyperDB.records:write",
+    "description": "Write records to the user's HyperDB tables",
+    "group": "Enterprise admin scopes",
+    "basic": false
+  }
+]

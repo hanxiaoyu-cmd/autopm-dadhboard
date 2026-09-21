@@ -1,0 +1,132 @@
+[
+  {
+    "file": "autopm\\__init__.py",
+    "before_sha256": "be1e7f33599e382245f14612076325690dab82d05368833a6c66a9e1d72f26a9",
+    "after_sha256": "054782abc7e04b96575899c8e9857e170fe480c64e467b8cbff1fdd72a24fa37"
+  },
+  {
+    "file": "autopm\\airtable_tracker.py",
+    "before_sha256": "fcb289627c892b81da5519fdeeb7d15be023797da0e57faae389bc219d4937cc",
+    "after_sha256": "ef777ec59888875f58e4047be68d892d3e8cb700fbdfeaadea3ec2d16c52bcda"
+  },
+  {
+    "file": "autopm\\config.py",
+    "before_sha256": "0dbb9c9a11d5921ecbd558818ff66cdf1288c75eee1fd1d3cbfc53ff33e96d07",
+    "after_sha256": "9d2ef990b39a50e707abab0be1c052cd85e10be48910c294d512ce294b69c1ea"
+  },
+  {
+    "file": "autopm\\native_xlsx.py",
+    "before_sha256": "cb3d43d63204ebfd278f8b180f680ae0aff60e2ee62bf5d48956696d6ec87d5e",
+    "after_sha256": "abd1710dab85f6e746499be48fd588fc92e6d6e8bfb020f2a914430fbadfecc6"
+  },
+  {
+    "file": "autopm\\preview.py",
+    "before_sha256": "11dd513cc35e80cb632feeccbadf38ea9a834fe77401677e360f61fb73810a78",
+    "after_sha256": "f43c83c6bc7b08ffe2e02ba0e5f2a3a27e8dd7943e88e311f87ce3c089ff6128"
+  },
+  {
+    "file": "README.md",
+    "before_sha256": "f98dd6668108ba14ad3c661ffbe22bb0fe8f3451924f6fd1222d206918d93557",
+    "after_sha256": "7a310cb2adbd16e652e2bce18111e657f3888cbf7abf8f6aa83043c5e26bf342"
+  },
+  {
+    "file": "autopm\\sync.py",
+    "before_sha256": "4e4c9803ace8bf856f3fa60819255f3d270637b57dc5fd5fb7eec99e2f22811d",
+    "after_sha256": "215c65056c70c92c1147ce879641bd479467da635fb969f25225265f42ffe48b"
+  },
+  {
+    "file": "tests\\test_airtable_tracker.py",
+    "before_sha256": "37fb2477eaea57f12f0afb542594993b0c45357c6bd88c41766d1f97d49324f3",
+    "after_sha256": "27f98cf102badfc7bea10c210f8c91bab2f4742e3c9528ec7f0b420cc3f3b9c7"
+  },
+  {
+    "file": "tests\\test_airtable_tracker_v2.py",
+    "before_sha256": "0b8390fd2ed70037739d1ba5f5c9ff72c766fc5dd433d158775f2cdedd8a0b6f",
+    "after_sha256": "8498977422c6fb77c990aca17fb5e4b087f46e8d9facce751205064842630714"
+  },
+  {
+    "file": "tests\\test_color_fields_sync.py",
+    "before_sha256": "6bd5f80ce2707038ddc2316e386d60ca9c469ea1d8414d6464c074de3302aab1",
+    "after_sha256": "b19c297d33dca6e41528d04f2abc2c9934ef4fd5adc7076d44d914d2f316face"
+  },
+  {
+    "file": "tests\\test_schema_memory.py",
+    "before_sha256": "0cf92c7fc26e4592206f93ff5f06a308a6b8e70b1565c7e762865feee355cada",
+    "after_sha256": "d044197ba10ff941f68d99ce1988d3296428aaebcaa8e24604a0ab70b2344ebd"
+  },
+  {
+    "file": "tests\\test_storage_profiles.py",
+    "before_sha256": "7f3dc2e1b3d4c5709a8785cbfa3fbae907b9b932883c31573357306e5f239a22",
+    "after_sha256": "82e6aa29f07f71024a94e7b3db1baf3d45b44e6e5022c5a67df9511e87127d22"
+  },
+  {
+    "file": "tests\\test_sync.py",
+    "before_sha256": "e5aa9e3ae312b9f48f46a4554bba2278169d373a7ae338da47e59f74cc1194a4",
+    "after_sha256": "d56f2bcfc5c5a3aeee65d4a5c2dde22cc8e5ba4331fbf7513905b94119786bea"
+  },
+  {
+    "file": "tests\\test_sync_v2.py",
+    "before_sha256": "b1b1003538bd71ddb96102ee9498963473d94c7bda9478a42f1deaac6ff5479f",
+    "after_sha256": "cc32ac47c776740ed6e10a2a7b0a8542cdba47b8f87aed0cf56e2c9e59ff0a06"
+  },
+  {
+    "file": "tests\\test_ui.py",
+    "before_sha256": "1c44d779d9eac3c01b1363620916c05dd650f92f573e99b0b9b1dcb390cb01cb",
+    "after_sha256": "bc00bb0bbd3abeb13971a56808c467c53876f1fdc8831480a18e5f09bd712e2e"
+  },
+  {
+    "file": "tests\\test_weekly_remark.py",
+    "before_sha256": "93f0332c87ff63ea57971f2b6dc26753c7a51b5b3f064059e1af87a34260c02f",
+    "after_sha256": "8a37e27c12214fafcf090f04e34b54f01604cd400b02847842967c448ce99eef"
+  },
+  {
+    "file": "tests\\test_workbook.py",
+    "before_sha256": "d3f72302a1be667e1b0cfbffd2ea2f6e60085df05d3fe57e58fa270cdd032a26",
+    "after_sha256": "cd50e56e6ce39c279a060f6a2153b0a23518f792bb87feb5ee57cf537d8d0bce"
+  },
+  {
+    "file": "autopm\\tracker.py",
+    "before_sha256": "72b427efceadd9d6e305d2495f8347d7816e060118a7d1b79bab612051030c2e",
+    "after_sha256": "609626bf4e3d0885fc5d0ab96201f6bd32017b139b1433f0436dae75fa1d3fd8"
+  },
+  {
+    "file": "autopm\\tracker_ui.py",
+    "before_sha256": "b8f5b942166a7d9e5280a4ed90dfc52e71c933f570ad9f23a0d954091b312f93",
+    "after_sha256": "7e0503e6d03fc7a6a801776fd12b1e900017a0fd7b939b7360b944a9da0f71e3"
+  },
+  {
+    "file": "autopm\\ui.py",
+    "before_sha256": "191999c3db34dfe2874c3c572b5840dc62e04c5af29e7fc47bb17514c9456a85",
+    "after_sha256": "0b477292c756a53b881dc8c59882fe9977dcc1bd978b2246ef1d74422934e591"
+  },
+  {
+    "file": "autopm\\weekly_remark.py",
+    "before_sha256": "a719306f2813983edcfcb81d0854d01f0434025939ff34b7418e5d195a0e2211",
+    "after_sha256": "fa963ce523d3102696bdf1801419f6fe14f4614e1a01ddd3c29580e7897233ba"
+  },
+  {
+    "file": "autopm\\workbook.py",
+    "before_sha256": "080df522b44e42e92b50d36251e302fd8f0c704ff2004fa7e9ae68d6a2f294dc",
+    "after_sha256": "2d95fcbfb25f4c3f02ab1fbd33e1b347302926ef8f7767a119cb83b6add607b5"
+  },
+  {
+    "file": "autopm\\workflow.py",
+    "before_sha256": "d11f04dfacfdf1ecea7ae626a2269985efbf41ff2cfb00e7d97220e7b0a8977b",
+    "after_sha256": "8f46f0123e156a4a7003878625b69f42e2c1b6773c7dd8c00f6611d02c5bcddc"
+  },
+  {
+    "file": "autopm/identity.py",
+    "new": true,
+    "after_sha256": "11943dde148f324be647117196a640a640574a0e6b057c9cb746aa6686e4dda7"
+  },
+  {
+    "file": "autopm/tracker_roundtrip.py",
+    "new": true,
+    "after_sha256": "a43a9be2997e7e52f488375aa81653eeaca2dbc7d54d3bdedaf41779a37323bf"
+  },
+  {
+    "file": "tests/test_repair_20260919.py",
+    "new": true,
+    "after_sha256": "ba46145c14e271b6d816b51f6621826ec8af9d427e1dca9f069d23a98105c8e5"
+  }
+]

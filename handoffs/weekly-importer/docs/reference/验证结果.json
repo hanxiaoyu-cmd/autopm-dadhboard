@@ -1,0 +1,27 @@
+{
+  "snapshot_captured_at": "2026-09-19T09:30:52.410909+00:00",
+  "weekly": [
+    {
+      "file": "shark",
+      "blocks": 183,
+      "matched_units": 24,
+      "changes": {
+        "projects": 24,
+        "tasks": 50
+      },
+      "warnings": 907
+    },
+    {
+      "file": "ninja",
+      "blocks": 172,
+      "matched_units": 31,
+      "changes": {
+        "projects": 31,
+        "tasks": 143
+      },
+      "warnings": 820
+    }
+  ],
+  "unresolved_factory_names": 31,
+  "legacy_units_to_review": 1434
+}

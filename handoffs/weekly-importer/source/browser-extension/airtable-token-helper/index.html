@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AutoPM · Airtable 授权助手</title><link rel="stylesheet" href="styles.css"></head>
+<body><main>
+  <header><div class="brand"><span class="logo">A</span><div><b>AutoPM</b><small>AIRTABLE TOKEN HELPER</small></div></div><span class="pill" id="connectionBadge">尚未连接</span></header>
+  <section class="intro"><div class="eyebrow">权限清晰，连接可验证</div><h1>连接 Airtable，从权限开始。</h1><p>选择用途，完成官方授权，再把可用的连接交给你的程序。</p></section>
+  <div id="notice" role="status" aria-live="polite" hidden></div>
+  <div class="columns">
+    <section class="card"><div class="section-head"><span class="step">01</span><div><h2>选择需要的权限</h2><p>勾选项是申请范围，授权结果以 Airtable 为准。</p></div></div>
+      <div class="presets"><button data-preset="read">只读查询</button><button data-preset="sync" class="selected">AutoPM 周报同步</button><button data-preset="structure">同步 + 修改表结构</button></div>
+      <div id="scopes" class="scope-grid"></div>
+      <details class="advanced"><summary>企业权限 · 需要对应账户与管理员角色</summary><div id="enterpriseScopes" class="scope-grid"></div></details>
+      <div class="scope-summary"><strong id="scopeCount"></strong><pre id="scopeList"></pre><button id="copyScopes" class="quiet">复制权限清单</button></div>
+      <p class="hint">Airtable 将新增、修改和删除记录合并为 <code>data.records:write</code>。选择 Base 的范围在官方授权页完成。</p>
+    </section>
+    <section class="card"><div class="section-head"><span class="step">02</span><div><h2>获取并设置 Token</h2><p>Token 仅保存在当前浏览器会话中。</p></div></div>
+      <div class="segmented"><label><input type="radio" name="mode" value="pat" checked> PAT 创建 / 导入</label><label><input type="radio" name="mode" value="oauth"> OAuth 自动授权</label></div>
+      <div id="patPanel">
+        <ol class="instructions"><li>打开 Airtable 官方 Token 管理页，创建或编辑 Token。</li><li>按左侧清单选择 scopes，并添加你需要的 Base / 工作区。</li><li>保存后，将完整 Token 粘贴到下方验证。</li></ol>
+        <a class="button secondary" href="https://airtable.com/create/tokens" target="_blank" rel="noopener noreferrer">打开官方 Token 管理 ↗</a>
+        <label class="field" for="patToken">完整 Personal Access Token</label><input id="patToken" type="password" autocomplete="off" spellcheck="false" placeholder="粘贴完整密钥，不是 pat… Token ID">
+        <button id="importPat" class="primary full">验证并使用 PAT</button>
+        <p class="hint">PAT 的权限需在官方页面保存。修改左侧勾选不会直接修改现有 PAT；公开接口通常不返回 PAT 的完整 scopes。</p>
+      </div>
+      <div id="oauthPanel" hidden>
+        <details id="setup" open><summary>首次配置 · 注册你自己的 OAuth 集成</summary>
+          <ol class="instructions"><li><a href="https://airtable.com/create/oauth" target="_blank" rel="noopener noreferrer">打开 OAuth 集成管理 ↗</a>，点击 <b>Register new OAuth integration</b>。</li><li>填写名称，将下面地址粘贴到 <b>OAuth redirect URI</b>。</li><li>启用左侧需要的 Permission scopes，保存。此浏览器插件使用公开客户端，<b>不要生成 Client Secret</b>。</li><li>将生成的 Client ID 粘贴到下方。供其他账户使用时，还需在集成中填写支持邮箱、隐私政策和服务条款网址。</li></ol>
+          <label class="field" for="redirectUri">此插件的回调地址</label><div class="input-action"><input id="redirectUri" readonly><button id="copyRedirect">复制</button></div>
+        </details>
+        <label class="field" for="clientId">OAuth Client ID</label><input id="clientId" autocomplete="off" spellcheck="false" placeholder="在 Airtable 注册后填写，无需 Client Secret">
+        <button id="authorize" class="primary full">按所选权限打开 Airtable 授权</button>
+        <p class="hint">登录并选择资源后，插件自动接收 Token。缩小现有 OAuth 权限可通过“应用所选权限”完成；新增权限会重新打开授权页。</p>
+      </div>
+      <div class="credential" id="credentialPanel" hidden>
+        <div class="credential-head"><b id="credentialKind"></b><button id="inspect" class="quiet">重新核对</button></div><p id="credentialStatus"></p><p id="expiry" class="hint"></p>
+        <div class="input-action"><input id="savedToken" readonly type="password" aria-label="当前 Token"><button id="showToken">显示</button><button id="copyToken">复制</button></div>
+        <div id="oauthActions" class="actions" hidden><button id="applyScopes">应用所选权限</button><button id="refreshToken">刷新 Token</button></div>
+        <details><summary>实际授权的 scopes</summary><pre id="grantedScopes"></pre></details>
+        <button id="forget" class="quiet danger">清除本机令牌</button><p class="hint">清除只影响本机。如需撤销授权，请在 Airtable 官方账户 / Token 管理页操作。</p>
+      </div>
+    </section>
+  </div>
+  <section class="card destination"><div class="section-head"><span class="step">03</span><div><h2>验证 Base，导出连接</h2><p>使用只读请求验证身份、表结构与记录读取，不更改业务数据。</p></div></div>
+    <div class="base-row"><div><label class="field" for="bases">可访问的 Base</label><div class="input-action"><select id="bases"><option value="">先获取 Base 列表</option></select><button id="loadBases">获取列表</button></div></div><div><label class="field" for="baseId">Base ID 或 Airtable Base 链接</label><div class="input-action"><input id="baseId" placeholder="app… 或 https://airtable.com/app…"><button id="loadSchema">读取表结构</button></div></div></div>
+    <p id="baseStatus" class="hint">Base 列表与表结构读取需要 schema.bases:read。也可手动填写 Base 和表 ID。</p>
+    <div class="table-grid"><div><label class="field" for="projectsTable">Projects 表 ID</label><input id="projectsTable" list="tableOptions" placeholder="tbl…"></div><div><label class="field" for="tasksTable">Tasks 表 ID</label><input id="tasksTable" list="tableOptions" placeholder="tbl…"></div><div><label class="field" for="issuesTable">Issues 表 ID</label><input id="issuesTable" list="tableOptions" placeholder="tbl…"></div></div><datalist id="tableOptions"></datalist>
+    <div class="actions"><button id="testRecords">验证 Projects 记录读取</button><button id="export" class="primary">导出 AutoPM 连接 JSON</button></div>
+    <p id="exportHint" class="hint">导出的 JSON 包含完整 Token。导入 AutoPM：连接设置 → 导入已有 sync_config.json → 保存连接设置。</p>
+    <p class="hint">OAuth Token 会过期，AutoPM 当前不会自动刷新。长期连接建议使用 PAT；OAuth 导出仅适用于显示的有效期。</p>
+  </section>
+  <footer>权限由 Airtable 执行 · 密钥不写入浏览器同步存储 · 不读取网页 Cookie 或登录凭据 <a href="help.html" target="_blank" rel="noopener">使用说明</a></footer>
+</main><script type="module" src="page.js"></script></body></html>

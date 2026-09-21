@@ -1,0 +1,8 @@
+{
+  "deepseek_base_url": "https://api.deepseek.com",
+  "deepseek_model": "deepseek-v4-flash",
+  "base_id": "app...",
+  "projects_table_id": "tbl...",
+  "tasks_table_id": "tbl...",
+  "issues_table_id": ""
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+<title>AutoPM — AP project-to-progress monogram</title>
+<rect x="4" y="4" width="248" height="248" rx="58" fill="#182B49"/>
+<g fill="none" stroke="white" stroke-width="14" stroke-linejoin="round">
+<path d="M45 178L83 75H99L137 178M62 140H113"/>
+<path d="M143 178V75H179A32 32 0 0 1 179 139H143"/>
+</g><circle cx="196.5" cy="174.5" r="11.5" fill="#79A9FF"/></svg>
