@@ -4,6 +4,7 @@
 
 | 阅读目的 | 入口 | 性质 |
 |---|---|---|
+| 9/18–9/21 Airtable 自动化成果 | [阶段进展](../collaboration/current/airtable-automation-progress-2026-09-21.md) | 当前实施、验证边界与下一步 |
 | 任务与分工 | [指南](../collaboration/使用分工指南.md) | 当前流程，状态读Issue |
 | 9/14界面交接 | [交接](../collaboration/current/interface-handoff.md) | 有日期的现场记录，后续变更需再核验 |
 | 市场增量脚本 | [实施状态](../collaboration/current/program-markets/IMPLEMENTATION-STATUS.md) | 离线验证，未据此认定已部署 |
