@@ -148,7 +148,8 @@ def writeback_plan(path, snapshot, config):
     cols = columns(tracker)
     ids, tables, fields, records = context(snapshot, config)
     plan = {'version':1, 'base_id':snapshot['base_id'], 'source':str(path), 'source_kind':'tracker_writeback',
-            'schema':snapshot['schema'], 'table_ids':ids, 'changes':[], 'project_guards':[], 'warnings':[], 'blockers':[],
+            'schema':snapshot['schema'], 'table_ids':ids, 'changes':[], 'project_guards':[],
+            'warnings':list(tracker['warnings']), 'blockers':[],
             'source_files':{str(path):source_hash, str(sidecar):sidecar_hash}}
     pending, guards, verified_rows = {}, {}, {}
     for binding in baseline.get('bindings', []):

@@ -1,7 +1,7 @@
 """Offline, header-based reconciliation against a user's existing All Tracker."""
 
 from collections import Counter, defaultdict
-from datetime import date, datetime
+from datetime import date, datetime, time, timedelta
 import hashlib
 import json
 from pathlib import Path
@@ -132,6 +132,13 @@ def scalar(value):
         return value.date().isoformat()
     if isinstance(value, date):
         return value.isoformat()
+    # Excel stores time-only and elapsed-time cells separately from dates.
+    # Preserve their precision without guessing a calendar date. The native
+    # exporter still copies untouched cells from the original workbook XML.
+    if isinstance(value, time):
+        return value.isoformat()
+    if isinstance(value, timedelta):
+        return str(value)
     return value
 
 
@@ -203,6 +210,15 @@ def read_tracker(path):
         index = defaultdict(list)
         cells = {}
         formulas = set()
+        notes = []
+        date_headers = {
+            normalize_header(alias)
+            for key, aliases in HEADERS.items() if key.endswith("_date")
+            for alias in aliases
+        } | {
+            normalize_header(alias)
+            for aliases, _ in TIMELINES.values() for alias in aliases
+        }
         for row in matrix[header_row:]:
             idcell = row[id_col - 1]
             if idcell.value and idcell.data_type != "f":
@@ -210,6 +226,13 @@ def read_tracker(path):
             for cell in row:
                 if cell.value is not None:
                     cells[cell.coordinate] = scalar(cell.value)
+                    if (isinstance(cell.value, (time, timedelta))
+                            and normalize_header(headers.get(cell.column, "")) in date_headers):
+                        notes.append(
+                            f"{sheet.title}!{cell.coordinate}（{headers[cell.column]}）"
+                            f"含纯时间或时长 {scalar(cell.value)}，不是完整日期；"
+                            "未推测日期，未更新的单元格将保留原值。"
+                        )
                     if cell.data_type == "f":
                         formulas.add(cell.coordinate)
         if fingerprint(path) != digest:
@@ -234,6 +257,7 @@ def read_tracker(path):
             "index": dict(index),
             "cells": cells,
             "formulas": formulas,
+            "warnings": notes,
         }
     finally:
         wb.close()
@@ -243,7 +267,7 @@ def build_tracker_plan(path, reports):
     from openpyxl.utils import get_column_letter
 
     tracker = read_tracker(path)
-    notes = []
+    notes = list(tracker["warnings"])
     changes = []
     unmatched = []
     columns = {}

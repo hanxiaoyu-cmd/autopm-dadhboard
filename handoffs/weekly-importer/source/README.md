@@ -1,10 +1,10 @@
 # AutoPM 源码版
 
-当前为 **2026-09-19 / 2.4.0-rc3 测试版**，已提供 Windows x64 单文件 EXE。正常业务主线为：周报 → Airtable → All Tracker；All Tracker 回写用于复验与查漏。
+当前为 **2026-09-21 / 2.4.0-rc5 源码版**。本次修复 All Tracker 时间／时长单元格造成的 JSON 序列化失败，未构建或分发 EXE。变化及验证见 [更新日志](../CHANGELOG.md)。正常业务主线为：周报 → Airtable → All Tracker；All Tracker 回写用于复验与查漏。
 
-最新确认：周报内容归属 Project，SKU 维度从 Airtable 开始维护。该业务调整尚未完成代码落地，本次 EXE 仅用于解析与预览测试，不代表业务验收通过。
+最新确认：周报内容归属 Project，SKU 维度从 Airtable 开始维护。该业务调整尚未完成代码落地，当前测试通过不代表业务验收通过。
 
-## 单文件测试版
+## 历史单文件测试版（rc3，未随本次源码交付）
 
 发送 `dist/AutoPM_2.4.0-rc3_Test_Windows_x64.exe` 一个文件即可，接收电脑无需安装 Python。首次连接需自行配置 Airtable 凭证；AI 解析另需 DeepSeek 凭证。程序不包含本机密钥、周报或数据库快照。
 
@@ -61,7 +61,7 @@ Copy-Item config.main-base.example.json .local/settings.json
 | `browser-extension/airtable-token-helper/` | 可选的 Chrome/Edge 授权助手源码及测试 |
 | `start.ps1` | 源码启动及首次依赖安装 |
 | `build.ps1` | 后续需要时自行构建 EXE；不影响源码运行 |
-| `SOURCE_MANIFEST.json` | 包内文件哈希及来源源码校验 |
+| `SOURCE_MANIFEST.json` | 2026-09-15 历史源码包清单；当前版本以 Git 提交及更新日志为准 |
 
 原始周报和本地总表没有放入源码包，可在界面自行选择文件。首次运行会按需生成 `.local` 和 `Run Logs`。
 

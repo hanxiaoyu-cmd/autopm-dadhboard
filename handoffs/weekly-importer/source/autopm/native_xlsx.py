@@ -79,7 +79,7 @@ def _calculate(formula,values,epoch):
 
 def write_copy(plan,destination):
     import openpyxl
-    from openpyxl.styles.numbers import is_date_format, BUILTIN_FORMATS
+    from openpyxl.styles.numbers import is_datetime, BUILTIN_FORMATS
     from openpyxl.utils.cell import range_boundaries, coordinate_to_tuple
     from openpyxl.utils.datetime import to_excel
     audit=Path(str(destination)+'.autopm.json')
@@ -145,7 +145,9 @@ def write_copy(plan,destination):
             key=(index,is_date)
             if key not in style_map:
                 new=deepcopy(styles[index]);number_format=int(new.get('numFmtId','0'))
-                if is_date and not is_date_format(custom.get(number_format,BUILTIN_FORMATS.get(number_format,''))):
+                # Time-only and elapsed-time formats would hide a cloud date
+                # (or reread its Excel serial as a multi-day duration).
+                if is_date and is_datetime(custom.get(number_format,BUILTIN_FORMATS.get(number_format,''))) not in {'date','datetime'}:
                     new.set('numFmtId','14');new.set('applyNumberFormat','1')
                 new.set('fillId',str(fill_id));new.set('applyFill','1')
                 signature=style_key(new)

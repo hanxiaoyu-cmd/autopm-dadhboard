@@ -15,12 +15,12 @@
 
 ## 当前状态
 
-- 当前源码版本：`2.4.0-rc4`，版本真源见 [`source/autopm/__init__.py`](source/autopm/__init__.py)。
+- 当前源码版本：`2.4.0-rc5`，版本真源见 [`source/autopm/__init__.py`](source/autopm/__init__.py)。
 - 已实现桌面界面、周报解析、Airtable schema 核对、写入预览、受保护写入、Airtable 到 All Tracker 导出、All Tracker 有基线的受控回写。
 - 已修复企业代理证书信任、新电脑缺省映射、富文本列表编号回读误报及重复追加等问题。
-- 2026-09-19 的完整测试记录为 428 项通过；本交接分支的重新验证结果见 [`docs/05-完成情况测试与已知问题.md`](docs/05-完成情况测试与已知问题.md)。
+- 2026-09-21 修复后的完整测试为 435 项通过；验证范围见 [`CHANGELOG.md`](CHANGELOG.md) 和 [`docs/05-完成情况测试与已知问题.md`](docs/05-完成情况测试与已知问题.md)。
 - 当前代码仍把“正式编号 + SKU + 工厂”作为 Airtable 项目记录的严格身份。业务最终原则要求周报内容按 Project 管理，SKU 维度从 Airtable 开始，因此这部分仍需重构，不能把现状当成最终业务验收。
-- 2026-09-21 已确认一个未修复故障：All Tracker 中出现 Excel `time` 类型时，生成预览 JSON 会失败。根因和建议见已知问题文档。
+- rc5 已修复 All Tracker 的 Excel 时间／时长导致预览 JSON 失败；日期列异常值会报告具体坐标，未更新单元格保持原样。本次只交付源码。
 
 ## 建议阅读顺序
 

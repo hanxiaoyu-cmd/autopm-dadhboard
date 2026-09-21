@@ -5,4 +5,4 @@
 # （补丁 2.2.x → 修复/小优化；次版本 2.x.0 → 新功能/界面重构）。
 # sync.py 的 result.version、preview.py 预览页、ui.py 标题栏/面包屑自动引用本值，
 # 禁止在其它文件单独硬编码版本号。
-__version__ = "2.4.0-rc4"
+__version__ = "2.4.0-rc5"
